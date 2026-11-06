@@ -1,5 +1,5 @@
 /**
- * Top progress bar (shared/components/progress-bar).
+ * Top progress bar (layout/progress-bar).
  *
  * WHAT: a 2px brand-gradient bar pinned to the top of the viewport.
  * WHO USES IT: the app shell, next to `ProgressBarDirective`.

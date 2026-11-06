@@ -2,10 +2,10 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { ProgressBarService } from './core/services/progress-bar.service';
+import { ProgressBarService } from './layout/progress-bar/progress-bar.service';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
-import { ProgressBarDirective } from './shared/directives/progress-bar/progress-bar.directive';
+import { ProgressBarComponent } from './layout/progress-bar/progress-bar.component';
+import { ProgressBarDirective } from './layout/progress-bar/progress-bar.directive';
 
 @Component({
   imports: [RouterOutlet, NavbarComponent, ProgressBarComponent, ProgressBarDirective],

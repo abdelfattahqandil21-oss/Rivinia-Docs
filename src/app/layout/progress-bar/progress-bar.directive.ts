@@ -1,5 +1,5 @@
 /**
- * Progress bar trigger (shared/directives/progress-bar).
+ * Progress bar trigger (layout/progress-bar).
  *
  * WHAT: `[appProgressBar]` — starts the top bar on a same-origin link click and
  *   on `NavigationStart`, completes on `NavigationEnd`/`NavigationCancel`, and
@@ -25,7 +25,7 @@ import {
   Router,
 } from '@angular/router';
 
-import { ProgressBarService } from '../../../core/services/progress-bar.service';
+import { ProgressBarService } from './progress-bar.service';
 
 @Directive({
   selector: '[appProgressBar]',
