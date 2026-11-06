@@ -10,5 +10,6 @@ export const COMPONENT_PACKAGES = [
   { name: '@rivinia/env', summaryKey: 'component.env.summary' },
   { name: '@rivinia/http', summaryKey: 'component.http.summary' },
   { name: '@rivinia/i18n', summaryKey: 'component.i18n.summary' },
+  { name: '@rivinia/select', summaryKey: 'component.select.summary' },
   { name: '@rivinia/theme', summaryKey: 'component.theme.summary' },
 ] as const satisfies readonly ComponentPackage[];

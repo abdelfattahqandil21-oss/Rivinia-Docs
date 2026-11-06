@@ -1,7 +1,56 @@
-<section class="w-full px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-  <app-page-header [title]="title()" [lead]="lead()" />
+<div class="docs-layout px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+  <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
+    <p class="docs-nav-title">{{ i18n.translate('docs.navigation') }}</p>
+    <nav>
+      <a class="docs-nav-link is-current" [routerLink]="[]" fragment="start" aria-current="location">{{ i18n.translate('docs.start') }}</a>
+      <a class="docs-nav-link" [routerLink]="[]" fragment="install">{{ i18n.translate('docs.install') }}</a>
+      <a class="docs-nav-link" routerLink="/components">{{ i18n.translate('nav.components') }}</a>
+      <a class="docs-nav-link" routerLink="/guides">{{ i18n.translate('nav.guides') }}</a>
+      <a class="docs-nav-link" routerLink="/playground">{{ i18n.translate('nav.playground') }}</a>
+    </nav>
+  </aside>
 
-  <div class="mt-12 rounded-xl border border-dashed border-rv-border px-6 py-10">
-    <p class="text-sm leading-relaxed text-rv-muted">{{ inProgress() }}</p>
-  </div>
-</section>
+  <main class="docs-article">
+    <app-page-header [title]="title()" [lead]="lead()" />
+
+    <details class="mobile-toc">
+      <summary>{{ i18n.translate('docs.onThisPage') }}</summary>
+      <nav>
+        <a [routerLink]="[]" fragment="start">{{ i18n.translate('docs.start') }}</a>
+        <a [routerLink]="[]" fragment="install">{{ i18n.translate('docs.install') }}</a>
+        <a [routerLink]="[]" fragment="areas-title">{{ i18n.translate('docs.continue') }}</a>
+      </nav>
+    </details>
+
+    <section id="start" class="docs-section" aria-labelledby="start-title">
+      <h2 id="start-title">{{ i18n.translate('docs.startTitle') }}</h2>
+      <p>{{ i18n.translate('docs.startText') }}</p>
+      <a routerLink="/components" class="docs-inline-link">{{ i18n.translate('docs.browsePackages') }}</a>
+    </section>
+
+    <section id="install" class="docs-section" aria-labelledby="install-title">
+      <h2 id="install-title">{{ i18n.translate('docs.installTitle') }}</h2>
+      <p>{{ i18n.translate('docs.installText') }}</p>
+      <pre class="install-command"><code>npm install @rivinia/select</code></pre>
+      <p>{{ i18n.translate('docs.installFollowup') }}</p>
+    </section>
+
+    <section class="docs-section" aria-labelledby="areas-title">
+      <h2 id="areas-title">{{ i18n.translate('docs.continueTitle') }}</h2>
+      <div class="docs-destinations">
+        <a routerLink="/components"><strong>{{ i18n.translate('nav.components') }}</strong><span>{{ i18n.translate('docs.componentsText') }}</span></a>
+        <a routerLink="/guides"><strong>{{ i18n.translate('nav.guides') }}</strong><span>{{ i18n.translate('docs.guidesText') }}</span></a>
+        <a routerLink="/playground"><strong>{{ i18n.translate('nav.playground') }}</strong><span>{{ i18n.translate('docs.playgroundText') }}</span></a>
+      </div>
+    </section>
+  </main>
+
+  <aside class="docs-toc" [attr.aria-label]="i18n.translate('docs.onThisPage')">
+    <p class="docs-nav-title">{{ i18n.translate('docs.onThisPage') }}</p>
+    <nav>
+      <a [routerLink]="[]" fragment="start">{{ i18n.translate('docs.start') }}</a>
+      <a [routerLink]="[]" fragment="install">{{ i18n.translate('docs.install') }}</a>
+      <a [routerLink]="[]" fragment="areas-title">{{ i18n.translate('docs.continue') }}</a>
+    </nav>
+  </aside>
+</div>
