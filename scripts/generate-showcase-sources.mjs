@@ -9,11 +9,7 @@ for (const name of examples) {
   const tsPath = resolve(folder, `${name}-example.component.ts`);
   const htmlPath = resolve(folder, `${name}-example.component.html`);
   const cssPath = resolve(folder, `${name}-example.component.css`);
-  const outputPath = resolve(
-    root,
-    'src/app/pages/home/showcase/examples/generated',
-    `${name}-example.source.generated.ts`,
-  );
+  const outputPath = resolve(root, 'src/generated', `${name}-example.source.generated.ts`);
   const payload = {
     html: await readFile(htmlPath, 'utf8'),
     typescript: await readFile(tsPath, 'utf8'),

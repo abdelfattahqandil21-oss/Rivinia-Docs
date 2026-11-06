@@ -9,25 +9,13 @@ const layerOrder = ['core', 'shared', 'layout', 'features', 'pages', 'app'];
 
 // Temporary exceptions are tied to approved Phase 2 steps. Remove each entry
 // when its migration step lands; this list must be empty at the end of Phase 2.
-// TODO Phase 2 Step 3: move generated output to src/generated and ignore it.
+// TODO Phase 2 Step 4: move the showcase loader into features/showcase.
 const TEMPORARY_ALLOWLIST = [
   {
-    rule: 'generated-location',
-    files: [
-      'src/app/pages/home/showcase/examples/generated/datepicker-example.source.generated.ts',
-      'src/app/pages/home/showcase/examples/generated/modal-example.source.generated.ts',
-      'src/app/pages/home/showcase/examples/generated/select-example.source.generated.ts',
-      'src/app/pages/home/showcase/examples/generated/table-example.source.generated.ts',
-      'src/app/pages/home/showcase/examples/generated/toast-example.source.generated.ts',
-    ],
-    step: 'Phase 2 Step 3',
-    reason: 'generated showcase output will move to src/generated',
-  },
-  {
-    rule: 'generated-ignore',
-    files: ['.gitignore'],
-    step: 'Phase 2 Step 3',
-    reason: 'src/generated will be added to Git ignore rules',
+    rule: 'generated-import-boundary',
+    files: ['src/app/pages/home/showcase/interactive-showcase.component.ts'],
+    step: 'Phase 2 Step 4',
+    reason: 'the showcase loader will move into features/showcase',
   },
 ];
 
@@ -171,12 +159,14 @@ for (const directoryPath of walkDirectories(appRoot)) {
 }
 
 for (const filePath of walk(srcRoot).filter((file) => file.endsWith('.source.generated.ts'))) {
-  report(
-    'generated-location',
-    filePath,
-    1,
-    'generated showcase files must live under src/generated/',
-  );
+  if (!relative(filePath).startsWith('src/generated/')) {
+    report(
+      'generated-location',
+      filePath,
+      1,
+      'generated showcase files must live under src/generated/',
+    );
+  }
 }
 
 const gitignorePath = path.join(root, '.gitignore');

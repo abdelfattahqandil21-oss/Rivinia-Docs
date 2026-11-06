@@ -21,7 +21,7 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
       select: async () => {
         const [component, source, registry] = await Promise.all([
           import('../../../features/showcase/demos/select/select-example.component'),
-          import('./examples/generated/select-example.source.generated'),
+          import('../../../../generated/select-example.source.generated'),
           import('../../../features/showcase/demos/select/select-example.registry'),
         ]);
         return {
@@ -36,7 +36,7 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
       datepicker: async () => {
         const [component, source] = await Promise.all([
           import('../../../features/showcase/demos/datepicker/datepicker-example.component'),
-          import('./examples/generated/datepicker-example.source.generated'),
+          import('../../../../generated/datepicker-example.source.generated'),
         ]);
         return {
           component: component.DatepickerExampleComponent,
@@ -46,21 +46,21 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
       table: async () => {
         const [component, source] = await Promise.all([
           import('../../../features/showcase/demos/table/table-example.component'),
-          import('./examples/generated/table-example.source.generated'),
+          import('../../../../generated/table-example.source.generated'),
         ]);
         return { component: component.TableExampleComponent, source: source.tableExampleSource };
       },
       modal: async () => {
         const [component, source] = await Promise.all([
           import('../../../features/showcase/demos/modal/modal-example.component'),
-          import('./examples/generated/modal-example.source.generated'),
+          import('../../../../generated/modal-example.source.generated'),
         ]);
         return { component: component.ModalExampleComponent, source: source.modalExampleSource };
       },
       toast: async () => {
         const [component, source] = await Promise.all([
           import('../../../features/showcase/demos/toast/toast-example.component'),
-          import('./examples/generated/toast-example.source.generated'),
+          import('../../../../generated/toast-example.source.generated'),
         ]);
         return { component: component.ToastExampleComponent, source: source.toastExampleSource };
       },
