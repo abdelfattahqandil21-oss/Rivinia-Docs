@@ -7,17 +7,7 @@ const srcRoot = path.join(root, 'src');
 const appRoot = path.join(root, 'src/app');
 const layerOrder = ['core', 'shared', 'layout', 'features', 'pages', 'app'];
 
-// Temporary exceptions are tied to approved Phase 2 steps. Remove each entry
-// when its migration step lands; this list must be empty at the end of Phase 2.
-// TODO Phase 2 Step 4: move the showcase loader into features/showcase.
-const TEMPORARY_ALLOWLIST = [
-  {
-    rule: 'generated-import-boundary',
-    files: ['src/app/pages/home/showcase/interactive-showcase.component.ts'],
-    step: 'Phase 2 Step 4',
-    reason: 'the showcase loader will move into features/showcase',
-  },
-];
+const TEMPORARY_ALLOWLIST = [];
 
 function walk(directory) {
   if (!existsSync(directory)) return [];

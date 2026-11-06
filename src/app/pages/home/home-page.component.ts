@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
 import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mark.component';
-import { InteractiveShowcaseComponent } from './showcase/interactive-showcase.component';
+import { InteractiveShowcaseComponent } from '../../features/showcase/interactive-showcase.component';
 
 type Pillar = 'simplicity' | 'flexibility' | 'performance' | 'accessibility';
 
