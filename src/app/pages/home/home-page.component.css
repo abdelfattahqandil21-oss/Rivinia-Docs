@@ -1,3 +1,258 @@
 :host {
   display: block;
 }
+
+.home-page {
+  color: var(--rv-fg);
+}
+
+.home-title,
+.home-page h2,
+.home-page h3 {
+  color: var(--rv-fg);
+  font-family: var(--rv-font);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.home-title {
+  max-width: 22ch;
+  margin-inline: auto;
+  font-size: clamp(2.35rem, 4.5vw, 3.75rem);
+  line-height: 1.08;
+}
+
+.home-lead {
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.7;
+}
+
+.home-showcase,
+.home-pillars {
+  scroll-margin-top: 5rem;
+}
+
+.showcase-copy h2,
+.pillars-copy h2 {
+  max-width: 22ch;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  line-height: 1.18;
+}
+
+.showcase-copy > p,
+.pillars-intro,
+.pillar-detail > p {
+  max-width: 44rem;
+  margin-top: 0.85rem;
+  color: var(--rv-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.primary-action,
+.secondary-action {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.6rem;
+  padding: 0.65rem 1.2rem;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+.primary-action {
+  background: var(--rv-accent);
+  color: var(--rv-bg);
+}
+
+.primary-action:hover {
+  filter: brightness(0.94);
+}
+
+.secondary-action {
+  color: var(--rv-fg);
+}
+
+.secondary-action:hover,
+.demo-link:hover {
+  color: var(--rv-accent);
+}
+
+.primary-action:focus-visible,
+.secondary-action:focus-visible,
+.demo-link:focus-visible,
+.pillar-button:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+.demo-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  color: var(--rv-accent);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.demo-workbench {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 1rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--rv-fg) 3%, var(--rv-bg));
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.demo-control {
+  min-width: 0;
+}
+
+.demo-control rv-select {
+  --rv-select-width: min(100%, 24rem);
+  --rv-select-trigger-shadow: none;
+  --rv-select-shadow: none;
+}
+
+.selection-feedback {
+  min-height: 1.5rem;
+  margin-top: 0.65rem;
+  color: var(--rv-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.demo-code {
+  overflow-x: auto;
+  margin: 0;
+  direction: ltr;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  color: var(--rv-fg);
+  font: 500 0.8125rem/1.8 ui-monospace, SFMono-Regular, Consolas, monospace;
+  text-align: left;
+  tab-size: 2;
+}
+
+.pillar-visual {
+  position: relative;
+  display: grid;
+  min-height: 21rem;
+  place-items: center;
+  isolation: isolate;
+}
+
+.pillar-mark {
+  width: min(42vw, 13rem);
+  opacity: 0.9;
+}
+
+.pillar-controls {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 4.5rem 0.5rem;
+}
+
+.pillar-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--rv-bg);
+  padding: 0.55rem 0.75rem;
+  color: var(--rv-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.pillar-button:hover,
+.pillar-button.is-selected {
+  border-color: var(--rv-border);
+  color: var(--rv-fg);
+}
+
+.pillar-dot {
+  width: 0.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--rv-border);
+}
+
+.pillar-button.is-selected .pillar-dot {
+  background: var(--rv-accent);
+}
+
+.pillar-core-label {
+  position: absolute;
+  bottom: 0.25rem;
+  color: var(--rv-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.pillar-detail {
+  margin-top: 1.5rem;
+}
+
+.pillar-detail h3 {
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.pillar-detail > p {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 720px) {
+  .home-title {
+    max-width: 18ch;
+    font-size: clamp(2.25rem, 8.5vw, 3rem);
+  }
+
+  .demo-workbench {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .demo-code {
+    padding: 0.75rem 0 0;
+  }
+
+  .pillar-visual {
+    min-height: 18rem;
+  }
+
+  .pillar-mark {
+    width: min(48vw, 11rem);
+  }
+
+  .pillar-controls {
+    gap: 4rem 0.25rem;
+  }
+
+  .pillar-button {
+    padding-inline: 0.55rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-action,
+  .secondary-action,
+  .pillar-button {
+    transition: none;
+  }
+}

@@ -27,6 +27,23 @@
   --rv-brand-violet: #b18aff;
 }
 
+/* Homepage-only neutral palette. Other routes retain their existing tokens. */
+:root:has(.home-page) {
+  --rv-bg: #f7f7f6;
+  --rv-fg: #222225;
+  --rv-muted: #5a5a60;
+  --rv-border: #dedee2;
+  --rv-accent: #876a37;
+}
+
+:root[data-rv-theme='dark']:has(.home-page) {
+  --rv-bg: #111114;
+  --rv-fg: #f2f1ef;
+  --rv-muted: #b7b5bb;
+  --rv-border: #36363b;
+  --rv-accent: #d8b96e;
+}
+
 *,
 *::before,
 *::after {
