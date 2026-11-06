@@ -60,7 +60,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ## Architecture and file placement
 
-- Keep layers in this order: `core <- shared <- layout <- features <- pages <- app`. A layer may import its own layer and anything to its left; never import to the right.
+- Keep layers in this order: `core <- shared <- layout <- features <- pages <- app`. A layer may import its own layer and anything to its left; never import to the right. Composition roots (`app.config.ts`, `app.providers.ts`, `app.routes.ts`) live directly under `src/app/` and may import from any layer.
 - Group code by feature. Put showcase demos in `src/app/features/showcase/demos/<package>/` with `<name>-example.component.ts`, `.html`, `.css`, and `.spec.ts` together when a spec exists.
 - Keep component `templateUrl` and `styleUrl` relative to the component file and shaped as `./<name>.component.html` and `./<name>.component.css`.
 - Keep generated showcase output only in `src/generated/`. Ignore it in Git, never edit it by hand, and let the existing `prestart`, `prebuild`, and `pretest` hooks generate it. Run `npm` scripts; do not invoke raw `ng` commands.

@@ -114,7 +114,8 @@ Observed application imports follow these layer relationships:
 - `app` imports `core`, `shared`, and page routes.
 - `pages` imports `shared` and page-local modules. Home owns the showcase; showcase imports the shared icon component and its own example modules.
 - `shared` imports `core` models/config/services where needed: navbar and GitHub link import navigation config; preferences menu imports theme/reveal services and theme model; progress directive imports the progress service.
-- `core` imports only core-local models/services except `core/config/third-party.config.ts`, which imports `appIcons` from `shared/components/icon/icon-registry.ts`. This is a dependency from `core` into `shared`, an upward dependency under the proposed `core <- shared <- features <- pages` rule. It is used to register icons in app-level third-party setup.
+- `core/config/third-party.config.ts` was a composition root despite its location under `core`. It imported `appIcons` from `shared/components/icon/icon-registry.ts` to register app providers. It has now moved to `src/app/app.providers.ts`; the icon registry remains in shared. Root composition files (`app.config.ts`, `app.providers.ts`, and `app.routes.ts`) are app-layer files and may import from any layer.
+- `navigation.ts` imports only core-local models and was not flagged as a violation; keep it in `core/config`.
 - No `shared -> pages` imports were found. The current showcase imports `shared`; its examples import showcase-local types/highlighter. No import cycle was evident in the inspected static imports. A move of showcase into `features/` must retain one-way `features -> shared/core` references and avoid moving shared helpers under that feature.
 
 ## 5. Progress bar ownership and use
@@ -155,6 +156,7 @@ Specs are discovered through `src/**/*.spec.ts`. Current specs include app, them
 | Normalize code shown to visitors                           | Must distinguish copyable public usage from the app's full component implementation. Naive text replacement can leave invalid imports, omit required state, or falsely claim a snippet is runnable. Keep runtime demo behavior untouched.                                        |
 | Move generated outputs to `src/generated/` and ignore them | Clean checkouts need lifecycle hooks to generate files before Angular compilation. Ignored generated files may be absent in direct `ng build`/`ng test` calls. CI and editor TypeScript language service behavior need validation; dynamic imports and verify script must agree. |
 | Move showcase shell to `features/showcase`                 | Home page imports, lazy example imports, showcase specs, import paths, and source generator paths need coordinated updates. Preserve `loadComponent` CSR routes and lazy example loaders.                                                                                        |
+| Move third-party composition to app layer                  | `app.config.ts` must import the renamed provider file, and the icon registry import must remain valid from its new location. Keep provider order and behavior unchanged; leave the icon registry in shared.                                                                      |
 | Consolidate progress-bar files                             | App imports/template wiring, directive-to-service provider visibility, relative paths, and router/click timing can regress. Keep component styling and selector behavior unchanged.                                                                                              |
 | Create one package manifest                                | Current lists have distinct membership and only partial shared metadata. An overly rigid schema can change what the pages show or cause missing translations/routes. Existing package-specific docs routes do not exist. Define optional page/showcase roles before migration.   |
 | Co-locate specs/delete empty folders/move helpers          | Spec discovery is glob-based, but imports and generator paths change. `showcase-code-highlight` currently has only feature-scoped use; moving it to shared creates a broader ownership claim without broader reuse.                                                              |
@@ -167,6 +169,9 @@ The proposed structure below follows the requested feature grouping while preser
 ```text
 src/app/
 ├── app.{ts,html,css}
+├── app.config.ts
+├── app.providers.ts           # composition root
+├── app.routes.ts
 ├── core/{config,models,services}/
 ├── layout/
 │   ├── navbar/
@@ -192,11 +197,13 @@ src/app/
 
 Approved Phase 2 steps, each independently reviewable and reversible:
 
+Composition-root ownership was corrected before the numbered steps: `git mv` moved `src/app/core/config/third-party.config.ts` to `src/app/app.providers.ts`, and `app.config.ts` plus the icon-registry import were updated. The registry remains shared. This is separate from the progress-bar step.
+
 1. **Move demos by package.** Use `git mv` to move each current component/template/style/spec into `src/app/features/showcase/demos/<package>/`; update component URLs, loader imports, tests, and generator input paths. Keep generated output where it is in this step. Preserve public runtime behavior.
 2. **Normalize visitor-facing source.** Rewrite displayed `templateUrl` and `styleUrl` to sibling paths. Identify every app-local import/identifier in displayed source and report how it will be handled; do not silently strip imports. Make the generator fail if app-local identifiers remain in visitor-facing source.
 3. **Relocate generated files.** Move output to ignored `src/generated/`, update dynamic imports, `.gitignore`, formatting ignores, and retain lifecycle generation through npm scripts.
 4. **Move showcase shell to `features/showcase`.** Update home imports, specs, and lazy loaders without changing route definitions or loading behavior. Keep `showcase-code-highlight` in this feature.
-5. **Consolidate progress-bar ownership and fix icon direction.** Move progress service/component/directive together to `layout/progress-bar/`; move `icon-registry.ts` into `core/config`; update app wiring without changing behavior.
+5. **Consolidate progress-bar ownership.** Move progress service/component/directive together to `layout/progress-bar/`; update app wiring without changing behavior.
 6. **Unify package metadata.** Add one manifest with only `id`, `name`, `translationKey`, and optional `componentsPage`/`showcase` visibility. Migrate the components page and showcase consumers; keep navigation separate.
 7. **Finish placement cleanup.** Move navbar and preferences menu into `layout/`, delete empty `core/guards/`, and co-locate remaining specs. Keep `app.ts/app.html/app.css` naming deferred.
 
@@ -211,6 +218,7 @@ The user approved Phase 0 and resolved its open decisions before Phase 1:
 - `features/` is approved; demo destinations are `src/app/features/showcase/demos/<package>/`. `showcase-code-highlight` stays in the showcase feature.
 - Use one package manifest with only `{ id, name, translationKey, componentsPage?, showcase? }`; keep navigation separate and do not invent status or route fields.
 - Keep `app.ts`, `app.html`, and `app.css` filenames unchanged for now.
-- Fix the known core-to-shared import by moving `icon-registry.ts` into `core/config` in Phase 2 Step 5.
+- Treat `app.config.ts`, `app.providers.ts`, and `app.routes.ts` as app-layer composition roots; move third-party provider composition to `app.providers.ts` and keep `icon-registry.ts` in shared.
+- Keep Phase 2 Step 5 limited to progress-bar consolidation. Do not move `navigation.ts`; it has no audited upward import.
 
-Phase 1 adds the root rules, project-local Codex skills under `.agents/skills/`, the Node-only architecture checker, and the `check:arch`/`verify` npm scripts. The checker allowlist temporarily covers only the violations tied to approved Phase 2 steps and must be empty at the end of Phase 2. No Phase 2 file moves are authorized before separate approval.
+Phase 1 added the root rules, project-local Codex skills under `.agents/skills/`, the Node-only architecture checker, and the `check:arch`/`verify` npm scripts. The composition-root correction is now complete. The checker allowlist temporarily covers only the remaining approved Phase 2 violations and must be empty at the end of Phase 2. No numbered Phase 2 migration steps have been performed.

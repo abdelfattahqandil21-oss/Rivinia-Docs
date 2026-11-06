@@ -12,7 +12,7 @@ Use this skill when adding or moving application code, reviewing imports, or dec
 ## Instructions
 
 1. Read the root `AGENTS.md` and identify the source and destination layers.
-2. Keep the order `core <- shared <- layout <- features <- pages <- app`: an item can import itself or anything to its left, never to its right.
+2. Keep the order `core <- shared <- layout <- features <- pages <- app`: an item can import itself or anything to its left, never to its right. Composition roots (`app.config.ts`, `app.providers.ts`, `app.routes.ts`) live directly under `src/app/` and may import from any layer.
 3. Group by feature. Put a showcase demo in `src/app/features/showcase/demos/<package>/` with its TypeScript, HTML, CSS, and spec together.
 4. Keep component asset paths relative to the component file: `./<name>.component.html` and `./<name>.component.css`.
 5. Keep `showcase-code-highlight` in `features/showcase`; use `shared/utils` only for helpers shared across features.

@@ -11,7 +11,6 @@ const layerOrder = ['core', 'shared', 'layout', 'features', 'pages', 'app'];
 // when its migration step lands; this list must be empty at the end of Phase 2.
 // TODO Phase 2 Step 1: co-locate each demo's templates/styles and table spec.
 // TODO Phase 2 Step 3: move generated output to src/generated and ignore it.
-// TODO Phase 2 Step 5: move icon-registry into core/config.
 const TEMPORARY_ALLOWLIST = [
   {
     rule: 'component-asset-path',
@@ -49,12 +48,6 @@ const TEMPORARY_ALLOWLIST = [
     step: 'Phase 2 Step 3',
     reason: 'src/generated will be added to Git ignore rules',
   },
-  {
-    rule: 'layer-import',
-    files: ['src/app/core/config/third-party.config.ts'],
-    step: 'Phase 2 Step 5',
-    reason: 'icon-registry will move from shared to core/config',
-  },
 ];
 
 function walk(directory) {
@@ -85,6 +78,8 @@ function isAllowed(rule, filePath) {
 
 function layerFor(filePath) {
   const relativeToApp = path.relative(appRoot, filePath).split(path.sep);
+  // Root files are app composition roots and may depend on any application layer.
+  if (relativeToApp.length === 1) return 'app';
   const first = relativeToApp[0];
   return layerOrder.includes(first) ? first : 'app';
 }
