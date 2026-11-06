@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
 
 import { IconComponent } from '../../shared/components/icon/icon.component';
+import { SHOWCASE_PACKAGES } from '../packages/package-manifest';
 import { highlightShowcaseCode } from './showcase-code-highlight';
 import {
   type ShowcaseExampleId,
@@ -68,13 +69,9 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
   },
 );
 
-const EXAMPLES: readonly { id: ShowcaseExampleId; packageName: string }[] = [
-  { id: 'select', packageName: '@rivinia/select' },
-  { id: 'datepicker', packageName: '@rivinia/datepicker' },
-  { id: 'table', packageName: '@rivinia/table' },
-  { id: 'modal', packageName: '@rivinia/modal' },
-  { id: 'toast', packageName: '@rivinia/toast' },
-];
+const EXAMPLES: readonly { id: ShowcaseExampleId; packageName: string }[] = SHOWCASE_PACKAGES.map(
+  ({ id, name }) => ({ id, packageName: name }),
+);
 
 @Component({
   imports: [IconComponent, NgComponentOutlet, RouterLink, RvTranslatePipe],

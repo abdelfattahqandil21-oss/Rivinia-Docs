@@ -1,6 +1,7 @@
 import { Type } from '@angular/core';
+import type { ShowcasePackage } from '../packages/package-manifest';
 
-export type ShowcaseExampleId = 'select' | 'datepicker' | 'table' | 'modal' | 'toast';
+export type ShowcaseExampleId = ShowcasePackage['id'];
 
 export interface ShowcaseExampleSource {
   readonly html: string;
