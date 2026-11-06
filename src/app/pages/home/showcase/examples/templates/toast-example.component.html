@@ -1,0 +1,20 @@
+<div class="toast-example">
+  <p>{{ 'showcase.toast.hint' | rvTranslate }}</p>
+  <div
+    class="toast-actions"
+    role="group"
+    [attr.aria-label]="'showcase.toast.actions' | rvTranslate"
+  >
+    <button class="success-button" type="button" (click)="show('success')">
+      {{ 'showcase.toast.success' | rvTranslate }}
+    </button>
+    <button type="button" (click)="show('info')">
+      {{ 'showcase.toast.info' | rvTranslate }}
+    </button>
+    <button type="button" (click)="show('warning')">
+      {{ 'showcase.toast.warning' | rvTranslate }}
+    </button>
+  </div>
+</div>
+
+<rv-toast-list [manager]="toastManager" position="top-center" animation="slide" />

@@ -2,10 +2,13 @@ import { DOCUMENT, NgComponentOutlet } from '@angular/common';
 import { Component, computed, inject, InjectionToken, signal } from '@angular/core';
 import type { Type } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RiviniaI18n } from '@rivinia/i18n';
+import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
 
+import { IconComponent } from '../../../shared/components/icon/icon.component';
+import { highlightShowcaseCode } from './showcase-code-highlight';
 import {
   type ShowcaseExampleId,
+  type ShowcaseCodeBlock,
   type ShowcaseExampleLoaders,
   type ShowcaseExampleModule,
   type ShowcaseExampleSource,
@@ -17,15 +20,21 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
     factory: () => ({
       select: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/select-example.component'),
-          import('./examples/select-example.source.generated'),
+          import('./examples/components/select-example.component'),
+          import('./examples/generated/select-example.source.generated'),
         ]);
-        return { component: component.SelectExampleComponent, source: source.selectExampleSource };
+        return {
+          component: component.SelectExampleComponent,
+          source: {
+            ...source.selectExampleSource,
+            codeBlocks: component.SELECT_EXAMPLE_CODE_BLOCKS,
+          },
+        };
       },
       datepicker: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/datepicker-example.component'),
-          import('./examples/datepicker-example.source.generated'),
+          import('./examples/components/datepicker-example.component'),
+          import('./examples/generated/datepicker-example.source.generated'),
         ]);
         return {
           component: component.DatepickerExampleComponent,
@@ -34,17 +43,24 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
       },
       table: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/table-example.component'),
-          import('./examples/table-example.source.generated'),
+          import('./examples/components/table-example.component'),
+          import('./examples/generated/table-example.source.generated'),
         ]);
         return { component: component.TableExampleComponent, source: source.tableExampleSource };
       },
       modal: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/modal-example.component'),
-          import('./examples/modal-example.source.generated'),
+          import('./examples/components/modal-example.component'),
+          import('./examples/generated/modal-example.source.generated'),
         ]);
         return { component: component.ModalExampleComponent, source: source.modalExampleSource };
+      },
+      toast: async () => {
+        const [component, source] = await Promise.all([
+          import('./examples/components/toast-example.component'),
+          import('./examples/generated/toast-example.source.generated'),
+        ]);
+        return { component: component.ToastExampleComponent, source: source.toastExampleSource };
       },
     }),
   },
@@ -55,10 +71,11 @@ const EXAMPLES: readonly { id: ShowcaseExampleId; packageName: string }[] = [
   { id: 'datepicker', packageName: '@rivinia/datepicker' },
   { id: 'table', packageName: '@rivinia/table' },
   { id: 'modal', packageName: '@rivinia/modal' },
+  { id: 'toast', packageName: '@rivinia/toast' },
 ];
 
 @Component({
-  imports: [NgComponentOutlet, RouterLink],
+  imports: [IconComponent, NgComponentOutlet, RouterLink, RvTranslatePipe],
   selector: 'app-interactive-showcase',
   templateUrl: './interactive-showcase.component.html',
   styleUrl: './interactive-showcase.component.css',
@@ -70,11 +87,15 @@ export class InteractiveShowcaseComponent {
 
   protected readonly examples = EXAMPLES;
   protected readonly selectedExample = signal<ShowcaseExampleId>('select');
+  protected readonly selectedExampleIndex = computed(() =>
+    EXAMPLES.findIndex((example) => example.id === this.selectedExample()),
+  );
   protected readonly activeView = signal<'preview' | 'code'>('preview');
   protected readonly activeCode = signal<'html' | 'typescript' | 'css'>('html');
   protected readonly loading = signal(true);
   protected readonly failed = signal(false);
   protected readonly copied = signal(false);
+  protected readonly copiedSnippetId = signal<string | null>(null);
   protected readonly copyFailed = signal(false);
   protected readonly loadedModule = signal<ShowcaseExampleModule | null>(null);
   protected readonly activeComponent = computed<Type<unknown> | null>(
@@ -88,6 +109,15 @@ export class InteractiveShowcaseComponent {
     const code = this.activeCode();
     return code === 'css' ? (source?.css ?? '') : (source?.[code] ?? '');
   });
+  protected readonly highlightedSource = computed(() =>
+    highlightShowcaseCode(this.currentSource(), this.activeCode()),
+  );
+  protected readonly highlightedCodeBlocks = computed(() =>
+    (this.source()?.codeBlocks ?? []).map((block) => ({
+      ...block,
+      tokens: highlightShowcaseCode(block.code, block.language),
+    })),
+  );
   protected readonly hasCss = computed(() => Boolean(this.source()?.css));
 
   private readonly modules = new Map<ShowcaseExampleId, ShowcaseExampleModule>();
@@ -119,6 +149,22 @@ export class InteractiveShowcaseComponent {
     this.activeCode.set(code);
     this.copied.set(false);
     this.copyFailed.set(false);
+  }
+
+  protected async copySnippet(block: ShowcaseCodeBlock): Promise<void> {
+    const clipboard = this.document.defaultView?.navigator.clipboard;
+    if (!clipboard) {
+      this.copyFailed.set(true);
+      return;
+    }
+
+    try {
+      await clipboard.writeText(block.code);
+      this.copiedSnippetId.set(block.id);
+      this.copyFailed.set(false);
+    } catch {
+      this.copyFailed.set(true);
+    }
   }
 
   protected retry(): void {

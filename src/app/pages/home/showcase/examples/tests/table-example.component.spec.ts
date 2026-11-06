@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { customLoader, provideRiviniaI18n } from '@rivinia/i18n';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { TableExampleComponent } from './table-example.component';
+import { TableExampleComponent } from '../components/table-example.component';
 
 const translations = {
   'showcase.table.label': 'Rivinia packages',

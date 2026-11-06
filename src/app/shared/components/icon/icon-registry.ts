@@ -12,12 +12,14 @@
 
 import {
   LucideArrowRight,
+  LucideCode,
   LucideCheck,
   LucideMenu,
   LucideMoon,
   LucideSettings,
   LucideSun,
   LucideX,
+  LucideEye,
 } from '@lucide/angular';
 
 // Central icon registry. To use a new icon in templates:
@@ -27,7 +29,9 @@ import {
 // Only icons listed here reach the bundle (tree-shaken).
 export const appIcons = {
   'arrow-right': LucideArrowRight,
+  code: LucideCode,
   check: LucideCheck,
+  eye: LucideEye,
   menu: LucideMenu,
   moon: LucideMoon,
   settings: LucideSettings,

@@ -45,12 +45,14 @@
 }
 
 .example-tabs {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-bottom: 1px solid var(--rv-border);
 }
 
 .example-tab {
+  position: relative;
   display: grid;
   min-width: 0;
   min-height: 4.5rem;
@@ -63,9 +65,6 @@
   color: var(--rv-muted);
   text-align: start;
   cursor: pointer;
-  transition:
-    color 140ms ease,
-    border-color 140ms ease;
 }
 
 .example-tab > span {
@@ -91,13 +90,8 @@
   color: var(--rv-fg);
 }
 
-.example-tab.is-selected {
-  border-bottom-color: var(--rv-accent);
-}
-
 .showcase-workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  min-height: 25rem;
   border: 1px solid var(--rv-border);
   background: color-mix(in srgb, var(--rv-fg) 2.5%, var(--rv-bg));
 }
@@ -109,8 +103,8 @@
   padding: clamp(1rem, 2vw, 1.6rem);
 }
 
-.preview-pane {
-  border-inline-end: 1px solid var(--rv-border);
+.showcase-pane.mobile-hidden {
+  display: none;
 }
 
 .pane-heading {
@@ -121,7 +115,6 @@
 }
 
 .pane-heading h3 {
-  color: var(--rv-fg);
   font-size: 0.9rem;
   font-weight: 650;
 }
@@ -135,6 +128,7 @@
 
 .preview-stage {
   display: grid;
+  place-items: center;
   min-height: 16rem;
   flex: 1;
 }
@@ -172,17 +166,16 @@
   margin-bottom: 0.6rem;
 }
 
-.copy-button {
-}
-
 .code-tabs {
+  position: relative;
   display: flex;
   gap: 0.25rem;
   border-bottom: 1px solid var(--rv-border);
 }
 
 .code-tabs button,
-.mobile-view-switch button {
+.view-switch button {
+  position: relative;
   min-height: 2.75rem;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -195,25 +188,8 @@
 }
 
 .code-tabs button[aria-pressed='true'],
-.mobile-view-switch button[aria-pressed='true'] {
-  border-bottom-color: var(--rv-accent);
+.view-switch button[aria-pressed='true'] {
   color: var(--rv-fg);
-}
-
-.code-sample {
-  overflow: auto;
-  max-width: 100%;
-  flex: 1;
-  margin: 0;
-  padding: 1rem 0.4rem;
-  color: var(--rv-fg);
-  font:
-    0.78rem/1.75 ui-monospace,
-    SFMono-Regular,
-    Consolas,
-    monospace;
-  direction: ltr;
-  tab-size: 2;
 }
 
 .copy-status {
@@ -221,38 +197,43 @@
   color: var(--rv-muted);
 }
 
-.mobile-view-switch {
-  display: none;
+.view-switch {
+  display: flex;
+  width: fit-content;
+  margin-block: 1rem 0.75rem;
+  border: 1px solid var(--rv-border);
+  border-radius: 0.7rem;
+  background: color-mix(in srgb, var(--rv-fg) 2.5%, var(--rv-bg));
+  padding: 0.2rem;
+}
+
+.view-switch button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  padding-inline: 1rem;
+}
+
+.view-switch button {
+  width: 2.75rem;
+  padding: 0;
+}
+
+.view-switch button[aria-pressed='true'] {
+  background: color-mix(in srgb, var(--rv-accent) 14%, var(--rv-bg));
 }
 
 .interactive-showcase a:focus-visible,
-.interactive-showcase button:focus-visible,
-.code-sample:focus-visible {
+.interactive-showcase button:focus-visible {
   outline: 2px solid var(--rv-accent);
   outline-offset: 3px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .example-tab {
-    transition: none;
-  }
-}
-
-@media (max-width: 1000px) {
-  .showcase-workspace {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .preview-pane {
-    border-inline-end: 0;
-    border-bottom: 1px solid var(--rv-border);
-  }
-}
-
 @media (max-width: 720px) {
-  .interactive-showcase {
-  }
-
   .showcase-intro {
     display: block;
     margin-bottom: 1.25rem;
@@ -263,27 +244,22 @@
   }
 
   .example-tabs {
-    grid-template-columns: repeat(4, minmax(8rem, 1fr));
+    grid-template-columns: repeat(5, minmax(8rem, 1fr));
     overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rv-muted) transparent;
+    padding-block-end: 0.35rem;
   }
 
   .example-tab {
     min-height: 4rem;
     padding-inline: 0.65rem;
-  }
-
-  .mobile-view-switch {
-    display: flex;
-    margin-top: 1rem;
-    border-bottom: 1px solid var(--rv-border);
+    scroll-snap-align: start;
   }
 
   .showcase-workspace {
-    min-height: 22rem;
-    border-top: 1px solid var(--rv-border);
-  }
-
-  .showcase-pane.mobile-hidden {
-    display: none;
+    min-height: 20rem;
   }
 }

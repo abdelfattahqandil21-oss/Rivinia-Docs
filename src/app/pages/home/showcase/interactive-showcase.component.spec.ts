@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideLucideIcons } from '@lucide/angular';
 import { customLoader, provideRiviniaI18n } from '@rivinia/i18n';
+import { provideRiviniaToast } from '@rivinia/toast';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
@@ -9,6 +11,7 @@ import {
   SHOWCASE_EXAMPLE_LOADERS,
 } from './interactive-showcase.component';
 import type { ShowcaseExampleId, ShowcaseExampleLoaders } from './showcase-example.model';
+import { appIcons } from '../../../shared/components/icon/icon-registry';
 
 @Component({
   selector: 'app-test-preview',
@@ -45,6 +48,7 @@ const translations = {
   'showcase.datepicker.name': 'Datepicker',
   'showcase.table.name': 'Table',
   'showcase.modal.name': 'Modal',
+  'showcase.toast.name': 'Toast',
 };
 
 function makeLoaders(): ShowcaseExampleLoaders {
@@ -56,6 +60,7 @@ function makeLoaders(): ShowcaseExampleLoaders {
     })),
     table: vi.fn(async () => ({ component: TestPreviewComponent, source: sourceFor('table') })),
     modal: vi.fn(async () => ({ component: TestPreviewComponent, source: sourceFor('modal') })),
+    toast: vi.fn(async () => ({ component: TestPreviewComponent, source: sourceFor('toast') })),
   };
 }
 
@@ -68,6 +73,8 @@ describe('InteractiveShowcaseComponent', () => {
       imports: [InteractiveShowcaseComponent],
       providers: [
         provideRouter([]),
+        provideLucideIcons(...Object.values(appIcons)),
+        provideRiviniaToast(),
         provideRiviniaI18n({
           defaultLanguage: 'en',
           languages: [{ id: 'en', nativeName: 'English', dir: 'ltr' }],
@@ -120,13 +127,31 @@ describe('InteractiveShowcaseComponent', () => {
       '<table-preview />',
     );
 
-    const codeButton = [
-      ...fixture.nativeElement.querySelectorAll('.mobile-view-switch button'),
-    ].find((button) => button.textContent.includes('Code')) as HTMLButtonElement;
+    const codeButton = fixture.nativeElement.querySelector(
+      '.view-switch button[aria-label="Code"]',
+    ) as HTMLButtonElement;
     codeButton.click();
     fixture.detectChanges();
     expect(codeButton.getAttribute('aria-pressed')).toBe('true');
     expect(tableButton.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('loads the Toast example on demand', async () => {
+    const fixture = createFixture();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const toastButton = [...fixture.nativeElement.querySelectorAll('.example-tab')].find((button) =>
+      button.textContent.includes('Toast'),
+    ) as HTMLButtonElement;
+    toastButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(loaders.toast).toHaveBeenCalledOnce();
+    expect(fixture.nativeElement.querySelector('.code-sample code').textContent).toContain(
+      '<toast-preview />',
+    );
   });
 
   it('shows an accessible failure state and retries the selected loader', async () => {

@@ -3,11 +3,11 @@
     [(value)]="selectedDate"
     [locale]="locale()"
     format="medium"
-    [label]="i18n.translate('showcase.datepicker.label')"
-    [placeholder]="i18n.translate('showcase.datepicker.placeholder')"
+    [label]="'showcase.datepicker.label' | rvTranslate"
+    [placeholder]="'showcase.datepicker.placeholder' | rvTranslate"
     [clearable]="true"
   />
   <p class="example-feedback" aria-live="polite" aria-atomic="true">
-    {{ i18n.translate('showcase.datepicker.selected') }}: {{ selectedDateLabel() }}
+    {{ 'showcase.datepicker.selected' | rvTranslate }}: {{ selectedDateLabel() }}
   </p>
 </div>

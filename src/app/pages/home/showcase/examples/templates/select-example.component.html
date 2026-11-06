@@ -1,0 +1,113 @@
+<div class="select-cards">
+  <article class="select-card" aria-labelledby="select-single-title">
+    <header class="select-card-heading">
+      <h4 id="select-single-title">{{ 'showcase.select.singleTitle' | rvTranslate }}</h4>
+      <p>{{ 'showcase.select.singleDescription' | rvTranslate }}</p>
+    </header>
+    <div class="select-card-demo">
+      <rv-select
+        mode="single"
+        variant="premium"
+        [options]="options()"
+        [label]="'showcase.select.label' | rvTranslate"
+        [placeholder]="'showcase.select.singlePlaceholder' | rvTranslate"
+        [searchable]="true"
+        [searchLabel]="'showcase.select.search' | rvTranslate"
+        [value]="singleValue()"
+        (valueChange)="setSingleValue($event)"
+      />
+      @if (singleSummary()) {
+        <p class="example-feedback" aria-live="polite" aria-atomic="true">
+          {{ 'showcase.select.selected' | rvTranslate }}: {{ singleSummary() }}
+        </p>
+      }
+    </div>
+    <details class="select-card-code">
+      <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
+      <h5>{{ 'showcase.select.markupLabel' | rvTranslate }}</h5>
+      <pre><code>@for (token of highlightedCodeBlocks[0].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <h5>{{ 'showcase.select.stateLabel' | rvTranslate }}</h5>
+      <pre><code>@for (token of highlightedCodeBlocks[1].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+    </details>
+  </article>
+
+  <article class="select-card" aria-labelledby="select-multi-title">
+    <header class="select-card-heading">
+      <h4 id="select-multi-title">{{ 'showcase.select.multiTitle' | rvTranslate }}</h4>
+      <p>{{ 'showcase.select.multiDescription' | rvTranslate }}</p>
+    </header>
+    <div class="select-card-demo">
+      <rv-select
+        mode="multi"
+        variant="premium"
+        [options]="options()"
+        [label]="'showcase.select.label' | rvTranslate"
+        [placeholder]="'showcase.select.placeholder' | rvTranslate"
+        [searchable]="true"
+        [searchLabel]="'showcase.select.search' | rvTranslate"
+        [value]="multiValue()"
+        (valueChange)="setMultiValue($event)"
+      />
+      @if (multiSummary()) {
+        <p class="example-feedback" aria-live="polite" aria-atomic="true">
+          {{ 'showcase.select.selected' | rvTranslate }}: {{ multiSummary() }}
+        </p>
+      }
+    </div>
+    <details class="select-card-code">
+      <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
+      <h5>{{ 'showcase.select.markupLabel' | rvTranslate }}</h5>
+      <pre><code>@for (token of highlightedCodeBlocks[2].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <h5>{{ 'showcase.select.stateLabel' | rvTranslate }}</h5>
+      <pre><code>@for (token of highlightedCodeBlocks[3].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+    </details>
+  </article>
+
+  <article class="select-card headless-card" aria-labelledby="select-headless-title">
+    <header class="select-card-heading">
+      <h4 id="select-headless-title">{{ 'showcase.select.headlessTitle' | rvTranslate }}</h4>
+      <p>{{ 'showcase.select.headlessDescription' | rvTranslate }}</p>
+    </header>
+    <div class="headless-field">
+      <label class="headless-search-label" for="headless-select-search">
+        {{ 'showcase.select.search' | rvTranslate }}
+      </label>
+      <input
+        #query
+        id="headless-select-search"
+        class="headless-search"
+        type="search"
+        [value]="headlessSelect.query()"
+        (input)="headlessSelect.setQuery(query.value)"
+      />
+      <fieldset class="headless-options">
+        <legend>{{ 'showcase.select.label' | rvTranslate }}</legend>
+        @for (option of headlessSelect.filtered(); track option.id) {
+          <label class="headless-option">
+            <input
+              type="checkbox"
+              [checked]="headlessSelect.isSelected(option.id)"
+              [disabled]="option.disabled ?? false"
+              (change)="headlessSelect.toggle(option.id)"
+            />
+            <span>{{ option.label }}</span>
+          </label>
+        } @empty {
+          <p class="example-feedback">{{ 'showcase.select.noMatches' | rvTranslate }}</p>
+        }
+      </fieldset>
+      @if (headlessSummary()) {
+        <p class="example-feedback" aria-live="polite" aria-atomic="true">
+          {{ 'showcase.select.selected' | rvTranslate }}: {{ headlessSummary() }}
+        </p>
+      }
+    </div>
+    <details class="select-card-code">
+      <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
+      <h5>{{ 'showcase.select.headlessMarkup' | rvTranslate }}</h5>
+      <pre><code>@for (token of highlightedCodeBlocks[5].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <h5>{{ 'showcase.select.headlessController' | rvTranslate }}</h5>
+      <pre><code>@for (token of highlightedCodeBlocks[4].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+    </details>
+  </article>
+</div>

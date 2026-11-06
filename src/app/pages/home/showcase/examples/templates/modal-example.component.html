@@ -1,17 +1,17 @@
 <div class="modal-example">
   <button class="open-button" type="button" (click)="open.set(true)">
-    {{ i18n.translate('showcase.modal.open') }}
+    {{ 'showcase.modal.open' | rvTranslate }}
   </button>
-  <p class="example-feedback">{{ i18n.translate('showcase.modal.hint') }}</p>
+  <p class="example-feedback">{{ 'showcase.modal.hint' | rvTranslate }}</p>
   @if (confirmed()) {
-    <p class="example-feedback" role="status">{{ i18n.translate('showcase.modal.confirmed') }}</p>
+    <p class="example-feedback" role="status">{{ 'showcase.modal.confirmed' | rvTranslate }}</p>
   }
 </div>
 
 <rv-modal-dialog
   [(open)]="open"
-  [title]="title()"
-  [description]="description()"
+  [title]="'showcase.modal.title' | rvTranslate"
+  [description]="'showcase.modal.description' | rvTranslate"
   [closeOnEscape]="true"
   position="center"
   size="md"
@@ -19,10 +19,10 @@
   <div class="modal-content">
     <p>{{ 'showcase.modal.body' | rvTranslate }}</p>
     <dl>
-      <dt>{{ i18n.translate('showcase.modal.workspace') }}</dt>
+      <dt>{{ 'showcase.modal.workspace' | rvTranslate }}</dt>
       <dd>rivinia-docs</dd>
-      <dt>{{ i18n.translate('showcase.modal.action') }}</dt>
-      <dd>{{ i18n.translate('showcase.modal.actionDetail') }}</dd>
+      <dt>{{ 'showcase.modal.action' | rvTranslate }}</dt>
+      <dd>{{ 'showcase.modal.actionDetail' | rvTranslate }}</dd>
     </dl>
     <div class="modal-actions">
       <button class="cancel-button" type="button" (click)="cancel()">
