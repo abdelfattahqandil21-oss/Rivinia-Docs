@@ -97,3 +97,9 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Do not add upward imports, hand-edit generated files, or add dependencies without approval.
 - Do not change behavior or visuals during structure-only migration.
 - Do not rewrite app-shell filenames, public APIs, or routing architecture as part of file organization.
+
+## Home rules
+
+- Follow `docs/home-ux-spec.md` and `.agents/skills/rivinia-docs-home-ux/SKILL.md` for home-page work.
+- Keep the four-section story, verified claims, responsive reading widths, semantic theme tokens, and existing package behavior.
+- Preserve keyboard access, visible focus, reduced motion, localization, RTL, and theme switching; inspect the rendered page at the specified viewports.
