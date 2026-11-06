@@ -159,5 +159,17 @@
   "showcase.modal.action": "Action",
   "showcase.modal.actionDetail": "Add the selected packages to the workspace",
   "showcase.modal.cancel": "Cancel",
-  "showcase.modal.confirm": "Confirm action"
+  "showcase.modal.confirm": "Confirm action",
+  "home.hero.eyebrow": "Rivinia for Angular",
+  "home.hero.title": "Headless logic. Ready-made UI. Your choice.",
+  "home.hero.lead": "Signal-based Angular packages. Behavior and accessibility live in a headless layer. Use it with your own markup, or add the matching UI package.",
+  "home.hero.primary": "Get started",
+  "home.hero.secondary": "Explore components",
+  "home.hero.headlessLabel": "Use the behavior with your own markup.",
+  "home.hero.uiLabel": "Add the ready-made component UI.",
+  "home.hero.scroll": "Explore the live demos",
+  "home.hero.trustLabel": "Select package information",
+  "home.copy": "Copy",
+  "home.copySuccess": "Install command copied",
+  "home.copyError": "Could not copy the install command."
 }

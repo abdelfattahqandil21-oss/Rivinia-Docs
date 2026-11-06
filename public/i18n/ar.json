@@ -159,5 +159,17 @@
   "showcase.modal.action": "الإجراء",
   "showcase.modal.actionDetail": "إضافة الحزم المحددة إلى مساحة العمل",
   "showcase.modal.cancel": "إلغاء",
-  "showcase.modal.confirm": "تأكيد الإجراء"
+  "showcase.modal.confirm": "تأكيد الإجراء",
+  "home.hero.eyebrow": "Rivinia لمطوّري Angular",
+  "home.hero.title": "منطق مستقل. واجهة جاهزة. والاختيار لك.",
+  "home.hero.lead": "حزم Angular مبنية على الـ signals. السلوك وإمكانية الوصول في طبقة headless، استخدمها مع الـ markup الخاص بك أو أضف حزمة الواجهة الجاهزة.",
+  "home.hero.primary": "ابدأ الآن",
+  "home.hero.secondary": "استكشف المكوّنات",
+  "home.hero.headlessLabel": "استخدم السلوك مع markup من تصميمك.",
+  "home.hero.uiLabel": "أضف واجهة المكوّن الجاهزة.",
+  "home.hero.scroll": "استكشف العروض التفاعلية",
+  "home.hero.trustLabel": "معلومات حزمة Select",
+  "home.copy": "نسخ",
+  "home.copySuccess": "تم نسخ أمر التثبيت",
+  "home.copyError": "تعذّر نسخ أمر التثبيت."
 }

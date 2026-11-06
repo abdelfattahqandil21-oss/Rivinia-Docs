@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
@@ -15,11 +16,22 @@ type Pillar = 'simplicity' | 'flexibility' | 'performance' | 'accessibility';
 })
 export class HomePageComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
+  private readonly document = inject(DOCUMENT);
 
-  protected readonly title = this.i18n.t('page.home.title');
-  protected readonly lead = this.i18n.t('page.home.lead');
-  protected readonly primaryCta = this.i18n.t('page.home.primaryCta');
-  protected readonly secondaryCta = this.i18n.t('page.home.secondaryCta');
+  protected readonly copyStatus = signal('');
+  protected readonly headlessSnippet = `import { RiviniaSelect } from '@rivinia/select';
+
+const select = new RiviniaSelect('multi');
+select.syncOptions(options);
+select.toggle(option.id);`;
+  protected readonly uiSnippet = `<rv-select
+  mode="single"
+  [options]="options()"
+  [label]="'Choose capabilities'"
+  [searchable]="true"
+  [value]="singleValue()"
+  (valueChange)="singleValue.set($event)"
+/>`;
   protected readonly selectedPillar = signal<Pillar>('simplicity');
   protected readonly pillars: readonly Pillar[] = [
     'simplicity',
@@ -29,6 +41,21 @@ export class HomePageComponent {
   ];
   protected selectPillar(pillar: Pillar): void {
     this.selectedPillar.set(pillar);
+  }
+
+  protected async copyInstall(): Promise<void> {
+    const clipboard = this.document.defaultView?.navigator.clipboard;
+    if (!clipboard) {
+      this.copyStatus.set(this.i18n.translate('home.copyError'));
+      return;
+    }
+
+    try {
+      await clipboard.writeText('npm i @rivinia/select');
+      this.copyStatus.set(this.i18n.translate('home.copySuccess'));
+    } catch {
+      this.copyStatus.set(this.i18n.translate('home.copyError'));
+    }
   }
 
   protected pillarTitle(pillar: Pillar): string {

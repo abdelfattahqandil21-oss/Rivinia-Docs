@@ -1,13 +1,72 @@
-<div class="home-page">
-  <section class="home-hero px-4 py-20 sm:px-6 lg:py-24" aria-labelledby="home-title">
-    <div class="hero-content mx-auto w-full max-w-6xl text-center">
-      <h1 id="home-title" class="home-title">{{ title() }}</h1>
-      <p class="home-lead mx-auto mt-6 max-w-[44rem] text-rv-muted">{{ lead() }}</p>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-        <a routerLink="/docs" class="primary-action">{{ primaryCta() }}</a>
-        <a routerLink="/components" class="secondary-action">{{ secondaryCta() }}</a>
+<main class="home-page">
+  <section id="hero" class="home-section hero-section" aria-labelledby="home-title">
+    <div class="home-container hero-layout">
+      <div class="hero-copy">
+        <p class="home-eyebrow">{{ i18n.translate('home.hero.eyebrow') }}</p>
+        <h1 id="home-title">{{ i18n.translate('home.hero.title') }}</h1>
+        <p class="hero-lead">{{ i18n.translate('home.hero.lead') }}</p>
+
+        <div class="hero-actions">
+          <a class="home-button home-button-primary" routerLink="/docs">
+            {{ i18n.translate('home.hero.primary') }}
+          </a>
+          <a class="home-button home-button-secondary" routerLink="/components">
+            {{ i18n.translate('home.hero.secondary') }}
+          </a>
+        </div>
+
+        <div class="install-row">
+          <code dir="ltr">npm i @rivinia/select</code>
+          <button type="button" class="copy-button" (click)="copyInstall()">
+            {{ i18n.translate('home.copy') }}
+          </button>
+          <span class="visually-hidden" aria-live="polite" aria-atomic="true">
+            {{ copyStatus() }}
+          </span>
+        </div>
+
+        <div class="hero-trust" [attr.aria-label]="i18n.translate('home.hero.trustLabel')">
+          <span>MIT</span>
+          <a href="https://www.npmjs.com/package/@rivinia/select" target="_blank" rel="noreferrer">
+            @rivinia/select · v1.0.3
+          </a>
+          <a
+            href="https://github.com/abdelfattahqandil21-oss/Rivinia"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-code" aria-label="Select component examples">
+        <article class="code-card">
+          <header class="code-card-header">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>headless.select.ts</span>
+            <span>TypeScript</span>
+          </header>
+          <pre dir="ltr"><code>{{ headlessSnippet }}</code></pre>
+          <p>{{ i18n.translate('home.hero.headlessLabel') }}</p>
+        </article>
+
+        <article class="code-card">
+          <header class="code-card-header">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>select.component.html</span>
+            <span>HTML</span>
+          </header>
+          <pre dir="ltr"><code>{{ uiSnippet }}</code></pre>
+          <p>{{ i18n.translate('home.hero.uiLabel') }}</p>
+        </article>
       </div>
     </div>
+
+    <a class="scroll-cue" href="#experience">
+      <span>{{ i18n.translate('home.hero.scroll') }}</span>
+      <span aria-hidden="true">↓</span>
+    </a>
   </section>
 
   <app-interactive-showcase />
@@ -48,4 +107,4 @@
       </div>
     </div>
   </section>
-</div>
+</main>
