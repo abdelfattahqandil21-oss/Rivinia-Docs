@@ -57,3 +57,43 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the `providedIn: 'root'` option for singleton services
 - Prefer the `@Service` decorator over `@Injectable({providedIn: 'root'})` for new singleton services (Angular v22+)
 - Use the `inject()` function instead of constructor injection
+
+## Architecture and file placement
+
+- Keep layers in this order: `core <- shared <- layout <- features <- pages <- app`. A layer may import its own layer and anything to its left; never import to the right.
+- Group code by feature. Put showcase demos in `src/app/features/showcase/demos/<package>/` with `<name>-example.component.ts`, `.html`, `.css`, and `.spec.ts` together when a spec exists.
+- Keep component `templateUrl` and `styleUrl` relative to the component file and shaped as `./<name>.component.html` and `./<name>.component.css`.
+- Keep generated showcase output only in `src/generated/`. Ignore it in Git, never edit it by hand, and let the existing `prestart`, `prebuild`, and `pretest` hooks generate it. Run `npm` scripts; do not invoke raw `ng` commands.
+- Keep one package manifest with only existing metadata: `id`, `name`, `translationKey`, and optional `componentsPage` and `showcase` visibility. Keep site navigation separate; do not invent status or route fields.
+- Co-locate each spec beside the file it tests. Do not create `tests/` folders under `src/app/`.
+- Keep app-shell files named `app.ts`, `app.html`, and `app.css`; any rename is deferred.
+- Follow one filename suffix per artifact: `.component.ts/.html/.css`, `.service.ts`, `.directive.ts`, `.model.ts`, and `.spec.ts`. Keep component class and selector names aligned with their filenames.
+- Keep `showcase-code-highlight` inside `features/showcase`. Put a helper in `shared/utils` only when it has cross-feature use.
+
+## Adding a page
+
+1. Put the page under `src/app/pages/<page>/` and keep its component files together.
+2. Import only `core`, `shared`, `layout`, or `features` dependencies and page-local code.
+3. Add a `loadComponent` route in `src/app/app.routes.ts`; add a navigation entry only when the page belongs in site navigation.
+4. Add a co-located spec when the behavior needs coverage, then run `npm run verify`.
+
+## Adding a demo or package
+
+1. Put the demo files in `src/app/features/showcase/demos/<package>/` and use component-relative template/style URLs.
+2. Add its files to `scripts/generate-showcase-sources.mjs`; keep visitor-facing source copyable and free of app-local imports.
+3. Add the package to the single package manifest, setting only the applicable `componentsPage` and/or `showcase` visibility.
+4. Register its showcase loader and visible example metadata; preserve lazy loading.
+5. Add a co-located spec when warranted and run `npm run verify`.
+
+## Verification and completion
+
+- Before finishing a change, run `npm run verify`. It checks formatting, architecture, generated-source freshness, production build, and non-watch tests.
+- Keep `scripts/check-architecture.mjs`'s temporary allowlist empty after Phase 2 migration.
+- Treat adding `angular-eslint` or another lint dependency as a separate, explicit future decision; do not add it as part of architecture cleanup.
+- Definition of done: `npm run verify` passes, no architecture rule is violated, and the requested scope is complete.
+
+## Do not
+
+- Do not add upward imports, hand-edit generated files, or add dependencies without approval.
+- Do not change behavior or visuals during structure-only migration.
+- Do not rewrite app-shell filenames, public APIs, or routing architecture as part of file organization.

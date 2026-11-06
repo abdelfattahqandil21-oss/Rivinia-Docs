@@ -10,7 +10,9 @@
     "prestart": "node scripts/generate-showcase-sources.mjs",
     "prebuild": "node scripts/generate-showcase-sources.mjs",
     "pretest": "node scripts/generate-showcase-sources.mjs",
-    "verify:showcase-sources": "node scripts/generate-showcase-sources.mjs --check"
+    "verify:showcase-sources": "node scripts/generate-showcase-sources.mjs --check",
+    "check:arch": "node scripts/check-architecture.mjs",
+    "verify": "prettier --check AGENTS.md \"docs/**/*.md\" \".agents/skills/**/*.md\" \"scripts/**/*.mjs\" package.json \"public/i18n/*.json\" \"src/app/**/*.{ts,html,css}\" && npm run check:arch && node scripts/generate-showcase-sources.mjs --check && npm run build && npm test -- --watch=false --runner=vitest"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
