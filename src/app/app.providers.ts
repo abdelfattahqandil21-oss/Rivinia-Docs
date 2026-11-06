@@ -13,10 +13,6 @@ export const thirdPartyConfig: ApplicationConfig = {
     provideRiviniaI18n({
       defaultLanguage: EN.id,
       languages: [EN, AR],
-      // The preferences menu owns the reveal now, for both theme and language.
-      viewTransition: {
-        enabled: false,
-      },
     }),
     provideRiviniaHttp(),
     provideRiviniaToast(),
