@@ -10,7 +10,10 @@ import {
   InteractiveShowcaseComponent,
   SHOWCASE_EXAMPLE_LOADERS,
 } from './interactive-showcase.component';
-import type { ShowcaseExampleId, ShowcaseExampleLoaders } from './showcase-example.model';
+import type {
+  ShowcaseExampleId,
+  ShowcaseExampleLoaders,
+} from '../../../features/showcase/showcase-example.model';
 import { appIcons } from '../../../shared/components/icon/icon-registry';
 
 @Component({

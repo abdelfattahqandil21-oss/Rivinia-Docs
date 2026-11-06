@@ -5,11 +5,15 @@ import prettier from 'prettier';
 const root = resolve(import.meta.dirname, '..');
 const examples = ['select', 'datepicker', 'table', 'modal', 'toast'];
 for (const name of examples) {
-  const folder = resolve(root, 'src/app/pages/home/showcase/examples');
-  const tsPath = resolve(folder, 'components', `${name}-example.component.ts`);
-  const htmlPath = resolve(folder, 'templates', `${name}-example.component.html`);
-  const cssPath = resolve(folder, 'styles', `${name}-example.component.css`);
-  const outputPath = resolve(folder, 'generated', `${name}-example.source.generated.ts`);
+  const folder = resolve(root, 'src/app/features/showcase/demos', name);
+  const tsPath = resolve(folder, `${name}-example.component.ts`);
+  const htmlPath = resolve(folder, `${name}-example.component.html`);
+  const cssPath = resolve(folder, `${name}-example.component.css`);
+  const outputPath = resolve(
+    root,
+    'src/app/pages/home/showcase/examples/generated',
+    `${name}-example.source.generated.ts`,
+  );
   const payload = {
     html: await readFile(htmlPath, 'utf8'),
     typescript: await readFile(tsPath, 'utf8'),

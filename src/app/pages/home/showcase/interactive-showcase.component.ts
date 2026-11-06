@@ -5,14 +5,14 @@ import { RouterLink } from '@angular/router';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
 
 import { IconComponent } from '../../../shared/components/icon/icon.component';
-import { highlightShowcaseCode } from './showcase-code-highlight';
+import { highlightShowcaseCode } from '../../../features/showcase/showcase-code-highlight';
 import {
   type ShowcaseExampleId,
   type ShowcaseCodeBlock,
   type ShowcaseExampleLoaders,
   type ShowcaseExampleModule,
   type ShowcaseExampleSource,
-} from './showcase-example.model';
+} from '../../../features/showcase/showcase-example.model';
 
 export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoaders>(
   'SHOWCASE_EXAMPLE_LOADERS',
@@ -20,7 +20,7 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
     factory: () => ({
       select: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/components/select-example.component'),
+          import('../../../features/showcase/demos/select/select-example.component'),
           import('./examples/generated/select-example.source.generated'),
         ]);
         return {
@@ -33,7 +33,7 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
       },
       datepicker: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/components/datepicker-example.component'),
+          import('../../../features/showcase/demos/datepicker/datepicker-example.component'),
           import('./examples/generated/datepicker-example.source.generated'),
         ]);
         return {
@@ -43,21 +43,21 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
       },
       table: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/components/table-example.component'),
+          import('../../../features/showcase/demos/table/table-example.component'),
           import('./examples/generated/table-example.source.generated'),
         ]);
         return { component: component.TableExampleComponent, source: source.tableExampleSource };
       },
       modal: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/components/modal-example.component'),
+          import('../../../features/showcase/demos/modal/modal-example.component'),
           import('./examples/generated/modal-example.source.generated'),
         ]);
         return { component: component.ModalExampleComponent, source: source.modalExampleSource };
       },
       toast: async () => {
         const [component, source] = await Promise.all([
-          import('./examples/components/toast-example.component'),
+          import('../../../features/showcase/demos/toast/toast-example.component'),
           import('./examples/generated/toast-example.source.generated'),
         ]);
         return { component: component.ToastExampleComponent, source: source.toastExampleSource };

@@ -80,8 +80,8 @@ const selectedIds = select.values();`,
 @Component({
   imports: [RiviniaSelectComponent, RvTranslatePipe],
   selector: 'app-showcase-select-example',
-  templateUrl: '../templates/select-example.component.html',
-  styleUrl: '../styles/select-example.component.css',
+  templateUrl: './select-example.component.html',
+  styleUrl: './select-example.component.css',
 })
 export class SelectExampleComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);

@@ -6,8 +6,8 @@ import { RiviniaToastList } from '@rivinia/toast/ui';
 @Component({
   imports: [RiviniaToastList, RvTranslatePipe],
   selector: 'app-showcase-toast-example',
-  templateUrl: '../templates/toast-example.component.html',
-  styleUrl: '../styles/toast-example.component.css',
+  templateUrl: './toast-example.component.html',
+  styleUrl: './toast-example.component.css',
 })
 export class ToastExampleComponent {
   private readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);

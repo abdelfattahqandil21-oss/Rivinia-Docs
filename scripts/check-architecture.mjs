@@ -9,27 +9,8 @@ const layerOrder = ['core', 'shared', 'layout', 'features', 'pages', 'app'];
 
 // Temporary exceptions are tied to approved Phase 2 steps. Remove each entry
 // when its migration step lands; this list must be empty at the end of Phase 2.
-// TODO Phase 2 Step 1: co-locate each demo's templates/styles and table spec.
 // TODO Phase 2 Step 3: move generated output to src/generated and ignore it.
 const TEMPORARY_ALLOWLIST = [
-  {
-    rule: 'component-asset-path',
-    files: [
-      'src/app/pages/home/showcase/examples/components/datepicker-example.component.ts',
-      'src/app/pages/home/showcase/examples/components/modal-example.component.ts',
-      'src/app/pages/home/showcase/examples/components/select-example.component.ts',
-      'src/app/pages/home/showcase/examples/components/table-example.component.ts',
-      'src/app/pages/home/showcase/examples/components/toast-example.component.ts',
-    ],
-    step: 'Phase 2 Step 1',
-    reason: 'demo assets will become sibling files',
-  },
-  {
-    rule: 'tests-directory',
-    files: ['src/app/pages/home/showcase/examples/tests'],
-    step: 'Phase 2 Step 1',
-    reason: 'the table spec will be co-located with its demo',
-  },
   {
     rule: 'generated-location',
     files: [

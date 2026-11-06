@@ -26,8 +26,8 @@ const PACKAGES: readonly ShowcasePackage[] = Array.from({ length: 28 }, (_, inde
 @Component({
   imports: [RiviniaTableComponent, RvTranslatePipe],
   selector: 'app-showcase-table-example',
-  templateUrl: '../templates/table-example.component.html',
-  styleUrl: '../styles/table-example.component.css',
+  templateUrl: './table-example.component.html',
+  styleUrl: './table-example.component.css',
 })
 export class TableExampleComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);

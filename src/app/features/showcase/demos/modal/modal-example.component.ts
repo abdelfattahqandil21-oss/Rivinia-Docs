@@ -5,8 +5,8 @@ import { RiviniaModalDialog } from '@rivinia/modal/ui';
 @Component({
   imports: [RiviniaModalDialog, RvTranslatePipe],
   selector: 'app-showcase-modal-example',
-  templateUrl: '../templates/modal-example.component.html',
-  styleUrl: '../styles/modal-example.component.css',
+  templateUrl: './modal-example.component.html',
+  styleUrl: './modal-example.component.css',
 })
 export class ModalExampleComponent {
   protected readonly open = signal(false);

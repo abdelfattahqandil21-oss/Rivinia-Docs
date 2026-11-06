@@ -6,8 +6,8 @@ import { RiviniaDatepickerComponent } from '@rivinia/datepicker/ui';
 @Component({
   imports: [RiviniaDatepickerComponent, RvTranslatePipe],
   selector: 'app-showcase-datepicker-example',
-  templateUrl: '../templates/datepicker-example.component.html',
-  styleUrl: '../styles/datepicker-example.component.css',
+  templateUrl: './datepicker-example.component.html',
+  styleUrl: './datepicker-example.component.css',
 })
 export class DatepickerExampleComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
