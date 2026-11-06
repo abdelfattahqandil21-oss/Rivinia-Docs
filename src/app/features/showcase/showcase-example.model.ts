@@ -19,6 +19,7 @@ export interface ShowcaseCodeBlock {
 export interface ShowcaseExampleModule {
   readonly component: Type<unknown>;
   readonly source: ShowcaseExampleSource;
+  readonly inputs?: Readonly<Record<string, unknown>>;
 }
 
 export type ShowcaseExampleLoader = () => Promise<ShowcaseExampleModule>;

@@ -78,7 +78,7 @@
           } @else if (activeComponent(); as component) {
             @for (exampleId of [selectedExample()]; track exampleId) {
               <div class="preview-content">
-                <ng-container *ngComponentOutlet="component" />
+                <ng-container *ngComponentOutlet="component; inputs: activeInputs()" />
               </div>
             }
           }

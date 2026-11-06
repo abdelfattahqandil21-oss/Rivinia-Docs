@@ -19,15 +19,17 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
   {
     factory: () => ({
       select: async () => {
-        const [component, source] = await Promise.all([
+        const [component, source, registry] = await Promise.all([
           import('../../../features/showcase/demos/select/select-example.component'),
           import('./examples/generated/select-example.source.generated'),
+          import('../../../features/showcase/demos/select/select-example.registry'),
         ]);
         return {
           component: component.SelectExampleComponent,
+          inputs: { highlightedCodeBlocks: registry.highlightedSelectExampleCodeBlocks },
           source: {
             ...source.selectExampleSource,
-            codeBlocks: component.SELECT_EXAMPLE_CODE_BLOCKS,
+            codeBlocks: registry.highlightedSelectExampleCodeBlocks,
           },
         };
       },
@@ -101,6 +103,7 @@ export class InteractiveShowcaseComponent {
   protected readonly activeComponent = computed<Type<unknown> | null>(
     () => this.loadedModule()?.component ?? null,
   );
+  protected readonly activeInputs = computed(() => this.loadedModule()?.inputs ?? {});
   protected readonly source = computed<ShowcaseExampleSource | null>(
     () => this.loadedModule()?.source ?? null,
   );

@@ -25,9 +25,9 @@
     <details class="select-card-code">
       <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
       <h5>{{ 'showcase.select.markupLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks[0].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <pre><code>@for (token of highlightedCodeBlocks()[0].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
       <h5>{{ 'showcase.select.stateLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks[1].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <pre><code>@for (token of highlightedCodeBlocks()[1].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
     </details>
   </article>
 
@@ -57,9 +57,9 @@
     <details class="select-card-code">
       <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
       <h5>{{ 'showcase.select.markupLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks[2].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <pre><code>@for (token of highlightedCodeBlocks()[2].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
       <h5>{{ 'showcase.select.stateLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks[3].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <pre><code>@for (token of highlightedCodeBlocks()[3].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
     </details>
   </article>
 
@@ -105,9 +105,9 @@
     <details class="select-card-code">
       <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
       <h5>{{ 'showcase.select.headlessMarkup' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks[5].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <pre><code>@for (token of highlightedCodeBlocks()[5].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
       <h5>{{ 'showcase.select.headlessController' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks[4].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+      <pre><code>@for (token of highlightedCodeBlocks()[4].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
     </details>
   </article>
 </div>
