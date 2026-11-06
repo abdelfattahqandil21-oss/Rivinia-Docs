@@ -17,6 +17,10 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "@rivinia/env": "^1.0.3",
+    "@rivinia/http": "^1.0.3",
+    "@rivinia/i18n": "^1.0.3",
+    "@rivinia/theme": "^1.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
