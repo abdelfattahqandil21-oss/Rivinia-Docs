@@ -1,0 +1,15 @@
+<div
+  class="pointer-events-none fixed inset-x-0 top-0 z-50 h-0.5 transition-opacity duration-200 motion-reduce:transition-none"
+  [class.opacity-0]="!visible()"
+  [attr.aria-hidden]="visible() ? null : 'true'"
+>
+  <div
+    class="progress-fill h-full"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    [attr.aria-label]="label()"
+    [attr.aria-valuenow]="rounded()"
+    [style.width.%]="clamped()"
+  ></div>
+</div>

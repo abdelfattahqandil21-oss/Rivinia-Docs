@@ -2,3 +2,96 @@
 
 @import 'tailwindcss';
 @import '@rivinia/theme/tailwind.css';
+
+@theme inline {
+  --color-rv-brand: var(--rv-brand-violet);
+}
+
+:root {
+  color-scheme: light;
+  --rv-bg: #fcfaf6;
+  --rv-fg: #211b27;
+  --rv-muted: #62596b;
+  --rv-border: #e4dccf;
+  --rv-accent: #8a6a3e;
+  --rv-brand-violet: #5b34a8;
+}
+
+:root[data-rv-theme='dark'] {
+  color-scheme: dark;
+  --rv-bg: #0b0813;
+  --rv-fg: #f5f1e8;
+  --rv-muted: #b9aec8;
+  --rv-border: #3a3044;
+  --rv-accent: #e8d2a0;
+  --rv-brand-violet: #b18aff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100dvh;
+  margin: 0;
+  background-color: var(--rv-bg);
+  color: var(--rv-fg);
+  font-family: var(--rv-font);
+}
+
+/* Sticky navbar height: anchor targets must not hide under it. */
+html {
+  scroll-padding-top: 5rem;
+}
+
+/*
+ * Direction-aware reveal. `expand`: the new frame grows from the press point.
+ * `collapse`: the current frame folds back into it, so a return to the default
+ * state mirrors the way it was left.
+ *
+ * The collapse paints the old snapshot above the new one (z-index) and shrinks
+ * it, so the last visible frame is already the destination — no flash before
+ * the snapshots are removed.
+ */
+:root[data-rv-reveal='expand']::view-transition-old(root) {
+  animation: none;
+}
+
+:root[data-rv-reveal='expand']::view-transition-new(root) {
+  animation: rivinia-reveal-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+:root[data-rv-reveal='collapse']::view-transition-old(root) {
+  z-index: 1;
+  animation: rivinia-reveal-out 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+:root[data-rv-reveal='collapse']::view-transition-new(root) {
+  animation: none;
+}
+
+@keyframes rivinia-reveal-in {
+  from {
+    clip-path: circle(0 at var(--rv-reveal-x, 50vw) var(--rv-reveal-y, 50vh));
+  }
+
+  to {
+    clip-path: circle(
+      var(--rv-reveal-radius, 150vmax) at var(--rv-reveal-x, 50vw) var(--rv-reveal-y, 50vh)
+    );
+  }
+}
+
+@keyframes rivinia-reveal-out {
+  from {
+    clip-path: circle(
+      var(--rv-reveal-radius, 150vmax) at var(--rv-reveal-x, 50vw) var(--rv-reveal-y, 50vh)
+    );
+  }
+
+  to {
+    clip-path: circle(0 at var(--rv-reveal-x, 50vw) var(--rv-reveal-y, 50vh));
+  }
+}

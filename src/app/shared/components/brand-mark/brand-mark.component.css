@@ -1,0 +1,40 @@
+:host {
+  display: inline-flex;
+}
+
+/* Gradient stops: the mark reads the theme tokens, never hard-coded colours. */
+.brand-gold-stop-0 {
+  stop-color: var(--rv-accent);
+}
+
+.brand-gold-stop-52 {
+  stop-color: var(--rv-accent);
+  stop-opacity: 0.82;
+}
+
+.brand-gold-stop-100 {
+  stop-color: var(--rv-accent);
+  stop-opacity: 0.55;
+}
+
+.brand-violet-stop-0 {
+  stop-color: var(--rv-brand-violet);
+}
+
+.brand-violet-stop-55 {
+  stop-color: var(--rv-brand-violet);
+  stop-opacity: 0.85;
+}
+
+.brand-violet-stop-100 {
+  stop-color: var(--rv-brand-violet);
+  stop-opacity: 0.6;
+}
+
+.brand-core-fill {
+  fill: var(--rv-bg);
+}
+
+.brand-dot-fill {
+  fill: var(--rv-accent);
+}

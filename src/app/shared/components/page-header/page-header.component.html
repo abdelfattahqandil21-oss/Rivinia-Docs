@@ -1,0 +1,20 @@
+<header class="w-full">
+  @if (eyebrow(); as text) {
+    <p
+      class="inline-flex items-center gap-2 rounded-full border border-rv-border bg-rv-bg/60 px-3 py-1 text-xs font-medium text-rv-muted"
+    >
+      <span aria-hidden="true" class="size-1.5 rounded-full bg-rv-accent"></span>
+      {{ text }}
+    </p>
+  }
+
+  <h1 class="mt-4 font-serif text-4xl leading-[1.08] text-rv-fg sm:text-5xl">
+    {{ title() }}
+  </h1>
+
+  @if (lead(); as text) {
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-rv-muted">{{ text }}</p>
+  }
+
+  <ng-content />
+</header>

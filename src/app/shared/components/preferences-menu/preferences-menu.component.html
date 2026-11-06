@@ -1,0 +1,79 @@
+<button
+  #trigger
+  type="button"
+  class="inline-grid size-11 place-items-center rounded-full border border-rv-border text-rv-fg transition-colors duration-150 hover:border-rv-accent hover:text-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+  [attr.aria-label]="triggerLabel()"
+  [attr.title]="triggerLabel()"
+  aria-haspopup="dialog"
+  [attr.aria-expanded]="open()"
+  [attr.aria-controls]="open() ? panelId : null"
+  (click)="toggle()"
+>
+  <app-icon name="settings" [size]="20" aria-hidden="true" />
+</button>
+
+@if (open()) {
+  <div
+    [id]="panelId"
+    role="dialog"
+    [attr.aria-label]="triggerLabel()"
+    class="preferences-panel absolute end-0 top-full z-50 mt-2 max-h-96 w-64 overflow-y-auto rounded-xl border border-rv-border bg-rv-bg p-2 shadow-xl"
+  >
+    <p
+      [id]="themeGroupId"
+      class="px-2 pb-1.5 pt-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-rv-muted"
+    >
+      {{ appearanceLabel() }}
+    </p>
+
+    <div role="group" [attr.aria-labelledby]="themeGroupId" class="grid grid-cols-2 gap-1">
+      @for (option of themeOptions; track option.value) {
+        <button
+          type="button"
+          class="flex h-9 items-center justify-center gap-1.5 rounded-lg text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+          [class]="
+            theme() === option.value
+              ? 'bg-rv-accent/10 font-semibold text-rv-fg'
+              : 'text-rv-muted hover:bg-rv-fg/5 hover:text-rv-fg'
+          "
+          [attr.aria-pressed]="theme() === option.value"
+          (click)="selectTheme(option.value, $event)"
+        >
+          <app-icon [name]="option.icon" [size]="15" aria-hidden="true" />
+          {{ i18n.translate(option.labelKey) }}
+        </button>
+      }
+    </div>
+
+    <div class="my-2 h-px bg-rv-border"></div>
+
+    <p
+      [id]="languageGroupId"
+      class="px-2 pb-1.5 pt-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-rv-muted"
+    >
+      {{ languageLabel() }}
+    </p>
+
+    <div role="group" [attr.aria-labelledby]="languageGroupId" class="flex flex-col gap-0.5">
+      @for (language of languages(); track language.id) {
+        <button
+          type="button"
+          class="flex h-9 w-full items-center justify-between rounded-lg px-2 text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent disabled:cursor-wait disabled:opacity-60 motion-reduce:transition-none"
+          [class]="
+            currentLanguage() === language.id
+              ? 'font-semibold text-rv-fg'
+              : 'text-rv-muted hover:bg-rv-fg/5 hover:text-rv-fg'
+          "
+          [attr.aria-pressed]="currentLanguage() === language.id"
+          [disabled]="i18n.isLoading() || switching()"
+          (click)="selectLanguage(language.id, $event)"
+        >
+          <span>{{ language.nativeName ?? language.id }}</span>
+          @if (currentLanguage() === language.id) {
+            <app-icon name="check" [size]="15" aria-hidden="true" />
+          }
+        </button>
+      }
+    </div>
+  </div>
+}

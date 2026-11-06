@@ -1,12 +1,25 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { RiviniaI18n } from '@rivinia/i18n';
+
+import { ProgressBarService } from './core/services/progress-bar.service';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { ProgressBarComponent } from './shared/components/progress-bar/progress-bar.component';
+import { ProgressBarDirective } from './shared/directives/progress-bar/progress-bar.directive';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent, ProgressBarComponent, ProgressBarDirective],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('Rivinia-Docs');
+  private readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
+  private readonly progressBar = inject(ProgressBarService);
+
+  protected readonly skipLabel = this.i18n.t('nav.skipToContent');
+  protected readonly loadingLabel = this.i18n.t('common.loading');
+
+  protected readonly progressValue = this.progressBar.value;
+  protected readonly progressVisible = this.progressBar.visible;
 }

@@ -1,0 +1,18 @@
+<section class="w-full px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+  <app-page-header [title]="title()" [lead]="lead()" />
+
+  <ul class="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    @for (package of packages(); track package.name) {
+      <li class="rounded-xl border border-rv-border bg-rv-bg p-5">
+        <p class="font-mono text-sm text-rv-fg">{{ package.name }}</p>
+        <p class="mt-2 text-sm leading-relaxed text-rv-muted">
+          {{ i18n.translate(package.summaryKey) }}
+        </p>
+      </li>
+    }
+  </ul>
+
+  <div class="mt-8 rounded-xl border border-dashed border-rv-border px-6 py-10">
+    <p class="text-sm leading-relaxed text-rv-muted">{{ inProgress() }}</p>
+  </div>
+</section>
