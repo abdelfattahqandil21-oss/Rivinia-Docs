@@ -59,10 +59,10 @@
   "home.pillar.accessibility.title": "Accessibility",
   "home.pillar.accessibility.text": "Semantic patterns, keyboard support, and accessible states are part of the design.",
   "home.next.cta": "Read the docs",
-  "docs.navigation": "Documentation navigation"
-  ,"docs.start": "Start here"
-  ,"docs.install": "Installation"
-  ,"docs.startTitle": "Choose the package for your task.",
+  "docs.navigation": "Documentation navigation",
+  "docs.start": "Start here",
+  "docs.install": "Installation",
+  "docs.startTitle": "Choose the package for your task.",
   "docs.startText": "Rivinia is published as focused Angular packages. Browse the package list to choose the capability you need, then follow its package documentation and examples.",
   "docs.browsePackages": "Browse available packages",
   "docs.installTitle": "Install a package",

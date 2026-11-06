@@ -59,10 +59,10 @@
   "home.pillar.accessibility.title": "الإتاحة",
   "home.pillar.accessibility.text": "البنية الدلالية ودعم لوحة المفاتيح والحالات الميسّرة جزء من التصميم.",
   "home.next.cta": "اقرأ الدليل",
-  "docs.navigation": "التنقل في التوثيق"
-  ,"docs.start": "ابدأ من هنا"
-  ,"docs.install": "التثبيت"
-  ,"docs.startTitle": "اختر الحزمة المناسبة لمهمتك.",
+  "docs.navigation": "التنقل في التوثيق",
+  "docs.start": "ابدأ من هنا",
+  "docs.install": "التثبيت",
+  "docs.startTitle": "اختر الحزمة المناسبة لمهمتك.",
   "docs.startText": "تُنشر Rivinia في حزم Angular مركزة. تصفّح الحزم لاختيار الإمكانية التي تحتاجها، ثم اتبع توثيق الحزمة وأمثلتها.",
   "docs.browsePackages": "تصفّح الحزم المتاحة",
   "docs.installTitle": "ثبّت حزمة",

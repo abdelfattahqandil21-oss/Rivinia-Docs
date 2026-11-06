@@ -119,11 +119,15 @@ export class PreferencesMenuComponent {
           return;
         }
 
-        this.reveal.run(origin, () => {
-          this.i18n.setLanguage(id);
-          this.close();
-          this.trigger()?.nativeElement.focus();
-        }, this.nextRevealDirection);
+        this.reveal.run(
+          origin,
+          () => {
+            this.i18n.setLanguage(id);
+            this.close();
+            this.trigger()?.nativeElement.focus();
+          },
+          this.nextRevealDirection,
+        );
         this.nextRevealDirection = this.nextRevealDirection === 'expand' ? 'collapse' : 'expand';
       },
       () => this.switching.set(false),
@@ -149,5 +153,4 @@ export class PreferencesMenuComponent {
       this.close();
     }
   }
-
 }

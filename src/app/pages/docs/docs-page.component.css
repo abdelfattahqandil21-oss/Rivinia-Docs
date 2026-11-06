@@ -100,7 +100,11 @@
   background: color-mix(in srgb, var(--rv-fg) 4%, var(--rv-bg));
   padding: 1rem 1.2rem;
   color: var(--rv-fg);
-  font: 500 0.85rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; /* taste-skill-ignore: literal code */
+  font:
+    500 0.85rem/1.6 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace; /* taste-skill-ignore: literal code */
 }
 
 .docs-destinations {

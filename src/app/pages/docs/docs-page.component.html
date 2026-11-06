@@ -2,8 +2,16 @@
   <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
     <p class="docs-nav-title">{{ i18n.translate('docs.navigation') }}</p>
     <nav>
-      <a class="docs-nav-link is-current" [routerLink]="[]" fragment="start" aria-current="location">{{ i18n.translate('docs.start') }}</a>
-      <a class="docs-nav-link" [routerLink]="[]" fragment="install">{{ i18n.translate('docs.install') }}</a>
+      <a
+        class="docs-nav-link is-current"
+        [routerLink]="[]"
+        fragment="start"
+        aria-current="location"
+        >{{ i18n.translate('docs.start') }}</a
+      >
+      <a class="docs-nav-link" [routerLink]="[]" fragment="install">{{
+        i18n.translate('docs.install')
+      }}</a>
       <a class="docs-nav-link" routerLink="/components">{{ i18n.translate('nav.components') }}</a>
       <a class="docs-nav-link" routerLink="/guides">{{ i18n.translate('nav.guides') }}</a>
       <a class="docs-nav-link" routerLink="/playground">{{ i18n.translate('nav.playground') }}</a>
@@ -25,7 +33,9 @@
     <section id="start" class="docs-section" aria-labelledby="start-title">
       <h2 id="start-title">{{ i18n.translate('docs.startTitle') }}</h2>
       <p>{{ i18n.translate('docs.startText') }}</p>
-      <a routerLink="/components" class="docs-inline-link">{{ i18n.translate('docs.browsePackages') }}</a>
+      <a routerLink="/components" class="docs-inline-link">{{
+        i18n.translate('docs.browsePackages')
+      }}</a>
     </section>
 
     <section id="install" class="docs-section" aria-labelledby="install-title">
@@ -38,9 +48,18 @@
     <section class="docs-section" aria-labelledby="areas-title">
       <h2 id="areas-title">{{ i18n.translate('docs.continueTitle') }}</h2>
       <div class="docs-destinations">
-        <a routerLink="/components"><strong>{{ i18n.translate('nav.components') }}</strong><span>{{ i18n.translate('docs.componentsText') }}</span></a>
-        <a routerLink="/guides"><strong>{{ i18n.translate('nav.guides') }}</strong><span>{{ i18n.translate('docs.guidesText') }}</span></a>
-        <a routerLink="/playground"><strong>{{ i18n.translate('nav.playground') }}</strong><span>{{ i18n.translate('docs.playgroundText') }}</span></a>
+        <a routerLink="/components"
+          ><strong>{{ i18n.translate('nav.components') }}</strong
+          ><span>{{ i18n.translate('docs.componentsText') }}</span></a
+        >
+        <a routerLink="/guides"
+          ><strong>{{ i18n.translate('nav.guides') }}</strong
+          ><span>{{ i18n.translate('docs.guidesText') }}</span></a
+        >
+        <a routerLink="/playground"
+          ><strong>{{ i18n.translate('nav.playground') }}</strong
+          ><span>{{ i18n.translate('docs.playgroundText') }}</span></a
+        >
       </div>
     </section>
   </main>

@@ -11,7 +11,9 @@
   </section>
 
   <section class="home-showcase px-4 py-14 sm:px-6 lg:py-20" aria-labelledby="demo-title">
-    <div class="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14">
+    <div
+      class="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14"
+    >
       <div class="showcase-copy">
         <h2 id="demo-title">{{ i18n.translate('home.demo.title') }}</h2>
         <p>{{ i18n.translate('home.demo.text') }}</p>
@@ -64,7 +66,11 @@ import {{ '{' }}
 
       <div class="pillar-visual">
         <app-brand-mark class="pillar-mark" />
-        <div class="pillar-controls" role="group" [attr.aria-label]="i18n.translate('home.pillars.controls')">
+        <div
+          class="pillar-controls"
+          role="group"
+          [attr.aria-label]="i18n.translate('home.pillars.controls')"
+        >
           @for (pillar of pillars; track pillar) {
             <button
               type="button"

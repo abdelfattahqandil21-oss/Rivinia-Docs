@@ -39,7 +39,10 @@ export class HomePageComponent {
     return id ? this.i18n.translate(`home.select.${id}`) : null;
   });
   protected readonly pillars: readonly Pillar[] = [
-    'simplicity', 'flexibility', 'performance', 'accessibility',
+    'simplicity',
+    'flexibility',
+    'performance',
+    'accessibility',
   ];
   protected selectPillar(pillar: Pillar): void {
     this.selectedPillar.set(pillar);
