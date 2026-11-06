@@ -1,5 +1,5 @@
 /**
- * Site navbar (shared/components/navbar).
+ * Site navbar (layout/navbar).
  *
  * WHAT: sticky, responsive primary navigation with brand, desktop links,
  *   theme + language controls, a "get started" CTA and a mobile disclosure
@@ -34,11 +34,11 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 import { distinctUntilChanged, filter, map, startWith } from 'rxjs';
 
-import { GITHUB_LINK, NAV_LINKS } from '../../../core/config/navigation';
-import type { NavLink } from '../../../core/models/nav-link.model';
-import { BrandMarkComponent } from '../brand-mark/brand-mark.component';
-import { GithubLinkComponent } from '../github-link/github-link.component';
-import { IconComponent } from '../icon/icon.component';
+import { GITHUB_LINK, NAV_LINKS } from '../../core/config/navigation';
+import type { NavLink } from '../../core/models/nav-link.model';
+import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mark.component';
+import { GithubLinkComponent } from '../../shared/components/github-link/github-link.component';
+import { IconComponent } from '../../shared/components/icon/icon.component';
 import { PreferencesMenuComponent } from '../preferences-menu/preferences-menu.component';
 
 let nextNavbarId = 0;

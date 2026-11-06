@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
 import { ProgressBarService } from './layout/progress-bar/progress-bar.service';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
 import { ProgressBarComponent } from './layout/progress-bar/progress-bar.component';
 import { ProgressBarDirective } from './layout/progress-bar/progress-bar.directive';
 

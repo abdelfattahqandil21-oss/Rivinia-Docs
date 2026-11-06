@@ -1,5 +1,5 @@
 /**
- * Preferences menu (shared/components/preferences-menu).
+ * Preferences menu (layout/preferences-menu).
  *
  * WHAT: one header trigger that opens a small popover holding the two
  *   site-wide preferences — appearance and language.
@@ -17,11 +17,11 @@
 import { Component, ElementRef, inject, output, signal, viewChild } from '@angular/core';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import type { ThemeMode } from '../../../core/models/theme-mode.model';
-import { RevealTransitionService } from '../../../core/services/reveal-transition.service';
-import { ThemeService } from '../../../core/services/theme.service';
-import { IconComponent } from '../icon/icon.component';
-import type { AppIconName } from '../icon/icon-registry';
+import type { ThemeMode } from '../../core/models/theme-mode.model';
+import { RevealTransitionService } from '../../core/services/reveal-transition.service';
+import { ThemeService } from '../../core/services/theme.service';
+import { IconComponent } from '../../shared/components/icon/icon.component';
+import type { AppIconName } from '../../shared/components/icon/icon-registry';
 
 type AppLanguage = 'ar' | 'en';
 

@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { provideLucideIcons } from '@lucide/angular';
 import { customLoader, provideRiviniaI18n } from '@rivinia/i18n';
 
-import { appIcons } from '../icon/icon-registry';
+import { appIcons } from '../../shared/components/icon/icon-registry';
 import { NavbarComponent } from './navbar.component';
 
 const translations = {
