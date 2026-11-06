@@ -1,0 +1,13 @@
+<div class="example-field">
+  <rv-datepicker
+    [(value)]="selectedDate"
+    [locale]="locale()"
+    format="medium"
+    [label]="i18n.translate('showcase.datepicker.label')"
+    [placeholder]="i18n.translate('showcase.datepicker.placeholder')"
+    [clearable]="true"
+  />
+  <p class="example-feedback" aria-live="polite" aria-atomic="true">
+    {{ i18n.translate('showcase.datepicker.selected') }}: {{ selectedDateLabel() }}
+  </p>
+</div>

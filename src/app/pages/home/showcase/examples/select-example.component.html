@@ -1,0 +1,20 @@
+<div class="example-field">
+  <rv-select
+    mode="multi"
+    variant="premium"
+    [options]="options()"
+    [label]="i18n.translate('showcase.select.label')"
+    [placeholder]="i18n.translate('showcase.select.placeholder')"
+    [searchable]="true"
+    [searchLabel]="i18n.translate('showcase.select.search')"
+    [value]="selected()"
+    (valueChange)="selected.set($event)"
+  />
+  <p class="example-feedback" aria-live="polite" aria-atomic="true">
+    @if (selectionSummary()) {
+      {{ i18n.translate('showcase.select.selected') }}: {{ selectionSummary() }}
+    } @else {
+      {{ i18n.translate('showcase.select.hint') }}
+    }
+  </p>
+</div>

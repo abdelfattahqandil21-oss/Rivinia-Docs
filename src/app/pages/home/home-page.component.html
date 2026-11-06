@@ -10,47 +10,7 @@
     </div>
   </section>
 
-  <section class="home-showcase px-4 py-14 sm:px-6 lg:py-20" aria-labelledby="demo-title">
-    <div
-      class="mx-auto grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14"
-    >
-      <div class="showcase-copy">
-        <h2 id="demo-title">{{ i18n.translate('home.demo.title') }}</h2>
-        <p>{{ i18n.translate('home.demo.text') }}</p>
-        <a routerLink="/components" class="demo-link">
-          {{ i18n.translate('home.demo.link') }} <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-
-      <div class="demo-workbench">
-        <div class="demo-control">
-          <rv-select
-            [options]="selectOptions()"
-            [label]="selectLabel()"
-            [placeholder]="selectPlaceholder()"
-            [searchable]="true"
-            [searchLabel]="i18n.translate('home.select.search')"
-            variant="premium"
-            (selectionChange)="updateSelection($event)"
-          />
-          <p class="selection-feedback" aria-live="polite" aria-atomic="true">
-            @if (selectedValue()) {
-              {{ i18n.translate('home.select.chosen') }}: {{ selectedLabel() }}
-            } @else {
-              {{ i18n.translate('home.select.hint') }}
-            }
-          </p>
-        </div>
-        <pre class="demo-code"><code>npm install @rivinia/select
-
-import {{ '{' }}
-  RiviniaSelectComponent,
-{{ '}' }} from '@rivinia/select/ui';
-
-&lt;rv-select [options]="options" /&gt;</code></pre>
-      </div>
-    </div>
-  </section>
+  <app-interactive-showcase />
 
   <section class="home-pillars px-4 py-14 sm:px-6 lg:py-20" aria-labelledby="pillars-title">
     <div class="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">

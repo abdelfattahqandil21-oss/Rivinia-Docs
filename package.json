@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prestart": "node scripts/generate-showcase-sources.mjs",
+    "prebuild": "node scripts/generate-showcase-sources.mjs",
+    "pretest": "node scripts/generate-showcase-sources.mjs",
+    "verify:showcase-sources": "node scripts/generate-showcase-sources.mjs --check"
   },
   "private": true,
   "packageManager": "npm@11.19.0",

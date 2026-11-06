@@ -1,0 +1,30 @@
+<div class="table-wrap">
+  <rv-table
+    [columns]="columns()"
+    [rows]="table.pageRows()"
+    [sort]="table.sorting()"
+    (sortChange)="table.sorting.set($event)"
+    [ariaLabel]="i18n.translate('showcase.table.label')"
+    density="comfortable"
+  />
+  <nav class="pagination" [attr.aria-label]="i18n.translate('showcase.table.pagination')">
+    <button type="button" [disabled]="table.page() === 0" (click)="previousPage()">
+      {{ i18n.translate('showcase.table.previous') }}
+    </button>
+    <span aria-live="polite">{{
+      'showcase.table.pageInfo'
+        | rvTranslate: { count: table.total(), page: table.page() + 1, pageCount: pageCount() }
+    }}</span>
+    <button type="button" [disabled]="table.page() + 1 >= pageCount()" (click)="nextPage()">
+      {{ i18n.translate('showcase.table.next') }}
+    </button>
+    <label
+      >{{ i18n.translate('showcase.table.rowsPerPage') }}
+      <select [value]="pageSize()" (change)="changePageSize($any($event.target).value)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+      </select>
+    </label>
+  </nav>
+  <p class="example-feedback">{{ i18n.translate('showcase.table.hint') }}</p>
+</div>

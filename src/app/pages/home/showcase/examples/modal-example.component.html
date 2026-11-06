@@ -1,0 +1,36 @@
+<div class="modal-example">
+  <button class="open-button" type="button" (click)="open.set(true)">
+    {{ i18n.translate('showcase.modal.open') }}
+  </button>
+  <p class="example-feedback">{{ i18n.translate('showcase.modal.hint') }}</p>
+  @if (confirmed()) {
+    <p class="example-feedback" role="status">{{ i18n.translate('showcase.modal.confirmed') }}</p>
+  }
+</div>
+
+<rv-modal-dialog
+  [(open)]="open"
+  [title]="title()"
+  [description]="description()"
+  [closeOnEscape]="true"
+  position="center"
+  size="md"
+>
+  <div class="modal-content">
+    <p>{{ 'showcase.modal.body' | rvTranslate }}</p>
+    <dl>
+      <dt>{{ i18n.translate('showcase.modal.workspace') }}</dt>
+      <dd>rivinia-docs</dd>
+      <dt>{{ i18n.translate('showcase.modal.action') }}</dt>
+      <dd>{{ i18n.translate('showcase.modal.actionDetail') }}</dd>
+    </dl>
+    <div class="modal-actions">
+      <button class="cancel-button" type="button" (click)="cancel()">
+        {{ 'showcase.modal.cancel' | rvTranslate }}
+      </button>
+      <button type="button" (click)="confirm()">
+        {{ 'showcase.modal.confirm' | rvTranslate }}
+      </button>
+    </div>
+  </div>
+</rv-modal-dialog>

@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 27rem;
+  margin-inline: auto;
+}
+
+.modal-example {
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+}
+
+.open-button,
+.modal-content button {
+  min-height: 2.75rem;
+  border: 0;
+  background: var(--rv-accent);
+  padding: 0.65rem 1rem;
+  color: var(--rv-bg);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.example-feedback,
+.modal-content p {
+  color: var(--rv-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.modal-content {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  padding-block: 0.5rem;
+}
+.modal-content dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--rv-border);
+  border-radius: 0.6rem;
+}
+.modal-content dt {
+  color: var(--rv-muted);
+}
+.modal-content dd {
+  margin: 0;
+  font-weight: 600;
+}
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+.modal-actions .cancel-button {
+  border: 1px solid var(--rv-border);
+  background: var(--rv-surface);
+  color: var(--rv-text);
+}
+.modal-actions button:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 2px;
+}

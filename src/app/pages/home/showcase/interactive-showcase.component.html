@@ -1,0 +1,140 @@
+<section class="interactive-showcase" aria-labelledby="showcase-title">
+  <div class="showcase-shell">
+    <header class="showcase-intro">
+      <div>
+        <h2 id="showcase-title">{{ i18n.translate('showcase.title') }}</h2>
+        <p>{{ i18n.translate('showcase.description') }}</p>
+      </div>
+      <a class="package-link" routerLink="/components">
+        {{ i18n.translate('showcase.allPackages') }}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <div class="example-tabs" role="group" [attr.aria-label]="i18n.translate('showcase.examples')">
+      @for (example of examples; track example.id) {
+        <button
+          type="button"
+          class="example-tab"
+          [class.is-selected]="selectedExample() === example.id"
+          [attr.aria-pressed]="selectedExample() === example.id"
+          (click)="selectExample(example.id)"
+        >
+          <span>{{ tabLabel(example.id) }}</span>
+          <code>{{ example.packageName }}</code>
+        </button>
+      }
+    </div>
+
+    <div
+      class="mobile-view-switch"
+      role="group"
+      [attr.aria-label]="i18n.translate('showcase.views')"
+    >
+      <button
+        type="button"
+        [attr.aria-pressed]="activeView() === 'preview'"
+        (click)="setView('preview')"
+      >
+        {{ i18n.translate('showcase.preview') }}
+      </button>
+      <button type="button" [attr.aria-pressed]="activeView() === 'code'" (click)="setView('code')">
+        {{ i18n.translate('showcase.code') }}
+      </button>
+    </div>
+
+    <div class="showcase-workspace" [attr.aria-busy]="loading()">
+      <section
+        class="showcase-pane preview-pane"
+        [class.mobile-hidden]="activeView() !== 'preview'"
+        [attr.aria-label]="i18n.translate('showcase.preview')"
+      >
+        <div class="pane-heading">
+          <h3>{{ i18n.translate('showcase.livePreview') }}</h3>
+          <span class="live-indicator">
+            <span aria-hidden="true"></span>{{ i18n.translate('showcase.live') }}
+          </span>
+        </div>
+        <div class="preview-stage">
+          @if (loading()) {
+            <p class="loading-state" role="status">{{ i18n.translate('showcase.loading') }}</p>
+          } @else if (failed()) {
+            <div class="error-state" role="alert">
+              <p>{{ i18n.translate('showcase.loadError') }}</p>
+              <button type="button" (click)="retry()">
+                {{ i18n.translate('showcase.retry') }}
+              </button>
+            </div>
+          } @else if (activeComponent(); as component) {
+            <ng-container *ngComponentOutlet="component" />
+          }
+        </div>
+        <a class="documentation-link" routerLink="/components">
+          {{ i18n.translate('showcase.packageDocumentation') }}
+          <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
+      <section
+        class="showcase-pane code-pane"
+        [class.mobile-hidden]="activeView() !== 'code'"
+        [attr.aria-label]="i18n.translate('showcase.code')"
+      >
+        <div class="pane-heading code-heading">
+          <h3>{{ i18n.translate('showcase.code') }}</h3>
+          @if (source()) {
+            <button class="copy-button" type="button" (click)="copyCode()">
+              {{ copied() ? i18n.translate('showcase.copied') : i18n.translate('showcase.copy') }}
+            </button>
+          }
+        </div>
+
+        @if (source()) {
+          <div
+            class="code-tabs"
+            role="group"
+            [attr.aria-label]="i18n.translate('showcase.codeFiles')"
+          >
+            <button
+              type="button"
+              [attr.aria-pressed]="activeCode() === 'html'"
+              (click)="setCode('html')"
+            >
+              HTML
+            </button>
+            <button
+              type="button"
+              [attr.aria-pressed]="activeCode() === 'typescript'"
+              (click)="setCode('typescript')"
+            >
+              TypeScript
+            </button>
+            @if (hasCss()) {
+              <button
+                type="button"
+                [attr.aria-pressed]="activeCode() === 'css'"
+                (click)="setCode('css')"
+              >
+                CSS
+              </button>
+            }
+          </div>
+          <pre class="code-sample" tabindex="0"><code>{{ currentSource() }}</code></pre>
+          @if (copied()) {
+            <p class="copy-status" role="status">{{ i18n.translate('showcase.copied') }}</p>
+          } @else if (copyFailed()) {
+            <p class="copy-status" role="status">{{ i18n.translate('showcase.copyError') }}</p>
+          }
+        } @else {
+          <p class="code-placeholder" role="status">
+            {{
+              loading()
+                ? i18n.translate('showcase.loadingCode')
+                : i18n.translate('showcase.codeUnavailable')
+            }}
+          </p>
+        }
+      </section>
+    </div>
+  </div>
+</section>
