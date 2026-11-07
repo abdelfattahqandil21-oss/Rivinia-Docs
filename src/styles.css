@@ -253,6 +253,7 @@ html:has(.home-page) {
 
 .home-page .footer-columns {
   display: grid;
+  align-items: start;
   gap: var(--home-space-8);
 }
 
@@ -424,7 +425,12 @@ html:has(.home-page) {
 
 @media (min-width: 64rem) {
   .home-page .footer-columns {
-    grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(8rem, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-page .footer-package-nav {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -443,6 +449,15 @@ html:has(.home-page) {
 
   .home-page .step-card:last-child {
     grid-column: auto;
+  }
+
+  .home-page .footer-columns {
+    grid-template-columns: minmax(12rem, 0.8fr) minmax(9rem, 0.65fr) minmax(0, 2.55fr);
+  }
+
+  .home-page .footer-package-nav {
+    grid-column: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

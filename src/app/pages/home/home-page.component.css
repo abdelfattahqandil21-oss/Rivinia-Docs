@@ -406,18 +406,20 @@
 
 @media (min-width: 68.75rem) {
   .pillars-layout {
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(14rem, 1fr) 22rem minmax(14rem, 1fr);
+    grid-template-rows: auto auto auto;
     grid-template-areas:
-      'simplicity diagram flexibility'
-      'accessibility diagram performance';
-    align-items: stretch;
+      '. simplicity .'
+      'accessibility diagram flexibility'
+      '. performance .';
+    align-items: center;
     gap: var(--home-space-4) clamp(1rem, 2vw, 2rem);
   }
 
   .pillars-diagram {
     width: 22rem;
     grid-area: diagram;
-    grid-row: 1 / span 2;
+    grid-row: 2;
     align-self: center;
   }
 
