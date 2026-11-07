@@ -11,6 +11,7 @@
 - `b4a9a84` — labeled declared dependency ranges separately from the published versions on package overview pages.
 - Captured 20 Docs hub screenshots at the five required viewport sizes × LTR/RTL × dark/light, plus four Home comparison screenshots, in `docs/screenshots/docs-ia/`.
 - Browser-checked Docs package routes at 390px: one H1/main landmark, package-specific title, and no horizontal overflow.
+- Verified the five-second discovery path at 390px: open Docs, filter for Select, open its page, and find the live-example action in 2.7 seconds; one H1/main and no horizontal overflow.
 - Keyboard-checked drawer focus containment, Escape close/focus return, heading focus after route navigation, and skip-link route preservation plus main focus.
 
 ## Blocked
@@ -36,7 +37,7 @@ See `docs/docs-coverage.md` for all 11 packages and seven overview blocks. Quick
 
 ## New Arabic strings for review
 
-- Changed `page.components.lead` to ICU plural forms for zero, one, two, few, many, and other.
+- Changed `page.components.lead` to: `{count, plural, =0 {لا توجد حزم.} one {حزمة واحدة، ولكل منها عقد واضح.} two {حزمتان، ولكل واحدة عقد واضح.} few {# حزم، ولكل واحدة عقد واضح.} many {# حزمة، ولكل واحدة عقد واضح.} other {# حزمة، ولكل واحدة عقد واضح.}}`.
 - Added: `docs.groups.foundations` الأساسيات; `docs.groups.components` المكونات; `docs.groups.primitives` اللبنات الأساسية.
 - Added: `docs.filter.label` تصفية الحزم; `docs.filter.placeholder` ابحث عن حزمة; `docs.filter.count` ICU result count; `docs.filter.empty` لا توجد حزم تطابق البحث.
 - Added: `docs.menu` قائمة التوثيق; `docs.menu.short` التوثيق; `docs.closeMenu` إغلاق قائمة التوثيق.
