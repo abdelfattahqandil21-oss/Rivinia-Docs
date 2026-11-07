@@ -16,17 +16,17 @@ import type { ShowcaseExampleId, ShowcaseExampleSource } from '../showcase/showc
 import { docsLink } from './docs-link';
 
 const VERIFIED_PUBLISHED_VERSIONS = {
-  env: '1.0.3',
-  http: '1.0.3',
-  i18n: '1.0.3',
-  select: '1.0.3',
-  theme: '1.0.3',
-  datepicker: '1.0.3',
-  table: '1.0.3',
-  modal: '1.0.3',
-  toast: '1.0.3',
-  menu: '1.0.3',
-  popup: '1.0.3',
+  env: '1.0.4',
+  http: '1.0.4',
+  i18n: '1.0.4',
+  select: '1.0.4',
+  theme: '1.0.4',
+  datepicker: '1.0.4',
+  table: '1.0.4',
+  modal: '1.0.4',
+  toast: '1.0.4',
+  menu: '1.0.4',
+  popup: '1.0.4',
 } as const;
 
 type QuickStartFile = { name: string; language: 'html' | 'ts' | 'css'; code: string };

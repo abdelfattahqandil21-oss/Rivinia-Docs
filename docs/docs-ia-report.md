@@ -23,7 +23,7 @@
 ## Decisions
 
 - Latest pages have no version prefix. Package metadata is generated from installed manifests; npm install commands are shown only when the installed version matches the independently verified published version.
-- `^1.0.0` remains the declared `@rivinia/popup` dependency range for Select. Docs now labels that separately from the installed/published version `1.0.3`; the range is not the resolved version.
+- `^1.0.4` is the declared `@rivinia/popup` dependency range for Select. Docs labels that separately from the installed/published version `1.0.4`; the range is not the resolved version.
 - Quick starts and live links are limited to packages with genuine registered demos. Headless/UI details appear only when the package has a distinct `./ui` export.
 - `@rivinia/menu` is included in Components due to its public UI export; `@rivinia/popup` is excluded because it has no UI export and is a shared primitive.
 

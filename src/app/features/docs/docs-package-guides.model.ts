@@ -21,15 +21,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.select.reference.headless',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.3/docs/select/headless.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.4/docs/select/headless.md',
       },
       {
         titleKey: 'docs.guide.select.reference.forms',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.3/docs/select/forms.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.4/docs/select/forms.md',
       },
       {
         titleKey: 'docs.guide.select.reference.accessibility',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.3/docs/select/accessibility.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.4/docs/select/accessibility.md',
       },
     ],
   },
@@ -51,15 +51,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.datepicker.reference.overview',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.3/docs/datepicker/overview.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.4/docs/datepicker/overview.md',
       },
       {
         titleKey: 'docs.guide.datepicker.reference.timeZones',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.3/docs/datepicker/time-zones-and-dst.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.4/docs/datepicker/time-zones-and-dst.md',
       },
       {
         titleKey: 'docs.guide.datepicker.reference.keyboard',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.3/docs/datepicker/keyboard-and-rtl.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.4/docs/datepicker/keyboard-and-rtl.md',
       },
     ],
   },
@@ -78,15 +78,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.table.reference.columns',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.3/docs/table/columns.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.4/docs/table/columns.md',
       },
       {
         titleKey: 'docs.guide.table.reference.paging',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.3/docs/table/paging-and-state.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.4/docs/table/paging-and-state.md',
       },
       {
         titleKey: 'docs.guide.table.reference.selection',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.3/docs/table/selection.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.4/docs/table/selection.md',
       },
     ],
   },
@@ -108,15 +108,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.modal.reference.typed',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.3/docs/modal/typed-modals.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/typed-modals.md',
       },
       {
         titleKey: 'docs.guide.modal.reference.guards',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.3/docs/modal/lifecycle-and-guards.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/lifecycle-and-guards.md',
       },
       {
         titleKey: 'docs.guide.modal.reference.stacking',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.3/docs/modal/sizing-and-stacking.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/sizing-and-stacking.md',
       },
     ],
   },
@@ -131,15 +131,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.toast.reference.readyMade',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.3/docs/toast/ready-made-ui.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.4/docs/toast/ready-made-ui.md',
       },
       {
         titleKey: 'docs.guide.toast.reference.headless',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.3/docs/toast/headless.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.4/docs/toast/headless.md',
       },
       {
         titleKey: 'docs.guide.toast.reference.managedList',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.3/docs/toast/top-layer-and-managed-list.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.4/docs/toast/top-layer-and-managed-list.md',
       },
     ],
   },
@@ -157,7 +157,7 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.env.reference.scaffolding',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/env/v1.0.3/docs/env/scaffolding.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/env/v1.0.4/docs/env/scaffolding.md',
       },
     ],
   },
@@ -176,15 +176,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.http.reference.urls',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.3/docs/http/urls-and-services.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.4/docs/http/urls-and-services.md',
       },
       {
         titleKey: 'docs.guide.http.reference.resources',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.3/docs/http/resources.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.4/docs/http/resources.md',
       },
       {
         titleKey: 'docs.guide.http.reference.envelopes',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.3/docs/http/envelopes-and-errors.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.4/docs/http/envelopes-and-errors.md',
       },
     ],
   },
@@ -203,19 +203,19 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.i18n.reference.translations',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.3/docs/i18n/translating.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/translating.md',
       },
       {
         titleKey: 'docs.guide.i18n.reference.switching',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.3/docs/i18n/switching.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/switching.md',
       },
       {
         titleKey: 'docs.guide.i18n.reference.icu',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.3/docs/i18n/icu.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/icu.md',
       },
       {
         titleKey: 'docs.guide.i18n.reference.api',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.3/docs/i18n/api.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/api.md',
       },
     ],
   },
@@ -234,15 +234,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.theme.reference.tokens',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.3/docs/theme/tokens.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.4/docs/theme/tokens.md',
       },
       {
         titleKey: 'docs.guide.theme.reference.stacks',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.3/docs/theme/styling-stacks.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.4/docs/theme/styling-stacks.md',
       },
       {
         titleKey: 'docs.guide.theme.reference.components',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.3/docs/theme/component-theme.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.4/docs/theme/component-theme.md',
       },
     ],
   },
@@ -257,15 +257,15 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.menu.reference.readyMade',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/menu/v1.0.3/docs/menu/ready-made.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/menu/v1.0.4/docs/menu/ready-made.md',
       },
       {
         titleKey: 'docs.guide.menu.reference.headless',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/menu/v1.0.3/docs/menu/headless.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/menu/v1.0.4/docs/menu/headless.md',
       },
       {
         titleKey: 'docs.guide.menu.reference.interaction',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/menu/v1.0.3/docs/menu/interaction.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/menu/v1.0.4/docs/menu/interaction.md',
       },
     ],
   },
@@ -284,7 +284,7 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
     references: [
       {
         titleKey: 'docs.guide.popup.reference.core',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/popup/v1.0.3/projects/popup/specifications/popup-core.md',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/popup/v1.0.4/projects/popup/specifications/popup-core.md',
       },
     ],
   },

@@ -75,7 +75,7 @@ Before calling the work complete, answer the five-second test as three questions
 
 ## Evidence and open questions
 
-Verify facts from repository/package metadata before displaying them. As checked for this iteration, the installed Select README documents real headless and UI usage and the actual demo source is the source of code samples. Package registry metadata showed 1.0.3 and MIT for packages queried; recheck the current source before display. The root application package version is 0.0.0, so it is not a truthful library version badge. Do not display it as one. Record any missing evidence in `docs/home-open-questions.md`.
+Verify facts from repository/package metadata before displaying them. The installed Select README documents real headless and UI usage and the actual demo source is the source of code samples. The latest npm registry check confirms version 1.0.4 and MIT for all eleven Rivinia packages; recheck the current source before display. The root application package version is 0.0.0, so it is not a truthful library version badge. Do not display it as one. Record any missing evidence in `docs/home-open-questions.md`.
 
 ## Revision contract (R1–R9)
 
