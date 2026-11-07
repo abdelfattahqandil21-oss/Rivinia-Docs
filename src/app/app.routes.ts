@@ -42,14 +42,18 @@ export const routes: Routes = [
         title: 'Library · Rivinia Docs',
         data: { docsTitleKey: 'docs.library' },
         loadComponent: () =>
-          import('./features/docs/not-found/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+          import('./features/docs/not-found/docs-not-found.component').then(
+            (m) => m.DocsNotFoundComponent,
+          ),
       },
       {
         path: '**',
         title: 'Not found · Rivinia Docs',
         data: { docsTitleKey: 'docs.notFound.title' },
         loadComponent: () =>
-          import('./features/docs/not-found/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+          import('./features/docs/not-found/docs-not-found.component').then(
+            (m) => m.DocsNotFoundComponent,
+          ),
       },
     ],
   },
