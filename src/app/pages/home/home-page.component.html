@@ -39,7 +39,9 @@
             <span>headless.select.ts</span>
             <span>TypeScript</span>
           </header>
-          <pre dir="ltr"><code>{{ headlessSnippet }}</code></pre>
+          <pre
+            dir="ltr"
+          ><code>@for (token of headlessTokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
           <p>{{ i18n.translate('home.hero.headlessLabel') }}</p>
         </article>
 
@@ -49,7 +51,9 @@
             <span>select.component.html</span>
             <span>HTML</span>
           </header>
-          <pre dir="ltr"><code>{{ uiSnippet }}</code></pre>
+          <pre
+            dir="ltr"
+          ><code>@for (token of uiTokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
           <p>{{ i18n.translate('home.hero.uiLabel') }}</p>
         </article>
       </div>

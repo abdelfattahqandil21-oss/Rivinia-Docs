@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
 import { InteractiveShowcaseComponent } from '../../features/showcase/interactive-showcase.component';
+import { highlightShowcaseCode } from '../../features/showcase/showcase-code-highlight';
 import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mark.component';
 import { PreferencesMenuComponent } from '../../layout/preferences-menu/preferences-menu.component';
 
@@ -53,6 +54,8 @@ select.toggle(option.id);`;
   [value]="singleValue()"
   (valueChange)="singleValue.set($event)"
 />`;
+  protected readonly headlessTokens = highlightShowcaseCode(this.headlessSnippet, 'typescript');
+  protected readonly uiTokens = highlightShowcaseCode(this.uiSnippet, 'html');
   protected readonly gettingStartedSteps: readonly HomeCodeStep[] = [
     {
       id: 'install',
