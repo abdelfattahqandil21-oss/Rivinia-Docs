@@ -9,7 +9,8 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 | 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.            |
 | 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | `5fda836` | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                               |
 | 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | `dc04928` | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.               |
-| 2026-11-07 14:20 EET     | R5 — Deferred Experience      | DONE   | pending   | Deferred the interactive showcase until it enters view, with idle prefetch, a measured placeholder, retry, and reduced-motion-aware reveal. |
+| 2026-11-07 14:20 EET     | R5 — Deferred Experience      | DONE   | `d275c95` | Deferred the interactive showcase until it enters view, with idle prefetch, a measured placeholder, retry, and reduced-motion-aware reveal. |
+| 2026-11-07 14:39 EET     | R6 — Four Pillars. One Core.  | DONE   | pending   | Replaced Decisions with four evidence-based pillar cards around the responsive brand mark, including keyboard and RTL states.               |
 
 ## Step 0 audit findings
 
@@ -90,3 +91,12 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - Browser review at CSS viewports 360×800, 768×900, 1280×900, and 1440×900 showed matching document/client widths (no horizontal overflow). English light/dark and Arabic RTL dark layouts were visually inspected. Browser screenshots were captured for inspection in the CUA session but are not stored as repository image files.
 - `npm run verify`: passed (10 test files, 38 tests); architecture and generated-source checks passed. Existing component CSS warnings remain below the 8 kB error budget: Home 7.78 kB, showcase 6.40 kB, and Select demo 4.74 kB.
 - R5 production build: initial 398.77 kB raw / 99.30 kB transferred (R4: 398.77 / 99.27); Home lazy chunk 35.90 / 8.55 kB (R4: 50.02 / 11.03), down 14.12 / 2.48 kB; new lazy Experience chunk 19.89 / 4.98 kB.
+
+## R6 evidence
+
+- Replaced the Decisions list and numbered diagram with the Four Pillars composition. The central diagram reuses all four existing brand-mark path pairs and the core geometry; each card highlights its matching petal on hover and keyboard focus. The SVG is hidden from assistive technology, and card content remains the accessible source of meaning. Reduced-motion disables petal transitions.
+- At desktop widths, cards follow the specified clockwise start/end positions around the 22rem mark. Tablet uses a centered 14rem mark above a two-by-two grid; mobile uses a 10rem mark above one card column. Visual review at 360×800, 768×900, 1280×900, and 1440×900 showed no visible horizontal overflow.
+- Reviewed English dark (mobile and desktop), English light (desktop), and Arabic RTL light (mobile and desktop). The Arabic grid mirrored the intended start/end card positions. Screenshots were captured in the browser session for inspection but are not persisted in the repository.
+- Narrowed performance copy to verified package metadata: the five installed package manifests expose separate root and `./ui` entries and declare `sideEffects: false`; the showcase examples are lazy-loaded by the R5 implementation. Accessibility copy describes the documented ready-UI behavior and explicitly assigns markup/focus choices to headless consumers. Both claims are recorded in `docs/home-open-questions.md`.
+- `npm run verify`: passed (11 test files, 40 tests). Prettier, architecture check (0 exceptions), generated-source check, production build, and non-watch tests all passed. Existing CSS budget warnings remain for the Home (7.93 kB), showcase (6.40 kB), and Select demo (4.74 kB) stylesheets; all are below the 8 kB error budget.
+- R6 build: initial 398.98 kB raw / 99.33 kB transferred; Home lazy chunk 42.16 kB / 9.71 kB; Experience remains separate at 19.88 kB / 4.98 kB.

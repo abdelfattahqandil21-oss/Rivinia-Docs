@@ -1,0 +1,132 @@
+<div class="principles-diagram">
+  <svg
+    class="principles-mark"
+    [class.has-active-petal]="activePillar() !== null"
+    viewBox="130 130 940 940"
+    fill="none"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <defs>
+      <linearGradient
+        id="principles-gold"
+        x1="355"
+        y1="250"
+        x2="845"
+        y2="850"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" class="gold-stop-0" />
+        <stop offset=".52" class="gold-stop-52" />
+        <stop offset="1" class="gold-stop-100" />
+      </linearGradient>
+      <linearGradient
+        id="principles-violet"
+        x1="380"
+        y1="280"
+        x2="820"
+        y2="820"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0" class="violet-stop-0" />
+        <stop offset=".55" class="violet-stop-55" />
+        <stop offset="1" class="violet-stop-100" />
+      </linearGradient>
+    </defs>
+
+    <g
+      class="pillar-petal"
+      data-petal="simplicity"
+      [class.is-active]="activePillar() === 'simplicity'"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path
+        d="M600 190C535 252 475 313 475 390C475 444 520 478 600 516C680 478 725 444 725 390C725 313 665 252 600 190Z"
+        stroke="url(#principles-gold)"
+        stroke-width="17"
+      />
+      <path
+        d="M600 252C560 300 536 338 536 385C536 421 559 445 600 467C641 445 664 421 664 385C664 338 640 300 600 252Z"
+        stroke="url(#principles-violet)"
+        stroke-width="8"
+      />
+    </g>
+
+    <g
+      class="pillar-petal"
+      data-petal="flexibility"
+      [class.is-active]="activePillar() === 'flexibility'"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path
+        d="M1010 600C948 535 887 475 810 475C756 475 722 520 684 600C722 680 756 725 810 725C887 725 948 665 1010 600Z"
+        stroke="url(#principles-gold)"
+        stroke-width="17"
+      />
+      <path
+        d="M948 600C908 560 870 536 815 536C779 536 755 559 733 600C755 641 779 664 815 664C870 664 908 640 948 600Z"
+        stroke="url(#principles-violet)"
+        stroke-width="8"
+      />
+    </g>
+
+    <g
+      class="pillar-petal"
+      data-petal="performance"
+      [class.is-active]="activePillar() === 'performance'"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path
+        d="M600 1010C665 948 725 887 725 810C725 756 680 722 600 684C520 722 475 756 475 810C475 887 535 948 600 1010Z"
+        stroke="url(#principles-gold)"
+        stroke-width="17"
+      />
+      <path
+        d="M600 948C640 908 664 870 664 815C664 779 641 755 600 733C559 755 536 779 536 815C536 870 560 908 600 948Z"
+        stroke="url(#principles-violet)"
+        stroke-width="8"
+      />
+    </g>
+
+    <g
+      class="pillar-petal"
+      data-petal="accessibility"
+      [class.is-active]="activePillar() === 'accessibility'"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path
+        d="M190 600C252 665 313 725 390 725C444 725 478 680 516 600C478 520 444 475 390 475C313 475 252 535 190 600Z"
+        stroke="url(#principles-gold)"
+        stroke-width="17"
+      />
+      <path
+        d="M252 600C292 640 330 664 385 664C421 664 445 641 467 600C445 559 421 536 385 536C330 536 292 560 252 600Z"
+        stroke="url(#principles-violet)"
+        stroke-width="8"
+      />
+    </g>
+
+    <g class="core-diamond" transform="translate(600 600) scale(1.12) translate(-600 -600)">
+      <path
+        d="M600 500L700 600L600 700L500 600L600 500Z"
+        class="core-outline"
+        stroke="url(#principles-gold)"
+        stroke-width="12"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M600 535L665 600L600 665L535 600L600 535Z"
+        fill="url(#principles-violet)"
+        opacity="0.95"
+      />
+      <path d="M600 559L641 600L600 641L559 600L600 559Z" class="core-outline" />
+      <circle cx="600" cy="600" r="11" class="core-dot" />
+    </g>
+  </svg>
+
+  <span class="core-label">{{ coreLabel() }}</span>
+</div>

@@ -14,12 +14,15 @@ import { RiviniaI18n } from '@rivinia/i18n';
 import { CodeBlockComponent } from '../../shared/components/code-block/code-block.component';
 import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mark.component';
 import { PreferencesMenuComponent } from '../../layout/preferences-menu/preferences-menu.component';
+import {
+  PrinciplesDiagramComponent,
+  type PillarId,
+} from '../../features/home/principles-diagram/principles-diagram.component';
 
 type ShowcaseComponent =
   typeof import('../../features/showcase/interactive-showcase.component').InteractiveShowcaseComponent;
 type ExperienceState = 'placeholder' | 'loading' | 'ready' | 'error';
 
-type DecisionId = 'api' | 'flexibility' | 'signals' | 'accessibility';
 interface HomeCodeStep {
   readonly id: 'install' | 'import' | 'use';
   readonly titleKey: string;
@@ -35,6 +38,7 @@ interface HomeCodeStep {
     CodeBlockComponent,
     BrandMarkComponent,
     PreferencesMenuComponent,
+    PrinciplesDiagramComponent,
   ],
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -49,7 +53,7 @@ export class HomePageComponent {
   protected readonly experienceComponent = signal<ShowcaseComponent | null>(null);
   protected readonly revealExperience = signal(false);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
-  protected readonly activeDecision = signal<DecisionId | null>(null);
+  protected readonly activePillar = signal<PillarId | null>(null);
   protected readonly headlessSnippet = `import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('multi');
@@ -94,8 +98,8 @@ select.toggle(option.id);`;
     });
   }
 
-  protected setActiveDecision(id: DecisionId | null): void {
-    this.activeDecision.set(id);
+  protected setActivePillar(id: PillarId | null): void {
+    this.activePillar.set(id);
   }
 
   protected retryExperience(): void {

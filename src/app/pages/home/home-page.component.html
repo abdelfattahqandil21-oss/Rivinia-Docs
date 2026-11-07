@@ -79,123 +79,108 @@
     }
   </div>
 
-  <section id="decisions" class="home-section decisions-section" aria-labelledby="decisions-title">
+  <section id="decisions" class="home-section pillars-section" aria-labelledby="pillars-title">
     <div class="home-container">
       <header class="section-heading">
-        <p class="home-eyebrow">{{ i18n.translate('home.decisions.eyebrow') }}</p>
-        <h2 id="decisions-title">{{ i18n.translate('home.decisions.title') }}</h2>
-        <p>{{ i18n.translate('home.decisions.lead') }}</p>
+        <p class="home-eyebrow">{{ i18n.translate('home.pillars.eyebrow') }}</p>
+        <h2 id="pillars-title">{{ i18n.translate('home.pillars.title') }}</h2>
+        <p>{{ i18n.translate('home.pillars.text') }}</p>
       </header>
 
-      <div class="decisions-layout">
-        <ol class="decision-list">
-          <li>
-            <a
-              class="decision-item"
-              routerLink="/docs"
-              (mouseenter)="setActiveDecision('api')"
-              (mouseleave)="setActiveDecision(null)"
-              (focus)="setActiveDecision('api')"
-              (blur)="setActiveDecision(null)"
-            >
-              <span class="decision-index" aria-hidden="true">01</span>
-              <span class="decision-copy">
-                <strong>{{ i18n.translate('home.decision.api.title') }}</strong>
-                <span>{{ i18n.translate('home.decision.api.text') }}</span>
-                <span class="decision-evidence"
-                  >{{ i18n.translate('home.decision.api.evidence') }}
-                  <span aria-hidden="true">→</span></span
-                >
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="decision-item"
-              href="#experience"
-              (mouseenter)="setActiveDecision('flexibility')"
-              (mouseleave)="setActiveDecision(null)"
-              (focus)="setActiveDecision('flexibility')"
-              (blur)="setActiveDecision(null)"
-            >
-              <span class="decision-index" aria-hidden="true">02</span>
-              <span class="decision-copy">
-                <strong>{{ i18n.translate('home.decision.flexibility.title') }}</strong>
-                <span>{{ i18n.translate('home.decision.flexibility.text') }}</span>
-                <span class="decision-evidence"
-                  >{{ i18n.translate('home.decision.flexibility.evidence') }}
-                  <span aria-hidden="true">→</span></span
-                >
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="decision-item"
-              href="#experience"
-              (mouseenter)="setActiveDecision('signals')"
-              (mouseleave)="setActiveDecision(null)"
-              (focus)="setActiveDecision('signals')"
-              (blur)="setActiveDecision(null)"
-            >
-              <span class="decision-index" aria-hidden="true">03</span>
-              <span class="decision-copy">
-                <strong>{{ i18n.translate('home.decision.signals.title') }}</strong>
-                <span>{{ i18n.translate('home.decision.signals.text') }}</span>
-                <span class="decision-evidence"
-                  >{{ i18n.translate('home.decision.signals.evidence') }}
-                  <span aria-hidden="true">→</span></span
-                >
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="decision-item"
-              href="https://www.npmjs.com/package/@rivinia/select"
-              (mouseenter)="setActiveDecision('accessibility')"
-              (mouseleave)="setActiveDecision(null)"
-              (focus)="setActiveDecision('accessibility')"
-              (blur)="setActiveDecision(null)"
-            >
-              <span class="decision-index" aria-hidden="true">04</span>
-              <span class="decision-copy">
-                <strong>{{ i18n.translate('home.decision.accessibility.title') }}</strong>
-                <span>{{ i18n.translate('home.decision.accessibility.text') }}</span>
-                <span class="decision-evidence"
-                  >{{ i18n.translate('home.decision.accessibility.evidence') }}
-                  <span aria-hidden="true">↗</span></span
-                >
-              </span>
-            </a>
-          </li>
-        </ol>
-
-        <div
-          class="decision-diagram"
-          role="img"
-          [attr.aria-label]="i18n.translate('home.decisions.diagramLabel')"
+      <div class="pillars-layout">
+        <article
+          class="pillar-card pillar-simplicity"
+          (mouseenter)="setActivePillar('simplicity')"
+          (mouseleave)="setActivePillar(null)"
+          (focusin)="setActivePillar('simplicity')"
+          (focusout)="setActivePillar(null)"
         >
-          <span class="decision-petal petal-api" [class.is-active]="activeDecision() === 'api'"
-            >01</span
+          <p class="pillar-kicker">{{ i18n.translate('home.pillar.simplicity.kicker') }}</p>
+          <h3>{{ i18n.translate('home.pillar.simplicity.title') }}</h3>
+          <p class="pillar-description">{{ i18n.translate('home.pillar.simplicity.text') }}</p>
+          <ul
+            class="pillar-chips"
+            aria-label="{{ i18n.translate('home.pillar.simplicity.chipsLabel') }}"
           >
-          <span
-            class="decision-petal petal-flexibility"
-            [class.is-active]="activeDecision() === 'flexibility'"
-            >02</span
+            <li>{{ i18n.translate('home.pillar.simplicity.chip1') }}</li>
+            <li>{{ i18n.translate('home.pillar.simplicity.chip2') }}</li>
+            <li>{{ i18n.translate('home.pillar.simplicity.chip3') }}</li>
+          </ul>
+          <a class="pillar-link" href="#start"
+            >{{ i18n.translate('home.pillar.simplicity.link') }}
+            <span aria-hidden="true">→</span></a
           >
-          <span
-            class="decision-petal petal-signals"
-            [class.is-active]="activeDecision() === 'signals'"
-            >03</span
+        </article>
+
+        <article
+          class="pillar-card pillar-flexibility"
+          (mouseenter)="setActivePillar('flexibility')"
+          (mouseleave)="setActivePillar(null)"
+          (focusin)="setActivePillar('flexibility')"
+          (focusout)="setActivePillar(null)"
+        >
+          <p class="pillar-kicker">{{ i18n.translate('home.pillar.flexibility.kicker') }}</p>
+          <h3>{{ i18n.translate('home.pillar.flexibility.title') }}</h3>
+          <p class="pillar-description">{{ i18n.translate('home.pillar.flexibility.text') }}</p>
+          <ul
+            class="pillar-chips"
+            aria-label="{{ i18n.translate('home.pillar.flexibility.chipsLabel') }}"
           >
-          <span
-            class="decision-petal petal-accessibility"
-            [class.is-active]="activeDecision() === 'accessibility'"
-            >04</span
+            <li>{{ i18n.translate('home.pillar.flexibility.chip1') }}</li>
+            <li>{{ i18n.translate('home.pillar.flexibility.chip2') }}</li>
+            <li>{{ i18n.translate('home.pillar.flexibility.chip3') }}</li>
+          </ul>
+          <a class="pillar-link" href="#experience"
+            >{{ i18n.translate('home.pillar.flexibility.link') }}
+            <span aria-hidden="true">→</span></a
           >
-          <span class="decision-core">Rivinia</span>
-        </div>
+        </article>
+
+        <app-principles-diagram
+          class="pillars-diagram"
+          [activePillar]="activePillar()"
+          [coreLabel]="i18n.translate('home.pillar.core')"
+        />
+
+        <article
+          class="pillar-card pillar-performance"
+          (mouseenter)="setActivePillar('performance')"
+          (mouseleave)="setActivePillar(null)"
+          (focusin)="setActivePillar('performance')"
+          (focusout)="setActivePillar(null)"
+        >
+          <p class="pillar-kicker">{{ i18n.translate('home.pillar.performance.kicker') }}</p>
+          <h3>{{ i18n.translate('home.pillar.performance.title') }}</h3>
+          <p class="pillar-description">{{ i18n.translate('home.pillar.performance.text') }}</p>
+          <ul
+            class="pillar-chips"
+            aria-label="{{ i18n.translate('home.pillar.performance.chipsLabel') }}"
+          >
+            <li>{{ i18n.translate('home.pillar.performance.chip1') }}</li>
+            <li>{{ i18n.translate('home.pillar.performance.chip2') }}</li>
+            <li>{{ i18n.translate('home.pillar.performance.chip3') }}</li>
+          </ul>
+        </article>
+
+        <article
+          class="pillar-card pillar-accessibility"
+          (mouseenter)="setActivePillar('accessibility')"
+          (mouseleave)="setActivePillar(null)"
+          (focusin)="setActivePillar('accessibility')"
+          (focusout)="setActivePillar(null)"
+        >
+          <p class="pillar-kicker">{{ i18n.translate('home.pillar.accessibility.kicker') }}</p>
+          <h3>{{ i18n.translate('home.pillar.accessibility.title') }}</h3>
+          <p class="pillar-description">{{ i18n.translate('home.pillar.accessibility.text') }}</p>
+          <ul
+            class="pillar-chips"
+            aria-label="{{ i18n.translate('home.pillar.accessibility.chipsLabel') }}"
+          >
+            <li>{{ i18n.translate('home.pillar.accessibility.chip1') }}</li>
+            <li>{{ i18n.translate('home.pillar.accessibility.chip2') }}</li>
+            <li>{{ i18n.translate('home.pillar.accessibility.chip3') }}</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
