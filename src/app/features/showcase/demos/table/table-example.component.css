@@ -5,12 +5,17 @@
 }
 
 .table-wrap {
-  overflow-x: auto;
+  min-width: 0;
 }
 
 rv-table {
   display: block;
-  min-width: 25rem;
+  width: 100%;
+  min-width: 0;
+}
+
+:host ::ng-deep .rv-table-scroller {
+  overflow: visible !important;
 }
 
 .example-feedback {

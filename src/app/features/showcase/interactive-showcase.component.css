@@ -19,6 +19,12 @@
   margin-inline: auto;
 }
 
+.showcase-shell pre {
+  overflow: visible;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .showcase-intro {
   display: flex;
   align-items: end;
@@ -165,10 +171,8 @@
 
 .showcase-workspace {
   display: grid;
-  height: 36rem;
-  min-height: 0;
-  grid-template-rows: minmax(0, 1fr);
-  overflow: hidden;
+  min-height: 28rem;
+  grid-template-rows: auto;
   border: 1px solid var(--rv-border);
   border-radius: var(--home-radius-md, 0.75rem);
   background: color-mix(in srgb, var(--rv-fg) 1.5%, var(--rv-bg));
@@ -177,9 +181,8 @@
 .showcase-pane {
   display: flex;
   min-width: 0;
-  min-height: 0;
   flex-direction: column;
-  overflow: auto;
+  overflow: visible;
   padding: clamp(1rem, 2vw, 1.5rem);
   animation: showcase-pane-in 220ms ease-out both;
 }
@@ -284,7 +287,6 @@
 }
 
 .code-pane {
-  overflow: auto;
   border-inline-start: 1px solid var(--rv-border);
 }
 
@@ -350,17 +352,15 @@
 }
 
 .code-sample {
-  overflow: auto;
   max-width: 100%;
-  max-height: 16rem;
   margin: 0;
   background: #151518;
   padding: 0.85rem;
   color: #e8e7e4;
   font: 0.8rem/1.6 var(--rv-font-mono);
   tab-size: 2;
-  scrollbar-color: #64646a #202024;
-  scrollbar-width: thin;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .code-sample:focus-visible {
@@ -435,7 +435,7 @@
   }
 
   .showcase-workspace {
-    height: 31rem;
+    min-height: 28rem;
   }
 
   .preview-stage {
@@ -458,11 +458,7 @@
   }
 
   .example-tabs {
-    grid-template-columns: repeat(5, minmax(8.5rem, 1fr));
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    scrollbar-color: var(--rv-muted) transparent;
-    scrollbar-width: thin;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
   }
 
   .example-tab {
@@ -471,7 +467,7 @@
   }
 
   .showcase-workspace {
-    height: 29rem;
+    min-height: 28rem;
   }
 
   .preview-stage {

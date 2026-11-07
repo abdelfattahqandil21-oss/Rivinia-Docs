@@ -233,12 +233,17 @@
 }
 
 .code-card pre {
-  overflow: auto;
   margin: 0;
   padding: var(--home-space-4);
   color: var(--rv-fg);
   font: 0.8125rem/1.65 var(--rv-font-mono);
   tab-size: 2;
+}
+
+.home-page pre {
+  overflow: visible;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .code-card p {

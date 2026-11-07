@@ -205,19 +205,6 @@ html:has(.home-page) {
   scroll-snap-align: start;
 }
 
-.home-page .home-section.section-reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 240ms ease-out,
-    transform 240ms ease-out;
-}
-
-.home-page .home-section.section-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .home-page .start-section {
   scroll-margin-block-start: var(--navbar-height);
 }
@@ -405,10 +392,6 @@ html:has(.home-page) {
   color: var(--rv-accent);
 }
 
-.section-rail {
-  display: none;
-}
-
 @media (min-width: 48rem) {
   .home-page .getting-started-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -443,58 +426,6 @@ html:has(.home-page) {
   }
 }
 
-@media (min-width: 68.75rem) {
-  html:has(.home-page) .section-rail {
-    position: fixed;
-    z-index: 20;
-    inset-block-start: 50%;
-    inset-inline-end: 0.75rem;
-    display: grid;
-    gap: 0.25rem;
-    transform: translateY(-50%);
-  }
-
-  html:has(.home-page) .section-rail a {
-    display: grid;
-    width: 2.75rem;
-    height: 2.75rem;
-    place-items: center;
-    border-radius: 50%;
-    color: var(--rv-muted);
-    text-decoration: none;
-  }
-
-  html:has(.home-page) .section-rail a::before {
-    width: 0.5rem;
-    height: 0.5rem;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-    background: var(--rv-bg);
-    content: '';
-    transition:
-      background-color 160ms ease,
-      border-color 160ms ease,
-      transform 160ms ease;
-  }
-
-  html:has(.home-page) .section-rail a[aria-current='location']::before {
-    transform: scale(1.35);
-    border-color: var(--rv-accent);
-    background: var(--rv-accent);
-  }
-
-  html:has(.home-page) .section-rail a:focus-visible {
-    outline: 2px solid var(--rv-accent);
-    outline-offset: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section-rail a::before {
-    transition: none;
-  }
-}
-
 @media (max-width: 720px) {
   .home-page .footer-bottom {
     flex-wrap: wrap;
@@ -512,12 +443,6 @@ html:has(.home-page) {
     scroll-behavior: auto;
   }
 
-  .home-page .home-section.section-reveal,
-  .home-page .home-section.section-reveal.is-visible {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
 }
 
 .home-footer app-preferences-menu .preferences-panel {

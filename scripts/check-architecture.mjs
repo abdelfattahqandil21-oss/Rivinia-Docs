@@ -142,6 +142,39 @@ for (const filePath of walk(appRoot).filter((file) => file.endsWith('.ts'))) {
   }
 }
 
+const homeShowcaseStyles = walk(appRoot).filter((filePath) => {
+  if (!filePath.endsWith('.css')) return false;
+  const file = relative(filePath);
+  return file.startsWith('src/app/pages/home/') || file.startsWith('src/app/features/showcase/');
+});
+
+for (const filePath of homeShowcaseStyles) {
+  const file = relative(filePath);
+  const source = readFileSync(filePath, 'utf8').replace(/\/\*[\s\S]*?\*\//g, (comment) =>
+    comment.replace(/[^\n]/g, ' '),
+  );
+  const blocks = /([^{}]+)\{([^{}]*)\}/g;
+  for (const block of source.matchAll(blocks)) {
+    const selector = block[1].trim();
+    const declarations = block[2];
+    const declarationPattern = /^\s*overflow(?:-y)?\s*:\s*(?:auto|scroll)\b/gim;
+    for (const declaration of declarations.matchAll(declarationPattern)) {
+      const listboxException =
+        file === 'src/app/features/showcase/demos/select/select-example.component.css' &&
+        selector === '.headless-options';
+      if (listboxException) continue;
+      const offset = (block.index ?? 0) + block[0].indexOf(declarations) + (declaration.index ?? 0);
+      const line = source.slice(0, offset).split(/\r?\n/).length;
+      report(
+        'home-showcase-scroll',
+        filePath,
+        line,
+        'nested scrolling is reserved for the Select .headless-options listbox',
+      );
+    }
+  }
+}
+
 for (const directoryPath of walkDirectories(appRoot)) {
   if (path.basename(directoryPath) === 'tests') {
     report('tests-directory', directoryPath, 1, 'remove tests/; co-locate the spec');

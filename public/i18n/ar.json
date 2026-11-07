@@ -220,10 +220,5 @@
   "home.footer.label": "تذييل موقع Rivinia",
   "home.footer.tagline": "لبنات Angular مبنية على signals.",
   "home.footer.product": "المنتج",
-  "home.footer.resources": "المصادر",
-  "home.sections.label": "أقسام الصفحة الرئيسية",
-  "home.sections.hero": "الرئيسية",
-  "home.sections.experience": "المعاينة التفاعلية",
-  "home.sections.decisions": "قرارات التصميم",
-  "home.sections.start": "ابدأ الآن"
+  "home.footer.resources": "المصادر"
 }

@@ -2,9 +2,10 @@
 
 Each entry records the local timestamp, step, status, commit, and one-line result. The commit field is filled after the step commit; no history is rewritten to backfill it.
 
-| Timestamp (Africa/Cairo) | Step                        | Status | Commit  | Result                                                                                                                           |
-| ------------------------ | --------------------------- | ------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-07 12:12 EET     | Step 0 — audit and contract | DONE   | pending | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport. |
+| Timestamp (Africa/Cairo) | Step                          | Status | Commit    | Result                                                                                                                                   |
+| ------------------------ | ----------------------------- | ------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.         |
+| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | pending   | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200. |
 
 ## Step 0 audit findings
 
@@ -27,3 +28,14 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - `docs/screenshots/revision/baseline-390x844-en-dark.png`
 - `docs/screenshots/revision/baseline-390x844-ar-light.png`
 - `docs/screenshots/revision/baseline-390x844-ar-dark.png`
+
+## R1 evidence
+
+- Architecture check rejects authored Home/showcase `overflow:auto|scroll` and `overflow-y:auto|scroll` declarations, except the exact `.headless-options` rule. Existing clipping and ellipsis rules remain intact.
+- Browser check at 1440×900 and 390×844 (English, light) found no page-width overflow, no Home rail, no active nested scroll in Select/Table preview or Code views, and no page errors. Opening the headless options leaves only `.headless-options` scrollable (16rem max height).
+- The installed Table component creates its own mobile scroller. The showcase demo now supplies 6rem flexible columns with wrapped cell text and locally overrides that scroller; mobile columns measured 107px each at 390px and fit without page overflow. The library package is unchanged.
+- `npm run verify`: passed (7 test files, 28 tests). Existing CSS budget warnings remain for the Home and showcase stylesheets; the R1 build is under the 8kB Home error budget.
+- R1 production build: initial 399.60 kB raw / 99.85 kB transferred; Home lazy chunk 48.35 kB raw / 10.22 kB transferred. These are intermediate numbers, not the final comparison.
+
+- `docs/screenshots/revision/r1-1440x900-en-light.png`
+- `docs/screenshots/revision/r1-390x844-en-light.png`

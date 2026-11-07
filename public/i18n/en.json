@@ -220,10 +220,5 @@
   "home.footer.label": "Rivinia site footer",
   "home.footer.tagline": "Signal-based Angular building blocks.",
   "home.footer.product": "Product",
-  "home.footer.resources": "Resources",
-  "home.sections.label": "Homepage sections",
-  "home.sections.hero": "Home",
-  "home.sections.experience": "Live demo",
-  "home.sections.decisions": "Design decisions",
-  "home.sections.start": "Get started"
+  "home.footer.resources": "Resources"
 }

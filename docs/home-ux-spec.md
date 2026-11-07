@@ -10,7 +10,7 @@ Required composition: use a two-column desktop hero, a real Select preview, four
 
 ## Page structure and global layout
 
-Four sections in order: Hero, Experience, Decisions, Get started. The footer belongs inside Get started. Each section has one eyebrow, one heading, one supporting sentence, and its content. A desktop section rail appears only at widths of at least 1100px; each dot is a labeled link, with the active section observed through one IntersectionObserver. Hide the rail on smaller viewports.
+Four sections in order: Hero, Experience, Decisions, Get started. The footer belongs inside Get started. Each section has one eyebrow, one heading, one supporting sentence, and its content.
 
 Use a 72rem content maximum, inline padding `clamp(1rem, 4vw, 2rem)`, reading text no wider than 60ch, and a demo area no wider than 80rem. Sections use `min-height: calc(100svh - var(--navbar-height))`, centered grid alignment, block padding `clamp(4rem, 8vw, 7rem)`, and start scroll alignment. Taller sections grow and never clip. Use proximity scroll snapping, disabled below 640px, below 600px viewport height, and under reduced motion. Set scroll padding to the navbar height.
 
@@ -30,7 +30,7 @@ Use at most two visible control rows. Progressive disclosure is for implementati
 
 Reuse semantic colors. Gold is reserved for the primary CTA, focus, and one emphasis per section; CTA text is dark. Use faint low-alpha hairline borders, without heavy shadows. A radial mask may fade a faint dot/grid pattern; one soft gold radial glow may sit behind the hero code sample. Nothing else glows. Code panels have restrained window dots, filename, and language labels.
 
-Sections may fade in and translate 8px over 240ms ease-out once when observed. Use one IntersectionObserver where practical. No parallax or looping animation. Disable motion for `prefers-reduced-motion`.
+Sections may fade in and translate 8px over 240ms ease-out once as they enter view. No parallax or looping animation. Disable motion for `prefers-reduced-motion`.
 
 ## Hero
 

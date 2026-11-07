@@ -263,16 +263,3 @@
     </div>
   </section>
 </main>
-
-<nav class="section-rail" [attr.aria-label]="i18n.translate('home.sections.label')">
-  @for (section of homeSections; track section) {
-    <a
-      [href]="'#' + section"
-      [attr.aria-label]="i18n.translate('home.sections.' + section)"
-      [attr.title]="i18n.translate('home.sections.' + section)"
-      [attr.aria-current]="activeSection() === section ? 'location' : null"
-    >
-      <span class="visually-hidden">{{ i18n.translate('home.sections.' + section) }}</span>
-    </a>
-  }
-</nav>
