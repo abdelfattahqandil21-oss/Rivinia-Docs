@@ -6,7 +6,8 @@
 />
 
 <a
-  href="#main-content"
+  [href]="skipLinkHref()"
+  (click)="focusMainContent()"
   class="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-50 focus:inline-flex focus:h-11 focus:items-center focus:rounded-lg focus:bg-rv-accent focus:px-4 focus:text-sm focus:font-semibold focus:text-rv-bg focus:outline-2 focus:outline-offset-2 focus:outline-rv-accent"
 >
   {{ skipLabel() }}
