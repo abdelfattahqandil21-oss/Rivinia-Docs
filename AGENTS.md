@@ -110,7 +110,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 - For Docs work, follow `docs/docs-ia-spec.md` and `.agents/skills/rivinia-docs-docs-ia/SKILL.md`.
 - Keep Docs code in `src/app/features/docs/`; preserve lazy loading and use the shared docs-link helper for all Docs destinations.
-- The app shell owns the only `<main>` landmark. Docs pages render headings and sections, never another `<main>`.
+- The app shell owns the only `<main>` landmark. Routed page templates render content inside it and never add another `<main>`.
 - Derive library facts from `src/app/features/packages/package-manifest.ts` and installed `@rivinia/*/package.json` files. Keep descriptions, versions, exports, dependencies, and demo claims verifiable.
 - Route all visible text through matching English and Arabic i18n keys. Keep technical identifiers and commands in Latin script with `dir="ltr"` where needed.
 - Docs and any new UI use existing semantic theme tokens only; no color literals or new hues.

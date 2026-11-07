@@ -142,6 +142,21 @@ for (const filePath of walk(appRoot).filter((file) => file.endsWith('.ts'))) {
   }
 }
 
+for (const filePath of walk(appRoot).filter((file) => file.endsWith('.html'))) {
+  const file = relative(filePath);
+  if (file === 'src/app/app.html') continue;
+  const source = readFileSync(filePath, 'utf8');
+  for (const match of source.matchAll(/<\/?main\b/gi)) {
+    const line = source.slice(0, match.index).split(/\r?\n/).length;
+    report(
+      'nested-main-landmark',
+      filePath,
+      line,
+      'only src/app/app.html may render the main landmark',
+    );
+  }
+}
+
 const homeShowcaseStyles = walk(appRoot).filter((filePath) => {
   if (!filePath.endsWith('.css')) return false;
   const file = relative(filePath);
