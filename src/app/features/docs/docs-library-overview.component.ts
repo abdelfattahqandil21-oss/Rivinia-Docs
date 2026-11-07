@@ -6,6 +6,7 @@ import { CodeBlockComponent } from '../../shared/components/code-block/code-bloc
 import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
 import { PACKAGE_METADATA } from '../packages/package-metadata';
 import { PACKAGE_MANIFEST } from '../packages/package-manifest';
+import { DOCS_PACKAGE_GUIDES } from './docs-package-guides.model';
 import {
   SHOWCASE_EXAMPLE_IDS,
   loadShowcaseExampleSource,
@@ -41,6 +42,7 @@ export class DocsLibraryOverviewComponent {
   protected readonly packageId = this.route.snapshot.paramMap.get('package') ?? '';
   protected readonly entry = PACKAGE_MANIFEST.find(({ id }) => id === this.packageId) ?? null;
   protected readonly metadata = this.entry ? PACKAGE_METADATA[this.entry.id] : null;
+  protected readonly guide = this.entry ? DOCS_PACKAGE_GUIDES[this.entry.id] : null;
   protected readonly notFoundTitle = this.i18n.t('docs.notFound.title');
   protected readonly notFoundBody = this.i18n.t('docs.notFound.body');
   protected readonly notFoundLink = docsLink();

@@ -34,6 +34,38 @@
       </section>
     }
 
+    @if (guide; as packageGuide) {
+      <section class="library-section package-guide" aria-labelledby="package-guide-title">
+        <h2 id="package-guide-title">{{ i18n.translate('docs.packageGuide') }}</h2>
+        <p>{{ i18n.translate(packageGuide.summaryKey) }}</p>
+        <h3 id="package-guide-concepts">{{ i18n.translate('docs.packageConcepts') }}</h3>
+        <ul>
+          @for (conceptKey of packageGuide.conceptKeys; track conceptKey) {
+            <li>{{ i18n.translate(conceptKey) }}</li>
+          }
+        </ul>
+        <h3 id="package-guide-api">{{ i18n.translate('docs.packageApiHighlights') }}</h3>
+        <ul class="package-api-list">
+          @for (api of packageGuide.api; track api.name) {
+            <li>
+              <code dir="ltr">{{ api.name }}</code>
+              <span>{{ i18n.translate(api.descriptionKey) }}</span>
+            </li>
+          }
+        </ul>
+        @if (packageGuide.references.length) {
+          <h3 id="package-guide-references">{{ i18n.translate('docs.packageFurtherReading') }}</h3>
+          <ul class="package-reference-list">
+            @for (reference of packageGuide.references; track reference.href) {
+              <li>
+                <a [href]="reference.href">{{ i18n.translate(reference.titleKey) }}</a>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+    }
+
     @if (showLiveExample()) {
       <section class="library-section quick-start" aria-labelledby="quick-start-title">
         <h2 id="quick-start-title">{{ i18n.translate('docs.quickStart') }}</h2>
