@@ -8,6 +8,7 @@
 @import './styles/home-code.css';
 @import './styles/home-layout.css';
 @import './styles/view-transitions.css';
+@import './styles/docs-prose.css';
 
 @theme inline {
   --color-rv-brand: var(--rv-brand-violet);

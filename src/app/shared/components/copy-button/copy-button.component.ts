@@ -11,12 +11,22 @@ type CopyStatus = 'idle' | 'copying' | 'copied' | 'failed';
 })
 export class CopyButtonComponent {
   readonly code = input.required<string>();
+  readonly label = input<string | null>(null);
+  readonly copiedMessage = input<string | null>(null);
+  readonly errorMessage = input<string | null>(null);
+  readonly icon = input<'copy' | 'link'>('copy');
 
   protected readonly status = signal<CopyStatus>('idle');
-  protected readonly accessibleName = computed(() => this.i18n.translate('common.copyCodeLabel'));
+  protected readonly accessibleName = computed(
+    () => this.label() ?? this.i18n.translate('common.copyCodeLabel'),
+  );
   protected readonly announcement = computed(() => {
-    if (this.status() === 'copied') return this.i18n.translate('common.copyCodeSuccess');
-    if (this.status() === 'failed') return this.i18n.translate('common.copyCodeError');
+    if (this.status() === 'copied') {
+      return this.copiedMessage() ?? this.i18n.translate('common.copyCodeSuccess');
+    }
+    if (this.status() === 'failed') {
+      return this.errorMessage() ?? this.i18n.translate('common.copyCodeError');
+    }
     return '';
   });
 
