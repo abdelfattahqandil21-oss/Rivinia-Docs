@@ -2,15 +2,23 @@
 
 Each entry records the local timestamp, step, status, commit, and one-line result. The commit field is filled after the step commit; no history is rewritten to backfill it.
 
-| Timestamp (Africa/Cairo) | Step                          | Status | Commit    | Result                                                                                                                                      |
-| ------------------------ | ----------------------------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.            |
-| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200.    |
-| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.            |
-| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | `5fda836` | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                               |
-| 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | `dc04928` | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.               |
-| 2026-11-07 14:20 EET     | R5 — Deferred Experience      | DONE   | `d275c95` | Deferred the interactive showcase until it enters view, with idle prefetch, a measured placeholder, retry, and reduced-motion-aware reveal. |
-| 2026-11-07 14:39 EET     | R6 — Four Pillars. One Core.  | DONE   | pending   | Replaced Decisions with four evidence-based pillar cards around the responsive brand mark, including keyboard and RTL states.               |
+| Timestamp (Africa/Cairo) | Step                          | Status | Commit    | Result                                                                                                                                           |
+| ------------------------ | ----------------------------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.                 |
+| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200.         |
+| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.                 |
+| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | `5fda836` | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                                    |
+| 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | `dc04928` | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.                    |
+| 2026-11-07 14:20 EET     | R5 — Deferred Experience      | DONE   | `d275c95` | Deferred the interactive showcase until it enters view, with idle prefetch, a measured placeholder, retry, and reduced-motion-aware reveal.      |
+| 2026-11-07 14:39 EET     | R6 — Four Pillars. One Core.  | DONE   | pending   | Replaced Decisions with four evidence-based pillar cards around the responsive brand mark, including keyboard and RTL states.                    |
+| 2026-11-07 15:35 EET     | Showcase review comments      | DONE   | `a624088` | Fixed code/copy presentation, added date/time and table interactions, modal save/delete flows, scoped toast preview, and all 11 footer packages. |
+
+### Showcase review comments evidence
+
+- On the existing port 4200 tab, visually inspected code direction/copy controls, the Datepicker examples and source tabs, table actions and page-size Select, nested modal replacement and unsaved-change guard, and toast placement inside its preview area. Checked Arabic RTL and both theme selections.
+- The first verify pass reported stale generated modal source after the last component edit. `npm run build` refreshed it through `prebuild`; the subsequent complete `npm run verify` passed: Prettier, architecture (0 temporary exceptions), generator check, production build, and 11 test files / 45 tests.
+- Production output: 408.82 kB initial raw / 99.70 kB transferred. Datepicker, table, modal, toast, and their generated source remain lazy chunks. CSS budget warnings remain: Home 7.94 kB, showcase 7.09 kB, Select demo 4.74 kB (4 kB warning, 8 kB error).
+- Browser screenshots were inspected but not saved as repo files. The required 1920×1080, 1440×900, 1366×768, 390×844 language/theme matrix, Axe/Lighthouse, and full responsive/keyboard/reduced-motion matrix were not verified in this step.
 
 ## Step 0 audit findings
 
