@@ -40,6 +40,7 @@ import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mar
 import { GithubLinkComponent } from '../../shared/components/github-link/github-link.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { PreferencesMenuComponent } from '../preferences-menu/preferences-menu.component';
+import { NavContextService } from '../nav-context.service';
 
 let nextNavbarId = 0;
 
@@ -78,6 +79,7 @@ export class NavbarComponent {
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly router = inject(Router);
+  protected readonly docsRoute = inject(NavContextService).docsRoute;
   private readonly destroyRef = inject(DestroyRef);
   private readonly menuButton = viewChild<ElementRef<HTMLButtonElement>>('menuButton');
   private readonly menuPanel = viewChild<ElementRef<HTMLElement>>('menuPanel');

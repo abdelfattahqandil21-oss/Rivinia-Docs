@@ -9,9 +9,45 @@ export const routes: Routes = [
   },
   {
     path: 'docs',
-    title: 'Docs · Rivinia',
     loadComponent: () =>
-      import('./pages/docs/docs-page.component').then((m) => m.DocsPageComponent),
+      import('./features/docs/docs-shell.component').then((m) => m.DocsShellComponent),
+    children: [
+      {
+        path: '',
+        title: 'Docs · Rivinia Docs',
+        data: { docsTitleKey: 'page.docs.title' },
+        loadComponent: () =>
+          import('./pages/docs/docs-page.component').then((m) => m.DocsPageComponent),
+      },
+      {
+        path: 'getting-started/:slug',
+        title: 'Getting started · Rivinia Docs',
+        data: { docsTitleKey: 'docs.start' },
+        loadComponent: () =>
+          import('./features/docs/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+      },
+      {
+        path: ':package',
+        title: 'Library · Rivinia Docs',
+        data: { docsTitleKey: 'docs.library' },
+        loadComponent: () =>
+          import('./features/docs/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+      },
+      {
+        path: ':package/:section',
+        title: 'Library · Rivinia Docs',
+        data: { docsTitleKey: 'docs.library' },
+        loadComponent: () =>
+          import('./features/docs/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+      },
+      {
+        path: '**',
+        title: 'Not found · Rivinia Docs',
+        data: { docsTitleKey: 'docs.notFound.title' },
+        loadComponent: () =>
+          import('./features/docs/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+      },
+    ],
   },
   {
     path: 'components',
