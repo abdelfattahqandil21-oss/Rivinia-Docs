@@ -1,0 +1,21 @@
+.hero-code .syntax-comment {
+  color: var(--rv-muted);
+}
+
+.hero-code .syntax-keyword,
+.hero-code .syntax-pipe,
+.hero-code .syntax-type,
+.hero-code .syntax-tag,
+.hero-code .syntax-attribute,
+.hero-code .syntax-binding,
+.hero-code .syntax-property,
+.hero-code .syntax-selector,
+.hero-code .syntax-variable,
+.hero-code .syntax-function {
+  color: var(--rv-brand-violet);
+}
+
+.hero-code .syntax-string,
+.hero-code .syntax-number {
+  color: var(--rv-accent);
+}

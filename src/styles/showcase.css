@@ -1,0 +1,77 @@
+.preview-toast-stack {
+  position: absolute;
+  z-index: 2;
+  inset-block-end: 1rem;
+  inset-inline-end: 1rem;
+  display: grid;
+  width: min(22rem, calc(100% - 2rem));
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.preview-toast-item {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--rv-border);
+  border-inline-start: 3px solid var(--rv-accent);
+  border-radius: 0.65rem;
+  background: var(--rv-surface, var(--rv-bg));
+  padding: 0.55rem 0.65rem;
+  color: var(--rv-fg);
+  box-shadow: 0 0.65rem 1.75rem rgb(0 0 0 / 18%);
+  font-size: 0.84rem;
+  pointer-events: auto;
+}
+
+.preview-toast-item[data-kind='error'],
+.preview-toast-item[data-kind='warning'] {
+  border-inline-start-color: #d09c45;
+}
+
+.preview-toast-item > span {
+  flex: 1;
+}
+
+.preview-toast-item button {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.preview-toast-item button:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: -2px;
+}
+
+@supports (position-anchor: --rivinia-preview-stage) and (position-area: center) {
+  app-showcase-modal-example dialog.rv-modal {
+    position: fixed;
+    position-anchor: --rivinia-preview-stage;
+    position-area: center;
+    inset: auto;
+    max-inline-size: min(calc(anchor-size(inline) - 2rem), calc(100dvw - 2rem));
+    max-block-size: min(calc(anchor-size(block) - 2rem), 80dvh);
+    margin: 0;
+    overflow: auto;
+  }
+
+  app-showcase-modal-example dialog.rv-modal::backdrop {
+    background: transparent;
+  }
+
+  .preview-stage:has(app-showcase-modal-example dialog.rv-modal[open])::after {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    border-radius: inherit;
+    background: rgb(0 0 0 / 28%);
+    content: '';
+    pointer-events: none;
+  }
+}

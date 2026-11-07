@@ -1,0 +1,150 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Inter/Inter-Latin-Variable.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Arabic-Regular.woff2') format('woff2');
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011,
+    U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Arabic-Medium.woff2') format('woff2');
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011,
+    U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Arabic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Arabic-Bold.woff2') format('woff2');
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011,
+    U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/fonts/JetBrains_Mono/JetBrainsMono-Latin-Variable.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+  --rv-bg: #fcfaf6;
+  --rv-fg: #211b27;
+  --rv-muted: #62596b;
+  --rv-border: #e4dccf;
+  --rv-accent: #8a6a3e;
+  --rv-brand-violet: #5b34a8;
+  --rv-font: 'Inter', system-ui, sans-serif;
+  --rv-font-ar: 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif;
+  --rv-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --rv-scrollbar-thumb: color-mix(in srgb, var(--rv-accent) 70%, var(--rv-border));
+  --rv-scrollbar-track: var(--rv-bg);
+  --navbar-height: 4rem;
+  --home-content-width: 72rem;
+  --home-reading-width: 60ch;
+  --home-demo-width: 80rem;
+  --home-space-1: 0.25rem;
+  --home-space-2: 0.5rem;
+  --home-space-3: 0.75rem;
+  --home-space-4: 1rem;
+  --home-space-6: 1.5rem;
+  --home-space-8: 2rem;
+  --home-space-12: 3rem;
+  --home-space-16: 4rem;
+  --home-space-24: 6rem;
+  --home-radius-sm: 0.5rem;
+  --home-radius-md: 0.75rem;
+  --home-radius-lg: 1rem;
+  scrollbar-color: var(--rv-scrollbar-thumb) var(--rv-scrollbar-track);
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--rv-scrollbar-track);
+}
+
+html::-webkit-scrollbar-thumb {
+  min-height: 3rem;
+  border: 2px solid var(--rv-scrollbar-track);
+  border-radius: 999px;
+  background: var(--rv-scrollbar-thumb);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--rv-accent);
+}
+
+:root[data-rv-theme='dark'] {
+  color-scheme: dark;
+  --rv-bg: #0b0813;
+  --rv-fg: #f5f1e8;
+  --rv-muted: #b9aec8;
+  --rv-border: #3a3044;
+  --rv-accent: #e8d2a0;
+  --rv-brand-violet: #b18aff;
+}
+
+/* Homepage-only neutral palette. Other routes retain their existing tokens. */
+:root:has(.home-page) {
+  --rv-bg: #f7f7f6;
+  --rv-fg: #222225;
+  --rv-muted: #5a5a60;
+  --rv-border: #dedee2;
+  --rv-accent: #75561c;
+  --rv-home-cta-bg: #cfb25e;
+  --rv-home-cta-foreground: #161616;
+  --rv-home-surface-raised: #ffffff;
+  --rv-home-surface-overlay: #f0f0ee;
+}
+
+:root[data-rv-theme='dark']:has(.home-page) {
+  --rv-bg: #111114;
+  --rv-fg: #f2f1ef;
+  --rv-muted: #b7b5bb;
+  --rv-border: #36363b;
+  --rv-accent: #d8b96e;
+  --rv-home-cta-bg: #d8b96e;
+  --rv-home-cta-foreground: #161616;
+  --rv-home-surface-raised: #19191d;
+  --rv-home-surface-overlay: #222226;
+}
+
+:root:lang(ar),
+:root[dir='rtl'] {
+  --rv-font: var(--rv-font-ar);
+}
+
+:root:has(.home-page) {
+  --home-section-inset: clamp(4rem, 8vw, 7rem);
+}

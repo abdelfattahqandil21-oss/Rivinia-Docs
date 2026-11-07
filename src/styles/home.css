@@ -1,0 +1,126 @@
+/* Sticky navbar height: anchor targets must not hide under it. */
+html {
+  scroll-padding-block-start: var(--navbar-height);
+}
+
+html:has(.home-page) {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+.home-page {
+  scroll-margin-block-start: var(--navbar-height);
+}
+
+.home-page .home-section {
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100dvh - var(--navbar-height));
+  scroll-snap-align: start;
+}
+
+.home-page .start-section {
+  scroll-margin-block-start: var(--navbar-height);
+}
+
+.home-page .getting-started-grid {
+  display: grid;
+  gap: var(--home-space-4);
+}
+
+.home-page .step-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-md);
+  background: var(--rv-home-surface-raised);
+}
+
+.home-page .step-card-heading {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--home-space-2);
+  border-block-end: 1px solid var(--rv-border);
+  padding-inline: var(--home-space-3);
+}
+
+.home-page .step-card-heading h3 {
+  min-width: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.home-page .start-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--home-space-3);
+  margin-block-start: var(--home-space-6);
+}
+
+.home-page .home-footer {
+  margin-block-start: var(--home-space-16);
+  border-block-start: 1px solid var(--rv-border);
+  padding-block-start: var(--home-space-8);
+}
+
+.home-page .footer-columns {
+  display: grid;
+  align-items: start;
+  gap: var(--home-space-8);
+}
+
+.home-page .footer-brand {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--home-space-3);
+}
+
+.home-page .footer-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.home-page .footer-brand p {
+  max-width: 28ch;
+  color: var(--rv-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.home-page .footer-nav {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--home-space-1);
+}
+
+.home-page .footer-package-nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home-page .footer-package-nav h3 {
+  grid-column: 1 / -1;
+}
+
+.home-page .footer-nav h3 {
+  margin-block-end: var(--home-space-2);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.home-page .footer-nav a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  color: var(--rv-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.home-page .footer-nav a:hover {
+  color: var(--rv-fg);
+  text-decoration: underline;
+}
