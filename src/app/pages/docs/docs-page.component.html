@@ -1,181 +1,69 @@
-<div
-  class="mx-auto grid max-w-[92rem] grid-cols-[13rem_minmax(0,1fr)_11rem] gap-[clamp(2rem,5vw,5rem)] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 max-[1050px]:grid-cols-[12rem_minmax(0,1fr)] max-[720px]:block"
->
-  <aside
-    class="sticky top-[5.5rem] max-h-[calc(100dvh-6.5rem)] self-start overflow-y-auto max-[1050px]:col-span-1 max-[720px]:static max-[720px]:mb-8 max-[720px]:max-h-none max-[720px]:overflow-visible"
-    [attr.aria-label]="i18n.translate('docs.navigation')"
-  >
-    <p class="mt-[0.8rem] text-sm font-semibold text-rv-fg">
-      {{ i18n.translate('docs.navigation') }}
-    </p>
-    <nav
-      class="mt-[0.8rem] grid gap-1 max-[720px]:flex max-[720px]:gap-[0.35rem] max-[720px]:overflow-x-auto max-[720px]:pb-2"
+<article class="docs-page-content">
+  <app-page-header [title]="title()" [lead]="lead()" />
+
+  <section id="start" class="mt-12 scroll-mt-24" aria-labelledby="start-title">
+    <h2
+      id="start-title"
+      class="m-0 text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] text-rv-fg"
     >
+      {{ i18n.translate('docs.startTitle') }}
+    </h2>
+    <p class="mt-3 max-w-[60ch] leading-[1.75] text-rv-muted">
+      {{ i18n.translate('docs.startText') }}
+    </p>
+    <a
+      routerLink="/components"
+      class="mt-3 inline-flex min-h-11 items-center text-[0.9rem] font-semibold text-rv-accent underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
+      >{{ i18n.translate('docs.browsePackages') }}</a
+    >
+  </section>
+
+  <section id="install" class="mt-12 scroll-mt-24" aria-labelledby="install-title">
+    <h2
+      id="install-title"
+      class="m-0 text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] text-rv-fg"
+    >
+      {{ i18n.translate('docs.installTitle') }}
+    </h2>
+    <p class="mt-3 max-w-[60ch] leading-[1.75] text-rv-muted">
+      {{ i18n.translate('docs.installText') }}
+    </p>
+    <app-code-block
+      class="mt-4 block"
+      [code]="installCode"
+      language="bash"
+      filename="terminal"
+      [caption]="i18n.translate('docs.install')"
+    />
+    <p class="mt-3 max-w-[60ch] leading-[1.75] text-rv-muted">
+      {{ i18n.translate('docs.installFollowup') }}
+    </p>
+  </section>
+
+  <section class="mt-12 scroll-mt-24" aria-labelledby="areas-title">
+    <h2
+      id="areas-title"
+      class="m-0 text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] text-rv-fg"
+    >
+      {{ i18n.translate('docs.continueTitle') }}
+    </h2>
+    <div class="mt-5 grid grid-cols-2 gap-3 max-[720px]:grid-cols-1">
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
-        [routerLink]="[]"
-        fragment="start"
-        routerLinkActive="is-current"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="routeMatchOptions"
-        >{{ i18n.translate('docs.start') }}</a
-      >
-      <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
-        [routerLink]="[]"
-        fragment="install"
-        routerLinkActive="is-current"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="routeMatchOptions"
-        >{{ i18n.translate('docs.install') }}</a
-      >
-      <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
+        class="grid min-h-28 content-start gap-[0.6rem] rounded-[0.8rem] border border-rv-border p-4 text-rv-fg no-underline hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
         routerLink="/components"
-        routerLinkActive="is-current"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="routeMatchOptions"
-        >{{ i18n.translate('nav.components') }}</a
+        ><strong>{{ i18n.translate('nav.components') }}</strong
+        ><span class="text-[0.8rem] leading-[1.55] text-rv-muted">{{
+          i18n.translate('docs.componentsText')
+        }}</span></a
       >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
+        class="grid min-h-28 content-start gap-[0.6rem] rounded-[0.8rem] border border-rv-border p-4 text-rv-fg no-underline hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
         routerLink="/playground"
-        routerLinkActive="is-current"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="routeMatchOptions"
-        >{{ i18n.translate('nav.playground') }}</a
+        ><strong>{{ i18n.translate('nav.playground') }}</strong
+        ><span class="text-[0.8rem] leading-[1.55] text-rv-muted">{{
+          i18n.translate('docs.playgroundText')
+        }}</span></a
       >
-    </nav>
-  </aside>
-
-  <div class="min-w-0">
-    <app-page-header [title]="title()" [lead]="lead()" />
-
-    <details
-      class="hidden max-[720px]:mt-6 max-[720px]:block max-[720px]:rounded-xl max-[720px]:border max-[720px]:border-rv-border max-[720px]:px-4 max-[720px]:py-3"
-    >
-      <summary
-        class="max-[720px]:flex max-[720px]:min-h-10 max-[720px]:items-center max-[720px]:cursor-pointer max-[720px]:text-[0.9rem] max-[720px]:font-semibold max-[720px]:text-rv-fg"
-      >
-        {{ i18n.translate('docs.onThisPage') }}
-      </summary>
-      <nav class="mt-2 grid gap-1 pt-2">
-        <a
-          class="flex min-h-11 items-center text-[0.85rem] text-rv-muted"
-          [routerLink]="[]"
-          fragment="start-title"
-          [attr.aria-current]="activeHeading() === 'start-title' ? 'location' : null"
-          >{{ i18n.translate('docs.start') }}</a
-        >
-        <a
-          class="flex min-h-11 items-center text-[0.85rem] text-rv-muted"
-          [routerLink]="[]"
-          fragment="install-title"
-          [attr.aria-current]="activeHeading() === 'install-title' ? 'location' : null"
-          >{{ i18n.translate('docs.install') }}</a
-        >
-        <a
-          class="flex min-h-11 items-center text-[0.85rem] text-rv-muted"
-          [routerLink]="[]"
-          fragment="areas-title"
-          [attr.aria-current]="activeHeading() === 'areas-title' ? 'location' : null"
-          >{{ i18n.translate('docs.continue') }}</a
-        >
-      </nav>
-    </details>
-
-    <section id="start" class="mt-12 scroll-mt-24" aria-labelledby="start-title">
-      <h2
-        id="start-title"
-        class="m-0 text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] text-rv-fg"
-      >
-        {{ i18n.translate('docs.startTitle') }}
-      </h2>
-      <p class="mt-3 max-w-[52rem] leading-[1.75] text-rv-muted">
-        {{ i18n.translate('docs.startText') }}
-      </p>
-      <a
-        routerLink="/components"
-        class="mt-3 inline-flex min-h-11 items-center text-[0.9rem] font-semibold text-rv-accent underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
-        >{{ i18n.translate('docs.browsePackages') }}</a
-      >
-    </section>
-
-    <section id="install" class="mt-12 scroll-mt-24" aria-labelledby="install-title">
-      <h2
-        id="install-title"
-        class="m-0 text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] text-rv-fg"
-      >
-        {{ i18n.translate('docs.installTitle') }}
-      </h2>
-      <p class="mt-3 max-w-[52rem] leading-[1.75] text-rv-muted">
-        {{ i18n.translate('docs.installText') }}
-      </p>
-      <pre
-        class="mt-4 overflow-x-auto rounded-[0.8rem] border border-rv-border bg-[var(--rv-home-surface-raised)] px-5 py-4 font-[var(--rv-font-mono)] text-[0.85rem] font-medium leading-[1.6] text-rv-fg"
-      ><code>npm install @rivinia/select</code></pre>
-      <p class="mt-3 max-w-[52rem] leading-[1.75] text-rv-muted">
-        {{ i18n.translate('docs.installFollowup') }}
-      </p>
-    </section>
-
-    <section class="mt-12 scroll-mt-24" aria-labelledby="areas-title">
-      <h2
-        id="areas-title"
-        class="m-0 text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] text-rv-fg"
-      >
-        {{ i18n.translate('docs.continueTitle') }}
-      </h2>
-      <div class="mt-5 grid grid-cols-3 gap-3 max-[720px]:grid-cols-1">
-        <a
-          class="grid min-h-28 content-start gap-[0.6rem] rounded-[0.8rem] border border-rv-border p-4 text-rv-fg no-underline hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
-          routerLink="/components"
-          ><strong>{{ i18n.translate('nav.components') }}</strong
-          ><span class="text-[0.8rem] leading-[1.55] text-rv-muted">{{
-            i18n.translate('docs.componentsText')
-          }}</span></a
-        >
-        <a
-          class="grid min-h-28 content-start gap-[0.6rem] rounded-[0.8rem] border border-rv-border p-4 text-rv-fg no-underline hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
-          routerLink="/playground"
-          ><strong>{{ i18n.translate('nav.playground') }}</strong
-          ><span class="text-[0.8rem] leading-[1.55] text-rv-muted">{{
-            i18n.translate('docs.playgroundText')
-          }}</span></a
-        >
-      </div>
-    </section>
-  </div>
-
-  <aside
-    class="sticky top-[5.5rem] max-h-[calc(100dvh-6.5rem)] self-start overflow-y-auto max-[1050px]:hidden"
-    [attr.aria-label]="i18n.translate('docs.onThisPage')"
-  >
-    <p class="mt-[0.8rem] text-sm font-semibold text-rv-fg">
-      {{ i18n.translate('docs.onThisPage') }}
-    </p>
-    <nav class="mt-[0.8rem] grid gap-1">
-      <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
-        [routerLink]="[]"
-        fragment="start-title"
-        [attr.aria-current]="activeHeading() === 'start-title' ? 'location' : null"
-        >{{ i18n.translate('docs.start') }}</a
-      >
-      <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
-        [routerLink]="[]"
-        fragment="install-title"
-        [attr.aria-current]="activeHeading() === 'install-title' ? 'location' : null"
-        >{{ i18n.translate('docs.install') }}</a
-      >
-      <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
-        [routerLink]="[]"
-        fragment="areas-title"
-        [attr.aria-current]="activeHeading() === 'areas-title' ? 'location' : null"
-        >{{ i18n.translate('docs.continue') }}</a
-      >
-    </nav>
-  </aside>
-</div>
+    </div>
+  </section>
+</article>

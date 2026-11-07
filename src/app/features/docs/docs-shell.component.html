@@ -1,0 +1,78 @@
+<div class="docs-layout">
+  <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
+    <label class="filter-label" for="docs-package-filter">
+      {{ i18n.translate('docs.filter.label') }}
+    </label>
+    <input
+      id="docs-package-filter"
+      class="package-filter"
+      type="search"
+      [value]="filterText()"
+      [attr.placeholder]="i18n.translate('docs.filter.placeholder')"
+      (input)="onFilterInput($event)"
+      (keydown.escape)="clearFilter()"
+    />
+    <p class="filter-count" aria-live="polite" aria-atomic="true">{{ resultsAnnouncement() }}</p>
+    <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
+      <section class="nav-group">
+        <h2>{{ i18n.translate('docs.start') }}</h2>
+        <a
+          [routerLink]="homeLink"
+          routerLinkActive="is-current"
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ i18n.translate('docs.start') }}</a
+        >
+      </section>
+      @for (group of groups; track group) {
+        @if (packagesForGroup(group).length) {
+          <section class="nav-group">
+            <h2>{{ i18n.translate('docs.groups.' + group) }}</h2>
+            @for (entry of packagesForGroup(group); track entry.id) {
+              <a
+                [routerLink]="packageLink(entry.id)"
+                routerLinkActive="is-current"
+                ariaCurrentWhenActive="page"
+                >{{ entry.id }}</a
+              >
+            }
+          </section>
+        }
+      }
+      @if (visiblePackages().length === 0) {
+        <p class="empty-filter" role="status">{{ i18n.translate('docs.filter.empty') }}</p>
+      }
+    </nav>
+  </aside>
+
+  <div class="docs-content-column">
+    <details class="rail-disclosure">
+      <summary>{{ i18n.translate('docs.onThisPage') }}</summary>
+      <nav class="page-rail-nav" [attr.aria-label]="i18n.translate('docs.onThisPage')">
+        @for (heading of pageHeadings(); track heading.id) {
+          <a
+            [href]="'#' + heading.id"
+            [attr.aria-current]="activeHeading() === heading.id ? 'location' : null"
+          >
+            {{ heading.text }}
+          </a>
+        }
+      </nav>
+    </details>
+    <router-outlet />
+  </div>
+
+  <aside class="docs-page-rail">
+    <nav class="page-rail-nav" [attr.aria-label]="i18n.translate('docs.onThisPage')">
+      @for (heading of pageHeadings(); track heading.id) {
+        <a
+          [href]="'#' + heading.id"
+          [attr.aria-current]="activeHeading() === heading.id ? 'location' : null"
+        >
+          {{ heading.text }}
+        </a>
+      }
+    </nav>
+  </aside>
+</div>
+<p class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement() }}</p>
