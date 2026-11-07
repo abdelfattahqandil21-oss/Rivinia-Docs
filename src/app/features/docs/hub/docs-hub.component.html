@@ -4,8 +4,8 @@
   <app-docs-package-filter
     class="hub-filter"
     inputId="docs-hub-package-filter"
-    [resultCount]="visiblePackages().length"
-    [(value)]="filterText"
+    [resultCount]="search.visiblePackages().length"
+    [(value)]="search.query"
   />
 
   <a class="getting-started-row" [routerLink]="gettingStartedLink">

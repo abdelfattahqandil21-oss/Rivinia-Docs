@@ -5,8 +5,8 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
 import { CopyButtonComponent } from '../../../shared/components/copy-button/copy-button.component';
+import { docsHeadingLink, docsLink } from '../shared/docs-link';
 import { GETTING_STARTED_PAGES } from './models/docs-getting-started.model';
-import { docsLink } from '../shared/docs-link';
 
 @Component({
   imports: [RouterLink, CodeBlockComponent, CopyButtonComponent],
@@ -30,7 +30,6 @@ export class DocsGettingStartedComponent {
       : null;
 
   protected headingLink(id: string): string {
-    const location = this.document.defaultView?.location;
-    return location ? `${location.origin}${location.pathname}#${id}` : `${docsLink()}#${id}`;
+    return docsHeadingLink(this.document, id);
   }
 }

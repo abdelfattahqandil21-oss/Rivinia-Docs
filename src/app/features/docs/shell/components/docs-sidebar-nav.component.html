@@ -1,0 +1,69 @@
+<section
+  class="nav-group nav-accordion t-acc"
+  [attr.data-open]="sidebar.openGroup() === 'getting-started'"
+>
+  <button
+    type="button"
+    class="nav-accordion-trigger t-acc-head"
+    [attr.aria-expanded]="sidebar.openGroup() === 'getting-started'"
+    [attr.aria-controls]="panelPrefix() + '-getting-started'"
+    (click)="sidebar.toggleGroup('getting-started')"
+  >
+    <span>{{ i18n.translate('docs.gettingStarted') }}</span>
+    <span class="t-acc-chevron" aria-hidden="true">
+      <app-icon name="chevron-down" [size]="16" />
+    </span>
+  </button>
+  <div
+    class="nav-accordion-panel t-acc-panel"
+    [id]="panelPrefix() + '-getting-started'"
+    [attr.inert]="sidebar.openGroup() === 'getting-started' ? null : ''"
+  >
+    <div class="nav-group-links t-acc-panel-inner">
+      @for (page of gettingStartedPages; track page.slug) {
+        <a
+          [routerLink]="gettingStartedLink(page.slug)"
+          routerLinkActive="is-current"
+          ariaCurrentWhenActive="page"
+          >{{ i18n.translate(page.navTitleKey) }}</a
+        >
+      }
+    </div>
+  </div>
+</section>
+@for (group of groups; track group) {
+  @if (search.forGroup(group).length) {
+    <section class="nav-group nav-accordion t-acc" [attr.data-open]="sidebar.openGroup() === group">
+      <button
+        type="button"
+        class="nav-accordion-trigger t-acc-head"
+        [attr.aria-expanded]="sidebar.openGroup() === group"
+        [attr.aria-controls]="panelPrefix() + '-group-' + group"
+        (click)="sidebar.toggleGroup(group)"
+      >
+        <span>{{ i18n.translate('docs.groups.' + group) }}</span>
+        <span class="t-acc-chevron" aria-hidden="true">
+          <app-icon name="chevron-down" [size]="16" />
+        </span>
+      </button>
+      <div
+        class="nav-accordion-panel t-acc-panel"
+        [id]="panelPrefix() + '-group-' + group"
+        [attr.inert]="sidebar.openGroup() === group ? null : ''"
+      >
+        <div class="nav-group-links t-acc-panel-inner">
+          @for (entry of search.forGroup(group); track entry.id) {
+            <a
+              [routerLink]="packageLink(entry.id)"
+              lang="en"
+              dir="ltr"
+              routerLinkActive="is-current"
+              ariaCurrentWhenActive="page"
+              >{{ entry.id }}</a
+            >
+          }
+        </div>
+      </div>
+    </section>
+  }
+}

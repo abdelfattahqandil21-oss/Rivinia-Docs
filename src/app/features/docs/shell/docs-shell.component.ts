@@ -2,7 +2,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  computed,
   effect,
   inject,
   signal,
@@ -19,11 +18,14 @@ import { PACKAGE_METADATA } from '../../packages/package-metadata';
 import { NavContextService } from '../../../layout/nav-context.service';
 import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { docsLink } from '../shared/docs-link';
+import {
+  DOCS_PACKAGE_GROUPS,
+  type DocsNavGroup,
+  type DocsPackageGroup,
+} from '../shared/models/docs-group.model';
+import { DocsPackageSearchService } from '../shared/services/docs-package-search.service';
 import { GETTING_STARTED_PAGES } from '../getting-started/models/docs-getting-started.model';
 import { DocsPackageFilterComponent } from '../package-filter/docs-package-filter.component';
-
-const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
-type DocsGroup = (typeof DOCS_GROUPS)[number] | 'getting-started';
 
 @Component({
   imports: [
@@ -34,6 +36,7 @@ type DocsGroup = (typeof DOCS_GROUPS)[number] | 'getting-started';
     IconComponent,
     DocsPackageFilterComponent,
   ],
+  providers: [DocsPackageSearchService],
   selector: 'app-docs-shell',
   templateUrl: './docs-shell.component.html',
   styleUrl: './docs-shell.component.css',
@@ -44,25 +47,15 @@ export class DocsShellComponent {
   private readonly navContext = inject(NavContextService);
   private readonly destroyRef = inject(DestroyRef);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
+  protected readonly search = inject(DocsPackageSearchService);
 
-  protected readonly groups = DOCS_GROUPS;
+  protected readonly groups = DOCS_PACKAGE_GROUPS;
   protected readonly gettingStartedPages = GETTING_STARTED_PAGES;
-  protected readonly packages = PACKAGE_MANIFEST;
   protected readonly sidebarCollapsed = signal(false);
-  protected readonly openGroup = signal<DocsGroup | null>(null);
-  protected readonly filterText = signal('');
+  protected readonly openGroup = signal<DocsNavGroup | null>(null);
   protected readonly announcement = signal('');
   protected readonly activeHeading = signal('');
   protected readonly pageHeadings = signal<readonly { id: string; text: string }[]>([]);
-  protected readonly visiblePackages = computed(() => {
-    const query = this.filterText().trim().toLocaleLowerCase();
-    return this.packages.filter(
-      (entry) =>
-        !query ||
-        entry.id.toLocaleLowerCase().includes(query) ||
-        entry.name.toLocaleLowerCase().includes(query),
-    );
-  });
   protected readonly closeMenuLabel = this.i18n.t('docs.closeMenu');
   protected readonly collapseSidebarLabel = this.i18n.t('docs.collapseSidebar');
   protected readonly expandSidebarLabel = this.i18n.t('docs.expandSidebar');
@@ -101,8 +94,8 @@ export class DocsShellComponent {
     this.updateOpenGroupForCurrentPage();
   }
 
-  protected packagesForGroup(group: DocsGroup) {
-    return this.visiblePackages().filter((entry) => entry.docs.group === group);
+  protected packagesForGroup(group: DocsPackageGroup) {
+    return this.search.forGroup(group);
   }
 
   protected packageLink(id: string): string {
@@ -117,7 +110,7 @@ export class DocsShellComponent {
     this.sidebarCollapsed.update((collapsed) => !collapsed);
   }
 
-  protected toggleGroup(group: DocsGroup): void {
+  protected toggleGroup(group: DocsNavGroup): void {
     this.openGroup.update((openGroup) => (openGroup === group ? null : group));
   }
 
@@ -209,7 +202,7 @@ export class DocsShellComponent {
   }
 
   private syncOpenGroup(packageId: string | null): void {
-    const packageEntry = this.packages.find((entry) => entry.id === packageId);
+    const packageEntry = PACKAGE_MANIFEST.find((entry) => entry.id === packageId);
     if (packageEntry) this.openGroup.set(packageEntry.docs.group);
     else if (this.lastPagePath.startsWith('/docs/getting-started/')) {
       this.openGroup.set('getting-started');

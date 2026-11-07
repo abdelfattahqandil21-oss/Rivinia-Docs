@@ -1,8 +1,8 @@
 <ng-template #sidebarContents let-filterId="filterId" let-panelPrefix="panelPrefix">
   <app-docs-package-filter
     [inputId]="filterId"
-    [resultCount]="visiblePackages().length"
-    [(value)]="filterText"
+    [resultCount]="search.visiblePackages().length"
+    [(value)]="search.query"
   />
   <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
     <section
