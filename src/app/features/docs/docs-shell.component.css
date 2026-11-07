@@ -51,6 +51,63 @@
   outline-offset: 3px;
 }
 
+.docs-sidebar-dialog {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: min(22rem, calc(100vw - 2rem));
+  block-size: 100dvh;
+  max-inline-size: calc(100vw - 2rem);
+  max-block-size: 100dvh;
+  margin: 0;
+  border: 0;
+  border-inline-end: 1px solid var(--rv-border);
+  background: var(--rv-bg);
+  color: var(--rv-fg);
+  padding: 1rem;
+}
+
+.docs-sidebar-dialog::backdrop {
+  background: var(--rv-docs-backdrop);
+}
+
+.dialog-heading {
+  display: flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-end: 1rem;
+}
+
+.dialog-heading h2 {
+  margin: 0;
+  color: var(--rv-fg);
+  font-size: 1rem;
+}
+
+.close-dialog {
+  display: grid;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  flex: none;
+  place-items: center;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  background: var(--rv-bg);
+  color: var(--rv-fg);
+}
+
+.close-dialog:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+.dialog-sidebar {
+  position: static;
+  max-block-size: calc(100dvh - 5rem);
+}
+
 .filter-count,
 .empty-filter {
   margin-block: 0.5rem 0;
@@ -164,6 +221,14 @@
     position: static;
     max-block-size: none;
     overflow: visible;
+  }
+
+  .docs-layout > .docs-sidebar {
+    display: none;
+  }
+
+  .docs-sidebar-dialog[open] {
+    display: block;
   }
 }
 

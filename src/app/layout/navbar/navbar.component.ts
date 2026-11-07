@@ -79,7 +79,9 @@ export class NavbarComponent {
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly router = inject(Router);
-  protected readonly docsRoute = inject(NavContextService).docsRoute;
+  private readonly navContext = inject(NavContextService);
+  protected readonly docsRoute = this.navContext.docsRoute;
+  protected readonly docsMenuOpen = this.navContext.docsMenuOpen;
   private readonly destroyRef = inject(DestroyRef);
   private readonly menuButton = viewChild<ElementRef<HTMLButtonElement>>('menuButton');
   private readonly menuPanel = viewChild<ElementRef<HTMLElement>>('menuPanel');
@@ -113,6 +115,7 @@ export class NavbarComponent {
   protected readonly openMenuLabel = this.i18n.t('nav.openMenu');
   protected readonly closeMenuLabel = this.i18n.t('nav.closeMenu');
   protected readonly getStartedLabel = this.i18n.t('nav.getStarted');
+  protected readonly docsMenuLabel = this.i18n.t('docs.menu');
   protected readonly githubLabel = this.i18n.t(GITHUB_LINK.labelKey);
   protected readonly newTabLabel = this.i18n.t('nav.opensInNewTab');
 
@@ -158,6 +161,11 @@ export class NavbarComponent {
 
   protected closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  protected openDocsMenu(event: MouseEvent): void {
+    const trigger = event.currentTarget;
+    if (trigger instanceof HTMLElement) this.navContext.requestDocsMenu(trigger);
   }
 
   protected onEscape(): void {

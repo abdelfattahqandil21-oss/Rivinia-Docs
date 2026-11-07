@@ -37,6 +37,20 @@
     <div class="ms-auto flex items-center gap-2">
       <app-preferences-menu (opened)="closeMenu()" />
 
+      @if (docsRoute()) {
+        <button
+          type="button"
+          class="docs-menu-button hidden min-h-11 items-center gap-2 rounded-lg border border-rv-border px-3 text-sm font-medium text-rv-fg hover:border-rv-accent hover:text-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent max-[1023px]:inline-flex"
+          aria-controls="rv-docs-menu-dialog"
+          [attr.aria-expanded]="docsMenuOpen()"
+          [attr.aria-label]="docsMenuLabel()"
+          (click)="openDocsMenu($event)"
+        >
+          <app-icon name="menu" [size]="18" aria-hidden="true" />
+          <span>{{ i18n.translate('docs.menu.short') }}</span>
+        </button>
+      }
+
       <a
         routerLink="/docs"
         class="hidden h-10 items-center rounded-lg bg-rv-accent px-4 text-sm font-semibold text-rv-bg transition-opacity duration-150 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none lg:inline-flex"

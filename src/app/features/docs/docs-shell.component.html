@@ -1,10 +1,7 @@
-<div class="docs-layout">
-  <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
-    <label class="filter-label" for="docs-package-filter">
-      {{ i18n.translate('docs.filter.label') }}
-    </label>
+<ng-template #sidebarContents>
+  <label class="filter-label">
+    {{ i18n.translate('docs.filter.label') }}
     <input
-      id="docs-package-filter"
       class="package-filter"
       type="search"
       [value]="filterText()"
@@ -12,37 +9,43 @@
       (input)="onFilterInput($event)"
       (keydown.escape)="clearFilter()"
     />
-    <p class="filter-count" aria-live="polite" aria-atomic="true">{{ resultsAnnouncement() }}</p>
-    <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
-      <section class="nav-group">
-        <h2>{{ i18n.translate('docs.start') }}</h2>
-        <a
-          [routerLink]="homeLink"
-          routerLinkActive="is-current"
-          ariaCurrentWhenActive="page"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >{{ i18n.translate('docs.start') }}</a
-        >
-      </section>
-      @for (group of groups; track group) {
-        @if (packagesForGroup(group).length) {
-          <section class="nav-group">
-            <h2>{{ i18n.translate('docs.groups.' + group) }}</h2>
-            @for (entry of packagesForGroup(group); track entry.id) {
-              <a
-                [routerLink]="packageLink(entry.id)"
-                routerLinkActive="is-current"
-                ariaCurrentWhenActive="page"
-                >{{ entry.id }}</a
-              >
-            }
-          </section>
-        }
+  </label>
+  <p class="filter-count" aria-live="polite" aria-atomic="true">{{ resultsAnnouncement() }}</p>
+  <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
+    <section class="nav-group">
+      <h2>{{ i18n.translate('docs.start') }}</h2>
+      <a
+        [routerLink]="homeLink"
+        routerLinkActive="is-current"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >{{ i18n.translate('docs.start') }}</a
+      >
+    </section>
+    @for (group of groups; track group) {
+      @if (packagesForGroup(group).length) {
+        <section class="nav-group">
+          <h2>{{ i18n.translate('docs.groups.' + group) }}</h2>
+          @for (entry of packagesForGroup(group); track entry.id) {
+            <a
+              [routerLink]="packageLink(entry.id)"
+              routerLinkActive="is-current"
+              ariaCurrentWhenActive="page"
+              >{{ entry.id }}</a
+            >
+          }
+        </section>
       }
-      @if (visiblePackages().length === 0) {
-        <p class="empty-filter" role="status">{{ i18n.translate('docs.filter.empty') }}</p>
-      }
-    </nav>
+    }
+    @if (visiblePackages().length === 0) {
+      <p class="empty-filter" role="status">{{ i18n.translate('docs.filter.empty') }}</p>
+    }
+  </nav>
+</ng-template>
+
+<div class="docs-layout">
+  <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
+    <ng-container [ngTemplateOutlet]="sidebarContents" />
   </aside>
 
   <div class="docs-content-column">
@@ -75,4 +78,27 @@
     </nav>
   </aside>
 </div>
+<dialog
+  #sidebarDialog
+  id="rv-docs-menu-dialog"
+  class="docs-sidebar-dialog"
+  aria-labelledby="docs-menu-title"
+  (close)="onDialogClose()"
+  (click)="onDialogPointerDown($event)"
+>
+  <div class="dialog-heading">
+    <h2 id="docs-menu-title">{{ i18n.translate('docs.navigation') }}</h2>
+    <button
+      type="button"
+      class="close-dialog"
+      [attr.aria-label]="closeMenuLabel()"
+      (click)="closeSidebarDialog()"
+    >
+      <app-icon name="x" [size]="18" aria-hidden="true" />
+    </button>
+  </div>
+  <aside class="docs-sidebar dialog-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
+    <ng-container [ngTemplateOutlet]="sidebarContents" />
+  </aside>
+</dialog>
 <p class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement() }}</p>

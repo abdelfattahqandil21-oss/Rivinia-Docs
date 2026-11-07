@@ -1,31 +1,34 @@
-import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
+  Component,
+  DestroyRef,
+  ElementRef,
+  computed,
+  effect,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Title } from '@angular/platform-browser';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 import { filter } from 'rxjs';
 
 import { PACKAGE_MANIFEST } from '../packages/package-manifest';
 import { NavContextService } from '../../layout/nav-context.service';
+import { IconComponent } from '../../shared/components/icon/icon.component';
 import { docsLink } from './docs-link';
 
 const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
 
 @Component({
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgTemplateOutlet, IconComponent],
   selector: 'app-docs-shell',
   templateUrl: './docs-shell.component.html',
   styleUrl: './docs-shell.component.css',
 })
 export class DocsShellComponent {
   private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
   private readonly title = inject(Title);
   private readonly navContext = inject(NavContextService);
   private readonly destroyRef = inject(DestroyRef);
@@ -50,23 +53,37 @@ export class DocsShellComponent {
     this.i18n.translate('docs.filter.count', { count: this.visiblePackages().length }),
   );
   protected readonly homeLink = docsLink();
+  protected readonly closeMenuLabel = this.i18n.t('docs.closeMenu');
+  private readonly sidebarDialog = viewChild<ElementRef<HTMLDialogElement>>('sidebarDialog');
   private headingObserver?: IntersectionObserver;
   private lastPagePath = '';
 
   constructor() {
     this.navContext.docsRoute.set(true);
-    this.updatePageContext();
+    effect(() => {
+      const request = this.navContext.docsMenuRequest();
+      if (request === 0) return;
+      queueMicrotask(() => {
+        const dialog = this.sidebarDialog()?.nativeElement;
+        if (dialog && !dialog.open) {
+          dialog.showModal();
+          this.navContext.docsMenuOpen.set(true);
+        }
+      });
+    });
     const subscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
         const pagePath = event.urlAfterRedirects.split(/[?#]/, 1)[0];
         if (pagePath === this.lastPagePath) return;
         this.lastPagePath = pagePath;
+        this.closeSidebarDialog();
         this.updatePageContext();
       });
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
       this.headingObserver?.disconnect();
+      this.closeSidebarDialog();
       this.navContext.docsRoute.set(false);
     });
   }
@@ -83,15 +100,29 @@ export class DocsShellComponent {
     this.filterText.set('');
   }
 
+  protected closeSidebarDialog(): void {
+    const dialog = this.sidebarDialog()?.nativeElement;
+    if (dialog?.open) dialog.close();
+  }
+
+  protected onDialogClose(): void {
+    this.navContext.docsMenuOpen.set(false);
+    this.navContext.focusDocsMenuTrigger();
+  }
+
+  protected onDialogPointerDown(event: MouseEvent): void {
+    if (event.target === this.sidebarDialog()?.nativeElement) this.closeSidebarDialog();
+  }
+
   protected onFilterInput(event: Event): void {
     this.filterText.set((event.target as HTMLInputElement).value);
   }
 
   private updatePageContext(): void {
     this.lastPagePath = this.router.url.split(/[?#]/, 1)[0];
-    let active = this.route;
+    let active = this.router.routerState.snapshot.root;
     while (active.firstChild) active = active.firstChild;
-    const titleKey = active.snapshot.data['docsTitleKey'] as string | undefined;
+    const titleKey = active.data['docsTitleKey'] as string | undefined;
     const pageName = titleKey
       ? this.i18n.translate(titleKey)
       : this.i18n.translate('page.docs.title');
