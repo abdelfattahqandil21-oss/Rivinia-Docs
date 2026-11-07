@@ -6,6 +6,143 @@ export interface DocsPackageGuide {
 }
 
 export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
+  select: {
+    summaryKey: 'docs.guide.select.summary',
+    conceptKeys: [
+      'docs.guide.select.modes',
+      'docs.guide.select.filtering',
+      'docs.guide.select.forms',
+    ],
+    api: [
+      { name: 'RiviniaSelect', descriptionKey: 'docs.guide.select.api.controller' },
+      { name: 'RiviniaSelectComponent', descriptionKey: 'docs.guide.select.api.component' },
+      { name: 'SelectChange', descriptionKey: 'docs.guide.select.api.change' },
+    ],
+    references: [
+      {
+        titleKey: 'docs.guide.select.reference.headless',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.3/docs/select/headless.md',
+      },
+      {
+        titleKey: 'docs.guide.select.reference.forms',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.3/docs/select/forms.md',
+      },
+      {
+        titleKey: 'docs.guide.select.reference.accessibility',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/select/v1.0.3/docs/select/accessibility.md',
+      },
+    ],
+  },
+  datepicker: {
+    summaryKey: 'docs.guide.datepicker.summary',
+    conceptKeys: [
+      'docs.guide.datepicker.civilValues',
+      'docs.guide.datepicker.timeZones',
+      'docs.guide.datepicker.locale',
+    ],
+    api: [
+      { name: 'RiviniaDate · RiviniaDateTime', descriptionKey: 'docs.guide.datepicker.api.values' },
+      { name: 'RiviniaCalendar', descriptionKey: 'docs.guide.datepicker.api.controller' },
+      {
+        name: 'RiviniaDatepickerComponent · RiviniaDatetimepickerComponent',
+        descriptionKey: 'docs.guide.datepicker.api.components',
+      },
+    ],
+    references: [
+      {
+        titleKey: 'docs.guide.datepicker.reference.overview',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.3/docs/datepicker/overview.md',
+      },
+      {
+        titleKey: 'docs.guide.datepicker.reference.timeZones',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.3/docs/datepicker/time-zones-and-dst.md',
+      },
+      {
+        titleKey: 'docs.guide.datepicker.reference.keyboard',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/datepicker/v1.0.3/docs/datepicker/keyboard-and-rtl.md',
+      },
+    ],
+  },
+  table: {
+    summaryKey: 'docs.guide.table.summary',
+    conceptKeys: [
+      'docs.guide.table.typedColumns',
+      'docs.guide.table.pipeline',
+      'docs.guide.table.customization',
+    ],
+    api: [
+      { name: 'createTable()', descriptionKey: 'docs.guide.table.api.create' },
+      { name: 'tableColumn<T>()', descriptionKey: 'docs.guide.table.api.column' },
+      { name: 'paginate()', descriptionKey: 'docs.guide.table.api.paginate' },
+    ],
+    references: [
+      {
+        titleKey: 'docs.guide.table.reference.columns',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.3/docs/table/columns.md',
+      },
+      {
+        titleKey: 'docs.guide.table.reference.paging',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.3/docs/table/paging-and-state.md',
+      },
+      {
+        titleKey: 'docs.guide.table.reference.selection',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/table/v1.0.3/docs/table/selection.md',
+      },
+    ],
+  },
+  modal: {
+    summaryKey: 'docs.guide.modal.summary',
+    conceptKeys: [
+      'docs.guide.modal.typedResults',
+      'docs.guide.modal.guards',
+      'docs.guide.modal.admission',
+    ],
+    api: [
+      { name: 'provideRiviniaModal()', descriptionKey: 'docs.guide.modal.api.provider' },
+      {
+        name: 'RiviniaModal.openModal<TData, TResult>()',
+        descriptionKey: 'docs.guide.modal.api.open',
+      },
+      { name: 'ModalHandle · ModalResult', descriptionKey: 'docs.guide.modal.api.result' },
+    ],
+    references: [
+      {
+        titleKey: 'docs.guide.modal.reference.typed',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.3/docs/modal/typed-modals.md',
+      },
+      {
+        titleKey: 'docs.guide.modal.reference.guards',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.3/docs/modal/lifecycle-and-guards.md',
+      },
+      {
+        titleKey: 'docs.guide.modal.reference.stacking',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.3/docs/modal/sizing-and-stacking.md',
+      },
+    ],
+  },
+  toast: {
+    summaryKey: 'docs.guide.toast.summary',
+    conceptKeys: ['docs.guide.toast.queue', 'docs.guide.toast.actions', 'docs.guide.toast.layers'],
+    api: [
+      { name: 'injectRiviniaToast()', descriptionKey: 'docs.guide.toast.api.inject' },
+      { name: 'RiviniaToast.show()', descriptionKey: 'docs.guide.toast.api.show' },
+      { name: 'RiviniaToastList', descriptionKey: 'docs.guide.toast.api.list' },
+    ],
+    references: [
+      {
+        titleKey: 'docs.guide.toast.reference.readyMade',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.3/docs/toast/ready-made-ui.md',
+      },
+      {
+        titleKey: 'docs.guide.toast.reference.headless',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.3/docs/toast/headless.md',
+      },
+      {
+        titleKey: 'docs.guide.toast.reference.managedList',
+        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/toast/v1.0.3/docs/toast/top-layer-and-managed-list.md',
+      },
+    ],
+  },
   env: {
     summaryKey: 'docs.guide.env.summary',
     conceptKeys: [

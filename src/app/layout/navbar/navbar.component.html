@@ -40,14 +40,14 @@
       @if (docsRoute()) {
         <button
           type="button"
-          class="docs-menu-button hidden min-h-11 items-center gap-2 rounded-lg border border-rv-border px-3 text-sm font-medium text-rv-fg hover:border-rv-accent hover:text-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent max-[1023px]:inline-flex"
+          class="docs-menu-button hidden min-h-11 items-center gap-2 rounded-lg border border-rv-border px-3 text-sm font-medium text-rv-fg hover:border-rv-accent hover:text-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent max-[1023px]:inline-flex max-[399px]:w-11 max-[399px]:justify-center max-[399px]:px-0"
           aria-controls="rv-docs-menu-dialog"
           [attr.aria-expanded]="docsMenuOpen()"
           [attr.aria-label]="docsMenuLabel()"
           (click)="openDocsMenu($event)"
         >
           <app-icon name="menu" [size]="18" aria-hidden="true" />
-          <span>{{ i18n.translate('docs.menu.short') }}</span>
+          <span class="max-[399px]:sr-only">{{ i18n.translate('docs.menu.short') }}</span>
         </button>
       }
 

@@ -9,8 +9,8 @@
 - `50dc1af`, `2b626c3`, `3d3fe93` — package hub, localized Getting Started sequence, and package overview pages.
 - `62f88da` — corrected the skip link so it stays on the active route and explicitly focuses the main landmark.
 - `b4a9a84` — labeled declared dependency ranges separately from the published versions on package overview pages.
-- Added localized usage guides for `env`, `http`, `i18n`, `theme`, `menu`, and `popup`, based on installed package READMEs and public declarations, with links to their maintained detailed docs. The guides are not presented as generated demos.
-- Checked all six guide routes in Chrome at 390px: each has one H1/main, three concepts, public API highlights, detailed reference links, no browser errors, and no horizontal overflow. Also switched Menu to Arabic/RTL and confirmed the guide renders with no overflow.
+- Added localized usage guides for all eleven packages, based on installed package READMEs and public declarations, with links to their maintained detailed docs. Existing showcase sources remain the Quick start for Select, Datepicker, Table, Modal, and Toast.
+- Checked all eleven guide routes in Chrome at 390px: each has one H1/main, three concepts, three public API highlights, three detailed reference links, no browser errors, and no horizontal overflow. Checked the five demo-library routes at 360px, 768px, 1280px, and 1440px; compacted the Docs menu control below 400px to remove a 14px navbar overflow. Switched Select to Arabic/RTL and confirmed no overflow.
 - Captured 20 Docs hub screenshots at the five required viewport sizes × LTR/RTL × dark/light, plus four Home comparison screenshots, in `docs/screenshots/docs-ia/`.
 - Browser-checked Docs package routes at 390px: one H1/main landmark, package-specific title, and no horizontal overflow.
 - Verified the five-second discovery path at 390px: open Docs, filter for Select, open its page, and find the live-example action in 2.7 seconds; one H1/main and no horizontal overflow.
@@ -35,7 +35,7 @@
 
 ## Coverage gaps
 
-See `docs/docs-coverage.md` for all 11 packages and seven overview blocks. Quick start/live demos exist for Select, Datepicker, Table, Modal, and Toast. The remaining six packages now have localized concept/API guidance and links to maintained detailed docs; their Quick start block remains omitted without a registered genuine demo. UI entry points are available for i18n, Select, Datepicker, Table, Modal, Toast, and Menu. Dependency metadata exists for i18n, Select, and Menu. Other blocks are omitted when package metadata or a real demo does not provide them.
+See `docs/docs-coverage.md` for all 11 packages and seven overview blocks. Every package now has localized concept/API guidance and links to maintained detailed docs. Quick start/live demos exist for Select, Datepicker, Table, Modal, and Toast. UI entry points are available for i18n, Select, Datepicker, Table, Modal, Toast, and Menu. Dependency metadata exists for i18n, Select, and Menu. Other blocks are omitted when package metadata or a real demo does not provide them.
 
 ## New Arabic strings for review
 
@@ -109,6 +109,59 @@ See `docs/docs-coverage.md` for all 11 packages and seven overview blocks. Quick
 - `docs.guide.popup.api.dismissal`: يسجل مستمعات الإغلاق وينظفها مع دورة حياة المكوّن المضيف.
 - `docs.guide.popup.api.constants`: الفاصل الافتراضي عن زر التشغيل والهامش عن حافة نافذة العرض لمساعد تحديد الموضع.
 - `docs.guide.popup.reference.core`: مواصفات نواة popup
+
+## Package-guide Arabic strings added in R12
+
+- `docs.guide.select.summary`: اختر بين متحكم الاختيار headless وحقل الاختيار الجاهز؛ فكلاهما يستخدم نموذج القيم المفردة أو المتعددة نفسه.
+- `docs.guide.select.modes`: يختار النمط المفرد قيمة واحدة ويغلق القائمة. أما النمط المتعدد فيبدّل القيم ويبقي القائمة مفتوحة لمواصلة الاختيار.
+- `docs.guide.select.filtering`: البحث غير حساس لحالة الأحرف واللكنات، ويطبّع التشكيل والتطويل وأشكال الألف العربية.
+- `docs.guide.select.forms`: يطبق المكوّن الجاهز FormValueControl من Angular، ويعمل مع Signal Forms وReactive Forms وngModel.
+- `docs.guide.select.api.controller`: متحكم headless لسجل الخيارات والتصفية والقيمة المحددة.
+- `docs.guide.select.api.component`: حقل جاهز يعرض popup والخيارات وسلوك لوحة المفاتيح والتركيز.
+- `docs.guide.select.api.change`: نوع القيمة التي تصدرها الواجهة؛ ويعتمد شكلها على النمط المفرد أو المتعدد.
+- `docs.guide.select.reference.headless`: إنشاء حقل اختيار مخصص
+- `docs.guide.select.reference.forms`: النماذج وربط القيمة
+- `docs.guide.select.reference.accessibility`: لوحة المفاتيح وإمكانية الوصول
+- `docs.guide.datepicker.summary`: اختر تواريخ أو أوقاتًا مدنية بالتقويم الغريغوري مع واجهة اختيار اختيارية وتنسيق محلي ولوحة مفاتيح ومعالجة صريحة للمناطق الزمنية.
+- `docs.guide.datepicker.civilValues`: تمثل RiviniaDate وRiviniaDateTime قيم التقويم؛ وتحويل المنطقة الزمنية عملية صريحة لا تحويل ضمني إلى Date.
+- `docs.guide.datepicker.timeZones`: استخدم أدوات المنطقة الزمنية لحل وقت الجدار وغموض التوقيت الصيفي في منطقة مسماة.
+- `docs.guide.datepicker.locale`: يتحكم locale في تنسيق التاريخ والوقت ودورة الساعة والتسميات والاتجاه؛ وتدعم الواجهة RTL ونماذج Angular.
+- `docs.guide.datepicker.api.values`: أنواع قيم التاريخ والتاريخ والوقت المدنية التي يقبلها المتحكم والواجهة.
+- `docs.guide.datepicker.api.controller`: متحكم headless لحالة التقويم والتنقل فيه.
+- `docs.guide.datepicker.api.components`: حقلا إدخال جاهزان للتاريخ فقط وللتاريخ والوقت من مدخل UI.
+- `docs.guide.datepicker.reference.overview`: نظرة عامة على منتقي التاريخ
+- `docs.guide.datepicker.reference.timeZones`: المناطق الزمنية والتوقيت الصيفي
+- `docs.guide.datepicker.reference.keyboard`: التنقل بلوحة المفاتيح وRTL
+- `docs.guide.table.summary`: نمذج الصفوف والأعمدة المكتوبة الأنواع عبر pipeline إشارات headless، ثم اعرضها بواجهة الجدول الاختيارية أو markup مخصص.
+- `docs.guide.table.typedColumns`: عرّف الأعمدة وفق نوع الصف حتى تظل accessors وقيم الخلايا وحالة الجدول مرتبطة بنموذج بياناتك.
+- `docs.guide.table.pipeline`: تتضمن النواة البحث والتصفية والترتيب وتقسيم الصفحات وتحديد الصفوف وحساب امتداد الصفوف والأعمدة.
+- `docs.guide.table.customization`: استخدم شبكة الجدول الجاهزة لعرض النموذج، أو احتفظ بالمتحكم واعرض markup جدول مخصصًا.
+- `docs.guide.table.api.create`: ينشئ نموذج جدول تفاعليًا من خيارات الأعمدة والبيانات المدعومة بالإشارات.
+- `docs.guide.table.api.column`: يبني تعريف عمود مكتوب الأنواع وaccessor له.
+- `docs.guide.table.api.paginate`: يعيد الصفحة المطلوبة وبيانات تقسيم الصفوف إلى صفحات.
+- `docs.guide.table.reference.columns`: الأعمدة وaccessors المكتوبة الأنواع
+- `docs.guide.table.reference.paging`: تقسيم الصفحات وحالة الجدول
+- `docs.guide.table.reference.selection`: تحديد الصفوف
+- `docs.guide.modal.summary`: افتح محتوى نافذة مكتوب الأنواع واستقبل نتائج مكتوبة الأنواع، مع ضبط سياسات الإضافة والإغلاق ودورة الحياة.
+- `docs.guide.modal.typedResults`: مرر نوع البيانات عند فتح النافذة، واستقبل نتيجة تميّز التأكيد والإغلاق وأحوال الإنهاء الأخرى.
+- `docs.guide.modal.guards`: يمكن للحراس غير المتزامنين منع الإغلاق لمعالجة التغييرات غير المحفوظة أو التحقق قبل إغلاق النافذة.
+- `docs.guide.modal.admission`: اختر عرض النوافذ المتراكمة أو وضعها في طابور؛ ويتولى مضيف UI الاختياري العرض وتحديد الموضع.
+- `docs.guide.modal.api.provider`: يسجل مدير النوافذ وإعدادات دورة حياتها.
+- `docs.guide.modal.api.open`: يفتح محتوى مكتوب الأنواع مع البيانات والمعرّف الثابت والبيانات الوصفية وخيارات الإغلاق.
+- `docs.guide.modal.api.result`: مقبض لانتظار نتيجة إكمال النافذة المكتوبة الأنواع.
+- `docs.guide.modal.reference.typed`: بيانات ونتائج النوافذ المكتوبة الأنواع
+- `docs.guide.modal.reference.guards`: حراس دورة الحياة والإغلاق
+- `docs.guide.modal.reference.stacking`: أحجام النوافذ وتراصها
+- `docs.guide.toast.summary`: ضع إشعارات مؤقتة في طابور عبر خدمة قائمة على الإشارات، واعرضها بمكوّن قائمة الإشعارات الاختياري.
+- `docs.guide.toast.queue`: تدير الخدمة حالة الإشعارات والمؤقتات ومنع التكرار وتجاوز السعة باستقلال عن طريقة العرض.
+- `docs.guide.toast.actions`: يمكن أن يحتوي الإشعار على إجراء؛ اختر النوع والمدة بما يناسب الرسالة ويمنح المستخدم وقتًا كافيًا للاستجابة.
+- `docs.guide.toast.layers`: استخدم الخدمة دون واجهة عند الحاجة، أو اعرض القائمة المدارة من مدخل UI المنفصل.
+- `docs.guide.toast.api.inject`: يحقن خدمة الإشعارات داخل مكوّن أو خدمة Angular.
+- `docs.guide.toast.api.show`: يضيف إشعارًا مُعدًا إلى الطابور المُدار.
+- `docs.guide.toast.api.list`: يعرض الإشعارات الظاهرة ويديرها من مدخل UI.
+- `docs.guide.toast.reference.readyMade`: قائمة الإشعارات الجاهزة
+- `docs.guide.toast.reference.headless`: استخدام الخدمة دون الواجهة
+- `docs.guide.toast.reference.managedList`: الطبقة العليا والقائمة المدارة
 
 ## Not verified
 
