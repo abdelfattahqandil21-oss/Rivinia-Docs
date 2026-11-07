@@ -29,6 +29,29 @@ const translations: Record<string, string> = {
   'docs.notFound.title': 'Package not found',
   'docs.notFound.body': 'This package is not part of the docs.',
   'docs.notFound.back': 'Back to Docs',
+  'docs.http.pagesLabel': 'HTTP library pages',
+  'docs.http.page.overview': 'Overview',
+  'docs.http.page.quickStart': 'Quick start',
+  'docs.http.page.guides': 'Guides',
+  'docs.http.page.api': 'API',
+  'docs.http.page.changelog': 'Changelog',
+  'docs.http.guidesTitle': 'HTTP guides',
+  'docs.http.guide.guides-configuration': 'Configure the HTTP backend',
+  'docs.http.guide.guides-observables': 'Observable requests',
+  'docs.http.guide.guides-resources': 'Reactive resources with signals',
+  'docs.http.guide.guides-responses': 'Response envelopes and errors',
+  'docs.http.guide.guides-testing': 'Testing HTTP requests',
+  'docs.http.title.guides-configuration': 'Configure the HTTP backend',
+  'docs.http.configure.title': 'Configure the HTTP backend',
+  'docs.http.configure.intro': 'Configure client providers once.',
+  'docs.http.configure.separateTitle': 'Option 1: configure HttpClient separately',
+  'docs.http.configure.separateText': 'Use HttpClient and Rivinia providers separately.',
+  'docs.http.configure.featuresTitle': 'Option 2: pass features through provideRiviniaHttp',
+  'docs.http.configure.featuresText': 'Pass features through httpFeatures.',
+  'docs.http.configure.oneTitle': 'Register one backend setup',
+  'docs.http.configure.oneText': 'Do not register both.',
+  'docs.http.configure.existingTitle': 'If your app already provides HttpClient',
+  'docs.http.configure.existingText': 'Keep existing setup.',
   'docs.guide.select.summary': 'Select summary',
   'docs.guide.select.modes': 'Modes',
   'docs.guide.select.filtering': 'Filtering',
@@ -48,7 +71,30 @@ describe('DocsLibraryOverviewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
-        provideRouter([{ path: 'docs/:package', component: DocsLibraryOverviewComponent }]),
+        provideRouter([
+          {
+            path: 'docs/http/guides/resources',
+            data: { docsPackageId: 'http', section: 'guides-resources' },
+            component: DocsLibraryOverviewComponent,
+          },
+          {
+            path: 'docs/http/guides/configuration',
+            data: { docsPackageId: 'http', section: 'guides-configuration' },
+            component: DocsLibraryOverviewComponent,
+          },
+          {
+            path: 'docs/http/api',
+            data: { docsPackageId: 'http', section: 'api' },
+            component: DocsLibraryOverviewComponent,
+          },
+          {
+            path: 'docs/http/changelog',
+            data: { docsPackageId: 'http', section: 'changelog' },
+            component: DocsLibraryOverviewComponent,
+          },
+          { path: 'docs/:package', component: DocsLibraryOverviewComponent },
+          { path: 'docs/:package/:section', component: DocsLibraryOverviewComponent },
+        ]),
         provideLucideIcons(...Object.values(appIcons)),
         provideRiviniaI18n({
           defaultLanguage: 'en',
@@ -84,5 +130,43 @@ describe('DocsLibraryOverviewComponent', () => {
 
     expect(root.textContent).toContain('Package not found');
     expect(root.textContent).toContain('Back to Docs');
+  });
+
+  it('shows both HTTP backend setup options and warns against registering both', async () => {
+    const root = await render('/docs/http/guides/configuration');
+
+    expect(root.textContent).toContain('provideHttpClient(withInterceptors([authInterceptor]))');
+    expect(root.textContent).toContain('httpFeatures');
+    expect(root.textContent).toContain('Do not register both.');
+    expect(root.querySelector('h1')?.textContent).toContain('Configure the HTTP backend');
+  });
+
+  it('documents HTTP providers, methods, return types, and concrete calls', async () => {
+    const root = await render('/docs/http/api');
+
+    for (const method of [
+      'get<T>',
+      'post<T>',
+      'put<T>',
+      'patch<T>',
+      'delete<T>',
+      'getBlob',
+      'getText',
+      'getResponse<T>',
+      'postResponse<T>',
+    ]) {
+      expect(root.textContent).toContain(method);
+    }
+    expect(root.textContent).toContain('Observable<Blob>');
+    expect(root.textContent).toContain('this.http.patch<Trip>(url, changes)');
+    expect(root.textContent).toContain('provideRiviniaHttp(config?)');
+    expect(root.querySelectorAll('table').length).toBeGreaterThanOrEqual(4);
+  });
+
+  it('keeps only the current 1.0.4 changelog entry', async () => {
+    const root = await render('/docs/http/changelog');
+
+    expect(root.textContent).toContain('1.0.4');
+    expect(root.textContent).not.toContain('1.0.3');
   });
 });

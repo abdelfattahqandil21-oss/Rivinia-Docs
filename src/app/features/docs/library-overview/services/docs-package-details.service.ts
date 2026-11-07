@@ -21,8 +21,22 @@ export class DocsPackageDetailsService {
   private readonly routeParams = toSignal(this.route.paramMap, {
     initialValue: this.route.snapshot.paramMap,
   });
+  private readonly routeData = toSignal(this.route.data, {
+    initialValue: this.route.snapshot.data,
+  });
 
-  readonly packageId = computed(() => this.routeParams().get('package') ?? '');
+  readonly packageId = computed(
+    () =>
+      this.routeParams().get('package') ??
+      (this.routeData()['docsPackageId'] as string | undefined) ??
+      '',
+  );
+  readonly section = computed(
+    () =>
+      this.routeParams().get('section') ??
+      (this.routeData()['section'] as string | undefined) ??
+      '',
+  );
   readonly entry = computed(
     () => PACKAGE_MANIFEST.find(({ id }) => id === this.packageId()) ?? null,
   );
@@ -52,6 +66,19 @@ export class DocsPackageDetailsService {
     this.dependencyRows(this.metadata()?.peerDependencies),
   );
   readonly packageTitle = computed(() => this.entry()?.id ?? '');
+  readonly pageTitle = computed(() => {
+    const section = this.routeParams().get('section');
+    const currentSection = this.section();
+    if (this.packageId() !== 'http') return this.packageTitle();
+    if (currentSection === 'quick-start') return this.i18n.translate('docs.http.title.quick-start');
+    if (currentSection === 'guides') return this.i18n.translate('docs.http.title.guides');
+    if (currentSection === 'api') return this.i18n.translate('docs.http.title.api');
+    if (currentSection === 'changelog') return this.i18n.translate('docs.http.title.changelog');
+    if (currentSection.startsWith('guides-')) {
+      return this.i18n.translate(`docs.http.title.${currentSection}`);
+    }
+    return this.packageTitle();
+  });
   readonly versionLabel = computed(() => {
     const version = this.metadata()?.version ?? '';
     return version.startsWith('0.') ? this.i18n.translate('docs.preOne') : version;

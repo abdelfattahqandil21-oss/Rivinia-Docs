@@ -45,6 +45,16 @@
   border-inline-start: 1px solid var(--rv-border);
 }
 
+.code-block.is-plain .code-block-header {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.code-block.is-plain .code-block-header app-copy-button {
+  width: auto;
+  min-width: 2.75rem;
+  grid-column: 2;
+}
+
 .code-block-caption {
   margin: 0;
   border-block-end: 1px solid var(--rv-border);

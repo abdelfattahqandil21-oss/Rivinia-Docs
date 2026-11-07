@@ -27,4 +27,8 @@ export class DocsSidebarService {
   backToPackageList(): void {
     this.packageNavigationId.set(null);
   }
+
+  openPackageSections(packageId: string): void {
+    this.packageNavigationId.set(packageId);
+  }
 }

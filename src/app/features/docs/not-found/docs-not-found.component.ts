@@ -9,7 +9,7 @@ import { docsLink } from '../shared/docs-link';
   imports: [PageHeaderComponent, RouterLink],
   selector: 'app-docs-not-found',
   template: `
-    <section class="docs-not-found" aria-labelledby="docs-page-title">
+    <section class="docs-not-found">
       <app-page-header
         id="docs-page-title"
         [attr.tabindex]="-1"

@@ -3,56 +3,346 @@
     <header
       app-docs-library-header
       class="library-header"
-      [title]="details.packageTitle()"
-      [description]="packageMetadata.description"
+      [title]="details.pageTitle()"
+      [description]="
+        isEnvPackage ? i18n.translate('component.env.summary') : packageMetadata.description
+      "
       [versionLabel]="details.versionLabel()"
-      [entryPoints]="packageMetadata.entryPoints"
+      [entryPoints]="isHttpOverview ? packageMetadata.entryPoints : []"
       [entryPointsLabel]="i18n.translate('docs.entryPoints')"
     ></header>
 
-    @if (details.published()) {
-      <section class="library-section" aria-labelledby="install-title">
-        <h2 id="install-title">{{ i18n.translate('docs.install') }}</h2>
-        <app-code-block [code]="details.installCommand()" language="bash" filename="terminal" />
-      </section>
+    @if (isHttpPackage) {
+      @if (details.section().startsWith('guides-')) {
+        <nav
+          app-docs-sequence-nav
+          class="sequence-nav"
+          [previous]="httpPrevious"
+          [next]="httpNext"
+        ></nav>
+      }
     }
 
-    @if (packageMetadata.entryPoints.length) {
-      <section class="library-section" aria-labelledby="imports-title">
-        <h2 id="imports-title">{{ i18n.translate('docs.importPaths') }}</h2>
-        <ul class="entry-point-list">
-          @for (entryPoint of packageMetadata.entryPoints; track entryPoint) {
-            <li>
-              <code dir="ltr">{{ entryPoint }}</code>
-            </li>
-          }
-        </ul>
-      </section>
-    }
+    @if (isHttpPackage) {
+      @switch (details.section()) {
+        @case ('quick-start') {
+          <section class="library-section">
+            <h2 id="quick-start-title">{{ i18n.translate('docs.http.quickStart.title') }}</h2>
+            <p>{{ i18n.translate('docs.http.quickStart.text') }}</p>
+            <app-code-block [code]="httpInstallCommands" language="bash" filename="terminal" />
+            <app-code-block
+              [code]="httpSeparateSetup"
+              language="ts"
+              filename="src/app/app.config.ts"
+            />
+            <app-code-block
+              [code]="httpObservableExample"
+              language="ts"
+              filename="trip.service.ts"
+            />
+            <p>{{ i18n.translate('docs.http.quickStart.note') }}</p>
+          </section>
+        }
+        @case ('guides-configuration') {
+          <section class="library-section">
+            <h2 id="configure-the-http-backend">
+              {{ i18n.translate('docs.http.configure.title') }}
+            </h2>
+            <p>{{ i18n.translate('docs.http.configure.intro') }}</p>
+            <h3 id="http-provide-separate">
+              {{ i18n.translate('docs.http.configure.separateTitle') }}
+            </h3>
+            <p>{{ i18n.translate('docs.http.configure.separateText') }}</p>
+            <app-code-block
+              [code]="httpSeparateSetup"
+              language="ts"
+              filename="src/app/app.config.ts"
+            />
+            <h3 id="http-provide-features">
+              {{ i18n.translate('docs.http.configure.featuresTitle') }}
+            </h3>
+            <p>{{ i18n.translate('docs.http.configure.featuresText') }}</p>
+            <app-code-block
+              [code]="httpFeaturesSetup"
+              language="ts"
+              filename="src/app/app.config.ts"
+            />
+            <h3 id="http-one-backend">{{ i18n.translate('docs.http.configure.oneTitle') }}</h3>
+            <p>{{ i18n.translate('docs.http.configure.oneText') }}</p>
+            <h3 id="http-existing-client">
+              {{ i18n.translate('docs.http.configure.existingTitle') }}
+            </h3>
+            <p>{{ i18n.translate('docs.http.configure.existingText') }}</p>
+            <app-code-block
+              [code]="httpExistingSetup"
+              language="ts"
+              filename="src/app/app.config.ts"
+            />
+          </section>
+        }
+        @case ('guides-observables') {
+          <section class="library-section">
+            <h2 id="observable-requests">{{ i18n.translate('docs.http.observables.title') }}</h2>
+            <p>{{ i18n.translate('docs.http.observables.text') }}</p>
+            <app-code-block
+              [code]="httpObservableExample"
+              language="ts"
+              filename="trip.service.ts"
+            />
+          </section>
+        }
+        @case ('guides-resources') {
+          <section class="library-section">
+            <h2 id="reactive-resources-with-signals">
+              {{ i18n.translate('docs.http.resources.title') }}
+            </h2>
+            <p>{{ i18n.translate('docs.http.resources.text') }}</p>
+            <app-code-block
+              [code]="httpResourceExample"
+              language="ts"
+              filename="trip-list.component.ts"
+            />
+          </section>
+        }
+        @case ('guides-responses') {
+          <section class="library-section">
+            <h2 id="response-envelopes-and-errors">
+              {{ i18n.translate('docs.http.responses.title') }}
+            </h2>
+            <p>{{ i18n.translate('docs.http.responses.text') }}</p>
+            <app-code-block [code]="httpEnvelopeExample" language="ts" filename="trip.service.ts" />
+          </section>
+        }
+        @case ('guides-testing') {
+          <section class="library-section">
+            <h2 id="testing-http-requests">{{ i18n.translate('docs.http.testing.title') }}</h2>
+            <p>{{ i18n.translate('docs.http.testing.text') }}</p>
+            <app-code-block
+              [code]="httpTestExample"
+              language="ts"
+              filename="trip.service.spec.ts"
+            />
+          </section>
+        }
+        @case ('api') {
+          <section class="library-section">
+            <h2 id="api-title">{{ i18n.translate('docs.http.api.title') }}</h2>
+            <p>{{ i18n.translate('docs.http.api.intro') }}</p>
+            <h3 id="api-providers">{{ i18n.translate('docs.http.api.providers') }}</h3>
+            <table>
+              <caption>
+                {{
+                  i18n.translate('docs.http.api.providers')
+                }}
+              </caption>
+              <thead>
+                <tr>
+                  <th>{{ i18n.translate('docs.http.api.column.api') }}</th>
+                  <th>{{ i18n.translate('docs.http.api.column.contract') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of httpProviderRows; track row.api) {
+                  <tr>
+                    <td>
+                      <code dir="ltr">{{ row.api }}</code>
+                    </td>
+                    <td>{{ i18n.translate(row.contract) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+            <h3 id="api-jobs">{{ i18n.translate('docs.http.api.jobs') }}</h3>
+            <table>
+              <caption>
+                {{
+                  i18n.translate('docs.http.api.jobs')
+                }}
+              </caption>
+              <thead>
+                <tr>
+                  <th>{{ i18n.translate('docs.http.api.column.job') }}</th>
+                  <th>{{ i18n.translate('docs.http.api.column.api') }}</th>
+                  <th>{{ i18n.translate('docs.http.api.column.contract') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of httpJobRows; track row.api) {
+                  <tr>
+                    <td>{{ i18n.translate(row.job) }}</td>
+                    <td>
+                      <code dir="ltr">{{ row.api }}</code>
+                    </td>
+                    <td>{{ i18n.translate(row.contract) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+            <h3 id="api-methods">{{ i18n.translate('docs.http.api.methods') }}</h3>
+            <table>
+              <caption>
+                {{
+                  i18n.translate('docs.http.api.methods')
+                }}
+              </caption>
+              <thead>
+                <tr>
+                  <th>{{ i18n.translate('docs.http.api.column.method') }}</th>
+                  <th>{{ i18n.translate('docs.http.api.column.returns') }}</th>
+                  <th>{{ i18n.translate('docs.http.api.column.example') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of httpMethodRows; track row.method) {
+                  <tr>
+                    <td>
+                      <code dir="ltr">{{ row.method }}</code>
+                    </td>
+                    <td>
+                      <code dir="ltr">{{ row.returns }}</code>
+                    </td>
+                    <td>
+                      <code dir="ltr">{{ row.example }}</code>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+            <app-code-block
+              [code]="httpApiMethodsExample"
+              language="ts"
+              filename="trip-api.service.ts"
+            />
+            <h3 id="api-request-options">{{ i18n.translate('docs.http.api.requestOptions') }}</h3>
+            <p>{{ i18n.translate('docs.http.api.requestOptionsText') }}</p>
+            <app-code-block
+              [code]="httpApiRequestExample"
+              language="ts"
+              filename="request-options.ts"
+            />
+            <h3 id="api-reactive-resource">
+              {{ i18n.translate('docs.http.api.resourceExample') }}
+            </h3>
+            <p>{{ i18n.translate('docs.http.api.resourceText') }}</p>
+            <app-code-block
+              [code]="httpApiResourceExample"
+              language="ts"
+              filename="trip-resource.ts"
+            />
+            <h3 id="api-envelopes">{{ i18n.translate('docs.http.api.envelopes') }}</h3>
+            <p>{{ i18n.translate('docs.http.api.envelopesText') }}</p>
+            <app-code-block
+              [code]="httpApiEnvelopeExample"
+              language="ts"
+              filename="envelope-policy.ts"
+            />
+            <h3 id="api-contracts">{{ i18n.translate('docs.http.api.contracts') }}</h3>
+            <table>
+              <caption>
+                {{
+                  i18n.translate('docs.http.api.contracts')
+                }}
+              </caption>
+              <thead>
+                <tr>
+                  <th>{{ i18n.translate('docs.http.api.column.shape') }}</th>
+                  <th>{{ i18n.translate('docs.http.api.column.contract') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of httpContractRows; track row.shape) {
+                  <tr>
+                    <td>
+                      <code dir="ltr">{{ row.shape }}</code>
+                    </td>
+                    <td>{{ i18n.translate(row.contract) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </section>
+        }
+        @case ('changelog') {
+          <section class="library-section">
+            <h2 id="changelog-title">{{ i18n.translate('docs.http.changelog.title') }}</h2>
+            @for (entry of httpChangelog; track entry.version) {
+              <h3>{{ entry.version }}</h3>
+              <p>{{ i18n.translate(entry.text) }}</p>
+            }
+            <a class="http-changelog-link" [href]="httpChangelogUrl">{{
+              i18n.translate('docs.http.changelog.link')
+            }}</a>
+          </section>
+        }
+        @default {
+          <section class="library-section">
+            <h2 id="overview-title">{{ i18n.translate('docs.http.overview.title') }}</h2>
+            <p>{{ i18n.translate('docs.guide.http.summary') }}</p>
+            <ul>
+              <li>{{ i18n.translate('docs.guide.http.client') }}</li>
+              <li>{{ i18n.translate('docs.guide.http.resource') }}</li>
+              <li>{{ i18n.translate('docs.guide.http.envelopes') }}</li>
+            </ul>
+            <h2 id="http-start-links">{{ i18n.translate('docs.http.overview.next') }}</h2>
+            <ul>
+              <li>
+                <a [routerLink]="httpPageLink('quick-start')">{{
+                  i18n.translate('docs.http.page.quickStart')
+                }}</a>
+              </li>
+              <li>
+                <a [routerLink]="'/docs/http/guides/configuration'">{{
+                  i18n.translate('docs.http.guide.guides-configuration')
+                }}</a>
+              </li>
+            </ul>
+          </section>
+        }
+      }
+    } @else {
+      @if (details.published() && !isEnvPackage) {
+        <section class="library-section">
+          <h2 id="install-title">{{ i18n.translate('docs.install') }}</h2>
+          <app-code-block [code]="details.installCommand()" language="bash" filename="terminal" />
+        </section>
+      }
 
-    @if (details.guide(); as packageGuide) {
-      <section
-        app-docs-package-guide
-        class="library-section package-guide"
-        aria-labelledby="package-guide-title"
-        [guide]="packageGuide"
-      ></section>
-    }
+      @if (packageMetadata.entryPoints.length && !isEnvPackage) {
+        <section class="library-section">
+          <h2 id="imports-title">{{ i18n.translate('docs.importPaths') }}</h2>
+          <ul class="entry-point-list">
+            @for (entryPoint of packageMetadata.entryPoints; track entryPoint) {
+              <li>
+                <code dir="ltr">{{ entryPoint }}</code>
+              </li>
+            }
+          </ul>
+        </section>
+      }
 
-    @if (quickStart.showLiveExample()) {
-      <section
-        app-docs-quick-start
-        class="library-section quick-start"
-        aria-labelledby="quick-start-title"
-        [files]="quickStart.files()"
-      ></section>
+      @if (isEnvPackage) {
+        <section app-docs-env-guide class="library-section package-guide"></section>
+      } @else if (details.guide(); as packageGuide) {
+        <section
+          app-docs-package-guide
+          class="library-section package-guide"
+          [guide]="packageGuide"
+        ></section>
+      }
+
+      @if (quickStart.showLiveExample()) {
+        <section
+          app-docs-quick-start
+          class="library-section quick-start"
+          [files]="quickStart.files()"
+        ></section>
+      }
     }
 
     @if (details.dependencies().length) {
       <section
         app-docs-dependency-list
         class="library-section"
-        aria-labelledby="dependencies-title"
         sectionId="dependencies-title"
         titleKey="docs.dependencies"
         [rows]="details.dependencies()"
@@ -63,7 +353,6 @@
       <section
         app-docs-dependency-list
         class="library-section"
-        aria-labelledby="peer-dependencies-title"
         sectionId="peer-dependencies-title"
         titleKey="docs.peerDependencies"
         [rows]="details.peerDependencies()"
@@ -71,7 +360,7 @@
     }
 
     @if (packageMetadata.hasUi) {
-      <section class="library-section" aria-labelledby="ui-entries-title">
+      <section class="library-section">
         <h2 id="ui-entries-title">{{ i18n.translate('docs.packageUi') }}</h2>
         <p>{{ i18n.translate('docs.packageUiDescription') }}</p>
         <ul class="entry-point-list">
@@ -87,7 +376,7 @@
     }
 
     @if (quickStart.showLiveExample()) {
-      <section class="library-section" aria-labelledby="live-example-title">
+      <section class="library-section">
         <h2 id="live-example-title">{{ i18n.translate('docs.liveExample') }}</h2>
         <a class="live-example-link" [routerLink]="'/'" fragment="experience">
           {{ i18n.translate('docs.seeLive') }}

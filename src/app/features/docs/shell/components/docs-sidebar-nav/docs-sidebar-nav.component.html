@@ -70,8 +70,13 @@
                   dir="ltr"
                   routerLinkActive="is-current"
                   ariaCurrentWhenActive="page"
-                  >{{ entry.id }}</a
+                  (click)="openPackageSections(entry.id)"
                 >
+                  <span>{{ entry.id }}</span>
+                  <span class="package-entry-indicator" aria-hidden="true">
+                    <app-icon name="arrow-right" [size]="16" />
+                  </span>
+                </a>
               }
             </div>
           </div>
@@ -95,19 +100,64 @@
         >
           <app-icon name="arrow-right" [size]="18" aria-hidden="true" />
         </button>
-        <span class="docs-package-nav-title" lang="en" dir="ltr">{{ metadata.name }}</span>
+        <span class="docs-package-nav-title" lang="en" dir="ltr">
+          {{ metadata.name }}
+          @if (metadata.version) {
+            <span class="docs-package-version"
+              ><span class="visually-hidden">{{ versionLabel() }} </span
+              >{{ metadata.version }}</span
+            >
+          }
+        </span>
       </header>
 
       <div class="docs-package-section-links">
-        @for (heading of page.headings(); track heading.id) {
-          <a
-            [href]="sectionLink(heading.id)"
-            dir="auto"
-            [attr.aria-current]="page.activeHeading() === heading.id ? 'location' : null"
-            (click)="followSection($event, heading.id)"
-          >
-            {{ heading.text }}
-          </a>
+        @if (sidebar.packageNavigationId() === 'http') {
+          @for (item of httpPages; track item.path) {
+            <a
+              [routerLink]="item.path"
+              routerLinkActive="is-current"
+              ariaCurrentWhenActive="page"
+              [attr.aria-current]="page.currentPath() === item.path ? 'page' : null"
+            >
+              {{ i18n.translate(item.label) }}
+            </a>
+          }
+          <div class="docs-guide-subnav">
+            <span class="docs-guide-group-title">{{
+              i18n.translate('docs.http.page.guides')
+            }}</span>
+            @for (guide of httpGuides; track guide.path) {
+              <a
+                [routerLink]="guide.path"
+                routerLinkActive="is-current"
+                ariaCurrentWhenActive="page"
+              >
+                {{ i18n.translate(guide.label) }}
+              </a>
+            }
+          </div>
+          @for (item of httpTailPages; track item.path) {
+            <a
+              [routerLink]="item.path"
+              routerLinkActive="is-current"
+              ariaCurrentWhenActive="page"
+              [attr.aria-current]="page.currentPath() === item.path ? 'page' : null"
+            >
+              {{ i18n.translate(item.label) }}
+            </a>
+          }
+        } @else {
+          @for (heading of page.headings(); track heading.id) {
+            <a
+              [href]="sectionLink(heading.id)"
+              dir="auto"
+              [attr.aria-current]="page.activeHeading() === heading.id ? 'location' : null"
+              (click)="followSection($event, heading.id)"
+            >
+              {{ heading.text }}
+            </a>
+          }
         }
       </div>
     </section>

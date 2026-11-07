@@ -4,13 +4,15 @@
     <app-icon name="x" [size]="18" aria-hidden="true" />
   </button>
 </div>
-<aside class="dialog-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
-  @if (!sidebar.showingPackageSections()) {
-    <app-docs-package-filter
-      inputId="docs-dialog-filter"
-      [resultCount]="search.visiblePackages().length"
-      [(value)]="search.query"
-    />
-  }
-  <nav app-docs-sidebar-nav class="sidebar-nav" panelPrefix="docs-dialog"></nav>
-</aside>
+@if (navContext.docsMenuOpen()) {
+  <aside class="dialog-sidebar">
+    @if (!sidebar.showingPackageSections()) {
+      <app-docs-package-filter
+        inputId="docs-dialog-filter"
+        [resultCount]="search.visiblePackages().length"
+        [(value)]="search.query"
+      />
+    }
+    <nav app-docs-sidebar-nav class="sidebar-nav" panelPrefix="docs-dialog"></nav>
+  </aside>
+}

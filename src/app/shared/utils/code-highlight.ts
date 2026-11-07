@@ -1,4 +1,4 @@
-export type CodeLanguage = 'ts' | 'typescript' | 'html' | 'css' | 'bash';
+export type CodeLanguage = 'ts' | 'typescript' | 'html' | 'css' | 'bash' | 'json' | 'text';
 
 export type CodeTokenKind =
   | 'plain'
@@ -64,6 +64,8 @@ const TYPES = new Set([
 ]);
 
 export function highlightCode(source: string, language: CodeLanguage): readonly CodeToken[] {
+  if (language === 'text') return [{ kind: 'plain', text: source }];
+
   const tokens: CodeToken[] = [];
   let cursor = 0;
   TOKEN_PATTERN.lastIndex = 0;

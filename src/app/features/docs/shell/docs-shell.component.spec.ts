@@ -222,4 +222,22 @@ describe('DocsShellComponent', () => {
     expect(layout.classList.contains('sidebar-collapsed')).toBe(true);
     expect(fixture.nativeElement.querySelector('.docs-page-rail')).toBeTruthy();
   });
+
+  it('exposes exactly one On this page navigation at desktop and tablet widths', async () => {
+    const fixture = await render('/docs');
+    const rails = [
+      ...fixture.nativeElement.querySelectorAll('nav[aria-label="On this page"]'),
+    ] as HTMLElement[];
+    expect(rails).toHaveLength(2);
+
+    for (const width of [1280, 800]) {
+      const visible = rails.filter((rail) => {
+        const style = getComputedStyle(rail.closest('aside, details') as Element);
+        return style.display !== 'none';
+      });
+      expect(visible).toHaveLength(1);
+      window.innerWidth = width;
+      fixture.detectChanges();
+    }
+  });
 });

@@ -37,6 +37,7 @@ describe('DocsQuickStartService', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: params.asObservable(),
+            data: new BehaviorSubject<Record<string, unknown>>({}).asObservable(),
             snapshot: { paramMap: convertToParamMap({ package: packageId }) },
           },
         },

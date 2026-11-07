@@ -1,7 +1,9 @@
-<article class="code-block">
+<article class="code-block" [class.is-plain]="language() === 'text'">
   <header class="code-block-header">
     <span class="code-block-filename" dir="ltr">{{ filename() || languageName() }}</span>
-    <span class="code-block-language">{{ languageName() }}</span>
+    @if (languageName()) {
+      <span class="code-block-language">{{ languageName() }}</span>
+    }
     <app-copy-button [code]="code()" />
   </header>
   @if (caption()) {

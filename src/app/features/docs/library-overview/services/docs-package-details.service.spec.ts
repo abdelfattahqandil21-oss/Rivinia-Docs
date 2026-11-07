@@ -8,13 +8,16 @@ import { DocsPackageDetailsService } from './docs-package-details.service';
 
 const translations: Record<string, string> = {
   'docs.preOne': 'pre-1.0',
+  'docs.http.title.guides-resources': 'Reactive resources with signals',
 };
 
 describe('DocsPackageDetailsService', () => {
   let params: BehaviorSubject<ReturnType<typeof convertToParamMap>>;
+  let routeData: BehaviorSubject<Record<string, unknown>>;
 
   beforeEach(async () => {
     params = new BehaviorSubject(convertToParamMap({ package: 'select' }));
+    routeData = new BehaviorSubject<Record<string, unknown>>({});
     await TestBed.configureTestingModule({
       providers: [
         DocsPackageDetailsService,
@@ -22,6 +25,7 @@ describe('DocsPackageDetailsService', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: params.asObservable(),
+            data: routeData.asObservable(),
             snapshot: { paramMap: convertToParamMap({ package: 'select' }) },
           },
         },
@@ -64,5 +68,17 @@ describe('DocsPackageDetailsService', () => {
     expect(service.published()).toBe(false);
     expect(service.installCommand()).toBe('');
     expect(service.dependencies()).toEqual([]);
+  });
+
+  it('resolves package and section supplied by a componentless parent route', () => {
+    params.next(convertToParamMap({}));
+    routeData.next({ docsPackageId: 'http', section: 'guides-resources' });
+    TestBed.tick();
+
+    const service = TestBed.inject(DocsPackageDetailsService);
+    expect(service.packageId()).toBe('http');
+    expect(service.section()).toBe('guides-resources');
+    expect(service.metadata()?.name).toBe('@rivinia/http');
+    expect(service.pageTitle()).toBe('docs.http.title.guides-resources');
   });
 });

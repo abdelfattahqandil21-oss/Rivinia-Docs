@@ -1,0 +1,43 @@
+:host {
+  display: block;
+}
+
+.env-topic {
+  margin-block-start: 0;
+  min-block-size: 26rem;
+  padding-block: 3rem;
+  border-block-start: 1px solid var(--rv-border);
+  scroll-margin-block-start: calc(var(--navbar-height) + 2rem);
+}
+
+.env-topic h3 {
+  margin-block: 2rem 0.75rem;
+}
+
+.env-topic p,
+.env-topic li {
+  line-height: 1.7;
+}
+
+.env-topic ul,
+.env-topic ol {
+  display: grid;
+  gap: 0.75rem;
+  padding-inline-start: 1.5rem;
+}
+
+.env-topic code {
+  overflow-wrap: anywhere;
+}
+
+.env-security-note {
+  border-inline-start: 3px solid var(--rv-accent);
+  padding-inline-start: 1rem;
+}
+
+@media (max-width: 40rem) {
+  .env-topic {
+    min-block-size: 24rem;
+    scroll-margin-block-start: calc(var(--navbar-height) + 1rem);
+  }
+}

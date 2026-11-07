@@ -6,7 +6,7 @@ import { CopyButtonComponent } from './copy-button.component';
 
 const translations = {
   'common.copyCodeLabel': 'Copy code',
-  'common.copyCodeSuccess': 'Code copied',
+  'common.copyCodeSuccess': 'Copied to clipboard',
   'common.copyCodeError': 'Could not copy code',
 };
 
@@ -66,11 +66,15 @@ describe('CopyButtonComponent', () => {
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     expect(button.getAttribute('aria-label')).toBe('Copy code');
     expect(button.dataset['state']).toBe('copied');
-    expect(button.querySelector('[aria-live]')?.textContent).toContain('Code copied');
+    const liveRegion = fixture.nativeElement.querySelector('[aria-live]') as HTMLElement;
+    expect(button.contains(liveRegion)).toBe(false);
+    expect(liveRegion.textContent).toContain('Copied to clipboard');
+    expect(button.disabled).toBe(false);
 
     await vi.advanceTimersByTimeAsync(2000);
     fixture.detectChanges();
     expect(button.dataset['state']).toBe('idle');
+    expect(liveRegion.textContent).toBe('');
   });
 
   it('falls back to a temporary textarea when the clipboard write is rejected', async () => {
@@ -109,7 +113,9 @@ describe('CopyButtonComponent', () => {
 
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
     expect(button.dataset['state']).toBe('failed');
-    expect(button.querySelector('[aria-live]')?.textContent).toContain('Could not copy code');
+    expect(fixture.nativeElement.querySelector('[aria-live]')?.textContent).toContain(
+      'Could not copy code',
+    );
   });
 
   it('clears pending timers when the component is destroyed', async () => {

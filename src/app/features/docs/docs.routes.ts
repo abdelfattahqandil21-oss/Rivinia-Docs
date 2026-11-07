@@ -23,6 +23,48 @@ export const DOCS_ROUTES: Routes = [
           ),
       })),
       {
+        path: 'http',
+        data: { docsPackageId: 'http' },
+        children: [
+          {
+            path: '',
+            data: { docsTitleKey: 'docs.library', docsPackageId: 'http' },
+            loadComponent: () =>
+              import('./library-overview/docs-library-overview.component').then(
+                (m) => m.DocsLibraryOverviewComponent,
+              ),
+          },
+          ...['quick-start', 'api', 'changelog'].map((section) => ({
+            path: section,
+            data: { docsTitleKey: 'docs.library', docsPackageId: 'http', section },
+            loadComponent: () =>
+              import('./library-overview/docs-library-overview.component').then(
+                (m) => m.DocsLibraryOverviewComponent,
+              ),
+          })),
+          {
+            path: 'guides',
+            data: { docsPackageId: 'http' },
+            children: [
+              ...[
+                ['configuration', 'guides-configuration'],
+                ['observables', 'guides-observables'],
+                ['resources', 'guides-resources'],
+                ['responses', 'guides-responses'],
+                ['testing', 'guides-testing'],
+              ].map(([path, section]) => ({
+                path,
+                data: { docsTitleKey: 'docs.library', docsPackageId: 'http', section },
+                loadComponent: () =>
+                  import('./library-overview/docs-library-overview.component').then(
+                    (m) => m.DocsLibraryOverviewComponent,
+                  ),
+              })),
+            ],
+          },
+        ],
+      },
+      {
         path: ':package',
         data: { docsTitleKey: 'docs.library' },
         loadComponent: () =>

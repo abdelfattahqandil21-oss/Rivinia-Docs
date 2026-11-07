@@ -22,7 +22,7 @@ import { DocsSidebarService } from '../../services/docs-sidebar.service';
 })
 export class DocsMenuDialogComponent {
   private readonly dialog = inject(ElementRef).nativeElement as HTMLDialogElement;
-  private readonly navContext = inject(NavContextService);
+  protected readonly navContext = inject(NavContextService);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);

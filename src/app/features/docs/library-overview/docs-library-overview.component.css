@@ -10,6 +10,16 @@
   margin-block-end: 1rem;
 }
 
+.http-changelog-link {
+  color: var(--rv-accent);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.http-changelog-link:hover {
+  text-decoration: underline;
+}
+
 .entry-point-list {
   display: grid;
   min-inline-size: 0;

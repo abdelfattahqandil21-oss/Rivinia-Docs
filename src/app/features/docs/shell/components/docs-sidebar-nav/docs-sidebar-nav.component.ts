@@ -32,10 +32,26 @@ export class DocsSidebarNavComponent {
   protected readonly gettingStartedPages = GETTING_STARTED_PAGES;
   protected readonly navigationLabel = this.i18n.t('docs.navigation');
   protected readonly backToPackagesLabel = this.i18n.t('docs.backToPackages');
+  protected readonly versionLabel = this.i18n.t('docs.version');
   protected readonly packageMetadata = computed(() => {
     const packageId = this.sidebar.packageNavigationId();
     return packageId ? PACKAGE_METADATA[packageId as keyof typeof PACKAGE_METADATA] : null;
   });
+  protected readonly httpPages = [
+    { path: '/docs/http', label: 'docs.http.page.overview', section: '' },
+    { path: '/docs/http/quick-start', label: 'docs.http.page.quickStart', section: 'quick-start' },
+  ];
+  protected readonly httpTailPages = [
+    { path: '/docs/http/api', label: 'docs.http.page.api', section: 'api' },
+    { path: '/docs/http/changelog', label: 'docs.http.page.changelog', section: 'changelog' },
+  ];
+  protected readonly httpGuides = [
+    { path: '/docs/http/guides/configuration', label: 'docs.http.guide.guides-configuration' },
+    { path: '/docs/http/guides/observables', label: 'docs.http.guide.guides-observables' },
+    { path: '/docs/http/guides/resources', label: 'docs.http.guide.guides-resources' },
+    { path: '/docs/http/guides/responses', label: 'docs.http.guide.guides-responses' },
+    { path: '/docs/http/guides/testing', label: 'docs.http.guide.guides-testing' },
+  ];
 
   protected backToPackageList(): void {
     const packageId = this.sidebar.packageNavigationId();
@@ -48,6 +64,10 @@ export class DocsSidebarNavComponent {
       ].find((link) => link.dataset['packageId'] === packageId);
       packageLink?.focus();
     });
+  }
+
+  protected openPackageSections(packageId: string): void {
+    this.sidebar.openPackageSections(packageId);
   }
 
   protected followSection(event: MouseEvent, sectionId: string): void {

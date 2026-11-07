@@ -1,0 +1,49 @@
+<section class="env-topic">
+  <h2 id="env-installation-title">{{ i18n.translate('docs.env.installation.title') }}</h2>
+  <p>{{ i18n.translate('docs.env.installation.intro') }}</p>
+  <app-code-block [code]="installCommand" language="bash" filename="terminal" />
+</section>
+
+<section class="env-topic">
+  <h2 id="env-scaffolding-title">{{ i18n.translate('docs.env.scaffolding.title') }}</h2>
+  <p>{{ i18n.translate('docs.env.scaffolding.intro') }}</p>
+  <app-code-block [code]="addCommand" language="bash" filename="terminal" />
+  <ol>
+    <li>{{ i18n.translate('docs.env.scaffolding.step.project') }}</li>
+    <li>{{ i18n.translate('docs.env.scaffolding.step.environments') }}</li>
+    <li>{{ i18n.translate('docs.env.scaffolding.step.files') }}</li>
+  </ol>
+  <ul>
+    <li><code dir="ltr">src/environments/environment.model.ts</code></li>
+    <li><code dir="ltr">src/environments/environment.ts</code></li>
+    <li><code dir="ltr">src/environments/environment.staging.ts</code></li>
+    <li><code dir="ltr">src/environments/environment.prod.ts</code></li>
+  </ul>
+  <p>{{ i18n.translate('docs.env.scaffolding.selectionNote') }}</p>
+</section>
+
+<section class="env-topic">
+  <h2 id="env-configuration-title">{{ i18n.translate('docs.env.configuration.title') }}</h2>
+  <p>{{ i18n.translate('docs.env.configuration.intro') }}</p>
+  <h3>{{ i18n.translate('docs.env.configuration.contract') }}</h3>
+  <p>{{ i18n.translate('docs.env.configuration.contractText') }}</p>
+  <app-code-block [code]="contract" language="ts" filename="environment.model.ts" />
+  <h3>{{ i18n.translate('docs.env.configuration.files') }}</h3>
+  <p>{{ i18n.translate('docs.env.configuration.filesText') }}</p>
+  <h3>{{ i18n.translate('docs.env.configuration.usage') }}</h3>
+  <p>{{ i18n.translate('docs.env.configuration.usageText') }}</p>
+  <app-code-block [code]="usage" language="ts" filename="trip.service.ts" />
+  <h3>{{ i18n.translate('docs.env.configuration.build') }}</h3>
+  <p>{{ i18n.translate('docs.env.configuration.buildText') }}</p>
+  <app-code-block [code]="buildCommands" language="bash" filename="terminal" />
+  <h3>{{ i18n.translate('docs.env.configuration.custom') }}</h3>
+  <p>{{ i18n.translate('docs.env.configuration.customText') }}</p>
+  <app-code-block [code]="replacement" language="json" filename="angular.json · excerpt" />
+  <p class="env-security-note">{{ i18n.translate('docs.env.configuration.security') }}</p>
+</section>
+
+<section class="env-topic">
+  <h2 id="env-output-title">{{ i18n.translate('docs.env.output.title') }}</h2>
+  <p>{{ i18n.translate('docs.env.output.text') }}</p>
+  <app-code-block [code]="outputPaths" language="text" filename="build output" />
+</section>

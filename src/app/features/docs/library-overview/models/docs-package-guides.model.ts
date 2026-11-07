@@ -154,12 +154,7 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
       { name: 'BaseEnvironment', descriptionKey: 'docs.guide.env.api.baseEnvironment' },
       { name: 'ng add @rivinia/env', descriptionKey: 'docs.guide.env.api.schematic' },
     ],
-    references: [
-      {
-        titleKey: 'docs.guide.env.reference.scaffolding',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/env/v1.0.4/docs/env/scaffolding.md',
-      },
-    ],
+    references: [],
   },
   http: {
     summaryKey: 'docs.guide.http.summary',

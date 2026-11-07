@@ -25,13 +25,29 @@ export class DocsPageContextService {
   readonly activeHeading = signal('');
   readonly activePackageId = signal<string | null>(null);
   readonly activeNavGroup = signal<DocsNavGroup | null>(null);
+  readonly currentPath = signal('');
 
   private headingObserver?: IntersectionObserver;
   private headingLabelObserver?: MutationObserver;
+  private pageContentObserver?: MutationObserver;
+  private pageContentRefreshTimer?: ReturnType<typeof setTimeout>;
+  private hashRestoreObserver?: MutationObserver;
+  private hashRestoreTimer?: ReturnType<typeof setTimeout>;
+  private pendingHashTimer?: ReturnType<typeof setTimeout>;
+  private pendingHashTarget = '';
+  private activeUpdateFrame?: number;
+  private trackedHeadings: readonly HTMLElement[] = [];
   private lastPagePath = '';
 
   constructor() {
-    setTimeout(() => this.observeHeadings());
+    window.addEventListener('hashchange', this.handleHashChange);
+    window.addEventListener('scroll', this.handleViewportChange, { passive: true });
+    window.addEventListener('resize', this.handleViewportChange, { passive: true });
+    setTimeout(() => {
+      this.observeHeadings();
+      this.watchPageContent();
+      this.scheduleHashRestore();
+    });
     const subscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
@@ -44,16 +60,27 @@ export class DocsPageContextService {
       subscription.unsubscribe();
       this.headingObserver?.disconnect();
       this.headingLabelObserver?.disconnect();
+      this.pageContentObserver?.disconnect();
+      if (this.pageContentRefreshTimer) clearTimeout(this.pageContentRefreshTimer);
+      this.hashRestoreObserver?.disconnect();
+      window.removeEventListener('hashchange', this.handleHashChange);
+      window.removeEventListener('scroll', this.handleViewportChange);
+      window.removeEventListener('resize', this.handleViewportChange);
+      if (this.hashRestoreTimer) clearTimeout(this.hashRestoreTimer);
+      if (this.pendingHashTimer) clearTimeout(this.pendingHashTimer);
+      if (this.activeUpdateFrame !== undefined) window.cancelAnimationFrame(this.activeUpdateFrame);
     });
-    this.lastPagePath = this.currentPath();
+    this.lastPagePath = this.routePath();
+    this.currentPath.set(this.lastPagePath);
     const { packageId } = this.currentRouteInfo();
     this.activePackageId.set(packageId);
     this.syncActiveNavGroup(packageId);
   }
 
   private updatePageContext(): void {
-    this.lastPagePath = this.currentPath();
-    const { titleKey, packageId } = this.currentRouteInfo();
+    this.lastPagePath = this.routePath();
+    this.currentPath.set(this.lastPagePath);
+    const { titleKey, packageId, section: routeSection } = this.currentRouteInfo();
     this.activePackageId.set(packageId);
     this.syncActiveNavGroup(packageId);
     const packageMetadata = packageId
@@ -66,8 +93,13 @@ export class DocsPageContextService {
           ? this.i18n.translate(titleKey)
           : this.i18n.translate('page.docs.title');
     const packageName = packageMetadata?.name ?? null;
+    const sectionTitle =
+      packageId === 'http' && routeSection
+        ? this.i18n.translate(`docs.http.title.${routeSection}`)
+        : null;
+    const resolvedPageName = sectionTitle || pageName;
     const documentTitle = packageName
-      ? `${pageName} · ${packageName} · Rivinia Docs`
+      ? `${resolvedPageName} · ${packageName} · Rivinia Docs`
       : `${pageName} · Rivinia Docs`;
     this.title.setTitle(documentTitle);
     this.announcement.set(documentTitle);
@@ -78,9 +110,25 @@ export class DocsPageContextService {
         heading.focus();
       }
       this.observeHeadings();
+      this.watchPageContent();
+      this.scheduleHashRestore();
       document
         .querySelector<HTMLElement>('.docs-sidebar a[aria-current="page"]')
         ?.scrollIntoView({ block: 'nearest' });
+    });
+  }
+
+  private watchPageContent(): void {
+    const content = document.querySelector('.docs-content-column');
+    if (!content || this.pageContentObserver) return;
+    this.pageContentObserver = new MutationObserver(() => {
+      if (this.pageContentRefreshTimer) clearTimeout(this.pageContentRefreshTimer);
+      this.pageContentRefreshTimer = setTimeout(() => this.observeHeadings());
+    });
+    this.pageContentObserver.observe(content, {
+      childList: true,
+      characterData: true,
+      subtree: true,
     });
   }
 
@@ -92,9 +140,11 @@ export class DocsPageContextService {
         '.docs-page-content h2[id], .docs-page-content h3[id]',
       ),
     ];
+    this.trackedHeadings = headings;
     this.headings.set(
       headings.map((heading) => ({ id: heading.id, text: heading.textContent?.trim() ?? '' })),
     );
+    this.scheduleHashRestore();
     this.headingLabelObserver = new MutationObserver(() => {
       const nextHeadings = headings.map((heading) => ({
         id: heading.id,
@@ -109,6 +159,8 @@ export class DocsPageContextService {
         )
       ) {
         this.headings.set(nextHeadings);
+        this.scheduleHashRestore();
+        this.handleViewportChange();
       }
     });
     headings.forEach((heading) =>
@@ -119,24 +171,101 @@ export class DocsPageContextService {
       }),
     );
     this.activeHeading.set('');
-    if (headings.length === 0 || typeof IntersectionObserver === 'undefined') return;
+    if (headings.length === 0) return;
+    this.updateActiveHeading();
+    if (typeof IntersectionObserver === 'undefined') return;
 
-    const visible = new Set<HTMLElement>();
-    this.headingObserver = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const heading = entry.target as HTMLElement;
-          if (entry.isIntersecting) visible.add(heading);
-          else visible.delete(heading);
-        }
-        const current = [...visible].sort(
-          (first, second) => first.getBoundingClientRect().top - second.getBoundingClientRect().top,
-        )[0];
-        this.activeHeading.set(current?.id ?? '');
-      },
-      { rootMargin: '-15% 0px -70% 0px' },
-    );
+    this.headingObserver = new IntersectionObserver(() => this.handleViewportChange(), {
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    });
     headings.forEach((heading) => this.headingObserver?.observe(heading));
+  }
+
+  private readonly handleViewportChange = (): void => {
+    if (this.activeUpdateFrame !== undefined || this.trackedHeadings.length === 0) return;
+    this.activeUpdateFrame = window.requestAnimationFrame(() => {
+      this.activeUpdateFrame = undefined;
+      this.updateActiveHeading();
+    });
+  };
+
+  private updateActiveHeading(): void {
+    const article = document.querySelector<HTMLElement>('.docs-page-content');
+    const viewportTop =
+      Number.parseFloat(getComputedStyle(document.documentElement).scrollPaddingBlockStart) || 0;
+    const viewportBottom = window.innerHeight;
+    let active: HTMLElement | undefined;
+    let maxVisibleHeight = -1;
+
+    this.trackedHeadings.forEach((heading, index) => {
+      const blockTop = heading.getBoundingClientRect().top;
+      const blockBottom =
+        this.trackedHeadings[index + 1]?.getBoundingClientRect().top ??
+        article?.getBoundingClientRect().bottom ??
+        viewportBottom;
+      const visibleHeight = Math.max(
+        0,
+        Math.min(blockBottom, viewportBottom) - Math.max(blockTop, viewportTop),
+      );
+      if (visibleHeight > maxVisibleHeight) {
+        active = heading;
+        maxVisibleHeight = visibleHeight;
+      }
+    });
+
+    if (!active) return;
+    this.activeHeading.set(active.id);
+    if (active.id === this.pendingHashTarget) this.clearPendingHashTarget();
+    else if (!this.pendingHashTarget) this.syncLocationHash(active.id);
+  }
+
+  private scheduleHashRestore(): void {
+    if (!window.location.hash) return;
+    this.pendingHashTarget = decodeURIComponent(window.location.hash.slice(1));
+    if (this.pendingHashTimer) clearTimeout(this.pendingHashTimer);
+    this.pendingHashTimer = setTimeout(() => this.clearPendingHashTarget(), 1600);
+    this.hashRestoreObserver ??= new MutationObserver(() => this.queueHashRestore());
+    this.hashRestoreObserver.observe(document.body, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['dir', 'lang'],
+    });
+    this.queueHashRestore();
+  }
+
+  private readonly handleHashChange = (): void => {
+    if (!window.location.hash) {
+      this.clearPendingHashTarget();
+      return;
+    }
+    this.scheduleHashRestore();
+  };
+
+  private clearPendingHashTarget(): void {
+    this.pendingHashTarget = '';
+    if (this.pendingHashTimer) clearTimeout(this.pendingHashTimer);
+    this.pendingHashTimer = undefined;
+  }
+
+  private queueHashRestore(): void {
+    if (this.hashRestoreTimer) clearTimeout(this.hashRestoreTimer);
+    this.hashRestoreTimer = setTimeout(() => {
+      const targetId = decodeURIComponent(window.location.hash.slice(1));
+      document.getElementById(targetId)?.scrollIntoView?.({ block: 'start' });
+      this.hashRestoreObserver?.disconnect();
+    }, 120);
+  }
+
+  private syncLocationHash(headingId: string): void {
+    const nextHash = `#${encodeURIComponent(headingId)}`;
+    if (window.location.hash === nextHash) return;
+    window.history.replaceState(
+      window.history.state,
+      '',
+      `${window.location.pathname}${window.location.search}${nextHash}`,
+    );
   }
 
   private syncActiveNavGroup(packageId: string | null): void {
@@ -147,16 +276,25 @@ export class DocsPageContextService {
     }
   }
 
-  private currentPath(): string {
+  private routePath(): string {
     return this.router.url.split(/[?#]/, 1)[0];
   }
 
-  private currentRouteInfo(): { titleKey: string | undefined; packageId: string | null } {
+  private currentRouteInfo(): {
+    titleKey: string | undefined;
+    packageId: string | null;
+    section: string | null;
+  } {
     let active = this.router.routerState.snapshot.root;
     while (active.firstChild) active = active.firstChild;
     return {
       titleKey: active.data['docsTitleKey'] as string | undefined,
-      packageId: active.paramMap.get('package'),
+      packageId:
+        active.paramMap.get('package') ??
+        (active.data['docsPackageId'] as string | undefined) ??
+        null,
+      section:
+        active.paramMap.get('section') ?? (active.data['section'] as string | undefined) ?? null,
     };
   }
 }

@@ -75,7 +75,7 @@ const translations = {
   'showcase.sourceTypeScript': 'TypeScript',
   'showcase.sourceHtml': 'HTML',
   'showcase.sourceCss': 'CSS',
-  'common.copyCodeSuccess': 'Code copied',
+  'common.copyCodeSuccess': 'Copied to clipboard',
   'common.copyCodeError': 'Copy failed',
   'showcase.select.name': 'Select',
   'showcase.select.selectionMode': 'Selection mode',
@@ -283,9 +283,9 @@ describe('InteractiveShowcaseComponent', () => {
     fixture.detectChanges();
 
     expect(writeText).toHaveBeenCalledWith('<select-preview />');
-    expect(fixture.nativeElement.querySelector('.copy-button [aria-live]').textContent).toContain(
-      'Code copied',
-    );
+    expect(
+      fixture.nativeElement.querySelector('app-copy-button [aria-live]').textContent,
+    ).toContain('Copied to clipboard');
   });
 
   it('links to the existing package catalog route', async () => {

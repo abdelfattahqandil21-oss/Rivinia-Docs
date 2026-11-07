@@ -82,9 +82,62 @@
   text-align: left;
 }
 
+.docs-package-version {
+  margin-inline-start: 0.4rem;
+  border: 1px solid var(--rv-border);
+  border-radius: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  color: var(--rv-muted);
+  font: 0.6875rem/1.4 var(--rv-font-mono);
+  font-weight: 400;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.package-entry-indicator {
+  display: inline-flex;
+  margin-inline-start: auto;
+  color: var(--rv-muted);
+  opacity: 0.8;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+:host a[data-package-id]:hover .package-entry-indicator {
+  color: var(--rv-fg);
+  transform: translateX(2px);
+}
+
+:host-context([dir='rtl']) a[data-package-id]:hover .package-entry-indicator {
+  transform: translateX(-2px);
+}
+
 .docs-package-section-links {
   display: grid;
   gap: 0.25rem;
+}
+
+.docs-guide-subnav {
+  display: grid;
+  margin-inline-start: 0.75rem;
+  border-inline-start: 1px solid var(--rv-border);
+  padding-inline-start: 0.5rem;
+}
+
+.docs-guide-group-title {
+  padding: 0.5rem 0.75rem 0.25rem;
+  color: var(--rv-fg);
+  font-size: 0.8125rem;
+  font-weight: 650;
 }
 
 :host a:focus-visible {
@@ -208,6 +261,10 @@
   .t-acc-panel,
   .nav-group-links,
   .t-acc-chevron {
+    transition: none !important;
+  }
+
+  .package-entry-indicator {
     transition: none !important;
   }
 }

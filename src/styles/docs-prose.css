@@ -1,3 +1,7 @@
+html:has(.docs-layout) {
+  scroll-behavior: smooth;
+}
+
 .docs-page-content {
   min-inline-size: 0;
   inline-size: 100%;
@@ -289,6 +293,10 @@ html[dir='rtl'] :lang(en) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html:has(.docs-layout) {
+    scroll-behavior: auto;
+  }
+
   .docs-section h2 .heading-anchor {
     transition: none;
   }
