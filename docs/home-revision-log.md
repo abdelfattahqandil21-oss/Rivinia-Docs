@@ -14,7 +14,7 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 | 2026-11-07 15:35 EET     | Showcase review comments       | DONE   | `a624088` | Fixed code/copy presentation, added date/time and table interactions, modal save/delete flows, scoped toast preview, and all 11 footer packages.                      |
 | 2026-11-07 15:56 EET     | Preview overlay containment    | DONE   | `0118907` | Centered the native modal in the preview via CSS anchor positioning and placed real toast actions at the preview's bottom-right; visually verified both on port 4200. |
 | 2026-11-07 16:00 EET     | Remove footer package metadata | DONE   | `231e015` | Removed the Select-only license and version from the shared footer; verified all 11 package links and the preferences control remain.                                 |
-| 2026-11-07 16:07 EET     | Code labels and footer layout  | DONE   | pending   | Added breathing room between code filename/language/copy labels, kept preferences solely in the sticky navbar, and removed the extra footer row.                      |
+| 2026-11-07 16:07 EET     | Code labels and footer layout  | DONE   | `69c58eb` | Added breathing room between code filename/language/copy labels, kept preferences solely in the sticky navbar, and removed the extra footer row.                      |
 
 ### Showcase review comments evidence
 
