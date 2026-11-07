@@ -17,6 +17,8 @@ export class ComponentsPageComponent {
   protected readonly packages = this.componentPackages.packages;
 
   protected readonly title = this.i18n.t('page.components.title');
-  protected readonly lead = this.i18n.t('page.components.lead');
+  protected readonly lead = this.i18n.t('page.components.lead', () => ({
+    count: this.packages().length,
+  }));
   protected readonly inProgress = this.i18n.t('page.inProgress');
 }

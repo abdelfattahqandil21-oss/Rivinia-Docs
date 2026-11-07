@@ -118,12 +118,16 @@ for (const filePath of walk(appRoot).filter((file) => file.endsWith('.ts'))) {
 
     const targetRelative = path.relative(root, target).split(path.sep).join('/');
     if (targetRelative === 'src/generated' || targetRelative.startsWith('src/generated/')) {
-      if (!file.startsWith('src/app/features/showcase/')) {
+      const showcaseSource = file.startsWith('src/app/features/showcase/');
+      const packageMetadataAdapter =
+        targetRelative === 'src/generated/package-meta.generated.ts' &&
+        file === 'src/app/features/packages/package-metadata.ts';
+      if (!showcaseSource && !packageMetadataAdapter) {
         report(
           'generated-import-boundary',
           filePath,
           entry.line,
-          'src/generated may only be imported from features/showcase',
+          'generated demo sources may only be imported from features/showcase; package metadata may only be imported by features/packages/package-metadata.ts',
         );
       }
     }

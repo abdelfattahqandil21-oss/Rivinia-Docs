@@ -63,7 +63,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Keep layers in this order: `core <- shared <- layout <- features <- pages <- app`. A layer may import its own layer and anything to its left; never import to the right. Composition roots (`app.config.ts`, `app.providers.ts`, `app.routes.ts`) live directly under `src/app/` and may import from any layer.
 - Group code by feature. Put showcase demos in `src/app/features/showcase/demos/<package>/` with `<name>-example.component.ts`, `.html`, `.css`, and `.spec.ts` together when a spec exists.
 - Keep component `templateUrl` and `styleUrl` relative to the component file and shaped as `./<name>.component.html` and `./<name>.component.css`.
-- Keep generated showcase output only in `src/generated/`. Ignore it in Git, never edit it by hand, and let the existing `prestart`, `prebuild`, and `pretest` hooks generate it. Run `npm` scripts; do not invoke raw `ng` commands.
+- Keep generated showcase sources and package metadata only in `src/generated/`. Ignore them in Git and never edit them by hand. Generated demo sources may be imported only under `features/showcase`; package metadata may be imported only by `features/packages/package-metadata.ts`. The existing `prestart`, `prebuild`, and `pretest` hooks and `preverify` generate them through `npm run generate:sources`. Run `npm` scripts; do not invoke raw `ng` commands.
 - Keep one package manifest with `id`, `name`, `translationKey`, explicit `componentsPage` and `showcase` visibility, and the approved `docs.group`; keep site navigation separate and do not invent status or route fields.
 - Co-locate each spec beside the file it tests. Do not create `tests/` folders under `src/app/`.
 - Keep app-shell files named `app.ts`, `app.html`, and `app.css`; any rename is deferred.
@@ -81,7 +81,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 1. Put the demo files in `src/app/features/showcase/demos/<package>/` and use component-relative template/style URLs.
 2. Add its files to `scripts/generate-showcase-sources.mjs`; keep visitor-facing source copyable and free of app-local imports.
-3. Add the package to the single package manifest, setting only the applicable `componentsPage` and/or `showcase` visibility.
+3. Add the package to the single package manifest, including its verified `docs.group` and explicit `componentsPage` / `showcase` visibility.
 4. Register its showcase loader and visible example metadata; preserve lazy loading.
 5. Add a co-located spec when warranted and run `npm run verify`.
 
