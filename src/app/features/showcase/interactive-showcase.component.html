@@ -40,31 +40,6 @@
     </div>
 
     <div class="showcase-controls">
-      @if (selectedExample() === 'select') {
-        <div
-          class="demo-mode-switch"
-          role="group"
-          [attr.aria-label]="'showcase.demoMode' | rvTranslate"
-        >
-          <button
-            type="button"
-            [attr.aria-pressed]="selectedDemoMode() === 'headless'"
-            (click)="setDemoMode('headless')"
-          >
-            Headless
-          </button>
-          <button
-            type="button"
-            [attr.aria-pressed]="selectedDemoMode() === 'ui'"
-            (click)="setDemoMode('ui')"
-          >
-            UI
-          </button>
-        </div>
-      } @else {
-        <span class="showcase-control-spacer" aria-hidden="true"></span>
-      }
-
       <div class="view-switch" role="group" [attr.aria-label]="'showcase.views' | rvTranslate">
         <button
           type="button"
@@ -99,6 +74,50 @@
           <h3>{{ 'showcase.preview' | rvTranslate }}</h3>
         </div>
         <div class="preview-stage">
+          @if (selectedExample() === 'select') {
+            <div class="preview-toolbar">
+              <div
+                class="demo-mode-switch"
+                role="group"
+                [attr.aria-label]="'showcase.demoMode' | rvTranslate"
+              >
+                <button
+                  type="button"
+                  [attr.aria-pressed]="selectedDemoMode() === 'headless'"
+                  (click)="setDemoMode('headless')"
+                >
+                  Headless
+                </button>
+                <button
+                  type="button"
+                  [attr.aria-pressed]="selectedDemoMode() === 'ui'"
+                  (click)="setDemoMode('ui')"
+                >
+                  UI
+                </button>
+              </div>
+              <div
+                class="selection-switch"
+                role="group"
+                [attr.aria-label]="'showcase.select.selectionMode' | rvTranslate"
+              >
+                <button
+                  type="button"
+                  [attr.aria-pressed]="selectionMode() === 'single'"
+                  (click)="setSelectionMode('single')"
+                >
+                  {{ 'showcase.select.single' | rvTranslate }}
+                </button>
+                <button
+                  type="button"
+                  [attr.aria-pressed]="selectionMode() === 'multi'"
+                  (click)="setSelectionMode('multi')"
+                >
+                  {{ 'showcase.select.multiple' | rvTranslate }}
+                </button>
+              </div>
+            </div>
+          }
           @if (loading()) {
             <p class="loading-state" role="status">{{ 'showcase.loading' | rvTranslate }}</p>
           } @else if (failed()) {
@@ -110,28 +129,6 @@
             </div>
           } @else if (activeComponent(); as component) {
             @for (key of [previewKey()]; track key) {
-              @if (selectedExample() === 'select') {
-                <div
-                  class="selection-switch"
-                  role="group"
-                  [attr.aria-label]="'showcase.select.selectionMode' | rvTranslate"
-                >
-                  <button
-                    type="button"
-                    [attr.aria-pressed]="selectionMode() === 'single'"
-                    (click)="setSelectionMode('single')"
-                  >
-                    {{ 'showcase.select.single' | rvTranslate }}
-                  </button>
-                  <button
-                    type="button"
-                    [attr.aria-pressed]="selectionMode() === 'multi'"
-                    (click)="setSelectionMode('multi')"
-                  >
-                    {{ 'showcase.select.multiple' | rvTranslate }}
-                  </button>
-                </div>
-              }
               <div class="preview-content" [class.wide-demo]="selectedExample() === 'datepicker'">
                 <ng-container *ngComponentOutlet="component; inputs: activeInputs()" />
               </div>
@@ -163,10 +160,6 @@
             </div>
           }
         </div>
-        <a class="documentation-link" routerLink="/docs">
-          {{ 'showcase.readDocs' | rvTranslate }}
-          <span aria-hidden="true">→</span>
-        </a>
       </section>
 
       <section
@@ -178,20 +171,7 @@
           <h3>{{ 'showcase.code' | rvTranslate }}</h3>
         </div>
 
-        @if (selectedExample() === 'select' && visibleCodeBlocks().length) {
-          <div class="code-examples">
-            @for (block of visibleCodeBlocks(); track block.id) {
-              <app-code-block
-                [code]="block.code"
-                [language]="block.language"
-                [filename]="
-                  block.language === 'html' ? 'select.component.html' : 'select.component.ts'
-                "
-                [caption]="block.titleKey | rvTranslate"
-              />
-            }
-          </div>
-        } @else if (sourceFiles().length) {
+        @if (sourceFiles().length) {
           <div
             class="source-file-tabs"
             role="tablist"
@@ -244,5 +224,9 @@
         }
       </section>
     </div>
+    <a class="documentation-link" routerLink="/docs">
+      {{ 'showcase.readDocs' | rvTranslate }}
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </section>

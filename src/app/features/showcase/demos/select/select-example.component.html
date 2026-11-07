@@ -114,21 +114,13 @@
       </div>
       <section class="headless-state" aria-labelledby="headless-state-title">
         <h5 id="headless-state-title">{{ 'showcase.select.stateTitle' | rvTranslate }}</h5>
-        <p>{{ 'showcase.select.stateNote' | rvTranslate }}</p>
-        <dl>
-          <dt>{{ 'showcase.select.stateOpen' | rvTranslate }}</dt>
-          <dd>
-            <code dir="ltr" translate="no">{{ headlessOpen() }}</code>
-          </dd>
-          <dt>{{ 'showcase.select.stateActiveOption' | rvTranslate }}</dt>
-          <dd>{{ activeOption()?.label ?? ('showcase.select.noActiveOption' | rvTranslate) }}</dd>
-          <dt>{{ 'showcase.select.stateSelectedIds' | rvTranslate }}</dt>
-          <dd>
-            <code class="selected-id-value" dir="ltr" translate="no">
-              {{ headlessSelectedIds().join(', ') || '—' }}
-            </code>
-          </dd>
-        </dl>
+        <rv-table
+          [columns]="headlessStateColumns()"
+          [rows]="headlessStateTable.pageRows()"
+          [ariaLabel]="'showcase.select.stateTable' | rvTranslate"
+          density="compact"
+          [stickyHeader]="false"
+        />
       </section>
     </div>
   }

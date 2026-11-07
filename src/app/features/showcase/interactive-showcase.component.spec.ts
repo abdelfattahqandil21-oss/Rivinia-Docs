@@ -30,10 +30,22 @@ const sourceFor = (id: ShowcaseExampleId) => ({
     ? {
         codeBlocks: [
           {
-            id: 'single-html',
+            id: 'ui-single-html',
             titleKey: 'showcase.select.singleTitle',
             language: 'html' as const,
             code: `<${id}-preview />`,
+          },
+          {
+            id: 'ui-single-typescript',
+            titleKey: 'showcase.select.singleState',
+            language: 'ts' as const,
+            code: 'export class SelectExampleComponent {}',
+          },
+          {
+            id: 'ui-single-css',
+            titleKey: 'showcase.select.singleState',
+            language: 'css' as const,
+            code: ':host { display: block; }',
           },
         ],
       }
@@ -137,6 +149,25 @@ describe('InteractiveShowcaseComponent', () => {
     expect(loaders.select).toHaveBeenCalledOnce();
     expect(loaders.datepicker).not.toHaveBeenCalled();
     expect(fixture.nativeElement.textContent).toContain('Loaded preview');
+  });
+
+  it('shows Select source in separate HTML, TypeScript, and CSS tabs', async () => {
+    const fixture = createFixture();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const tabs = [...fixture.nativeElement.querySelectorAll('.source-file-tabs [role="tab"]')];
+    expect(tabs.map((tab) => tab.textContent.trim())).toEqual(['HTML', 'TypeScript', 'CSS']);
+    expect(fixture.nativeElement.querySelectorAll('.source-file-view app-code-block')).toHaveLength(
+      1,
+    );
+
+    (tabs[2] as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(tabs[2].getAttribute('aria-selected')).toBe('true');
+    expect(
+      fixture.nativeElement.querySelector('.source-file-view app-code-block').textContent,
+    ).toContain(':host { display: block; }');
   });
 
   it('loads a selected example on demand and preserves it while switching views', async () => {
@@ -268,6 +299,8 @@ describe('InteractiveShowcaseComponent', () => {
       '.documentation-link',
     ) as HTMLAnchorElement;
     expect(docsLink.getAttribute('href')).toBe('/docs');
+    expect(docsLink.parentElement?.querySelector('.showcase-workspace')).not.toBeNull();
+    expect(docsLink.closest('.preview-pane')).toBeNull();
   });
 
   it('ignores an older lazy response after a newer example has been selected', async () => {

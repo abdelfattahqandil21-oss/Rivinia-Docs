@@ -19,7 +19,9 @@ const translations = {
   'showcase.select.closeOptions': 'Hide options',
   'showcase.select.options': 'Select options',
   'showcase.select.stateTitle': 'State from headless layer',
-  'showcase.select.stateNote': 'The example owns popup state.',
+  'showcase.select.stateField': 'State',
+  'showcase.select.stateValue': 'Value',
+  'showcase.select.stateTable': 'Headless Select state',
   'showcase.select.stateOpen': 'Open',
   'showcase.select.stateActiveOption': 'Active option',
   'showcase.select.stateSelectedIds': 'Selected IDs',
@@ -84,7 +86,7 @@ describe('SelectExampleComponent headless demo', () => {
     key(fixture, 'Enter');
     fixture.detectChanges();
     expect(combobox.getAttribute('aria-expanded')).toBe('true');
-    expect(fixture.nativeElement.querySelector('.selected-id-value').textContent).toContain(
+    expect(fixture.nativeElement.querySelector('.headless-state').textContent).toContain(
       'accessibility',
     );
     expect(
@@ -97,7 +99,7 @@ describe('SelectExampleComponent headless demo', () => {
       ) as HTMLButtonElement
     ).click();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.selected-id-value').textContent.trim()).toBe('—');
+    expect(fixture.nativeElement.querySelector('.headless-state').textContent).toContain('—');
     expect(fixture.nativeElement.querySelector('.selected-chips')).toBeNull();
   });
 
@@ -109,7 +111,7 @@ describe('SelectExampleComponent headless demo', () => {
     key(fixture, 'Enter');
 
     expect(combobox.getAttribute('aria-expanded')).toBe('false');
-    expect(fixture.nativeElement.querySelector('.selected-id-value').textContent).toContain(
+    expect(fixture.nativeElement.querySelector('.headless-state').textContent).toContain(
       'accessibility',
     );
     expect(fixture.nativeElement.querySelector('.headless-option.is-active')).toBeNull();
@@ -130,6 +132,17 @@ describe('SelectExampleComponent headless demo', () => {
     key(fixture, 'Escape');
     expect(combobox.getAttribute('aria-expanded')).toBe('false');
     expect(fixture.nativeElement.querySelector('.headless-option.is-active')).toBeNull();
+  });
+
+  it('renders live headless state as a compact Rivinia table', async () => {
+    const fixture = await createFixture('single');
+    const state = fixture.nativeElement.querySelector('.headless-state');
+
+    expect(state.querySelector('rv-table')).not.toBeNull();
+    expect(state.querySelector('rv-table')?.getAttribute('data-sticky')).toBe('false');
+    expect(state.textContent).toContain('State');
+    expect(state.textContent).toContain('Open');
+    expect(state.textContent).toContain('false');
   });
 
   it('closes the list when keyboard focus leaves the headless control', async () => {

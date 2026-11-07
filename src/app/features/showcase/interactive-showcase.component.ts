@@ -140,11 +140,24 @@ export class InteractiveShowcaseComponent {
       );
     }),
   );
+  protected selectCodeFilename(id: string, language: string): string {
+    const prefix = id.startsWith('headless-') ? 'headless-select' : 'select';
+    return `${prefix}.component.${language === 'ts' ? 'ts' : language}`;
+  }
   protected readonly sourceFiles = computed<ShowcaseSourceFile[]>(() => {
     const source = this.source();
-    if (!source || this.selectedExample() === 'select') {
+    if (!source) {
       return [];
     }
+    if (this.selectedExample() === 'select') {
+      return this.visibleCodeBlocks().map((block) => ({
+        id: block.language === 'ts' ? 'typescript' : block.language,
+        name: this.selectCodeFilename(block.id, block.language),
+        language: block.language,
+        code: block.code,
+      }));
+    }
+
     const files: ShowcaseSourceFile[] = [
       { id: 'html', name: 'example.component.html', language: 'html', code: source.html },
       {

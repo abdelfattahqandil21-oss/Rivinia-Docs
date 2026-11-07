@@ -3,9 +3,17 @@ import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
 import { RiviniaSelect } from '@rivinia/select';
 import type { RiviniaSelectOption } from '@rivinia/select';
 import { RiviniaSelectComponent, type SelectChange } from '@rivinia/select/ui';
+import { createTable, type TableColumn } from '@rivinia/table';
+import { RiviniaTableComponent } from '@rivinia/table/ui';
+
+interface HeadlessStateRow {
+  readonly id: string;
+  readonly property: string;
+  readonly current: string;
+}
 
 @Component({
-  imports: [RiviniaSelectComponent, RvTranslatePipe],
+  imports: [RiviniaSelectComponent, RiviniaTableComponent, RvTranslatePipe],
   selector: 'app-showcase-select-example',
   templateUrl: './select-example.component.html',
   styleUrl: './select-example.component.css',
@@ -54,6 +62,52 @@ export class SelectExampleComponent {
       .map((id) => options.find((option) => option.id === id))
       .filter((option): option is RiviniaSelectOption => option !== undefined);
   });
+  protected readonly headlessStateRows = computed<readonly HeadlessStateRow[]>(() => {
+    this.i18n.currentLanguage();
+    return [
+      {
+        id: 'open',
+        property: this.i18n.translate('showcase.select.stateOpen'),
+        current: String(this.headlessOpen()),
+      },
+      {
+        id: 'active-option',
+        property: this.i18n.translate('showcase.select.stateActiveOption'),
+        current:
+          this.activeOption()?.label ?? this.i18n.translate('showcase.select.noActiveOption'),
+      },
+      {
+        id: 'selected-ids',
+        property: this.i18n.translate('showcase.select.stateSelectedIds'),
+        current: this.headlessSelectedIds().join(', ') || '—',
+      },
+    ];
+  });
+  protected readonly headlessStateColumns = computed<readonly TableColumn<HeadlessStateRow>[]>(
+    () => [
+      {
+        id: 'property',
+        header: this.i18n.translate('showcase.select.stateField'),
+        accessor: 'property',
+        width: '8rem',
+        flex: 0,
+        textOverflow: 'wrap',
+      },
+      {
+        id: 'current',
+        header: this.i18n.translate('showcase.select.stateValue'),
+        accessor: 'current',
+        flex: 1,
+        textOverflow: 'wrap',
+      },
+    ],
+  );
+  protected readonly headlessStateTable = createTable<HeadlessStateRow>(() => ({
+    columns: () => this.headlessStateColumns(),
+    data: () => this.headlessStateRows(),
+    locale: () => this.i18n.currentLanguage(),
+    pageSize: 3,
+  }));
   protected readonly singleSummary = computed(() => this.labelsFor(this.singleValue()));
   protected readonly multiSummary = computed(() => this.labelsFor(this.multiValue()));
 
