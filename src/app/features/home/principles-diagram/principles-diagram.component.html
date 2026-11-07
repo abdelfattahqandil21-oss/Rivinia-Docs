@@ -1,6 +1,6 @@
-<div class="principles-diagram">
+<div class="grid justify-items-center gap-2">
   <svg
-    class="principles-mark"
+    class="principles-mark block w-full overflow-visible"
     [class.has-active-petal]="activePillar() !== null"
     viewBox="130 130 940 940"
     fill="none"
@@ -16,9 +16,9 @@
         y2="850"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" class="gold-stop-0" />
-        <stop offset=".52" class="gold-stop-52" />
-        <stop offset="1" class="gold-stop-100" />
+        <stop offset="0" class="[stop-color:var(--rv-accent)]" />
+        <stop offset=".52" class="[stop-color:var(--rv-accent)] [stop-opacity:0.82]" />
+        <stop offset="1" class="[stop-color:var(--rv-accent)] [stop-opacity:0.55]" />
       </linearGradient>
       <linearGradient
         id="principles-violet"
@@ -28,14 +28,14 @@
         y2="820"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" class="violet-stop-0" />
-        <stop offset=".55" class="violet-stop-55" />
-        <stop offset="1" class="violet-stop-100" />
+        <stop offset="0" class="[stop-color:var(--rv-brand-violet)]" />
+        <stop offset=".55" class="[stop-color:var(--rv-brand-violet)] [stop-opacity:0.85]" />
+        <stop offset="1" class="[stop-color:var(--rv-brand-violet)] [stop-opacity:0.6]" />
       </linearGradient>
     </defs>
 
     <g
-      class="pillar-petal"
+      class="pillar-petal cursor-pointer [pointer-events:bounding-box] transition-[opacity,filter] duration-200 ease-out focus-visible:outline-none focus-visible:drop-shadow-[0_0_0.4rem_var(--rv-accent)] motion-reduce:transition-none"
       data-petal="simplicity"
       [class.is-active]="activePillar() === 'simplicity'"
       role="button"
@@ -63,7 +63,7 @@
     </g>
 
     <g
-      class="pillar-petal"
+      class="pillar-petal cursor-pointer [pointer-events:bounding-box] transition-[opacity,filter] duration-200 ease-out focus-visible:outline-none focus-visible:drop-shadow-[0_0_0.4rem_var(--rv-accent)] motion-reduce:transition-none"
       data-petal="flexibility"
       [class.is-active]="activePillar() === 'flexibility'"
       role="button"
@@ -91,7 +91,7 @@
     </g>
 
     <g
-      class="pillar-petal"
+      class="pillar-petal cursor-pointer [pointer-events:bounding-box] transition-[opacity,filter] duration-200 ease-out focus-visible:outline-none focus-visible:drop-shadow-[0_0_0.4rem_var(--rv-accent)] motion-reduce:transition-none"
       data-petal="performance"
       [class.is-active]="activePillar() === 'performance'"
       role="button"
@@ -119,7 +119,7 @@
     </g>
 
     <g
-      class="pillar-petal"
+      class="pillar-petal cursor-pointer [pointer-events:bounding-box] transition-[opacity,filter] duration-200 ease-out focus-visible:outline-none focus-visible:drop-shadow-[0_0_0.4rem_var(--rv-accent)] motion-reduce:transition-none"
       data-petal="accessibility"
       [class.is-active]="activePillar() === 'accessibility'"
       role="button"
@@ -149,7 +149,7 @@
     <g class="core-diamond" transform="translate(600 600) scale(1.12) translate(-600 -600)">
       <path
         d="M600 500L700 600L600 700L500 600L600 500Z"
-        class="core-outline"
+        class="fill-[var(--rv-bg)]"
         stroke="url(#principles-gold)"
         stroke-width="12"
         stroke-linejoin="round"
@@ -159,10 +159,12 @@
         fill="url(#principles-violet)"
         opacity="0.95"
       />
-      <path d="M600 559L641 600L600 641L559 600L600 559Z" class="core-outline" />
-      <circle cx="600" cy="600" r="11" class="core-dot" />
+      <path d="M600 559L641 600L600 641L559 600L600 559Z" class="fill-[var(--rv-bg)]" />
+      <circle cx="600" cy="600" r="11" class="fill-[var(--rv-accent)]" />
     </g>
   </svg>
 
-  <span class="core-label">{{ coreLabel() }}</span>
+  <span class="core-label text-center text-base font-semibold leading-[1.3] text-rv-fg">{{
+    coreLabel()
+  }}</span>
 </div>

@@ -1,35 +1,74 @@
-<main class="home-page">
-  <section id="hero" class="home-section hero-section" aria-labelledby="home-title">
-    <div class="home-container hero-layout">
-      <div class="hero-copy">
-        <p class="home-eyebrow">{{ i18n.translate('home.hero.eyebrow') }}</p>
-        <h1 id="home-title">{{ i18n.translate('home.hero.title') }}</h1>
-        <p class="hero-lead">{{ i18n.translate('home.hero.lead') }}</p>
+<main class="home-page text-rv-fg">
+  <section
+    id="hero"
+    class="home-section hero-section relative isolate grid content-center py-[var(--home-section-inset)] max-[720px]:pb-[calc(var(--home-section-inset)+2rem)]"
+    aria-labelledby="home-title"
+  >
+    <div
+      class="home-container hero-layout mx-auto grid min-w-0 w-full max-w-[var(--home-content-width)] grid-cols-1 items-center gap-[clamp(2.5rem,6vw,5rem)] px-[clamp(1rem,4vw,2rem)] min-[68.75rem]:px-0 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]"
+    >
+      <div class="hero-copy min-w-0">
+        <p class="home-eyebrow mb-4 text-sm font-medium uppercase tracking-[0.08em] text-rv-accent">
+          {{ i18n.translate('home.hero.eyebrow') }}
+        </p>
+        <h1
+          id="home-title"
+          class="m-0 max-w-[18ch] text-[clamp(2.5rem,1.5rem_+_4vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.02em] text-rv-fg"
+        >
+          {{ i18n.translate('home.hero.title') }}
+        </h1>
+        <p
+          class="hero-lead mt-6 max-w-[var(--home-reading-width)] text-lg leading-[1.6] text-rv-muted"
+        >
+          {{ i18n.translate('home.hero.lead') }}
+        </p>
 
-        <div class="hero-actions">
-          <a class="home-button home-button-primary" routerLink="/docs">
+        <div class="hero-actions mt-8 flex flex-wrap items-center gap-3">
+          <a
+            class="home-button home-button-primary inline-flex min-h-11 items-center justify-center rounded-[var(--home-radius-sm)] border border-transparent bg-[var(--rv-home-cta-bg)] px-4 font-[inherit] font-semibold text-[var(--rv-home-cta-foreground)] no-underline transition-[background-color,border-color,color] duration-[160ms] hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+            routerLink="/docs"
+          >
             {{ i18n.translate('home.hero.primary') }}
           </a>
-          <a class="home-button home-button-secondary" routerLink="/components">
+          <a
+            class="home-button home-button-secondary inline-flex min-h-11 items-center justify-center rounded-[var(--home-radius-sm)] border border-rv-border px-4 font-[inherit] font-semibold text-rv-fg no-underline transition-[background-color,border-color,color] duration-[160ms] hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+            routerLink="/components"
+          >
             {{ i18n.translate('home.hero.secondary') }}
           </a>
         </div>
 
         <app-code-block
-          class="hero-install-code"
+          class="hero-install-code mt-6 block w-full max-w-[30rem]"
           [code]="'npm i @rivinia/select'"
           language="bash"
           filename="terminal"
         />
 
-        <div class="hero-trust" [attr.aria-label]="i18n.translate('home.hero.trustLabel')">
+        <div
+          class="hero-trust mt-4 flex flex-wrap gap-4 text-sm text-rv-muted"
+          [attr.aria-label]="i18n.translate('home.hero.trustLabel')"
+        >
           <span>MIT</span>
-          <a href="https://www.npmjs.com/package/@rivinia/select"> @rivinia/select · v1.0.3 </a>
-          <a href="https://github.com/abdelfattahqandil21-oss/Rivinia"> GitHub </a>
+          <a
+            class="text-inherit underline-offset-4 hover:text-rv-fg hover:underline"
+            href="https://www.npmjs.com/package/@rivinia/select"
+          >
+            @rivinia/select · v1.0.3
+          </a>
+          <a
+            class="text-inherit underline-offset-4 hover:text-rv-fg hover:underline"
+            href="https://github.com/abdelfattahqandil21-oss/Rivinia"
+          >
+            GitHub
+          </a>
         </div>
       </div>
 
-      <div class="hero-code" aria-label="Select component examples">
+      <div
+        class="hero-code relative isolate grid min-w-0 gap-4"
+        aria-label="Select component examples"
+      >
         <app-code-block
           [code]="headlessSnippet"
           language="ts"
@@ -45,7 +84,10 @@
       </div>
     </div>
 
-    <a class="scroll-cue" href="#experience">
+    <a
+      class="scroll-cue absolute start-1/2 bottom-4 inline-flex min-h-11 -translate-x-1/2 items-center gap-2 text-sm text-rv-muted no-underline hover:text-rv-fg rtl:translate-x-1/2 max-[720px]:bottom-2"
+      href="#experience"
+    >
       <span>{{ i18n.translate('home.hero.scroll') }}</span>
       <span aria-hidden="true">↓</span>
     </a>
@@ -61,121 +103,253 @@
     @if (experienceState() === 'ready' && experienceComponent(); as component) {
       <ng-container *ngComponentOutlet="component" />
     } @else if (experienceState() === 'error') {
-      <div class="experience-placeholder experience-error" role="alert">
-        <p>{{ i18n.translate('home.experience.loadError') }}</p>
-        <button type="button" class="home-button home-button-secondary" (click)="retryExperience()">
+      <div
+        class="experience-placeholder experience-error grid min-h-[inherit] content-center justify-items-center gap-4 px-[clamp(1rem,4vw,2rem)] py-8 text-center text-rv-fg"
+        role="alert"
+      >
+        <p class="m-0 max-w-[var(--home-reading-width)] leading-[1.6] text-rv-muted">
+          {{ i18n.translate('home.experience.loadError') }}
+        </p>
+        <button
+          type="button"
+          class="home-button home-button-secondary inline-flex min-h-11 items-center justify-center rounded-[var(--home-radius-sm)] border border-rv-border px-4 font-[inherit] font-semibold text-rv-fg transition-[background-color,border-color,color] duration-[160ms] hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+          (click)="retryExperience()"
+        >
           {{ i18n.translate('home.experience.retry') }}
         </button>
       </div>
     } @else {
-      <div class="experience-placeholder">
-        <div class="experience-skeleton" aria-hidden="true"></div>
+      <div
+        class="experience-placeholder grid min-h-[inherit] place-items-center px-[clamp(1rem,4vw,2rem)] py-8"
+      >
+        <div
+          class="experience-skeleton mx-auto w-full max-w-[var(--home-content-width)]"
+          aria-hidden="true"
+        ></div>
       </div>
     }
     @if (experienceState() === 'loading') {
-      <span class="visually-hidden" role="status">
+      <span class="sr-only" role="status">
         {{ i18n.translate('home.experience.loading') }}
       </span>
     }
   </div>
 
-  <section id="decisions" class="home-section pillars-section" aria-labelledby="pillars-title">
-    <div class="home-container">
-      <header class="section-heading">
-        <p class="home-eyebrow">{{ i18n.translate('home.pillars.eyebrow') }}</p>
-        <h2 id="pillars-title">{{ i18n.translate('home.pillars.title') }}</h2>
-        <p>{{ i18n.translate('home.pillars.text') }}</p>
+  <section
+    id="decisions"
+    class="home-section pillars-section relative isolate grid content-center py-[var(--home-section-inset)] scroll-mt-[var(--navbar-height)]"
+    aria-labelledby="pillars-title"
+  >
+    <div
+      class="home-container mx-auto w-full max-w-[var(--home-content-width)] px-[clamp(1rem,4vw,2rem)] min-[68.75rem]:px-0"
+    >
+      <header class="section-heading mb-8">
+        <p class="home-eyebrow mb-4 text-sm font-medium uppercase tracking-[0.08em] text-rv-accent">
+          {{ i18n.translate('home.pillars.eyebrow') }}
+        </p>
+        <h2
+          id="pillars-title"
+          class="m-0 max-w-[22ch] text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-rv-fg"
+        >
+          {{ i18n.translate('home.pillars.title') }}
+        </h2>
+        <p class="mt-3 max-w-[var(--home-reading-width)] text-lg leading-[1.6] text-rv-muted">
+          {{ i18n.translate('home.pillars.text') }}
+        </p>
       </header>
 
-      <div class="pillars-layout" [class.has-interacted]="pillarInteracted()">
-        <div id="pillar-detail" class="pillar-detail" aria-live="polite">
+      <div
+        class="pillars-layout grid grid-cols-2 items-center gap-[clamp(1rem,4vw,3.5rem)] [container-type:inline-size] max-[39.9375rem]:grid-cols-1 max-[39.9375rem]:gap-4"
+        [class.has-interacted]="pillarInteracted()"
+      >
+        <div
+          id="pillar-detail"
+          class="pillar-detail col-start-2 row-start-1 grid min-w-0 self-center max-[39.9375rem]:col-start-1 max-[39.9375rem]:row-start-2"
+          aria-live="polite"
+        >
           <article
-            class="pillar-card pillar-simplicity"
+            class="pillar-card pillar-simplicity col-start-1 row-start-1 flex min-w-0 flex-col items-start rounded-[var(--home-radius-lg)] border border-rv-border bg-[var(--rv-home-surface-raised)] p-[var(--home-space-6)] opacity-0 invisible translate-y-[0.35rem] pointer-events-none transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(0.2,0.75,0.25,1)] motion-reduce:transition-none focus-within:border-rv-accent"
             [class.is-active]="activePillar() === 'simplicity'"
+            [class.opacity-100]="activePillar() === 'simplicity'"
+            [class.visible]="activePillar() === 'simplicity'"
+            [class.translate-y-0]="activePillar() === 'simplicity'"
+            [class.z-10]="activePillar() === 'simplicity'"
+            [class.pointer-events-auto]="activePillar() === 'simplicity'"
             [attr.aria-hidden]="activePillar() !== 'simplicity'"
             [attr.inert]="activePillar() !== 'simplicity' ? '' : null"
           >
-            <p class="pillar-kicker">{{ i18n.translate('home.pillar.simplicity.kicker') }}</p>
-            <h3>{{ i18n.translate('home.pillar.simplicity.title') }}</h3>
-            <p class="pillar-description">{{ i18n.translate('home.pillar.simplicity.text') }}</p>
+            <p class="pillar-kicker mb-2 text-sm font-semibold leading-[1.4] text-rv-accent">
+              {{ i18n.translate('home.pillar.simplicity.kicker') }}
+            </p>
+            <h3 class="m-0 text-xl font-semibold leading-[1.3] tracking-[-0.02em] text-rv-fg">
+              {{ i18n.translate('home.pillar.simplicity.title') }}
+            </h3>
+            <p class="pillar-description mt-3 leading-[1.55] text-rv-muted">
+              {{ i18n.translate('home.pillar.simplicity.text') }}
+            </p>
             <ul
-              class="pillar-chips"
+              class="pillar-chips mt-4 flex list-none flex-wrap gap-2 p-0"
               aria-label="{{ i18n.translate('home.pillar.simplicity.chipsLabel') }}"
             >
-              <li>{{ i18n.translate('home.pillar.simplicity.chip1') }}</li>
-              <li>{{ i18n.translate('home.pillar.simplicity.chip2') }}</li>
-              <li>{{ i18n.translate('home.pillar.simplicity.chip3') }}</li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.simplicity.chip1') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.simplicity.chip2') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.simplicity.chip3') }}
+              </li>
             </ul>
-            <a class="pillar-link" href="#start"
+            <a
+              class="pillar-link mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-[0.9375rem] font-semibold text-rv-accent no-underline hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent"
+              href="#start"
               >{{ i18n.translate('home.pillar.simplicity.link') }}
               <span aria-hidden="true">→</span></a
             >
           </article>
 
           <article
-            class="pillar-card pillar-flexibility"
+            class="pillar-card pillar-flexibility col-start-1 row-start-1 flex min-w-0 flex-col items-start rounded-[var(--home-radius-lg)] border border-rv-border bg-[var(--rv-home-surface-raised)] p-[var(--home-space-6)] opacity-0 invisible translate-y-[0.35rem] pointer-events-none transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(0.2,0.75,0.25,1)] motion-reduce:transition-none focus-within:border-rv-accent"
             [class.is-active]="activePillar() === 'flexibility'"
+            [class.opacity-100]="activePillar() === 'flexibility'"
+            [class.visible]="activePillar() === 'flexibility'"
+            [class.translate-y-0]="activePillar() === 'flexibility'"
+            [class.z-10]="activePillar() === 'flexibility'"
+            [class.pointer-events-auto]="activePillar() === 'flexibility'"
             [attr.aria-hidden]="activePillar() !== 'flexibility'"
             [attr.inert]="activePillar() !== 'flexibility' ? '' : null"
           >
-            <p class="pillar-kicker">{{ i18n.translate('home.pillar.flexibility.kicker') }}</p>
-            <h3>{{ i18n.translate('home.pillar.flexibility.title') }}</h3>
-            <p class="pillar-description">{{ i18n.translate('home.pillar.flexibility.text') }}</p>
+            <p class="pillar-kicker mb-2 text-sm font-semibold leading-[1.4] text-rv-accent">
+              {{ i18n.translate('home.pillar.flexibility.kicker') }}
+            </p>
+            <h3 class="m-0 text-xl font-semibold leading-[1.3] tracking-[-0.02em] text-rv-fg">
+              {{ i18n.translate('home.pillar.flexibility.title') }}
+            </h3>
+            <p class="pillar-description mt-3 leading-[1.55] text-rv-muted">
+              {{ i18n.translate('home.pillar.flexibility.text') }}
+            </p>
             <ul
-              class="pillar-chips"
+              class="pillar-chips mt-4 flex list-none flex-wrap gap-2 p-0"
               aria-label="{{ i18n.translate('home.pillar.flexibility.chipsLabel') }}"
             >
-              <li>{{ i18n.translate('home.pillar.flexibility.chip1') }}</li>
-              <li>{{ i18n.translate('home.pillar.flexibility.chip2') }}</li>
-              <li>{{ i18n.translate('home.pillar.flexibility.chip3') }}</li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.flexibility.chip1') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.flexibility.chip2') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.flexibility.chip3') }}
+              </li>
             </ul>
-            <a class="pillar-link" href="#experience"
+            <a
+              class="pillar-link mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-[0.9375rem] font-semibold text-rv-accent no-underline hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent"
+              href="#experience"
               >{{ i18n.translate('home.pillar.flexibility.link') }}
               <span aria-hidden="true">→</span></a
             >
           </article>
 
           <article
-            class="pillar-card pillar-performance"
+            class="pillar-card pillar-performance col-start-1 row-start-1 flex min-w-0 flex-col items-start rounded-[var(--home-radius-lg)] border border-rv-border bg-[var(--rv-home-surface-raised)] p-[var(--home-space-6)] opacity-0 invisible translate-y-[0.35rem] pointer-events-none transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(0.2,0.75,0.25,1)] motion-reduce:transition-none focus-within:border-rv-accent"
             [class.is-active]="activePillar() === 'performance'"
+            [class.opacity-100]="activePillar() === 'performance'"
+            [class.visible]="activePillar() === 'performance'"
+            [class.translate-y-0]="activePillar() === 'performance'"
+            [class.z-10]="activePillar() === 'performance'"
+            [class.pointer-events-auto]="activePillar() === 'performance'"
             [attr.aria-hidden]="activePillar() !== 'performance'"
             [attr.inert]="activePillar() !== 'performance' ? '' : null"
           >
-            <p class="pillar-kicker">{{ i18n.translate('home.pillar.performance.kicker') }}</p>
-            <h3>{{ i18n.translate('home.pillar.performance.title') }}</h3>
-            <p class="pillar-description">{{ i18n.translate('home.pillar.performance.text') }}</p>
+            <p class="pillar-kicker mb-2 text-sm font-semibold leading-[1.4] text-rv-accent">
+              {{ i18n.translate('home.pillar.performance.kicker') }}
+            </p>
+            <h3 class="m-0 text-xl font-semibold leading-[1.3] tracking-[-0.02em] text-rv-fg">
+              {{ i18n.translate('home.pillar.performance.title') }}
+            </h3>
+            <p class="pillar-description mt-3 leading-[1.55] text-rv-muted">
+              {{ i18n.translate('home.pillar.performance.text') }}
+            </p>
             <ul
-              class="pillar-chips"
+              class="pillar-chips mt-4 flex list-none flex-wrap gap-2 p-0"
               aria-label="{{ i18n.translate('home.pillar.performance.chipsLabel') }}"
             >
-              <li>{{ i18n.translate('home.pillar.performance.chip1') }}</li>
-              <li>{{ i18n.translate('home.pillar.performance.chip2') }}</li>
-              <li>{{ i18n.translate('home.pillar.performance.chip3') }}</li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.performance.chip1') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.performance.chip2') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.performance.chip3') }}
+              </li>
             </ul>
           </article>
 
           <article
-            class="pillar-card pillar-accessibility"
+            class="pillar-card pillar-accessibility col-start-1 row-start-1 flex min-w-0 flex-col items-start rounded-[var(--home-radius-lg)] border border-rv-border bg-[var(--rv-home-surface-raised)] p-[var(--home-space-6)] opacity-0 invisible translate-y-[0.35rem] pointer-events-none transition-[opacity,translate,visibility] duration-200 ease-[cubic-bezier(0.2,0.75,0.25,1)] motion-reduce:transition-none focus-within:border-rv-accent"
             [class.is-active]="activePillar() === 'accessibility'"
+            [class.opacity-100]="activePillar() === 'accessibility'"
+            [class.visible]="activePillar() === 'accessibility'"
+            [class.translate-y-0]="activePillar() === 'accessibility'"
+            [class.z-10]="activePillar() === 'accessibility'"
+            [class.pointer-events-auto]="activePillar() === 'accessibility'"
             [attr.aria-hidden]="activePillar() !== 'accessibility'"
             [attr.inert]="activePillar() !== 'accessibility' ? '' : null"
           >
-            <p class="pillar-kicker">{{ i18n.translate('home.pillar.accessibility.kicker') }}</p>
-            <h3>{{ i18n.translate('home.pillar.accessibility.title') }}</h3>
-            <p class="pillar-description">{{ i18n.translate('home.pillar.accessibility.text') }}</p>
+            <p class="pillar-kicker mb-2 text-sm font-semibold leading-[1.4] text-rv-accent">
+              {{ i18n.translate('home.pillar.accessibility.kicker') }}
+            </p>
+            <h3 class="m-0 text-xl font-semibold leading-[1.3] tracking-[-0.02em] text-rv-fg">
+              {{ i18n.translate('home.pillar.accessibility.title') }}
+            </h3>
+            <p class="pillar-description mt-3 leading-[1.55] text-rv-muted">
+              {{ i18n.translate('home.pillar.accessibility.text') }}
+            </p>
             <ul
-              class="pillar-chips"
+              class="pillar-chips mt-4 flex list-none flex-wrap gap-2 p-0"
               aria-label="{{ i18n.translate('home.pillar.accessibility.chipsLabel') }}"
             >
-              <li>{{ i18n.translate('home.pillar.accessibility.chip1') }}</li>
-              <li>{{ i18n.translate('home.pillar.accessibility.chip2') }}</li>
-              <li>{{ i18n.translate('home.pillar.accessibility.chip3') }}</li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.accessibility.chip1') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.accessibility.chip2') }}
+              </li>
+              <li
+                class="rounded-full border border-rv-border px-[0.6rem] py-[0.3rem] text-sm leading-[1.25] text-rv-muted"
+              >
+                {{ i18n.translate('home.pillar.accessibility.chip3') }}
+              </li>
             </ul>
           </article>
         </div>
 
         <app-principles-diagram
-          class="pillars-diagram"
+          class="pillars-diagram col-start-1 row-start-1 justify-self-center max-[39.9375rem]:col-start-1 max-[39.9375rem]:row-start-1"
           [activePillar]="activePillar()"
           [coreLabel]="i18n.translate('home.pillar.core')"
           [labels]="pillarLabels()"
@@ -185,12 +359,27 @@
     </div>
   </section>
 
-  <section id="start" class="home-section start-section" aria-labelledby="start-title">
-    <div class="home-container">
-      <header class="section-heading">
-        <p class="home-eyebrow">{{ i18n.translate('home.start.eyebrow') }}</p>
-        <h2 id="start-title">{{ i18n.translate('home.start.title') }}</h2>
-        <p>{{ i18n.translate('home.start.lead') }}</p>
+  <section
+    id="start"
+    class="home-section start-section relative isolate grid content-center py-[var(--home-section-inset)]"
+    aria-labelledby="start-title"
+  >
+    <div
+      class="home-container mx-auto w-full max-w-[var(--home-content-width)] px-[clamp(1rem,4vw,2rem)] min-[68.75rem]:px-0"
+    >
+      <header class="section-heading mb-8">
+        <p class="home-eyebrow mb-4 text-sm font-medium uppercase tracking-[0.08em] text-rv-accent">
+          {{ i18n.translate('home.start.eyebrow') }}
+        </p>
+        <h2
+          id="start-title"
+          class="m-0 max-w-[22ch] text-[clamp(1.75rem,1.2rem_+_2vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-rv-fg"
+        >
+          {{ i18n.translate('home.start.title') }}
+        </h2>
+        <p class="mt-3 max-w-[var(--home-reading-width)] text-lg leading-[1.6] text-rv-muted">
+          {{ i18n.translate('home.start.lead') }}
+        </p>
       </header>
 
       <div class="getting-started-grid">
@@ -208,11 +397,17 @@
         }
       </div>
 
-      <div class="start-actions">
-        <a routerLink="/docs" class="home-button home-button-primary">
+      <div class="start-actions mt-6 flex flex-wrap gap-3">
+        <a
+          routerLink="/docs"
+          class="home-button home-button-primary inline-flex min-h-11 items-center justify-center rounded-[var(--home-radius-sm)] border border-transparent bg-[var(--rv-home-cta-bg)] px-4 font-[inherit] font-semibold text-[var(--rv-home-cta-foreground)] no-underline transition-[background-color,border-color,color] duration-[160ms] hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+        >
           {{ i18n.translate('home.start.docs') }}
         </a>
-        <a routerLink="/playground" class="home-button home-button-secondary">
+        <a
+          routerLink="/playground"
+          class="home-button home-button-secondary inline-flex min-h-11 items-center justify-center rounded-[var(--home-radius-sm)] border border-rv-border px-4 font-[inherit] font-semibold text-rv-fg no-underline transition-[background-color,border-color,color] duration-[160ms] hover:border-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+        >
           {{ i18n.translate('home.start.playground') }}
         </a>
       </div>

@@ -4,6 +4,7 @@ export type PillarId = 'simplicity' | 'flexibility' | 'performance' | 'accessibi
 
 @Component({
   selector: 'app-principles-diagram',
+  host: { class: 'block w-[min(100%,22rem)] justify-self-center' },
   templateUrl: './principles-diagram.component.html',
   styleUrl: './principles-diagram.component.css',
 })

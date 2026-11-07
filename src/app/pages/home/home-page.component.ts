@@ -41,6 +41,7 @@ interface HomeCodeStep {
     PrinciplesDiagramComponent,
   ],
   selector: 'app-home-page',
+  host: { class: 'block' },
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
