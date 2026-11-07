@@ -1,9 +1,13 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, resolve } from 'node:path';
 import prettier from 'prettier';
 
 const root = resolve(import.meta.dirname, '..');
 const examples = ['select', 'datepicker', 'table', 'modal', 'toast'];
+if (!process.argv.includes('--check')) {
+  await mkdir(resolve(root, 'src/generated'), { recursive: true });
+}
+
 for (const name of examples) {
   const folder = resolve(root, 'src/app/features/showcase/demos', name);
   const tsPath = resolve(folder, `${name}-example.component.ts`);
