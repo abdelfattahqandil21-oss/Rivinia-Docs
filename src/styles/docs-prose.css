@@ -1,5 +1,6 @@
 .docs-page-content {
   min-inline-size: 0;
+  inline-size: 100%;
   color: var(--rv-fg);
   font-family: var(--rv-font);
   font-size: 1rem;
@@ -19,7 +20,6 @@
 }
 
 .docs-page-content h1 {
-  max-inline-size: 18ch;
   margin-block: 0;
   font-size: clamp(2rem, 1.35rem + 2.8vw, 3.25rem);
 }
@@ -53,10 +53,14 @@
 .docs-page-content ul,
 .docs-page-content ol,
 .docs-page-content blockquote {
-  max-inline-size: 60ch;
   margin-block: 1rem;
   color: var(--rv-muted);
   line-height: 1.75;
+}
+
+html[dir='rtl'] :lang(en) {
+  direction: ltr;
+  text-align: left;
 }
 
 .docs-page-content ul,

@@ -44,6 +44,8 @@ Use the existing shared code block and copy control for every code snippet and c
 ## Routes and Docs shell
 
 - Keep the existing site navbar. Do not duplicate it inside Docs.
+- Use the full available inline width for the Docs shell and routed content. Do not cap the shell, content column, headings, or prose with `max-width`; keep the collapsible sidebar at logical `start` and make Getting started, Foundations, Components, and Primitives an accessible single-open accordion with concise labels.
+- In RTL locales, mark English subtrees with `lang="en"` and align them left while preserving LTR direction.
 - Put lazy Docs routes below `src/app/features/docs/`: `/docs` hub, `/docs/getting-started/:slug`, and `/docs/:package` overview. Reserve package suffixes `headless`, `ui`, `api`, and `examples` without adding those tabs now.
 - Unknown package and getting-started slug render a localized not-found state inside the Docs shell and link to `/docs`.
 - Use one `docsLink(...)` helper for Docs destinations. Latest pages have no version prefix. Document future major-version paths and banner/selector behavior in `docs/versioning-plan.md`; do not implement a selector now.
@@ -61,7 +63,7 @@ Use the existing shared code block and copy control for every code snippet and c
 
 ## Prose styles
 
-Use one Docs prose stylesheet with token-only styles for h1–h4, paragraphs, lists, links, inline code, code blocks, kbd, tables, blockquotes, and rules. Use the Home scale, max 60ch text, and Arabic 1.8 line-height with no uppercase or letter spacing. Tables must not cause page overflow; wrap or stack cells. Heading anchors appear on hover/focus, copy deep links, expose accessible names, and announce copied feedback.
+Use one Docs prose stylesheet with token-only styles for h1–h4, paragraphs, lists, links, inline code, code blocks, kbd, tables, blockquotes, and rules. Use the Home scale and Arabic 1.8 line-height with no uppercase or letter spacing. Let headings and prose use the full available content width. Tables must not cause page overflow; wrap or stack cells. Heading anchors appear on hover/focus, copy deep links, expose accessible names, and announce copied feedback.
 
 ## Pages and content
 

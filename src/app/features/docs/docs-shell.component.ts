@@ -23,6 +23,7 @@ import { GETTING_STARTED_PAGES } from './docs-getting-started.model';
 import { DocsPackageFilterComponent } from './docs-package-filter.component';
 
 const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
+type DocsGroup = (typeof DOCS_GROUPS)[number] | 'getting-started';
 
 @Component({
   imports: [
@@ -47,6 +48,8 @@ export class DocsShellComponent {
   protected readonly groups = DOCS_GROUPS;
   protected readonly gettingStartedPages = GETTING_STARTED_PAGES;
   protected readonly packages = PACKAGE_MANIFEST;
+  protected readonly sidebarCollapsed = signal(false);
+  protected readonly openGroup = signal<DocsGroup | null>(null);
   protected readonly filterText = signal('');
   protected readonly announcement = signal('');
   protected readonly activeHeading = signal('');
@@ -61,6 +64,8 @@ export class DocsShellComponent {
     );
   });
   protected readonly closeMenuLabel = this.i18n.t('docs.closeMenu');
+  protected readonly collapseSidebarLabel = this.i18n.t('docs.collapseSidebar');
+  protected readonly expandSidebarLabel = this.i18n.t('docs.expandSidebar');
   private readonly sidebarDialog = viewChild<ElementRef<HTMLDialogElement>>('sidebarDialog');
   private headingObserver?: IntersectionObserver;
   private lastPagePath = '';
@@ -93,9 +98,10 @@ export class DocsShellComponent {
       this.closeSidebarDialog();
       this.navContext.docsRoute.set(false);
     });
+    this.updateOpenGroupForCurrentPage();
   }
 
-  protected packagesForGroup(group: (typeof DOCS_GROUPS)[number]) {
+  protected packagesForGroup(group: DocsGroup) {
     return this.visiblePackages().filter((entry) => entry.docs.group === group);
   }
 
@@ -105,6 +111,14 @@ export class DocsShellComponent {
 
   protected gettingStartedLink(slug: string): string {
     return docsLink('getting-started', slug);
+  }
+
+  protected toggleSidebar(): void {
+    this.sidebarCollapsed.update((collapsed) => !collapsed);
+  }
+
+  protected toggleGroup(group: DocsGroup): void {
+    this.openGroup.update((openGroup) => (openGroup === group ? null : group));
   }
 
   protected closeSidebarDialog(): void {
@@ -127,6 +141,7 @@ export class DocsShellComponent {
     while (active.firstChild) active = active.firstChild;
     const titleKey = active.data['docsTitleKey'] as string | undefined;
     const packageId = active.paramMap.get('package');
+    this.syncOpenGroup(packageId);
     const packageMetadata = packageId
       ? PACKAGE_METADATA[packageId as keyof typeof PACKAGE_METADATA]
       : null;
@@ -184,5 +199,20 @@ export class DocsShellComponent {
       { rootMargin: '-15% 0px -70% 0px' },
     );
     headings.forEach((heading) => this.headingObserver?.observe(heading));
+  }
+
+  private updateOpenGroupForCurrentPage(): void {
+    this.lastPagePath = this.router.url.split(/[?#]/, 1)[0];
+    let active = this.router.routerState.snapshot.root;
+    while (active.firstChild) active = active.firstChild;
+    this.syncOpenGroup(active.paramMap.get('package'));
+  }
+
+  private syncOpenGroup(packageId: string | null): void {
+    const packageEntry = this.packages.find((entry) => entry.id === packageId);
+    if (packageEntry) this.openGroup.set(packageEntry.docs.group);
+    else if (this.lastPagePath.startsWith('/docs/getting-started/')) {
+      this.openGroup.set('getting-started');
+    }
   }
 }

@@ -31,7 +31,7 @@
           @for (entry of packagesForGroup(group); track entry.id) {
             <li class="package-row">
               <div class="package-row-heading">
-                <h3 [id]="'package-' + entry.id + '-title'">{{ entry.id }}</h3>
+                <h3 [id]="'package-' + entry.id + '-title'" lang="en" dir="ltr">{{ entry.id }}</h3>
                 <app-copy-button
                   class="heading-anchor"
                   [code]="headingLink('package-' + entry.id + '-title')"
@@ -41,7 +41,12 @@
                   icon="link"
                 />
               </div>
-              <a class="package-entry-link" [routerLink]="packageLink(entry.id)" dir="ltr">
+              <a
+                class="package-entry-link"
+                [routerLink]="packageLink(entry.id)"
+                lang="en"
+                dir="ltr"
+              >
                 <code>{{ entry.name }}</code>
               </a>
               <p lang="en" dir="auto">{{ metadata(entry.id).description }}</p>

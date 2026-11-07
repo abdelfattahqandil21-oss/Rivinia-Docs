@@ -113,6 +113,9 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - The app shell owns the only `<main>` landmark. Routed page templates render content inside it and never add another `<main>`.
 - Derive library facts from `src/app/features/packages/package-manifest.ts` and installed `@rivinia/*/package.json` files. Keep descriptions, versions, exports, dependencies, and demo claims verifiable.
 - Route all visible text through matching English and Arabic i18n keys. Keep technical identifiers and commands in Latin script with `dir="ltr"` where needed.
+- In RTL views, mark English content with `lang="en"` and left-align it; keep English direction LTR.
+- Use the full available width for Docs layout and prose. Do not cap the Docs shell or routed content with `max-width`; place the sidebar at logical `start`.
+- Keep the Docs sidebar collapsible and its Getting started, Foundations, Components, and Primitives groups in one accessible accordion. Keep sidebar labels concise.
 - Docs and any new UI use existing semantic theme tokens only; no color literals or new hues.
 - Keep the site navbar site-level, the Docs sidebar Docs-level, and the right rail page-level. Never add a second horizontal bar.
 - Keep only the Docs sidebar as a nested scroll region; prevent horizontal page overflow and use logical CSS properties, reduced motion, visible focus, and 44px targets.

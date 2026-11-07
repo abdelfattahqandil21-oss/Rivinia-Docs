@@ -4,14 +4,19 @@
 
 .docs-layout {
   display: grid;
-  grid-template-columns: 16rem minmax(0, 48rem) 14rem;
-  justify-content: center;
+  inline-size: 100%;
+  grid-template-columns: 16rem minmax(0, 1fr) 14rem;
   gap: clamp(1.5rem, 3vw, 3rem);
-  min-width: 0;
-  max-width: 88rem;
-  margin-inline: auto;
   padding: 2.5rem clamp(1rem, 3vw, 2rem) 4rem;
   scroll-padding-block-start: calc(var(--navbar-height) + 1rem);
+}
+
+.docs-layout.sidebar-collapsed {
+  grid-template-columns: minmax(0, 1fr) 14rem;
+}
+
+.docs-layout.sidebar-collapsed > .docs-sidebar {
+  display: none;
 }
 
 .docs-sidebar {
@@ -95,6 +100,109 @@
   margin-block-start: 1.25rem;
 }
 
+.nav-accordion {
+  --acc-expand: 240ms;
+  --acc-collapse: 180ms;
+  --acc-chevron: 180ms;
+  --acc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  gap: 0;
+}
+
+.nav-accordion-trigger {
+  display: flex;
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 0;
+  border-radius: var(--home-radius-sm);
+  background: transparent;
+  color: var(--rv-fg);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 650;
+  line-height: 1.5;
+  padding: 0.5rem 0.75rem;
+  text-align: start;
+}
+
+.nav-accordion-trigger:hover {
+  background: var(--rv-docs-active-bg);
+}
+
+.nav-accordion-trigger:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 2px;
+}
+
+.t-acc-chevron {
+  display: inline-flex;
+  flex: none;
+  transform: scaleY(1);
+  transform-origin: center;
+  transition: transform var(--acc-chevron) var(--acc-ease);
+}
+
+.t-acc[data-open='true'] .t-acc-chevron {
+  transform: scaleY(-1);
+}
+
+.t-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--acc-collapse) var(--acc-ease);
+}
+
+.t-acc[data-open='true'] .t-acc-panel {
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--acc-expand) var(--acc-ease);
+}
+
+.nav-group-links {
+  display: grid;
+  gap: 0.25rem;
+  min-block-size: 0;
+  overflow: hidden;
+  opacity: 0;
+  filter: blur(2px);
+  padding-block-start: 0.25rem;
+  transition:
+    opacity var(--acc-collapse) var(--acc-ease),
+    filter var(--acc-collapse) var(--acc-ease);
+}
+
+.t-acc[data-open='true'] .nav-group-links {
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    opacity var(--acc-expand) var(--acc-ease),
+    filter var(--acc-expand) var(--acc-ease);
+}
+
+.sidebar-toggle {
+  display: inline-flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  background: transparent;
+  color: var(--rv-muted);
+  cursor: pointer;
+  margin-block-end: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--rv-accent);
+  color: var(--rv-fg);
+}
+
+.sidebar-toggle:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
 .nav-group {
   display: grid;
   gap: 0.25rem;
@@ -136,7 +244,7 @@
 
 .docs-content-column {
   min-inline-size: 0;
-  max-inline-size: 48rem;
+  inline-size: 100%;
 }
 
 .docs-page-rail {
@@ -161,11 +269,15 @@
 
 @media (max-width: 1279px) {
   .docs-layout {
-    grid-template-columns: 16rem minmax(0, 48rem);
+    grid-template-columns: 16rem minmax(0, 1fr);
   }
 
   .docs-page-rail {
     display: none;
+  }
+
+  .docs-layout.sidebar-collapsed {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .rail-disclosure {
@@ -187,8 +299,7 @@
 
 @media (max-width: 1023px) {
   .docs-layout {
-    grid-template-columns: minmax(0, 48rem);
-    justify-content: center;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .docs-sidebar {
@@ -201,15 +312,26 @@
     display: none;
   }
 
+  .sidebar-expand-toggle {
+    display: none;
+  }
+
   .docs-sidebar-dialog[open] {
     display: block;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .t-acc-panel,
+  .nav-group-links,
+  .t-acc-chevron {
+    transition: none !important;
+  }
+
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

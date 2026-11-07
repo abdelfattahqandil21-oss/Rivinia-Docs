@@ -21,8 +21,7 @@ import { docsLink } from './docs-link';
   `,
   styles: `
     .docs-not-found {
-      max-width: 48rem;
-      margin-inline: auto;
+      width: 100%;
       padding: 3rem 1.5rem;
     }
     .docs-not-found a {

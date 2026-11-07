@@ -12,6 +12,7 @@
 
 import {
   LucideArrowRight,
+  LucideChevronDown,
   LucideCode,
   LucideCheck,
   LucideMenu,
@@ -29,6 +30,7 @@ import {
 // Only icons listed here reach the bundle (tree-shaken).
 export const appIcons = {
   'arrow-right': LucideArrowRight,
+  'chevron-down': LucideChevronDown,
   code: LucideCode,
   check: LucideCheck,
   eye: LucideEye,

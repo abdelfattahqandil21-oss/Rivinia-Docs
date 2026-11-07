@@ -1,48 +1,115 @@
-<ng-template #sidebarContents let-filterId="filterId">
+<ng-template #sidebarContents let-filterId="filterId" let-panelPrefix="panelPrefix">
   <app-docs-package-filter
     [inputId]="filterId"
     [resultCount]="visiblePackages().length"
     [(value)]="filterText"
   />
   <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
-    <section class="nav-group">
-      <h2>{{ i18n.translate('docs.gettingStarted') }}</h2>
-      @for (page of gettingStartedPages; track page.slug) {
-        <a
-          [routerLink]="gettingStartedLink(page.slug)"
-          routerLinkActive="is-current"
-          ariaCurrentWhenActive="page"
-          >{{ i18n.translate(page.titleKey) }}</a
-        >
-      }
+    <section
+      class="nav-group nav-accordion t-acc"
+      [attr.data-open]="openGroup() === 'getting-started'"
+    >
+      <button
+        type="button"
+        class="nav-accordion-trigger t-acc-head"
+        [attr.aria-expanded]="openGroup() === 'getting-started'"
+        [attr.aria-controls]="panelPrefix + '-getting-started'"
+        (click)="toggleGroup('getting-started')"
+      >
+        <span>{{ i18n.translate('docs.gettingStarted') }}</span>
+        <span class="t-acc-chevron" aria-hidden="true">
+          <app-icon name="chevron-down" [size]="16" />
+        </span>
+      </button>
+      <div
+        class="nav-accordion-panel t-acc-panel"
+        [id]="panelPrefix + '-getting-started'"
+        [attr.inert]="openGroup() === 'getting-started' ? null : ''"
+      >
+        <div class="nav-group-links t-acc-panel-inner">
+          @for (page of gettingStartedPages; track page.slug) {
+            <a
+              [routerLink]="gettingStartedLink(page.slug)"
+              routerLinkActive="is-current"
+              ariaCurrentWhenActive="page"
+              >{{ i18n.translate(page.navTitleKey) }}</a
+            >
+          }
+        </div>
+      </div>
     </section>
     @for (group of groups; track group) {
       @if (packagesForGroup(group).length) {
-        <section class="nav-group">
-          <h2>{{ i18n.translate('docs.groups.' + group) }}</h2>
-          @for (entry of packagesForGroup(group); track entry.id) {
-            <a
-              [routerLink]="packageLink(entry.id)"
-              routerLinkActive="is-current"
-              ariaCurrentWhenActive="page"
-              >{{ entry.id }}</a
-            >
-          }
+        <section class="nav-group nav-accordion t-acc" [attr.data-open]="openGroup() === group">
+          <button
+            type="button"
+            class="nav-accordion-trigger t-acc-head"
+            [attr.aria-expanded]="openGroup() === group"
+            [attr.aria-controls]="panelPrefix + '-group-' + group"
+            (click)="toggleGroup(group)"
+          >
+            <span>{{ i18n.translate('docs.groups.' + group) }}</span>
+            <span class="t-acc-chevron" aria-hidden="true">
+              <app-icon name="chevron-down" [size]="16" />
+            </span>
+          </button>
+          <div
+            class="nav-accordion-panel t-acc-panel"
+            [id]="panelPrefix + '-group-' + group"
+            [attr.inert]="openGroup() === group ? null : ''"
+          >
+            <div class="nav-group-links t-acc-panel-inner">
+              @for (entry of packagesForGroup(group); track entry.id) {
+                <a
+                  [routerLink]="packageLink(entry.id)"
+                  lang="en"
+                  dir="ltr"
+                  routerLinkActive="is-current"
+                  ariaCurrentWhenActive="page"
+                  >{{ entry.id }}</a
+                >
+              }
+            </div>
+          </div>
         </section>
       }
     }
   </nav>
 </ng-template>
 
-<div class="docs-layout">
-  <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
+<div class="docs-layout" [class.sidebar-collapsed]="sidebarCollapsed()">
+  <aside
+    id="docs-sidebar-desktop"
+    class="docs-sidebar"
+    [attr.aria-label]="i18n.translate('docs.navigation')"
+  >
+    <button
+      type="button"
+      class="sidebar-toggle"
+      aria-controls="docs-sidebar-desktop"
+      [attr.aria-expanded]="!sidebarCollapsed()"
+      (click)="toggleSidebar()"
+    >
+      {{ collapseSidebarLabel() }}
+    </button>
     <ng-container
       [ngTemplateOutlet]="sidebarContents"
-      [ngTemplateOutletContext]="{ filterId: 'docs-sidebar-filter' }"
+      [ngTemplateOutletContext]="{ filterId: 'docs-sidebar-filter', panelPrefix: 'docs-desktop' }"
     />
   </aside>
 
   <div class="docs-content-column">
+    @if (sidebarCollapsed()) {
+      <button
+        type="button"
+        class="sidebar-toggle sidebar-expand-toggle"
+        aria-controls="docs-sidebar-desktop"
+        [attr.aria-expanded]="false"
+        (click)="toggleSidebar()"
+      >
+        {{ expandSidebarLabel() }}
+      </button>
+    }
     <details class="rail-disclosure">
       <summary>{{ i18n.translate('docs.onThisPage') }}</summary>
       <nav class="page-rail-nav" [attr.aria-label]="i18n.translate('docs.onThisPage')">
@@ -94,7 +161,7 @@
   <aside class="docs-sidebar dialog-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
     <ng-container
       [ngTemplateOutlet]="sidebarContents"
-      [ngTemplateOutletContext]="{ filterId: 'docs-dialog-filter' }"
+      [ngTemplateOutletContext]="{ filterId: 'docs-dialog-filter', panelPrefix: 'docs-dialog' }"
     />
   </aside>
 </dialog>
