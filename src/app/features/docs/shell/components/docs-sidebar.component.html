@@ -1,0 +1,13 @@
+<button
+  app-docs-sidebar-toggle
+  class="sidebar-toggle"
+  [label]="collapseSidebarLabel()"
+  controls="docs-sidebar-desktop"
+  [expanded]="!sidebar.collapsed()"
+></button>
+<app-docs-package-filter
+  inputId="docs-sidebar-filter"
+  [resultCount]="search.visiblePackages().length"
+  [(value)]="search.query"
+/>
+<nav app-docs-sidebar-nav class="sidebar-nav" panelPrefix="docs-desktop"></nav>

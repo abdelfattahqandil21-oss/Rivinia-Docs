@@ -1,0 +1,19 @@
+<div class="dialog-heading">
+  <h2 id="docs-menu-title">{{ i18n.translate('docs.navigation') }}</h2>
+  <button
+    type="button"
+    class="close-dialog"
+    [attr.aria-label]="closeMenuLabel()"
+    (click)="close()"
+  >
+    <app-icon name="x" [size]="18" aria-hidden="true" />
+  </button>
+</div>
+<aside class="dialog-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
+  <app-docs-package-filter
+    inputId="docs-dialog-filter"
+    [resultCount]="search.visiblePackages().length"
+    [(value)]="search.query"
+  />
+  <nav app-docs-sidebar-nav class="sidebar-nav" panelPrefix="docs-dialog"></nav>
+</aside>

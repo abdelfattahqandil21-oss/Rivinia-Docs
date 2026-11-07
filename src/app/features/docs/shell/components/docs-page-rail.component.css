@@ -1,0 +1,34 @@
+:host {
+  display: grid;
+  gap: 0.125rem;
+}
+
+:host a {
+  display: flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  border-inline-start: 2px solid transparent;
+  border-radius: 0 var(--home-radius-sm) var(--home-radius-sm) 0;
+  color: var(--rv-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+}
+
+:host a:hover {
+  color: var(--rv-fg);
+  background: var(--rv-docs-active-bg);
+}
+
+:host a[aria-current='location'] {
+  border-inline-start-color: var(--rv-accent);
+  background: var(--rv-docs-active-bg);
+  color: var(--rv-fg);
+  font-weight: 600;
+}
+
+:host a:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}

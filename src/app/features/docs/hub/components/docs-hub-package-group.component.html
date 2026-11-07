@@ -1,0 +1,38 @@
+<h2 [id]="'group-' + group()">
+  <span>{{ i18n.translate('docs.groups.' + group()) }}</span>
+  <app-copy-button
+    class="heading-anchor"
+    [code]="headingLink('group-' + group())"
+    [label]="i18n.translate('docs.copyHeadingLink')"
+    [copiedMessage]="i18n.translate('docs.headingLinkCopied')"
+    [errorMessage]="i18n.translate('docs.headingLinkFailed')"
+    icon="link"
+  />
+</h2>
+<ul class="package-list">
+  @for (entry of packages(); track entry.id) {
+    <li class="package-row">
+      <div class="package-row-heading">
+        <h3 [id]="'package-' + entry.id + '-title'" lang="en" dir="ltr">{{ entry.id }}</h3>
+        <app-copy-button
+          class="heading-anchor"
+          [code]="headingLink('package-' + entry.id + '-title')"
+          [label]="i18n.translate('docs.copyHeadingLink')"
+          [copiedMessage]="i18n.translate('docs.headingLinkCopied')"
+          [errorMessage]="i18n.translate('docs.headingLinkFailed')"
+          icon="link"
+        />
+      </div>
+      <a class="package-entry-link" [routerLink]="packageLink(entry.id)" lang="en" dir="ltr">
+        <code>{{ entry.name }}</code>
+      </a>
+      <p lang="en" dir="auto">{{ metadata(entry.id).description }}</p>
+      <div class="package-badges">
+        <span class="version-badge">{{ metadata(entry.id).version }}</span>
+        @if (metadata(entry.id).hasUi) {
+          <span class="ui-badge">{{ i18n.translate('docs.uiEntry') }}</span>
+        }
+      </div>
+    </li>
+  }
+</ul>

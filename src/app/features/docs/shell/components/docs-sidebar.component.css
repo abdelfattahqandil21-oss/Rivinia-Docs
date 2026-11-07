@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  position: sticky;
+  inset-block-start: calc(var(--navbar-height) + 1rem);
+  align-self: start;
+  max-block-size: calc(100dvh - var(--navbar-height) - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rv-scrollbar-thumb) var(--rv-scrollbar-track);
+}
+
+@media (max-width: 1023px) {
+  :host {
+    position: static;
+    max-block-size: none;
+    overflow: visible;
+  }
+}

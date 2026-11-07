@@ -1,0 +1,8 @@
+@for (heading of page.headings(); track heading.id) {
+  <a
+    [href]="'#' + heading.id"
+    [attr.aria-current]="page.activeHeading() === heading.id ? 'location' : null"
+  >
+    {{ heading.text }}
+  </a>
+}
