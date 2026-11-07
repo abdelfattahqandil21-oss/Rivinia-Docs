@@ -1,0 +1,12 @@
+@if (previous(); as step) {
+  <a class="sequence-link" [routerLink]="step.href">
+    <span>{{ i18n.translate('docs.previous') }}</span>
+    <strong>{{ i18n.translate(step.titleKey) }}</strong>
+  </a>
+}
+@if (next(); as step) {
+  <a class="sequence-link next-link" [routerLink]="step.href">
+    <span>{{ i18n.translate('docs.next') }}</span>
+    <strong>{{ i18n.translate(step.titleKey) }}</strong>
+  </a>
+}

@@ -40,18 +40,10 @@
     }
   </section>
 
-  <nav class="sequence-nav" [attr.aria-label]="i18n.translate('docs.gettingStarted')">
-    @if (previousLink; as href) {
-      <a class="sequence-link" [routerLink]="href">
-        <span>{{ i18n.translate('docs.previous') }}</span>
-        <strong>{{ i18n.translate(pages[pageIndex - 1].titleKey) }}</strong>
-      </a>
-    }
-    @if (nextLink; as href) {
-      <a class="sequence-link next-link" [routerLink]="href">
-        <span>{{ i18n.translate('docs.next') }}</span>
-        <strong>{{ i18n.translate(pages[pageIndex + 1].titleKey) }}</strong>
-      </a>
-    }
-  </nav>
+  <nav
+    app-docs-sequence-nav
+    class="sequence-nav"
+    [previous]="previousStep"
+    [next]="nextStep"
+  ></nav>
 </article>

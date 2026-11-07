@@ -52,6 +52,11 @@
   text-underline-offset: 0.2em;
 }
 
+.package-entry-link:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
 .package-entry-link code {
   font-family: var(--rv-font-mono);
   overflow-wrap: anywhere;

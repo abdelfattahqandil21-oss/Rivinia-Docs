@@ -1,24 +1,26 @@
-import { DOCUMENT } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { CopyButtonComponent } from '../../../shared/components/copy-button/copy-button.component';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
-import { type PackageManifestEntry } from '../../packages/package-manifest';
-import { PACKAGE_METADATA } from '../../packages/package-metadata';
 import { DocsPackageFilterComponent } from '../package-filter/docs-package-filter.component';
-import { docsHeadingLink, docsLink } from '../shared/docs-link';
+import { docsLink } from '../shared/docs-link';
 import { DOCS_PACKAGE_GROUPS, type DocsPackageGroup } from '../shared/models/docs-group.model';
 import {
   DOCS_PACKAGE_SEARCH_OPTIONS,
   DocsPackageSearchService,
 } from '../shared/services/docs-package-search.service';
+import { DocsHubPackageGroupComponent } from './components/docs-hub-package-group.component';
 
 const FIRST_GETTING_STARTED_SLUG = 'choose-the-package-for-your-task';
 
 @Component({
-  imports: [RouterLink, PageHeaderComponent, DocsPackageFilterComponent, CopyButtonComponent],
+  imports: [
+    RouterLink,
+    PageHeaderComponent,
+    DocsPackageFilterComponent,
+    DocsHubPackageGroupComponent,
+  ],
   providers: [
     DocsPackageSearchService,
     { provide: DOCS_PACKAGE_SEARCH_OPTIONS, useValue: { includeDescriptions: true } },
@@ -28,7 +30,6 @@ const FIRST_GETTING_STARTED_SLUG = 'choose-the-package-for-your-task';
   styleUrl: './docs-hub.component.css',
 })
 export class DocsHubComponent {
-  private readonly document = inject(DOCUMENT);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
   protected readonly search = inject(DocsPackageSearchService);
   protected readonly title = this.i18n.t('page.docs.title');
@@ -42,13 +43,5 @@ export class DocsHubComponent {
 
   protected packageLink(id: string): string {
     return docsLink(id);
-  }
-
-  protected headingLink(id: string): string {
-    return docsHeadingLink(this.document, id);
-  }
-
-  protected metadata(id: PackageManifestEntry['id']) {
-    return PACKAGE_METADATA[id];
   }
 }

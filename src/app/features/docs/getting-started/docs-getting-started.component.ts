@@ -5,11 +5,12 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
 import { CopyButtonComponent } from '../../../shared/components/copy-button/copy-button.component';
-import { docsHeadingLink, docsLink } from '../shared/docs-link';
+import { DocsSequenceNavComponent } from './components/docs-sequence-nav.component';
 import { GETTING_STARTED_PAGES } from './models/docs-getting-started.model';
+import { docsHeadingLink, docsLink } from '../shared/docs-link';
 
 @Component({
-  imports: [RouterLink, CodeBlockComponent, CopyButtonComponent],
+  imports: [RouterLink, CodeBlockComponent, CopyButtonComponent, DocsSequenceNavComponent],
   selector: 'app-docs-getting-started',
   templateUrl: './docs-getting-started.component.html',
   styleUrl: './docs-getting-started.component.css',
@@ -22,11 +23,19 @@ export class DocsGettingStartedComponent {
   protected readonly pageIndex = Number(this.route.snapshot.data['docsStep']);
   protected readonly page = this.pages[this.pageIndex] ?? this.pages[0];
   protected readonly installCode = 'npm install @rivinia/select';
-  protected readonly previousLink =
-    this.pageIndex > 0 ? docsLink('getting-started', this.pages[this.pageIndex - 1].slug) : null;
-  protected readonly nextLink =
+  protected readonly previousStep =
+    this.pageIndex > 0
+      ? {
+          href: docsLink('getting-started', this.pages[this.pageIndex - 1].slug),
+          titleKey: this.pages[this.pageIndex - 1].titleKey,
+        }
+      : null;
+  protected readonly nextStep =
     this.pageIndex < this.pages.length - 1
-      ? docsLink('getting-started', this.pages[this.pageIndex + 1].slug)
+      ? {
+          href: docsLink('getting-started', this.pages[this.pageIndex + 1].slug),
+          titleKey: this.pages[this.pageIndex + 1].titleKey,
+        }
       : null;
 
   protected headingLink(id: string): string {
