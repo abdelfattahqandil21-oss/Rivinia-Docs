@@ -312,31 +312,6 @@ html:has(.home-page) {
   text-decoration: underline;
 }
 
-.home-page .footer-bottom {
-  display: flex;
-  min-height: 4.5rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--home-space-4);
-  margin-block-start: var(--home-space-6);
-  border-block-start: 1px solid var(--rv-border);
-  padding-block: var(--home-space-3);
-}
-
-.home-page .footer-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--home-space-4);
-  color: var(--rv-muted);
-  font-size: 0.875rem;
-}
-
-.home-footer app-preferences-menu .preferences-panel {
-  inset-block-start: auto;
-  inset-block-end: calc(100% + 0.5rem);
-  margin-block-start: 0;
-}
-
 .preview-toast-stack {
   position: absolute;
   z-index: 2;
@@ -471,12 +446,6 @@ html:has(.home-page) {
   }
 }
 
-@media (max-width: 720px) {
-  .home-page .footer-bottom {
-    flex-wrap: wrap;
-  }
-}
-
 @media (max-width: 639px), (max-height: 599px), (prefers-reduced-motion: reduce) {
   html:has(.home-page) {
     scroll-snap-type: none;
@@ -487,12 +456,6 @@ html:has(.home-page) {
   html:has(.home-page) {
     scroll-behavior: auto;
   }
-}
-
-.home-footer app-preferences-menu .preferences-panel {
-  inset-block-start: auto;
-  inset-block-end: calc(100% + 0.5rem);
-  margin-block-start: 0;
 }
 
 /*

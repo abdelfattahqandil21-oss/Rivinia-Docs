@@ -1,5 +1,8 @@
 :host {
   display: block;
+  position: sticky;
+  z-index: 40;
+  inset-block-start: 0;
 }
 
 /*

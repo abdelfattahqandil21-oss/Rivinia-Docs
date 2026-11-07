@@ -13,7 +13,6 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { CodeBlockComponent } from '../../shared/components/code-block/code-block.component';
 import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mark.component';
-import { PreferencesMenuComponent } from '../../layout/preferences-menu/preferences-menu.component';
 import { PACKAGE_MANIFEST } from '../../features/packages/package-manifest';
 import {
   PrinciplesDiagramComponent,
@@ -38,7 +37,6 @@ interface HomeCodeStep {
     NgComponentOutlet,
     CodeBlockComponent,
     BrandMarkComponent,
-    PreferencesMenuComponent,
     PrinciplesDiagramComponent,
   ],
   selector: 'app-home-page',
