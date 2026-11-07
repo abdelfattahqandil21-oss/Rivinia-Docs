@@ -5,6 +5,7 @@
 - Completed the approved homepage milestones in separate commits: `4ba4dbe` (UX contract), `943ce97` (font and layout tokens), `1d9169a` (hero), `464b0d7` (interactive showcase), `8675b76` (evidence-backed decisions), `5081caf` (setup guide and footer), and `6ad9125` (navigation, section rail, and responsive fixes).
 - Downloaded and self-hosted the Inter variable WOFF2 from Google Fonts. `@font-face` loads it for Latin text; IBM Plex Sans Arabic serves Arabic text and JetBrains Mono serves code. Browser check `document.fonts.check('16px Inter')` returned true.
 - Syntax-highlighted the first-section TypeScript and HTML snippets by reusing the showcase tokenizer, with semantic purple, gold, and muted colors that adapt to light and dark themes.
+- Styled the project-level scrollbar with a theme-derived gold thumb, neutral background track, and rounded shape; measured thumb/track contrast at 3.61:1 light and 6.20:1 dark in Chrome.
 - Reduced primary navigation to Docs, Components, and Playground. `/guides` now redirects to `/docs`.
 - Added a keyboard reachable, translated desktop section rail. It appears from 1100px and uses the shared section observer to track the active section.
 - Fixed mobile RTL horizontal overflow and fixed the showcase workspace height. Switching among the five demos measured 576px on desktop; Preview/Code measured 464px on mobile.
@@ -12,7 +13,7 @@
 - Measured contrast in Chrome. Light theme: body 14.80:1, muted body copy 6.39:1, primary CTA 8.77:1. Dark theme: body 16.70:1, muted body copy 9.28:1, primary CTA 9.55:1. Hero code tokens: keyword/tag 8.40:1 light and 6.63:1 dark; string 6.76:1 light and 9.25:1 dark.
 - Verified keyboard arrow navigation across the showcase tabs, `/guides` redirect behavior, and reduced-motion styles (`transition-duration: 0s`, `scroll-behavior: auto`).
 - `npm run verify` passed: Prettier, architecture check (zero temporary exceptions), generated-source check, production build, and Vitest (7 files, 28 tests). `git diff --check` passed.
-- Production build initial bundle: 400.24 kB raw / 100.01 kB estimated transfer. Homepage remains lazy loaded (49.67 kB raw / 10.73 kB estimated transfer).
+- Production build initial bundle: 400.85 kB raw / 100.12 kB estimated transfer. Homepage remains lazy loaded (49.67 kB raw / 10.73 kB estimated transfer).
 
 ## Blocked
 

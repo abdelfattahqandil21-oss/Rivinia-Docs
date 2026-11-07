@@ -73,6 +73,8 @@
   --rv-font: 'Inter', system-ui, sans-serif;
   --rv-font-ar: 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif;
   --rv-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --rv-scrollbar-thumb: color-mix(in srgb, var(--rv-accent) 70%, var(--rv-border));
+  --rv-scrollbar-track: var(--rv-bg);
   --navbar-height: 4rem;
   --home-content-width: 72rem;
   --home-reading-width: 60ch;
@@ -89,6 +91,27 @@
   --home-radius-sm: 0.5rem;
   --home-radius-md: 0.75rem;
   --home-radius-lg: 1rem;
+  scrollbar-color: var(--rv-scrollbar-thumb) var(--rv-scrollbar-track);
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--rv-scrollbar-track);
+}
+
+html::-webkit-scrollbar-thumb {
+  min-height: 3rem;
+  border: 2px solid var(--rv-scrollbar-track);
+  border-radius: 999px;
+  background: var(--rv-scrollbar-thumb);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--rv-accent);
 }
 
 :root[data-rv-theme='dark'] {
