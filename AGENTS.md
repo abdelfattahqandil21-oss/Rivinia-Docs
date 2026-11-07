@@ -64,7 +64,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Group code by feature. Put showcase demos in `src/app/features/showcase/demos/<package>/` with `<name>-example.component.ts`, `.html`, `.css`, and `.spec.ts` together when a spec exists.
 - Keep component `templateUrl` and `styleUrl` relative to the component file and shaped as `./<name>.component.html` and `./<name>.component.css`.
 - Keep generated showcase output only in `src/generated/`. Ignore it in Git, never edit it by hand, and let the existing `prestart`, `prebuild`, and `pretest` hooks generate it. Run `npm` scripts; do not invoke raw `ng` commands.
-- Keep one package manifest with only existing metadata: `id`, `name`, `translationKey`, and optional `componentsPage` and `showcase` visibility. Keep site navigation separate; do not invent status or route fields.
+- Keep one package manifest with `id`, `name`, `translationKey`, explicit `componentsPage` and `showcase` visibility, and the approved `docs.group`; keep site navigation separate and do not invent status or route fields.
 - Co-locate each spec beside the file it tests. Do not create `tests/` folders under `src/app/`.
 - Keep app-shell files named `app.ts`, `app.html`, and `app.css`; any rename is deferred.
 - Follow one filename suffix per artifact: `.component.ts/.html/.css`, `.service.ts`, `.directive.ts`, `.model.ts`, and `.spec.ts`. Keep component class and selector names aligned with their filenames.
@@ -105,3 +105,16 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Keep Home and showcase content in the document flow: no nested scrolling except the Select listbox (maximum block size 16rem); use logical CSS properties, reduced-motion handling, and stable layouts.
 - Preserve genuine package behavior, keyboard access, visible focus, localization, RTL, and both themes. Use shared code/copy components consistently and keep code readable without horizontal scrolling.
 - Inspect the required viewport, language, and theme matrix in a browser; run `npm run verify` after each revision step and record evidence in `docs/home-revision-log.md`.
+
+## Docs rules
+
+- For Docs work, follow `docs/docs-ia-spec.md` and `.agents/skills/rivinia-docs-docs-ia/SKILL.md`.
+- Keep Docs code in `src/app/features/docs/`; preserve lazy loading and use the shared docs-link helper for all Docs destinations.
+- The app shell owns the only `<main>` landmark. Docs pages render headings and sections, never another `<main>`.
+- Derive library facts from `src/app/features/packages/package-manifest.ts` and installed `@rivinia/*/package.json` files. Keep descriptions, versions, exports, dependencies, and demo claims verifiable.
+- Route all visible text through matching English and Arabic i18n keys. Keep technical identifiers and commands in Latin script with `dir="ltr"` where needed.
+- Use existing semantic theme tokens for all Docs colors. Do not put color literals in Docs UI source or introduce new hues.
+- Keep the site navbar site-level, the Docs sidebar Docs-level, and the right rail page-level. Never add a second horizontal bar.
+- Keep only the Docs sidebar as a nested scroll region; prevent horizontal page overflow and use logical CSS properties, reduced motion, visible focus, and 44px targets.
+- Run `npm run verify` after each Docs implementation step and record the outcome and commit in `docs/docs-ia-log.md`.
+- Report unverified browser, contrast, Lighthouse, and accessibility checks explicitly; do not claim them from a build result.
