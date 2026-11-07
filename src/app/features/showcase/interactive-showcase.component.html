@@ -1,7 +1,8 @@
-<section class="interactive-showcase" aria-labelledby="showcase-title">
+<section id="experience" class="interactive-showcase home-section" aria-labelledby="showcase-title">
   <div class="showcase-shell">
     <header class="showcase-intro">
       <div>
+        <p class="home-eyebrow">{{ 'showcase.eyebrow' | rvTranslate }}</p>
         <h2 id="showcase-title">{{ 'showcase.title' | rvTranslate }}</h2>
         <p>{{ 'showcase.description' | rvTranslate }}</p>
       </div>
@@ -13,18 +14,22 @@
 
     <div
       class="example-tabs"
-      role="group"
+      role="tablist"
       [attr.aria-label]="'showcase.examples' | rvTranslate"
       [style.--selected-index]="selectedExampleIndex()"
     >
       @for (example of examples; track example.id) {
         <button
           type="button"
+          role="tab"
           class="example-tab"
-          [class.is-selected]="selectedExample() === example.id"
-          [attr.aria-current]="selectedExample() === example.id ? 'true' : null"
-          [attr.aria-pressed]="selectedExample() === example.id"
+          [id]="tabId(example.id)"
+          [attr.data-example-id]="example.id"
+          [attr.aria-selected]="selectedExample() === example.id"
+          [attr.aria-controls]="'showcase-panel'"
+          [attr.tabindex]="selectedExample() === example.id ? 0 : -1"
           (click)="selectExample(example.id)"
+          (keydown)="onTabKeydown($event, example.id)"
         >
           <span>{{ tabLabel(example.id) }}</span>
           <code>{{ example.packageName }}</code>
@@ -32,28 +37,57 @@
       }
     </div>
 
-    <div class="view-switch" role="group" [attr.aria-label]="'showcase.views' | rvTranslate">
-      <button
-        type="button"
-        [attr.aria-label]="'showcase.preview' | rvTranslate"
-        [attr.title]="'showcase.preview' | rvTranslate"
-        [attr.aria-pressed]="activeView() === 'preview'"
-        (click)="setView('preview')"
-      >
-        <app-icon name="eye" [size]="17" aria-hidden="true" />
-      </button>
-      <button
-        type="button"
-        [attr.aria-label]="'showcase.code' | rvTranslate"
-        [attr.title]="'showcase.code' | rvTranslate"
-        [attr.aria-pressed]="activeView() === 'code'"
-        (click)="setView('code')"
-      >
-        <app-icon name="code" [size]="17" aria-hidden="true" />
-      </button>
+    <div class="showcase-controls">
+      @if (selectedExample() === 'select') {
+        <div
+          class="demo-mode-switch"
+          role="group"
+          [attr.aria-label]="'showcase.demoMode' | rvTranslate"
+        >
+          <button
+            type="button"
+            [attr.aria-pressed]="selectedDemoMode() === 'headless'"
+            (click)="setDemoMode('headless')"
+          >
+            Headless
+          </button>
+          <button
+            type="button"
+            [attr.aria-pressed]="selectedDemoMode() === 'ui'"
+            (click)="setDemoMode('ui')"
+          >
+            UI
+          </button>
+        </div>
+      } @else {
+        <span class="showcase-control-spacer" aria-hidden="true"></span>
+      }
+
+      <div class="view-switch" role="group" [attr.aria-label]="'showcase.views' | rvTranslate">
+        <button
+          type="button"
+          [attr.aria-pressed]="activeView() === 'preview'"
+          (click)="setView('preview')"
+        >
+          {{ 'showcase.preview' | rvTranslate }}
+        </button>
+        <button
+          type="button"
+          [attr.aria-pressed]="activeView() === 'code'"
+          (click)="setView('code')"
+        >
+          {{ 'showcase.code' | rvTranslate }}
+        </button>
+      </div>
     </div>
 
-    <div class="showcase-workspace" [attr.aria-busy]="loading()">
+    <div
+      id="showcase-panel"
+      class="showcase-workspace"
+      role="tabpanel"
+      [attr.aria-labelledby]="tabId(selectedExample())"
+      [attr.aria-busy]="loading()"
+    >
       <section
         class="showcase-pane preview-pane"
         [class.mobile-hidden]="activeView() !== 'preview'"
@@ -61,9 +95,6 @@
       >
         <div class="pane-heading">
           <h3>{{ 'showcase.preview' | rvTranslate }}</h3>
-          <span class="live-indicator">
-            <span aria-hidden="true"></span>{{ 'showcase.live' | rvTranslate }}
-          </span>
         </div>
         <div class="preview-stage">
           @if (loading()) {
@@ -76,15 +107,37 @@
               </button>
             </div>
           } @else if (activeComponent(); as component) {
-            @for (exampleId of [selectedExample()]; track exampleId) {
+            @for (key of [previewKey()]; track key) {
+              @if (selectedExample() === 'select') {
+                <div
+                  class="selection-switch"
+                  role="group"
+                  [attr.aria-label]="'showcase.select.selectionMode' | rvTranslate"
+                >
+                  <button
+                    type="button"
+                    [attr.aria-pressed]="selectionMode() === 'single'"
+                    (click)="setSelectionMode('single')"
+                  >
+                    {{ 'showcase.select.single' | rvTranslate }}
+                  </button>
+                  <button
+                    type="button"
+                    [attr.aria-pressed]="selectionMode() === 'multi'"
+                    (click)="setSelectionMode('multi')"
+                  >
+                    {{ 'showcase.select.multiple' | rvTranslate }}
+                  </button>
+                </div>
+              }
               <div class="preview-content">
                 <ng-container *ngComponentOutlet="component; inputs: activeInputs()" />
               </div>
             }
           }
         </div>
-        <a class="documentation-link" routerLink="/components">
-          {{ 'showcase.packageDocumentation' | rvTranslate }}
+        <a class="documentation-link" routerLink="/docs">
+          {{ 'showcase.readDocs' | rvTranslate }}
           <span aria-hidden="true">→</span>
         </a>
       </section>
@@ -94,24 +147,21 @@
         [class.mobile-hidden]="activeView() !== 'code'"
         [attr.aria-label]="'showcase.code' | rvTranslate"
       >
-        <div class="pane-heading code-heading">
+        <div class="pane-heading">
           <h3>{{ 'showcase.code' | rvTranslate }}</h3>
-          @if (source()) {
-            @if (!source()?.codeBlocks?.length) {
-              <button class="copy-button" type="button" (click)="copyCode()">
-                {{ (copied() ? 'showcase.copied' : 'showcase.copy') | rvTranslate }}
-              </button>
-            }
-          }
         </div>
 
-        @if (source()?.codeBlocks?.length) {
+        @if (selectedExample() === 'select' && highlightedCodeBlocks().length) {
           <div class="code-examples">
             @for (block of highlightedCodeBlocks(); track block.id) {
               <article class="code-example">
                 <header class="code-example-heading">
-                  <h4>{{ block.titleKey | rvTranslate }}</h4>
-                  <button type="button" (click)="copySnippet(block)">
+                  <div class="code-file-title">
+                    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <h4>{{ block.titleKey | rvTranslate }}</h4>
+                    <span class="code-language">{{ block.language }}</span>
+                  </div>
+                  <button class="copy-button" type="button" (click)="copySnippet(block)">
                     {{
                       (copiedSnippetId() === block.id ? 'showcase.copied' : 'showcase.copy')
                         | rvTranslate
@@ -119,54 +169,42 @@
                   </button>
                 </header>
                 <!-- prettier-ignore -->
-                <pre class="code-sample code-example-sample" tabindex="0"><code>@for (token of block.tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+                <pre class="code-sample" tabindex="0" dir="ltr"><code>@for (token of block.tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
               </article>
             }
           </div>
-          @if (copyFailed()) {
-            <p class="copy-status" role="status">{{ 'showcase.copyError' | rvTranslate }}</p>
-          }
-        } @else if (source()) {
-          <div
-            class="code-tabs"
-            role="group"
-            [attr.aria-label]="'showcase.codeFiles' | rvTranslate"
-          >
-            <button
-              type="button"
-              [attr.aria-pressed]="activeCode() === 'html'"
-              (click)="setCode('html')"
-            >
-              HTML
-            </button>
-            <button
-              type="button"
-              [attr.aria-pressed]="activeCode() === 'typescript'"
-              (click)="setCode('typescript')"
-            >
-              TypeScript
-            </button>
-            @if (hasCss()) {
-              <button
-                type="button"
-                [attr.aria-pressed]="activeCode() === 'css'"
-                (click)="setCode('css')"
-              >
-                CSS
-              </button>
+        } @else if (sourceFiles().length) {
+          <div class="source-files">
+            @for (file of sourceFiles(); track file.id) {
+              <article class="source-file">
+                <header class="code-example-heading">
+                  <div class="code-file-title">
+                    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <h4>{{ file.name }}</h4>
+                    <span class="code-language">{{ file.language }}</span>
+                  </div>
+                  <button class="copy-button" type="button" (click)="copySourceFile(file)">
+                    {{
+                      (copiedSnippetId() === file.id ? 'showcase.copied' : 'showcase.copy')
+                        | rvTranslate
+                    }}
+                  </button>
+                </header>
+                <!-- prettier-ignore -->
+                <pre class="code-sample" tabindex="0" dir="ltr"><code>@for (token of file.tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
+              </article>
             }
           </div>
-          <!-- prettier-ignore -->
-          <pre class="code-sample" tabindex="0"><code>@for (token of highlightedSource(); track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-          @if (copied()) {
-            <p class="copy-status" role="status">{{ 'showcase.copied' | rvTranslate }}</p>
-          } @else if (copyFailed()) {
-            <p class="copy-status" role="status">{{ 'showcase.copyError' | rvTranslate }}</p>
-          }
         } @else {
           <p class="code-placeholder" role="status">
             {{ (loading() ? 'showcase.loadingCode' : 'showcase.codeUnavailable') | rvTranslate }}
           </p>
+        }
+        @if (copiedSnippetId()) {
+          <p class="copy-status" role="status">{{ 'showcase.copied' | rvTranslate }}</p>
+        }
+        @if (copyFailed()) {
+          <p class="copy-status" role="status">{{ 'showcase.copyError' | rvTranslate }}</p>
         }
       </section>
     </div>

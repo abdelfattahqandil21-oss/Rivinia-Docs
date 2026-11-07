@@ -1,113 +1,92 @@
-<div class="select-cards">
-  <article class="select-card" aria-labelledby="select-single-title">
-    <header class="select-card-heading">
-      <h4 id="select-single-title">{{ 'showcase.select.singleTitle' | rvTranslate }}</h4>
-      <p>{{ 'showcase.select.singleDescription' | rvTranslate }}</p>
-    </header>
-    <div class="select-card-demo">
+<div class="select-demo">
+  <header class="select-demo-heading">
+    <h4>{{ 'showcase.select.' + viewMode() + '.' + selectionMode() + 'Title' | rvTranslate }}</h4>
+    <p>
+      {{ 'showcase.select.' + viewMode() + '.' + selectionMode() + 'Description' | rvTranslate }}
+    </p>
+  </header>
+
+  @if (viewMode() === 'ui') {
+    <div class="select-live-control">
       <rv-select
-        mode="single"
+        [mode]="selectionMode()"
         variant="premium"
         [options]="options()"
         [label]="'showcase.select.label' | rvTranslate"
-        [placeholder]="'showcase.select.singlePlaceholder' | rvTranslate"
+        [placeholder]="'showcase.select.' + selectionMode() + 'Placeholder' | rvTranslate"
         [searchable]="true"
         [searchLabel]="'showcase.select.search' | rvTranslate"
-        [value]="singleValue()"
-        (valueChange)="setSingleValue($event)"
+        [value]="selectionMode() === 'single' ? singleValue() : multiValue()"
+        (valueChange)="setUiValue($event)"
       />
-      @if (singleSummary()) {
+      @if (selectionMode() === 'single' ? singleSummary() : multiSummary()) {
         <p class="example-feedback" aria-live="polite" aria-atomic="true">
-          {{ 'showcase.select.selected' | rvTranslate }}: {{ singleSummary() }}
+          {{ 'showcase.select.selected' | rvTranslate }}:
+          {{ selectionMode() === 'single' ? singleSummary() : multiSummary() }}
         </p>
       }
     </div>
-    <details class="select-card-code">
-      <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
-      <h5>{{ 'showcase.select.markupLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks()[0].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-      <h5>{{ 'showcase.select.stateLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks()[1].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-    </details>
-  </article>
-
-  <article class="select-card" aria-labelledby="select-multi-title">
-    <header class="select-card-heading">
-      <h4 id="select-multi-title">{{ 'showcase.select.multiTitle' | rvTranslate }}</h4>
-      <p>{{ 'showcase.select.multiDescription' | rvTranslate }}</p>
-    </header>
-    <div class="select-card-demo">
-      <rv-select
-        mode="multi"
-        variant="premium"
-        [options]="options()"
-        [label]="'showcase.select.label' | rvTranslate"
-        [placeholder]="'showcase.select.placeholder' | rvTranslate"
-        [searchable]="true"
-        [searchLabel]="'showcase.select.search' | rvTranslate"
-        [value]="multiValue()"
-        (valueChange)="setMultiValue($event)"
-      />
-      @if (multiSummary()) {
-        <p class="example-feedback" aria-live="polite" aria-atomic="true">
-          {{ 'showcase.select.selected' | rvTranslate }}: {{ multiSummary() }}
-        </p>
-      }
-    </div>
-    <details class="select-card-code">
-      <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
-      <h5>{{ 'showcase.select.markupLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks()[2].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-      <h5>{{ 'showcase.select.stateLabel' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks()[3].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-    </details>
-  </article>
-
-  <article class="select-card headless-card" aria-labelledby="select-headless-title">
-    <header class="select-card-heading">
-      <h4 id="select-headless-title">{{ 'showcase.select.headlessTitle' | rvTranslate }}</h4>
-      <p>{{ 'showcase.select.headlessDescription' | rvTranslate }}</p>
-    </header>
-    <div class="headless-field">
-      <label class="headless-search-label" for="headless-select-search">
-        {{ 'showcase.select.search' | rvTranslate }}
-      </label>
-      <input
-        #query
-        id="headless-select-search"
-        class="headless-search"
-        type="search"
-        [value]="headlessSelect.query()"
-        (input)="headlessSelect.setQuery(query.value)"
-      />
-      <fieldset class="headless-options">
-        <legend>{{ 'showcase.select.label' | rvTranslate }}</legend>
-        @for (option of headlessSelect.filtered(); track option.id) {
+  } @else {
+    <div class="headless-select">
+      <span id="headless-select-label" class="field-label">
+        {{ 'showcase.select.label' | rvTranslate }}
+      </span>
+      <button
+        type="button"
+        class="headless-trigger"
+        [attr.aria-labelledby]="'headless-select-label headless-select-value'"
+        [attr.aria-expanded]="headlessOpen()"
+        aria-controls="headless-select-options"
+        (click)="toggleHeadless()"
+      >
+        <span id="headless-select-value">
+          {{
+            headlessSummary() ||
+              ('showcase.select.' + selectionMode() + 'Placeholder' | rvTranslate)
+          }}
+        </span>
+        <span aria-hidden="true">⌄</span>
+      </button>
+      <div
+        id="headless-select-options"
+        class="headless-options"
+        role="group"
+        [hidden]="!headlessOpen()"
+        [attr.aria-label]="'showcase.select.options' | rvTranslate"
+        (keydown.escape)="closeHeadlessDropdown($event)"
+      >
+        <label class="headless-search-label" for="headless-select-search">
+          {{ 'showcase.select.search' | rvTranslate }}
+        </label>
+        <input
+          id="headless-select-search"
+          class="headless-search"
+          type="search"
+          [value]="headlessSelect().query()"
+          (input)="setHeadlessQuery($event)"
+        />
+        @for (option of filteredOptions(); track option.id) {
           <label class="headless-option">
             <input
-              type="checkbox"
-              [checked]="headlessSelect.isSelected(option.id)"
+              [attr.type]="selectionMode() === 'single' ? 'radio' : 'checkbox'"
+              [name]="'headless-select-' + selectionMode()"
+              [checked]="headlessSelect().isSelected(option.id)"
               [disabled]="option.disabled ?? false"
-              (change)="headlessSelect.toggle(option.id)"
+              (change)="selectHeadlessOption(option.id, $event)"
             />
             <span>{{ option.label }}</span>
           </label>
         } @empty {
-          <p class="example-feedback">{{ 'showcase.select.noMatches' | rvTranslate }}</p>
+          <p class="empty-options">{{ 'showcase.select.noMatches' | rvTranslate }}</p>
         }
-      </fieldset>
-      @if (headlessSummary()) {
-        <p class="example-feedback" aria-live="polite" aria-atomic="true">
+      </div>
+      <p class="example-feedback" aria-live="polite" aria-atomic="true">
+        @if (headlessSummary()) {
           {{ 'showcase.select.selected' | rvTranslate }}: {{ headlessSummary() }}
-        </p>
-      }
+        } @else {
+          {{ 'showcase.select.headlessHint' | rvTranslate }}
+        }
+      </p>
     </div>
-    <details class="select-card-code">
-      <summary>{{ 'showcase.select.viewCode' | rvTranslate }}</summary>
-      <h5>{{ 'showcase.select.headlessMarkup' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks()[5].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-      <h5>{{ 'showcase.select.headlessController' | rvTranslate }}</h5>
-      <pre><code>@for (token of highlightedCodeBlocks()[4].tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-    </details>
-  </article>
+  }
 </div>

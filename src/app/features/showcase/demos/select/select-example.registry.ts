@@ -47,20 +47,41 @@ import type { SelectChange } from '@rivinia/select/ui';
 readonly multiValue = signal<SelectChange>([]);`,
   },
   {
-    id: 'headless-typescript',
-    titleKey: 'showcase.select.headlessTitle',
+    id: 'headless-single-typescript',
+    titleKey: 'showcase.select.headlessSingleTitle',
+    language: 'typescript',
+    code: `import { RiviniaSelect } from '@rivinia/select';
+
+const select = new RiviniaSelect('single');
+select.syncOptions(options);
+select.select(option.id);
+const selectedId = select.value();`,
+  },
+  {
+    id: 'headless-single-markup',
+    titleKey: 'showcase.select.headlessSingleMarkup',
+    language: 'html',
+    code: `<label>
+  <input type="radio"
+    [checked]="select.isSelected(option.id)"
+    (change)="select.select(option.id)" />
+  {{ option.label }}
+</label>`,
+  },
+  {
+    id: 'headless-multi-typescript',
+    titleKey: 'showcase.select.headlessMultiTitle',
     language: 'typescript',
     code: `import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('multi');
 select.syncOptions(options);
-select.setQuery(query);
 select.toggle(option.id);
 const selectedIds = select.values();`,
   },
   {
-    id: 'headless-markup',
-    titleKey: 'showcase.select.headlessMarkup',
+    id: 'headless-multi-markup',
+    titleKey: 'showcase.select.headlessMultiMarkup',
     language: 'html',
     code: `<label>
   <input type="checkbox"

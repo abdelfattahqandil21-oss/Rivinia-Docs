@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideLucideIcons } from '@lucide/angular';
@@ -17,11 +17,26 @@ import { appIcons } from '../../shared/components/icon/icon-registry';
   selector: 'app-test-preview',
   template: '<p>Loaded preview</p>',
 })
-class TestPreviewComponent {}
+class TestPreviewComponent {
+  readonly viewMode = input<'headless' | 'ui'>('ui');
+  readonly selectionMode = input<'single' | 'multi'>('single');
+}
 
 const sourceFor = (id: ShowcaseExampleId) => ({
   html: `<${id}-preview />`,
   typescript: `// ${id} example`,
+  ...(id === 'select'
+    ? {
+        codeBlocks: [
+          {
+            id: 'single-html',
+            titleKey: 'showcase.select.singleTitle',
+            language: 'html' as const,
+            code: `<${id}-preview />`,
+          },
+        ],
+      }
+    : {}),
 });
 
 const translations = {
@@ -40,11 +55,13 @@ const translations = {
   'showcase.loadError': 'Example failed',
   'showcase.retry': 'Retry',
   'showcase.packageDocumentation': 'Package docs',
+  'showcase.readDocs': 'Read the docs',
   'showcase.codeFiles': 'Source files',
   'showcase.copy': 'Copy code',
   'showcase.copied': 'Copied',
   'showcase.copyError': 'Copy failed',
   'showcase.select.name': 'Select',
+  'showcase.select.singleTitle': 'Single selection',
   'showcase.datepicker.name': 'Datepicker',
   'showcase.table.name': 'Table',
   'showcase.modal.name': 'Modal',
@@ -101,7 +118,7 @@ describe('InteractiveShowcaseComponent', () => {
     fixture.detectChanges();
 
     const selectedButton = [...fixture.nativeElement.querySelectorAll('.example-tab')].find(
-      (button) => button.getAttribute('aria-pressed') === 'true',
+      (button) => button.getAttribute('aria-selected') === 'true',
     );
     expect(selectedButton.textContent).toContain('Select');
     expect(loaders.select).toHaveBeenCalledOnce();
@@ -127,13 +144,13 @@ describe('InteractiveShowcaseComponent', () => {
       '<table-preview />',
     );
 
-    const codeButton = fixture.nativeElement.querySelector(
-      '.view-switch button[aria-label="Code"]',
+    const codeButton = [...fixture.nativeElement.querySelectorAll('.view-switch button')].find(
+      (button) => button.textContent.includes('Code'),
     ) as HTMLButtonElement;
     codeButton.click();
     fixture.detectChanges();
     expect(codeButton.getAttribute('aria-pressed')).toBe('true');
-    expect(tableButton.getAttribute('aria-pressed')).toBe('true');
+    expect(tableButton.getAttribute('aria-selected')).toBe('true');
   });
 
   it('loads the Toast example on demand', async () => {
@@ -207,7 +224,7 @@ describe('InteractiveShowcaseComponent', () => {
     const docsLink = fixture.nativeElement.querySelector(
       '.documentation-link',
     ) as HTMLAnchorElement;
-    expect(docsLink.getAttribute('href')).toBe('/components');
+    expect(docsLink.getAttribute('href')).toBe('/docs');
   });
 
   it('ignores an older lazy response after a newer example has been selected', async () => {
@@ -242,7 +259,7 @@ describe('InteractiveShowcaseComponent', () => {
     await Promise.resolve();
     fixture.detectChanges();
 
-    expect(tableButton.getAttribute('aria-pressed')).toBe('true');
+    expect(tableButton.getAttribute('aria-selected')).toBe('true');
     expect(fixture.nativeElement.querySelector('.code-sample code').textContent).toContain(
       '<table-preview />',
     );

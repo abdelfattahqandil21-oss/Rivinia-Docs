@@ -4,7 +4,6 @@ import type { Type } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
 
-import { IconComponent } from '../../shared/components/icon/icon.component';
 import { SHOWCASE_PACKAGES } from '../packages/package-manifest';
 import { highlightShowcaseCode } from './showcase-code-highlight';
 import {
@@ -27,7 +26,6 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
         ]);
         return {
           component: component.SelectExampleComponent,
-          inputs: { highlightedCodeBlocks: registry.highlightedSelectExampleCodeBlocks },
           source: {
             ...source.selectExampleSource,
             codeBlocks: registry.highlightedSelectExampleCodeBlocks,
@@ -74,7 +72,7 @@ const EXAMPLES: readonly { id: ShowcaseExampleId; packageName: string }[] = SHOW
 );
 
 @Component({
-  imports: [IconComponent, NgComponentOutlet, RouterLink, RvTranslatePipe],
+  imports: [NgComponentOutlet, RouterLink, RvTranslatePipe],
   selector: 'app-interactive-showcase',
   templateUrl: './interactive-showcase.component.html',
   styleUrl: './interactive-showcase.component.css',
@@ -90,35 +88,68 @@ export class InteractiveShowcaseComponent {
     EXAMPLES.findIndex((example) => example.id === this.selectedExample()),
   );
   protected readonly activeView = signal<'preview' | 'code'>('preview');
-  protected readonly activeCode = signal<'html' | 'typescript' | 'css'>('html');
+  protected readonly selectedDemoMode = signal<'headless' | 'ui'>('ui');
+  protected readonly selectionMode = signal<'single' | 'multi'>('single');
+  protected readonly previewKey = computed(
+    () => `${this.selectedExample()}-${this.selectedDemoMode()}-${this.selectionMode()}`,
+  );
   protected readonly loading = signal(true);
   protected readonly failed = signal(false);
-  protected readonly copied = signal(false);
   protected readonly copiedSnippetId = signal<string | null>(null);
   protected readonly copyFailed = signal(false);
   protected readonly loadedModule = signal<ShowcaseExampleModule | null>(null);
   protected readonly activeComponent = computed<Type<unknown> | null>(
     () => this.loadedModule()?.component ?? null,
   );
-  protected readonly activeInputs = computed(() => this.loadedModule()?.inputs ?? {});
+  protected readonly activeInputs = computed(() => {
+    const inputs = this.loadedModule()?.inputs ?? {};
+    return this.selectedExample() === 'select'
+      ? {
+          ...inputs,
+          viewMode: this.selectedDemoMode(),
+          selectionMode: this.selectionMode(),
+        }
+      : inputs;
+  });
   protected readonly source = computed<ShowcaseExampleSource | null>(
     () => this.loadedModule()?.source ?? null,
   );
-  protected readonly currentSource = computed(() => {
-    const source = this.source();
-    const code = this.activeCode();
-    return code === 'css' ? (source?.css ?? '') : (source?.[code] ?? '');
-  });
-  protected readonly highlightedSource = computed(() =>
-    highlightShowcaseCode(this.currentSource(), this.activeCode()),
-  );
   protected readonly highlightedCodeBlocks = computed(() =>
-    (this.source()?.codeBlocks ?? []).map((block) => ({
-      ...block,
-      tokens: highlightShowcaseCode(block.code, block.language),
-    })),
+    (this.source()?.codeBlocks ?? [])
+      .filter((block) => {
+        if (this.selectedExample() !== 'select') {
+          return false;
+        }
+        const mode = this.selectedDemoMode();
+        const selection = this.selectionMode();
+        return (
+          block.id.startsWith(`${mode}-${selection}-`) ||
+          (mode === 'ui' && block.id.startsWith(`${selection}-`))
+        );
+      })
+      .map((block) => ({
+        ...block,
+        tokens: highlightShowcaseCode(block.code, block.language),
+      })),
   );
-  protected readonly hasCss = computed(() => Boolean(this.source()?.css));
+  protected readonly sourceFiles = computed(() => {
+    const source = this.source();
+    if (!source || this.selectedExample() === 'select') {
+      return [];
+    }
+    return [
+      { id: 'html', name: 'example.component.html', language: 'html' as const, code: source.html },
+      {
+        id: 'typescript',
+        name: 'example.component.ts',
+        language: 'typescript' as const,
+        code: source.typescript,
+      },
+      ...(source.css
+        ? [{ id: 'css', name: 'example.component.css', language: 'css' as const, code: source.css }]
+        : []),
+    ].map((file) => ({ ...file, tokens: highlightShowcaseCode(file.code, file.language) }));
+  });
 
   private readonly modules = new Map<ShowcaseExampleId, ShowcaseExampleModule>();
   private readonly inFlight = new Map<ShowcaseExampleId, Promise<ShowcaseExampleModule>>();
@@ -135,23 +166,69 @@ export class InteractiveShowcaseComponent {
 
     this.selectedExample.set(id);
     this.activeView.set('preview');
-    this.activeCode.set('html');
-    this.copied.set(false);
     this.copyFailed.set(false);
+    this.copiedSnippetId.set(null);
     void this.loadExample(id);
   }
 
   protected setView(view: 'preview' | 'code'): void {
     this.activeView.set(view);
-  }
-
-  protected setCode(code: 'html' | 'typescript' | 'css'): void {
-    this.activeCode.set(code);
-    this.copied.set(false);
+    this.copiedSnippetId.set(null);
     this.copyFailed.set(false);
   }
 
+  protected setDemoMode(mode: 'headless' | 'ui'): void {
+    this.selectedDemoMode.set(mode);
+    this.copiedSnippetId.set(null);
+    this.copyFailed.set(false);
+  }
+
+  protected setSelectionMode(mode: 'single' | 'multi'): void {
+    this.selectionMode.set(mode);
+    this.copiedSnippetId.set(null);
+    this.copyFailed.set(false);
+  }
+
+  protected tabId(id: ShowcaseExampleId): string {
+    return `showcase-tab-${id}`;
+  }
+
+  protected onTabKeydown(event: KeyboardEvent, id: ShowcaseExampleId): void {
+    const tabIndex = EXAMPLES.findIndex((example) => example.id === id);
+    const rtl = this.document.documentElement.dir === 'rtl';
+    let nextIndex = tabIndex;
+    if (event.key === 'Home') {
+      nextIndex = 0;
+    } else if (event.key === 'End') {
+      nextIndex = EXAMPLES.length - 1;
+    } else if (event.key === 'ArrowRight') {
+      nextIndex = (tabIndex + (rtl ? -1 : 1) + EXAMPLES.length) % EXAMPLES.length;
+    } else if (event.key === 'ArrowLeft') {
+      nextIndex = (tabIndex + (rtl ? 1 : -1) + EXAMPLES.length) % EXAMPLES.length;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    const nextExample = EXAMPLES[nextIndex];
+    if (nextExample) {
+      this.selectExample(nextExample.id);
+      this.document.getElementById(this.tabId(nextExample.id))?.focus();
+    }
+  }
+
   protected async copySnippet(block: ShowcaseCodeBlock): Promise<void> {
+    await this.copyText(block.code, block.id);
+  }
+
+  protected async copySourceFile(file: {
+    readonly id: string;
+    readonly code: string;
+  }): Promise<void> {
+    await this.copyText(file.code, file.id);
+  }
+
+  private async copyText(code: string, id: string): Promise<void> {
     const clipboard = this.document.defaultView?.navigator.clipboard;
     if (!clipboard) {
       this.copyFailed.set(true);
@@ -159,8 +236,8 @@ export class InteractiveShowcaseComponent {
     }
 
     try {
-      await clipboard.writeText(block.code);
-      this.copiedSnippetId.set(block.id);
+      await clipboard.writeText(code);
+      this.copiedSnippetId.set(id);
       this.copyFailed.set(false);
     } catch {
       this.copyFailed.set(true);
@@ -171,23 +248,6 @@ export class InteractiveShowcaseComponent {
     this.modules.delete(this.selectedExample());
     this.inFlight.delete(this.selectedExample());
     void this.loadExample(this.selectedExample());
-  }
-
-  protected async copyCode(): Promise<void> {
-    const view = this.document.defaultView;
-    if (!view?.navigator.clipboard || !this.currentSource()) {
-      this.copyFailed.set(true);
-      return;
-    }
-
-    try {
-      await view.navigator.clipboard.writeText(this.currentSource());
-      this.copied.set(true);
-      this.copyFailed.set(false);
-    } catch {
-      this.copyFailed.set(true);
-      this.copied.set(false);
-    }
   }
 
   protected tabLabel(id: ShowcaseExampleId): string {
