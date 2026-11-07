@@ -9,12 +9,20 @@ const translations = {
   'showcase.table.package': 'Package',
   'showcase.table.category': 'Category',
   'showcase.table.status': 'Status',
+  'showcase.table.actions': 'Actions',
   'showcase.table.input': 'Input',
   'showcase.table.data': 'Data',
   'showcase.table.overlay': 'Overlay',
   'showcase.table.localization': 'Localization',
   'showcase.table.appearance': 'Appearance',
   'showcase.table.ready': 'Ready',
+  'showcase.table.updated': 'Updated in this demo',
+  'showcase.table.viewAction': 'View {name}',
+  'showcase.table.editAction': 'Edit {name}',
+  'showcase.table.deleteAction': 'Delete {name}',
+  'showcase.table.viewMessage': 'Viewing {name}.',
+  'showcase.table.editMessage': 'Marked {name} as updated in this demo.',
+  'showcase.table.deleted': 'Removed {name} from this demo.',
   'showcase.table.pagination': 'Package pages',
   'showcase.table.previous': 'Previous',
   'showcase.table.next': 'Next',
@@ -48,11 +56,11 @@ describe('TableExampleComponent', () => {
     const rows = (): string => fixture.nativeElement.querySelector('rv-table').textContent;
     const next = (): HTMLButtonElement =>
       [...fixture.nativeElement.querySelectorAll('button')].find(
-        (button) => button.textContent.trim() === 'Next',
+        (button) => button.getAttribute('aria-label') === 'Next',
       )!;
     const previous = (): HTMLButtonElement =>
       [...fixture.nativeElement.querySelectorAll('button')].find(
-        (button) => button.textContent.trim() === 'Previous',
+        (button) => button.getAttribute('aria-label') === 'Previous',
       )!;
 
     const firstPage = rows();
@@ -64,5 +72,35 @@ describe('TableExampleComponent', () => {
     fixture.detectChanges();
     expect(rows()).toBe(firstPage);
     expect(previous().disabled).toBe(true);
+  });
+
+  it('uses the real Select control for page size and exposes row actions accessibly', () => {
+    expect(fixture.nativeElement.querySelector('rv-select')).toBeTruthy();
+    expect(fixture.nativeElement.querySelectorAll('.row-actions button')).toHaveLength(15);
+    expect(fixture.nativeElement.querySelector('[aria-label="View @rivinia/select"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('[aria-label="Edit @rivinia/select"]')).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('[aria-label="Delete @rivinia/select"]'),
+    ).toBeTruthy();
+  });
+
+  it('keeps row actions on the row and gives each action visible feedback', () => {
+    const view = fixture.nativeElement.querySelector(
+      '[aria-label="View @rivinia/select"]',
+    ) as HTMLButtonElement;
+    view.click();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.action-feedback').textContent).toContain(
+      'Viewing @rivinia/select.',
+    );
+
+    const edit = fixture.nativeElement.querySelector(
+      '[aria-label="Edit @rivinia/select"]',
+    ) as HTMLButtonElement;
+    edit.click();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('rv-table').textContent).toContain(
+      'Updated in this demo',
+    );
   });
 });

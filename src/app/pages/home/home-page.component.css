@@ -157,7 +157,7 @@
 }
 
 .hero-copy > .hero-install-code {
-  width: fit-content;
+  width: min(100%, 30rem);
   max-width: 100%;
   margin-block-start: var(--home-space-6);
 }

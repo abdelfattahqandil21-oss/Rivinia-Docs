@@ -1,13 +1,53 @@
-<div class="example-field">
-  <rv-datepicker
-    [(value)]="selectedDate"
-    [locale]="locale()"
-    format="medium"
-    [label]="'showcase.datepicker.label' | rvTranslate"
-    [placeholder]="'showcase.datepicker.placeholder' | rvTranslate"
-    [clearable]="true"
-  />
-  <p class="example-feedback" aria-live="polite" aria-atomic="true">
-    {{ 'showcase.datepicker.selected' | rvTranslate }}: {{ selectedDateLabel() }}
-  </p>
+<div class="datepicker-examples">
+  <section class="example-field" aria-labelledby="date-example-title">
+    <h4 id="date-example-title">{{ 'showcase.datepicker.dateTitle' | rvTranslate }}</h4>
+    <rv-datepicker
+      [(value)]="selectedDate"
+      [locale]="locale()"
+      format="medium"
+      [labels]="pickerLabels()"
+      [label]="'showcase.datepicker.label' | rvTranslate"
+      [placeholder]="'showcase.datepicker.placeholder' | rvTranslate"
+      [clearable]="true"
+    />
+    <p class="example-feedback" aria-live="polite" aria-atomic="true">
+      {{ 'showcase.datepicker.selected' | rvTranslate }}: {{ selectedDateLabel() }}
+    </p>
+  </section>
+
+  <section class="example-field" aria-labelledby="time-example-title">
+    <h4 id="time-example-title">{{ 'showcase.datepicker.timeTitle' | rvTranslate }}</h4>
+    <p class="example-note">{{ 'showcase.datepicker.timeRowNote' | rvTranslate }}</p>
+    <rv-time-row
+      [value]="selectedTime()"
+      (valueChange)="selectedTime.set($event)"
+      [locale]="locale()"
+      [labels]="pickerLabels()"
+      [hour12]="'auto'"
+      [showSeconds]="false"
+      [minuteStep]="5"
+    />
+    <p class="example-feedback" aria-live="polite" aria-atomic="true">
+      {{ 'showcase.datepicker.selectedTime' | rvTranslate }}: {{ selectedTimeLabel() }}
+    </p>
+  </section>
+
+  <section class="example-field" aria-labelledby="datetime-example-title">
+    <h4 id="datetime-example-title">{{ 'showcase.datepicker.dateTimeTitle' | rvTranslate }}</h4>
+    <rv-datetimepicker
+      [(value)]="selectedDateTime"
+      [locale]="locale()"
+      format="medium"
+      timeFormat="short"
+      [timeZone]="'America/New_York'"
+      [labels]="pickerLabels()"
+      [label]="'showcase.datepicker.dateTimeLabel' | rvTranslate"
+      [placeholder]="'showcase.datepicker.dateTimePlaceholder' | rvTranslate"
+      [clearable]="true"
+    />
+    <p class="example-feedback" aria-live="polite" aria-atomic="true">
+      {{ 'showcase.datepicker.selectedDateTime' | rvTranslate }}:
+      {{ selectedDateTimeLabel() }}
+    </p>
+  </section>
 </div>

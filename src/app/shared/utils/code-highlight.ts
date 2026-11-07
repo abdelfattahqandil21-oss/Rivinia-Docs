@@ -10,6 +10,7 @@ export type CodeTokenKind =
   | 'tag'
   | 'attribute'
   | 'binding'
+  | 'event'
   | 'property'
   | 'selector'
   | 'variable'
@@ -24,7 +25,7 @@ export interface CodeToken {
 }
 
 const TOKEN_PATTERN =
-  /<!--[\s\S]*?-->|\/\*[\s\S]*?\*\/|\/\/[^\r\n]*|`(?:\\.|[^`\\])*`|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|<\/?[a-z][\w-]*|\[\([A-Za-z_][\w.-]*\)\]|\[[A-Za-z_][\w.-]*\]|\([A-Za-z_][\w.-]*\)|\$[A-Za-z_][\w$]*|--[\w-]+|#[\da-fA-F]{3,8}\b|@[A-Za-z-]+|\.[A-Za-z_][\w-]*(?=[\s{,:])|:[A-Za-z-]+|[A-Za-z_-][\w-]*(?=\s*=)|[A-Za-z_$][\w$]*(?=\s*:)|[A-Za-z_$][\w$]*(?=\s*\()|\b(?:import|from|export|const|readonly|return|interface|type|class|protected|private|new|this|if|else|true|false|null|undefined|as|extends)\b|\b(?:string|number|boolean|unknown|void|Signal|Type|Rivinia[A-Za-z]+|SelectChange|TableColumn)\b|\b\d+(?:\.\d+)?\b|[A-Za-z_$][\w$]*|[{}()[\].,:;=<>+\-*?\/|]/g;
+  /<!--[\s\S]*?-->|\/\*[\s\S]*?\*\/|\/\/[^\r\n]*|`(?:\\.|[^`\\])*`|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|<\/?[a-z][\w-]*|\[\([A-Za-z_][\w.-]*\)\]|\[[A-Za-z_][\w.-]*\]|\([A-Za-z_][\w.-]*\)|\$[A-Za-z_][\w$]*|--[\w-]+|#[\da-fA-F]{3,8}\b|@[A-Za-z-]+|\.[A-Za-z_][\w-]*(?=[\s{,:])|:[A-Za-z-]+|[A-Za-z_-][\w-]*(?=\s*=)|[A-Za-z_$][\w$]*(?=\s*:)|[A-Za-z_$][\w$]*(?=\s*\()|\b(?:import|from|export|const|readonly|return|interface|type|class|protected|private|new|this|if|else|true|false|null|undefined|as|extends)\b|\b(?:string|number|boolean|unknown|void|Signal|Type|Component|Rivinia[A-Za-z]+|SelectChange|TableColumn)\b|\b\d+(?:\.\d+)?\b|[A-Za-z_$][\w$]*|[{}()[\].,:;=<>+\-*?\/|]/g;
 
 const KEYWORDS = new Set([
   'import',
@@ -57,6 +58,7 @@ const TYPES = new Set([
   'void',
   'Signal',
   'Type',
+  'Component',
   'SelectChange',
   'TableColumn',
 ]);
@@ -101,8 +103,11 @@ function classify(
 ): CodeTokenKind {
   if (/^(<!--|\/\*|\/\/)/.test(text)) return 'comment';
   if (/^(?:`|'|")/.test(text)) return 'string';
+  if (/^@[A-Z]/.test(text)) return 'type';
   if (language === 'html' && /^<\/?[A-Za-z]/.test(text)) return 'tag';
-  if (language === 'html' && /^(?:\[|\()/.test(text)) return 'binding';
+  if (language === 'html' && /^\([A-Za-z_][\w.-]*\)$/.test(text)) return 'event';
+  if (language === 'html' && /^\[[A-Za-z_][\w.-]*\]$/.test(text)) return 'property';
+  if (language === 'html' && /^\[\([A-Za-z_][\w.-]*\)\]$/.test(text)) return 'binding';
   if (language === 'html' && /^[A-Za-z_-][\w-]*$/.test(text) && /^\s*=/.test(followingSource)) {
     return 'attribute';
   }
@@ -136,7 +141,9 @@ function classify(
   if ((language === 'typescript' || language === 'ts') && KEYWORDS.has(text)) return 'keyword';
   if (
     (language === 'typescript' || language === 'ts') &&
-    (TYPES.has(text) || /^Rivinia[A-Za-z]+$/.test(text))
+    (TYPES.has(text) ||
+      /^Rivinia[A-Za-z]+$/.test(text) ||
+      /^[A-Z][A-Za-z0-9]*(?:Component|Service|Directive)$/.test(text))
   )
     return 'type';
   if (

@@ -10,6 +10,7 @@
   --rv-code-tag: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-brand-violet));
   --rv-code-attribute: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-accent));
   --rv-code-binding: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
+  --rv-code-event: color-mix(in srgb, var(--rv-fg) 64%, var(--rv-brand-violet));
   --rv-code-property: color-mix(in srgb, var(--rv-fg) 68%, var(--rv-brand-violet));
   --rv-code-selector: color-mix(in srgb, var(--rv-fg) 55%, var(--rv-brand-violet));
   --rv-code-variable: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-accent));
@@ -28,12 +29,14 @@
 }
 
 .code-block-header {
-  display: flex;
+  display: grid;
   min-height: 2.75rem;
   align-items: center;
-  gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr) auto 2.75rem;
+  direction: ltr;
   border-block-end: 1px solid var(--rv-border);
-  padding-inline: 0.75rem;
+  padding-inline-start: 0.75rem;
+  padding-inline-end: 0;
 }
 
 .code-block-filename {
@@ -52,7 +55,9 @@
 }
 
 .code-block-header app-copy-button {
-  margin-inline-start: 0.25rem;
+  align-self: stretch;
+  width: 2.75rem;
+  border-inline-start: 1px solid var(--rv-border);
 }
 
 .code-block-caption {
@@ -68,8 +73,10 @@ pre {
   overflow: visible;
   margin: 0;
   padding: 0.875rem;
+  direction: ltr;
   color: var(--rv-fg);
   font: 0.875rem/1.6 var(--rv-font-mono);
+  text-align: left;
   tab-size: 2;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -105,6 +112,10 @@ pre {
 
 .token-binding {
   color: var(--rv-code-binding);
+}
+
+.token-event {
+  color: var(--rv-code-event);
 }
 
 .token-property {

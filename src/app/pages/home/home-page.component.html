@@ -231,10 +231,21 @@
             <a routerLink="/playground">{{ i18n.translate('nav.playground') }}</a>
           </nav>
 
-          <nav class="footer-nav" [attr.aria-labelledby]="'footer-resources-title'">
+          <nav
+            class="footer-nav footer-package-nav"
+            [attr.aria-labelledby]="'footer-resources-title'"
+          >
             <h3 id="footer-resources-title">{{ i18n.translate('home.footer.resources') }}</h3>
             <a href="https://github.com/abdelfattahqandil21-oss/Rivinia">GitHub</a>
-            <a href="https://www.npmjs.com/package/@rivinia/select">npm · @rivinia/select</a>
+            @for (package of packages; track package.id) {
+              <a
+                [href]="'https://www.npmjs.com/package/' + package.name"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {{ package.name }}
+              </a>
+            }
           </nav>
         </div>
 

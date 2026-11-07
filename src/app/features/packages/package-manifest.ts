@@ -54,6 +54,16 @@ export const PACKAGE_MANIFEST = [
     translationKey: 'showcase.toast.name',
     showcase: true,
   },
+  {
+    id: 'menu',
+    name: '@rivinia/menu',
+    translationKey: 'showcase.menu.name',
+  },
+  {
+    id: 'popup',
+    name: '@rivinia/popup',
+    translationKey: 'showcase.popup.name',
+  },
 ] as const;
 
 export type PackageManifestEntry = (typeof PACKAGE_MANIFEST)[number];

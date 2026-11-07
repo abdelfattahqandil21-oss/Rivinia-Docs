@@ -13,6 +13,14 @@ import {
   type ShowcaseExampleSource,
 } from './showcase-example.model';
 
+type ShowcaseSourceFileId = 'typescript' | 'html' | 'css';
+type ShowcaseSourceFile = {
+  id: ShowcaseSourceFileId;
+  name: string;
+  language: 'ts' | 'html' | 'css';
+  code: string;
+};
+
 export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoaders>(
   'SHOWCASE_EXAMPLE_LOADERS',
   {
@@ -91,6 +99,7 @@ export class InteractiveShowcaseComponent {
   );
   protected readonly selectedTabWidth = computed(() => `${100 / EXAMPLES.length}%`);
   protected readonly activeView = signal<'preview' | 'code'>('preview');
+  protected readonly selectedSourceFileId = signal<ShowcaseSourceFileId>('html');
   protected readonly selectedDemoMode = signal<'headless' | 'ui'>('ui');
   protected readonly selectionMode = signal<'single' | 'multi'>('single');
   protected readonly previewKey = computed(
@@ -128,24 +137,38 @@ export class InteractiveShowcaseComponent {
       );
     }),
   );
-  protected readonly sourceFiles = computed(() => {
+  protected readonly sourceFiles = computed<ShowcaseSourceFile[]>(() => {
     const source = this.source();
     if (!source || this.selectedExample() === 'select') {
       return [];
     }
-    return [
-      { id: 'html', name: 'example.component.html', language: 'html' as const, code: source.html },
+    const files: ShowcaseSourceFile[] = [
+      { id: 'html', name: 'example.component.html', language: 'html', code: source.html },
       {
         id: 'typescript',
         name: 'example.component.ts',
-        language: 'ts' as const,
+        language: 'ts',
         code: source.typescript,
       },
       ...(source.css
-        ? [{ id: 'css', name: 'example.component.css', language: 'css' as const, code: source.css }]
+        ? [
+            {
+              id: 'css' as const,
+              name: 'example.component.css',
+              language: 'css' as const,
+              code: source.css,
+            },
+          ]
         : []),
     ];
+    return files;
   });
+  protected readonly selectedSourceFile = computed(
+    () =>
+      this.sourceFiles().find((file) => file.id === this.selectedSourceFileId()) ??
+      this.sourceFiles()[0] ??
+      null,
+  );
 
   private readonly modules = new Map<ShowcaseExampleId, ShowcaseExampleModule>();
   private readonly inFlight = new Map<ShowcaseExampleId, Promise<ShowcaseExampleModule>>();
@@ -162,6 +185,7 @@ export class InteractiveShowcaseComponent {
 
     this.selectedExample.set(id);
     this.activeView.set('preview');
+    this.selectedSourceFileId.set('html');
     void this.loadExample(id);
   }
 
@@ -179,6 +203,39 @@ export class InteractiveShowcaseComponent {
 
   protected tabId(id: ShowcaseExampleId): string {
     return `showcase-tab-${id}`;
+  }
+
+  protected sourceTabId(id: ShowcaseSourceFileId): string {
+    return `showcase-source-tab-${id}`;
+  }
+
+  protected selectSourceFile(id: ShowcaseSourceFileId): void {
+    this.selectedSourceFileId.set(id);
+  }
+
+  protected onSourceTabKeydown(event: KeyboardEvent, id: ShowcaseSourceFileId): void {
+    const files = this.sourceFiles();
+    const tabIndex = files.findIndex((file) => file.id === id);
+    const rtl = this.document.documentElement.dir === 'rtl';
+    let nextIndex = tabIndex;
+    if (event.key === 'Home') {
+      nextIndex = 0;
+    } else if (event.key === 'End') {
+      nextIndex = files.length - 1;
+    } else if (event.key === 'ArrowRight') {
+      nextIndex = (tabIndex + (rtl ? -1 : 1) + files.length) % files.length;
+    } else if (event.key === 'ArrowLeft') {
+      nextIndex = (tabIndex + (rtl ? 1 : -1) + files.length) % files.length;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    const nextFile = files[nextIndex];
+    if (nextFile) {
+      this.selectSourceFile(nextFile.id);
+      this.document.getElementById(this.sourceTabId(nextFile.id))?.focus();
+    }
   }
 
   protected onTabKeydown(event: KeyboardEvent, id: ShowcaseExampleId): void {

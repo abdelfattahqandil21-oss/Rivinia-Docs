@@ -25,6 +25,7 @@ class TestPreviewComponent {
 const sourceFor = (id: ShowcaseExampleId) => ({
   html: `<${id}-preview />`,
   typescript: `// ${id} example`,
+  css: `.example-${id} { color: inherit; }`,
   ...(id === 'select'
     ? {
         codeBlocks: [
@@ -42,10 +43,12 @@ const sourceFor = (id: ShowcaseExampleId) => ({
 const translations = {
   'common.copyCodeLabel': 'Copy code',
   'showcase.title': 'Experience Rivinia',
+  'showcase.eyebrow': 'Examples',
   'showcase.description': 'Real components',
   'showcase.allPackages': 'All packages',
   'showcase.examples': 'Examples',
   'showcase.views': 'Views',
+  'showcase.demoMode': 'Example mode',
   'showcase.preview': 'Preview',
   'showcase.code': 'Code',
   'showcase.livePreview': 'Live preview',
@@ -58,9 +61,16 @@ const translations = {
   'showcase.packageDocumentation': 'Package docs',
   'showcase.readDocs': 'Read the docs',
   'showcase.codeFiles': 'Source files',
+  'showcase.sourceFiles': 'Example source files',
+  'showcase.sourceTypeScript': 'TypeScript',
+  'showcase.sourceHtml': 'HTML',
+  'showcase.sourceCss': 'CSS',
   'common.copyCodeSuccess': 'Code copied',
   'common.copyCodeError': 'Copy failed',
   'showcase.select.name': 'Select',
+  'showcase.select.selectionMode': 'Selection mode',
+  'showcase.select.single': 'Single',
+  'showcase.select.multiple': 'Multiple',
   'showcase.select.singleTitle': 'Single selection',
   'showcase.datepicker.name': 'Datepicker',
   'showcase.table.name': 'Table',
@@ -174,6 +184,32 @@ describe('InteractiveShowcaseComponent', () => {
     expect(fixture.nativeElement.querySelector('.code-block pre code').textContent).toContain(
       '<toast-preview />',
     );
+  });
+
+  it('shows one source file at a time and supports keyboard navigation between file tabs', async () => {
+    const fixture = createFixture();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const tableButton = [...fixture.nativeElement.querySelectorAll('.example-tab')].find((button) =>
+      button.textContent.includes('Table'),
+    ) as HTMLButtonElement;
+    tableButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const tabs = [...fixture.nativeElement.querySelectorAll('.source-file-tabs [role="tab"]')];
+    expect(tabs).toHaveLength(3);
+    expect(tabs.map((tab) => tab.textContent.trim())).toEqual(['HTML', 'TypeScript', 'CSS']);
+    expect(fixture.nativeElement.querySelectorAll('.source-file-view app-code-block')).toHaveLength(
+      1,
+    );
+
+    (tabs[0] as HTMLButtonElement).dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }),
+    );
+    fixture.detectChanges();
+    expect(tabs[1].getAttribute('aria-selected')).toBe('true');
   });
 
   it('shows an accessible failure state and retries the selected loader', async () => {

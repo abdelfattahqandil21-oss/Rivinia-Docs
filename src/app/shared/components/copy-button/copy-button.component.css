@@ -1,6 +1,7 @@
 :host {
   display: inline-flex;
   flex: 0 0 auto;
+  height: 100%;
   --rv-copy-success: #176b42;
 }
 
@@ -11,13 +12,13 @@
 .copy-button {
   position: relative;
   display: inline-grid;
-  width: 2.75rem;
+  width: 100%;
   min-inline-size: 2.75rem;
-  height: 2.75rem;
+  height: 100%;
   place-items: center;
-  border: 1px solid var(--rv-border);
-  border-radius: 0.55rem;
-  background: var(--rv-home-surface-raised, var(--rv-bg));
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--rv-fg);
   cursor: pointer;
 }
@@ -28,7 +29,7 @@
 
 .copy-button:focus-visible {
   outline: 2px solid var(--rv-accent);
-  outline-offset: 2px;
+  outline-offset: -3px;
 }
 
 .copy-button[data-state='copied'] {

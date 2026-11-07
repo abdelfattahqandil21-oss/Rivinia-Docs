@@ -132,7 +132,7 @@
                   </button>
                 </div>
               }
-              <div class="preview-content">
+              <div class="preview-content" [class.wide-demo]="selectedExample() === 'datepicker'">
                 <ng-container *ngComponentOutlet="component; inputs: activeInputs()" />
               </div>
             }
@@ -167,15 +167,51 @@
             }
           </div>
         } @else if (sourceFiles().length) {
-          <div class="source-files">
+          <div
+            class="source-file-tabs"
+            role="tablist"
+            [attr.aria-label]="'showcase.sourceFiles' | rvTranslate"
+          >
             @for (file of sourceFiles(); track file.id) {
+              <button
+                type="button"
+                role="tab"
+                [id]="sourceTabId(file.id)"
+                [attr.aria-controls]="'showcase-source-code-panel'"
+                [attr.aria-selected]="selectedSourceFile()?.id === file.id"
+                [attr.tabindex]="selectedSourceFile()?.id === file.id ? 0 : -1"
+                (click)="selectSourceFile(file.id)"
+                (keydown)="onSourceTabKeydown($event, file.id)"
+              >
+                @switch (file.id) {
+                  @case ('typescript') {
+                    {{ 'showcase.sourceTypeScript' | rvTranslate }}
+                  }
+                  @case ('html') {
+                    {{ 'showcase.sourceHtml' | rvTranslate }}
+                  }
+                  @case ('css') {
+                    {{ 'showcase.sourceCss' | rvTranslate }}
+                  }
+                }
+              </button>
+            }
+          </div>
+          @if (selectedSourceFile(); as file) {
+            <div
+              class="source-file-view"
+              id="showcase-source-code-panel"
+              role="tabpanel"
+              tabindex="0"
+              [attr.aria-labelledby]="sourceTabId(file.id)"
+            >
               <app-code-block
                 [code]="file.code"
                 [language]="file.language"
                 [filename]="file.name"
               />
-            }
-          </div>
+            </div>
+          }
         } @else {
           <p class="code-placeholder" role="status">
             {{ (loading() ? 'showcase.loadingCode' : 'showcase.codeUnavailable') | rvTranslate }}

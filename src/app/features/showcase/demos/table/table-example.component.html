@@ -6,25 +6,75 @@
     (sortChange)="table.sorting.set($event)"
     [ariaLabel]="'showcase.table.label' | rvTranslate"
     density="comfortable"
-  />
+  >
+    <ng-template rvTableCell="actions" let-data="data">
+      <div class="row-actions" [attr.aria-label]="'showcase.table.actions' | rvTranslate">
+        <button
+          type="button"
+          [attr.aria-label]="'showcase.table.viewAction' | rvTranslate: { name: data.name }"
+          (click)="runAction('view', data)"
+        >
+          <svg lucideEye size="16" aria-hidden="true"></svg>
+        </button>
+        <button
+          type="button"
+          [attr.aria-label]="'showcase.table.editAction' | rvTranslate: { name: data.name }"
+          (click)="runAction('edit', data)"
+        >
+          <svg lucidePencil size="16" aria-hidden="true"></svg>
+        </button>
+        <button
+          type="button"
+          [attr.aria-label]="'showcase.table.deleteAction' | rvTranslate: { name: data.name }"
+          (click)="runAction('delete', data)"
+        >
+          <svg lucideTrash2 size="16" aria-hidden="true"></svg>
+        </button>
+      </div>
+    </ng-template>
+  </rv-table>
   <nav class="pagination" [attr.aria-label]="'showcase.table.pagination' | rvTranslate">
-    <button type="button" [disabled]="table.page() === 0" (click)="previousPage()">
-      {{ 'showcase.table.previous' | rvTranslate }}
+    <button
+      type="button"
+      [disabled]="table.page() === 0"
+      [attr.aria-label]="'showcase.table.previous' | rvTranslate"
+      (click)="previousPage()"
+    >
+      @if (isRtl()) {
+        <svg lucideArrowRight size="17" aria-hidden="true"></svg>
+      } @else {
+        <svg lucideArrowLeft size="17" aria-hidden="true"></svg>
+      }
     </button>
     <span aria-live="polite">{{
       'showcase.table.pageInfo'
         | rvTranslate: { count: table.total(), page: table.page() + 1, pageCount: pageCount() }
     }}</span>
-    <button type="button" [disabled]="table.page() + 1 >= pageCount()" (click)="nextPage()">
-      {{ 'showcase.table.next' | rvTranslate }}
+    <button
+      type="button"
+      [disabled]="table.page() + 1 >= pageCount()"
+      [attr.aria-label]="'showcase.table.next' | rvTranslate"
+      (click)="nextPage()"
+    >
+      @if (isRtl()) {
+        <svg lucideArrowLeft size="17" aria-hidden="true"></svg>
+      } @else {
+        <svg lucideArrowRight size="17" aria-hidden="true"></svg>
+      }
     </button>
-    <label
-      >{{ 'showcase.table.rowsPerPage' | rvTranslate }}
-      <select [value]="pageSize()" (change)="changePageSize($any($event.target).value)">
-        <option value="5">5</option>
-        <option value="10">10</option>
-      </select>
-    </label>
+    <div class="page-size-control">
+      <rv-select
+        mode="single"
+        [options]="pageSizeOptions"
+        [value]="pageSizeValue()"
+        (valueChange)="changePageSize($event)"
+        [label]="'showcase.table.rowsPerPage' | rvTranslate"
+        [searchable]="false"
+      />
+    </div>
   </nav>
+  @if (actionMessage(); as message) {
+    <p class="action-feedback" role="status" aria-live="polite">{{ message }}</p>
+  }
   <p class="example-feedback">{{ 'showcase.table.hint' | rvTranslate }}</p>
 </div>

@@ -1,36 +1,96 @@
 <div class="modal-example">
-  <button class="open-button" type="button" (click)="open.set(true)">
-    {{ 'showcase.modal.open' | rvTranslate }}
-  </button>
+  <div
+    class="modal-actions"
+    role="group"
+    [attr.aria-label]="'showcase.modal.actions' | rvTranslate"
+  >
+    <button class="open-button" type="button" (click)="openDetails()">
+      {{ 'showcase.modal.openDetails' | rvTranslate }}
+    </button>
+    <button type="button" (click)="openEdit()">
+      {{ 'showcase.modal.openEdit' | rvTranslate }}
+    </button>
+  </div>
   <p class="example-feedback">{{ 'showcase.modal.hint' | rvTranslate }}</p>
-  @if (confirmed()) {
-    <p class="example-feedback" role="status">{{ 'showcase.modal.confirmed' | rvTranslate }}</p>
+  @if (deleteResult(); as name) {
+    <p class="example-feedback" role="status" aria-live="polite">
+      {{ 'showcase.modal.deleteCompleted' | rvTranslate: { name } }}
+    </p>
   }
 </div>
 
-<rv-modal-dialog
-  [(open)]="open"
-  [title]="'showcase.modal.title' | rvTranslate"
-  [description]="'showcase.modal.description' | rvTranslate"
-  [closeOnEscape]="true"
-  position="center"
-  size="md"
->
+<ng-template #detailsTemplate let-record let-modal="modal">
   <div class="modal-content">
-    <p>{{ 'showcase.modal.body' | rvTranslate }}</p>
+    <p>{{ 'showcase.modal.detailsDescription' | rvTranslate }}</p>
     <dl>
-      <dt>{{ 'showcase.modal.workspace' | rvTranslate }}</dt>
-      <dd>rivinia-docs</dd>
-      <dt>{{ 'showcase.modal.action' | rvTranslate }}</dt>
-      <dd>{{ 'showcase.modal.actionDetail' | rvTranslate }}</dd>
+      <dt>{{ 'showcase.modal.packageLabel' | rvTranslate }}</dt>
+      <dd>{{ record.name }}</dd>
+      <dt>{{ 'showcase.modal.workflowLabel' | rvTranslate }}</dt>
+      <dd>{{ 'showcase.modal.workflowValue' | rvTranslate }}</dd>
     </dl>
     <div class="modal-actions">
-      <button class="cancel-button" type="button" (click)="cancel()">
-        {{ 'showcase.modal.cancel' | rvTranslate }}
-      </button>
-      <button type="button" (click)="confirm()">
-        {{ 'showcase.modal.confirm' | rvTranslate }}
+      <button type="button" (click)="openWorkflow(modal.id, record)">
+        {{ 'showcase.modal.continueWorkflow' | rvTranslate }}
       </button>
     </div>
   </div>
-</rv-modal-dialog>
+</ng-template>
+
+<ng-template #workflowTemplate let-record let-modal="modal">
+  <div class="modal-content">
+    <p>{{ 'showcase.modal.workflowDescription' | rvTranslate }}</p>
+    <dl>
+      <dt>{{ 'showcase.modal.packageLabel' | rvTranslate }}</dt>
+      <dd>{{ record.name }}</dd>
+      <dt>{{ 'showcase.modal.reviewLabel' | rvTranslate }}</dt>
+      <dd>{{ 'showcase.modal.reviewValue' | rvTranslate }}</dd>
+    </dl>
+    <div class="modal-actions">
+      <button
+        class="danger-button"
+        type="button"
+        (click)="openDeleteConfirmation(modal.id, record)"
+      >
+        {{ 'showcase.modal.deletePackage' | rvTranslate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteTemplate let-record let-modal="modal">
+  <div class="modal-content">
+    <p>{{ 'showcase.modal.deleteDescription' | rvTranslate: { name: record.name } }}</p>
+    <div class="modal-actions">
+      <button class="cancel-button" type="button" (click)="requestDismiss(modal.id)">
+        {{ 'showcase.modal.cancel' | rvTranslate }}
+      </button>
+      <button class="danger-button" type="button" (click)="confirmDelete(modal.id, record)">
+        {{ 'showcase.modal.confirmDelete' | rvTranslate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editTemplate let-record let-modal="modal">
+  <div class="modal-content">
+    <p>{{ 'showcase.modal.editDescription' | rvTranslate }}</p>
+    <label class="edit-field">
+      <span>{{ 'showcase.modal.packageName' | rvTranslate }}</span>
+      <input [value]="editDraft()" (input)="updateDraft($event)" />
+    </label>
+    @if (isDirty()) {
+      <p class="unsaved-note" role="status">{{ 'showcase.modal.unsaved' | rvTranslate }}</p>
+    }
+    <div class="modal-actions">
+      <button class="cancel-button" type="button" (click)="requestDismiss(modal.id)">
+        {{ 'showcase.modal.cancel' | rvTranslate }}
+      </button>
+      <button type="button" [disabled]="!isDirty()" (click)="saveEdit(modal.id)">
+        {{ 'showcase.modal.save' | rvTranslate }}
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<rv-modal-host [modal]="modal" size="lg" />
+<rv-toast-list [manager]="toastManager" position="top-center" animation="slide" />

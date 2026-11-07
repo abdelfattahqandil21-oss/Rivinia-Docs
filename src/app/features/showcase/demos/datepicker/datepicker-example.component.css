@@ -1,13 +1,32 @@
 :host {
   display: block;
   width: 100%;
-  max-width: 27rem;
+  max-width: 48rem;
   margin-inline: auto;
+}
+
+.datepicker-examples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .example-field {
   display: grid;
+  min-width: 0;
+  align-content: start;
   gap: 0.75rem;
+  border: 1px solid var(--rv-border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--rv-fg) 1.5%, var(--rv-bg));
+}
+
+.example-field h4 {
+  color: var(--rv-fg);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .example-feedback {
@@ -15,4 +34,16 @@
   color: var(--rv-muted);
   font-size: 0.84rem;
   line-height: 1.5;
+}
+
+.example-note {
+  color: var(--rv-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 54rem) {
+  .datepicker-examples {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

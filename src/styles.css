@@ -282,6 +282,15 @@ html:has(.home-page) {
   gap: var(--home-space-1);
 }
 
+.home-page .footer-package-nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.home-page .footer-package-nav h3,
+.home-page .footer-package-nav > a:first-of-type {
+  grid-column: 1 / -1;
+}
+
 .home-page .footer-nav h3 {
   margin-block-end: var(--home-space-2);
   font-size: 0.9375rem;

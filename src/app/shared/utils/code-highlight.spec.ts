@@ -14,13 +14,15 @@ describe('highlightCode', () => {
   });
 
   it('highlights Angular bindings and expressions inside bound attribute values', () => {
-    const source = '<rv-select [options]="options()" (valueChange)="selected.set($event)" />';
+    const source =
+      '<rv-select [options]="options()" [label]="\'Choose\'" (valueChange)="selected.set($event)" />';
     const tokens = highlightCode(source, 'html');
 
     expect(tokens.map((token) => token.text).join('')).toBe(source);
-    expect(tokens).toContainEqual({ kind: 'binding', text: '[options]' });
+    expect(tokens).toContainEqual({ kind: 'property', text: '[options]' });
+    expect(tokens).toContainEqual({ kind: 'property', text: '[label]' });
     expect(tokens).toContainEqual({ kind: 'function', text: 'options' });
-    expect(tokens).toContainEqual({ kind: 'binding', text: '(valueChange)' });
+    expect(tokens).toContainEqual({ kind: 'event', text: '(valueChange)' });
     expect(tokens).toContainEqual({ kind: 'variable', text: 'selected' });
     expect(tokens).toContainEqual({ kind: 'variable', text: '$event' });
   });
@@ -38,6 +40,18 @@ describe('highlightCode', () => {
     );
     expect(tokens.some((token) => token.kind === 'string')).toBe(false);
     expect(tokens.some((token) => token.kind === 'number' && token.text === '11')).toBe(true);
+  });
+
+  it('highlights component declarations and decorators as TypeScript syntax', () => {
+    const tokens = highlightCode(
+      '@Component({})\nexport class DatepickerExampleComponent { readonly value = signal(0); }\nconst count = 1;',
+      'ts',
+    );
+
+    expect(tokens).toContainEqual({ kind: 'type', text: '@Component' });
+    expect(tokens).toContainEqual({ kind: 'keyword', text: 'class' });
+    expect(tokens).toContainEqual({ kind: 'type', text: 'DatepickerExampleComponent' });
+    expect(tokens).toContainEqual({ kind: 'keyword', text: 'const' });
   });
 
   it('marks CSS selectors, properties, variables, and values', () => {
