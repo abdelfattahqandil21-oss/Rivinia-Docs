@@ -12,7 +12,9 @@
     "pretest": "node scripts/generate-showcase-sources.mjs",
     "verify:showcase-sources": "node scripts/generate-showcase-sources.mjs --check",
     "check:arch": "node scripts/check-architecture.mjs",
-    "verify": "prettier --check AGENTS.md \"docs/**/*.md\" \".agents/skills/**/*.md\" \"scripts/**/*.mjs\" package.json wrangler.jsonc \"src/styles.css\" \"src/styles/**/*.css\" \"public/i18n/*.json\" \"src/app/**/*.{ts,html,css}\" && npm run check:arch && node scripts/generate-showcase-sources.mjs --check && npm run build && npm test -- --watch=false --runner=vitest"
+    "check:colors": "node scripts/check-colors.mjs",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "verify": "prettier --check AGENTS.md \"docs/**/*.md\" \".agents/skills/**/*.md\" \"scripts/**/*.mjs\" package.json wrangler.jsonc \"src/styles.css\" \"src/styles/**/*.css\" \"public/i18n/*.json\" \"src/app/**/*.{ts,html,css}\" && npm run check:arch && npm run check:colors && npm run check:contrast && node scripts/generate-showcase-sources.mjs --check && npm run build && npm test -- --watch=false --runner=vitest"
   },
   "private": true,
   "packageManager": "npm@11.19.0",

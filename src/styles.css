@@ -11,4 +11,5 @@
 
 @theme inline {
   --color-rv-brand: var(--rv-brand-violet);
+  --color-rv-docs-active: var(--rv-docs-active-bg);
 }

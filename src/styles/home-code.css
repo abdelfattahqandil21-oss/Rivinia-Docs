@@ -1,21 +1,30 @@
 .hero-code .syntax-comment {
-  color: var(--rv-muted);
+  color: var(--code-comment);
 }
 
 .hero-code .syntax-keyword,
 .hero-code .syntax-pipe,
 .hero-code .syntax-type,
-.hero-code .syntax-tag,
-.hero-code .syntax-attribute,
-.hero-code .syntax-binding,
 .hero-code .syntax-property,
 .hero-code .syntax-selector,
-.hero-code .syntax-variable,
+.hero-code .syntax-variable {
+  color: var(--code-keyword);
+}
+
+.hero-code .syntax-tag {
+  color: var(--code-tag);
+}
+
+.hero-code .syntax-attribute,
+.hero-code .syntax-binding {
+  color: var(--code-attr);
+}
+
 .hero-code .syntax-function {
-  color: var(--rv-brand-violet);
+  color: var(--code-fn);
 }
 
 .hero-code .syntax-string,
 .hero-code .syntax-number {
-  color: var(--rv-accent);
+  color: var(--code-string);
 }

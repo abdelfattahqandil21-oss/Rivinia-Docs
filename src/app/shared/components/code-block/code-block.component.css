@@ -1,22 +1,6 @@
 :host {
   display: block;
   min-width: 0;
-  --rv-code-surface: var(--rv-home-surface-raised, var(--rv-bg));
-  --rv-code-comment: var(--rv-muted);
-  --rv-code-keyword: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-brand-violet));
-  --rv-code-type: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
-  --rv-code-string: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-accent));
-  --rv-code-number: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-accent));
-  --rv-code-tag: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-brand-violet));
-  --rv-code-attribute: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-accent));
-  --rv-code-binding: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
-  --rv-code-event: color-mix(in srgb, var(--rv-fg) 64%, var(--rv-brand-violet));
-  --rv-code-property: color-mix(in srgb, var(--rv-fg) 68%, var(--rv-brand-violet));
-  --rv-code-selector: color-mix(in srgb, var(--rv-fg) 55%, var(--rv-brand-violet));
-  --rv-code-variable: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-accent));
-  --rv-code-pipe: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
-  --rv-code-function: color-mix(in srgb, var(--rv-fg) 64%, var(--rv-accent));
-  --rv-code-command: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
 }
 
 .code-block {
@@ -24,7 +8,7 @@
   overflow: hidden;
   border: 1px solid var(--rv-border);
   border-radius: var(--home-radius-md, 0.75rem);
-  background: var(--rv-code-surface);
+  background: var(--rv-home-surface-raised);
   color: var(--rv-fg);
 }
 
@@ -75,7 +59,7 @@ pre {
   margin: 0;
   padding: 0.875rem;
   direction: ltr;
-  color: var(--rv-fg);
+  color: var(--code-plain);
   font: 0.875rem/1.6 var(--rv-font-mono);
   text-align: left;
   tab-size: 2;
@@ -84,61 +68,61 @@ pre {
 }
 
 .token-comment {
-  color: var(--rv-code-comment);
+  color: var(--code-comment);
 }
 
 .token-keyword {
-  color: var(--rv-code-keyword);
+  color: var(--code-keyword);
 }
 
 .token-type {
-  color: var(--rv-code-type);
+  color: var(--code-type);
 }
 
 .token-string {
-  color: var(--rv-code-string);
+  color: var(--code-string);
 }
 
 .token-number {
-  color: var(--rv-code-number);
+  color: var(--code-number);
 }
 
 .token-tag {
-  color: var(--rv-code-tag);
+  color: var(--code-tag);
 }
 
 .token-attribute {
-  color: var(--rv-code-attribute);
+  color: var(--code-attr);
 }
 
 .token-binding {
-  color: var(--rv-code-binding);
+  color: var(--code-binding);
 }
 
 .token-event {
-  color: var(--rv-code-event);
+  color: var(--code-event);
 }
 
 .token-property {
-  color: var(--rv-code-property);
+  color: var(--code-property);
 }
 
 .token-selector {
-  color: var(--rv-code-selector);
+  color: var(--code-selector);
 }
 
 .token-variable {
-  color: var(--rv-code-variable);
+  color: var(--code-variable);
 }
 
 .token-pipe {
-  color: var(--rv-code-pipe);
+  color: var(--code-pipe);
 }
 
 .token-function {
-  color: var(--rv-code-function);
+  color: var(--code-fn);
 }
 
 .token-command {
-  color: var(--rv-code-command);
+  color: var(--code-command);
 }

@@ -2,11 +2,7 @@
   display: inline-flex;
   flex: 0 0 auto;
   height: 100%;
-  --rv-copy-success: #176b42;
-}
-
-:host-context(:root[data-rv-theme='dark']) {
-  --rv-copy-success: #78d7a5;
+  --rv-copy-success: var(--rv-brand-violet);
 }
 
 .copy-button {
