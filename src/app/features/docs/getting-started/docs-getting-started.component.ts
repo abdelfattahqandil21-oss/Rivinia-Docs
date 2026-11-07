@@ -5,7 +5,7 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
 import { CopyButtonComponent } from '../../../shared/components/copy-button/copy-button.component';
-import { DocsSequenceNavComponent } from './components/docs-sequence-nav.component';
+import { DocsSequenceNavComponent } from './components/docs-sequence-nav/docs-sequence-nav.component';
 import { GETTING_STARTED_PAGES } from './models/docs-getting-started.model';
 import { docsHeadingLink, docsLink } from '../shared/docs-link';
 

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
+import { PageHeaderComponent } from '../../../../../shared/components/page-header/page-header.component';
 
 @Component({
   imports: [PageHeaderComponent],

@@ -3,11 +3,11 @@ import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { CopyButtonComponent } from '../../../../shared/components/copy-button/copy-button.component';
-import { type PackageManifestEntry } from '../../../packages/package-manifest';
-import { PACKAGE_METADATA } from '../../../packages/package-metadata';
-import { docsHeadingLink, docsLink } from '../../shared/docs-link';
-import type { DocsPackageGroup } from '../../shared/models/docs-group.model';
+import { CopyButtonComponent } from '../../../../../shared/components/copy-button/copy-button.component';
+import { type PackageManifestEntry } from '../../../../packages/package-manifest';
+import { PACKAGE_METADATA } from '../../../../packages/package-metadata';
+import { docsHeadingLink, docsLink } from '../../../shared/docs-link';
+import type { DocsPackageGroup } from '../../../shared/models/docs-group.model';
 
 @Component({
   imports: [RouterLink, CopyButtonComponent],

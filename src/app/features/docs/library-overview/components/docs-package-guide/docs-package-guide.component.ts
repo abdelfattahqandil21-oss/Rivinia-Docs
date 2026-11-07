@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import type { DocsPackageGuide } from '../models/docs-package-guides.model';
+import type { DocsPackageGuide } from '../../models/docs-package-guides.model';
 
 @Component({
   selector: 'section[app-docs-package-guide]',

@@ -2,8 +2,8 @@ import { Component, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { docsLink } from '../../shared/docs-link';
-import type { DocsDependencyRow } from '../services/docs-package-details.service';
+import { docsLink } from '../../../shared/docs-link';
+import type { DocsDependencyRow } from '../../services/docs-package-details.service';
 
 @Component({
   imports: [RouterLink],

@@ -2,12 +2,12 @@ import { Component, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { IconComponent } from '../../../../shared/components/icon/icon.component';
-import { GETTING_STARTED_PAGES } from '../../getting-started/models/docs-getting-started.model';
-import { docsLink } from '../../shared/docs-link';
-import { DOCS_PACKAGE_GROUPS } from '../../shared/models/docs-group.model';
-import { DocsPackageSearchService } from '../../shared/services/docs-package-search.service';
-import { DocsSidebarService } from '../services/docs-sidebar.service';
+import { IconComponent } from '../../../../../shared/components/icon/icon.component';
+import { GETTING_STARTED_PAGES } from '../../../getting-started/models/docs-getting-started.model';
+import { docsLink } from '../../../shared/docs-link';
+import { DOCS_PACKAGE_GROUPS } from '../../../shared/models/docs-group.model';
+import { DocsPackageSearchService } from '../../../shared/services/docs-package-search.service';
+import { DocsSidebarService } from '../../services/docs-sidebar.service';
 
 @Component({
   imports: [RouterLink, RouterLinkActive, IconComponent],

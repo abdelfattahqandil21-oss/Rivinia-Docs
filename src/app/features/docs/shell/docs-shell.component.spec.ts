@@ -187,7 +187,7 @@ describe('DocsShellComponent', () => {
     const fixture = await render('/docs');
     const layout = fixture.nativeElement.querySelector('.docs-layout') as HTMLElement;
     const collapse = fixture.nativeElement.querySelector(
-      '#docs-sidebar-desktop .sidebar-toggle',
+      '.docs-sidebar-toggle',
     ) as HTMLButtonElement;
 
     collapse.click();

@@ -4,10 +4,10 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { NavContextService } from '../../../layout/nav-context.service';
 import { DocsPackageSearchService } from '../shared/services/docs-package-search.service';
-import { DocsMenuDialogComponent } from './components/docs-menu-dialog.component';
-import { DocsPageRailComponent } from './components/docs-page-rail.component';
-import { DocsSidebarComponent } from './components/docs-sidebar.component';
-import { DocsSidebarToggleComponent } from './components/docs-sidebar-toggle.component';
+import { DocsMenuDialogComponent } from './components/docs-menu-dialog/docs-menu-dialog.component';
+import { DocsPageRailComponent } from './components/docs-page-rail/docs-page-rail.component';
+import { DocsSidebarComponent } from './components/docs-sidebar/docs-sidebar.component';
+import { DocsSidebarToggleComponent } from './components/docs-sidebar-toggle/docs-sidebar-toggle.component';
 import { DocsPageContextService } from './services/docs-page-context.service';
 import { DocsSidebarService } from './services/docs-sidebar.service';
 
@@ -30,6 +30,7 @@ export class DocsShellComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
   protected readonly sidebar = inject(DocsSidebarService);
   protected readonly page = inject(DocsPageContextService);
+  protected readonly collapseSidebarLabel = this.i18n.t('docs.collapseSidebar');
   protected readonly expandSidebarLabel = this.i18n.t('docs.expandSidebar');
 
   constructor() {

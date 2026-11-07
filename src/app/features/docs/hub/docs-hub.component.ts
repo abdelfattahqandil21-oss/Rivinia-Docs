@@ -10,7 +10,7 @@ import {
   DOCS_PACKAGE_SEARCH_OPTIONS,
   DocsPackageSearchService,
 } from '../shared/services/docs-package-search.service';
-import { DocsHubPackageGroupComponent } from './components/docs-hub-package-group.component';
+import { DocsHubPackageGroupComponent } from './components/docs-hub-package-group/docs-hub-package-group.component';
 
 const FIRST_GETTING_STARTED_SLUG = 'choose-the-package-for-your-task';
 

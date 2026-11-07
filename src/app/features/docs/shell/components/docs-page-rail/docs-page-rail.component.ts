@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { DocsPageContextService } from '../services/docs-page-context.service';
+import { DocsPageContextService } from '../../services/docs-page-context.service';
 
 @Component({
   selector: 'nav[app-docs-page-rail]',

@@ -1,16 +1,19 @@
 <div class="docs-layout" [class.sidebar-collapsed]="sidebar.collapsed()">
-  <aside app-docs-sidebar id="docs-sidebar-desktop" class="docs-sidebar"></aside>
+  <aside
+    app-docs-sidebar
+    id="docs-sidebar-desktop"
+    class="docs-sidebar"
+    [attr.inert]="sidebar.collapsed() ? '' : null"
+  ></aside>
 
   <div class="docs-content-column">
-    @if (sidebar.collapsed()) {
-      <button
-        app-docs-sidebar-toggle
-        class="sidebar-toggle sidebar-expand-toggle"
-        [label]="expandSidebarLabel()"
-        controls="docs-sidebar-desktop"
-        [expanded]="false"
-      ></button>
-    }
+    <button
+      app-docs-sidebar-toggle
+      class="docs-sidebar-toggle"
+      [label]="sidebar.collapsed() ? expandSidebarLabel() : collapseSidebarLabel()"
+      controls="docs-sidebar-desktop"
+      [expanded]="!sidebar.collapsed()"
+    ></button>
     <details class="rail-disclosure">
       <summary>{{ i18n.translate('docs.onThisPage') }}</summary>
       <nav app-docs-page-rail></nav>

@@ -3,11 +3,11 @@ import { NavigationEnd, Router } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 import { filter } from 'rxjs';
 
-import { NavContextService } from '../../../../layout/nav-context.service';
-import { IconComponent } from '../../../../shared/components/icon/icon.component';
-import { DocsPackageFilterComponent } from '../../package-filter/docs-package-filter.component';
-import { DocsPackageSearchService } from '../../shared/services/docs-package-search.service';
-import { DocsSidebarNavComponent } from './docs-sidebar-nav.component';
+import { NavContextService } from '../../../../../layout/nav-context.service';
+import { IconComponent } from '../../../../../shared/components/icon/icon.component';
+import { DocsPackageFilterComponent } from '../../../package-filter/docs-package-filter.component';
+import { DocsPackageSearchService } from '../../../shared/services/docs-package-search.service';
+import { DocsSidebarNavComponent } from '../docs-sidebar-nav/docs-sidebar-nav.component';
 
 @Component({
   imports: [IconComponent, DocsPackageFilterComponent, DocsSidebarNavComponent],

@@ -74,7 +74,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 1. Put the page under `src/app/pages/<page>/` and keep its component files together.
 2. Import only `core`, `shared`, `layout`, or `features` dependencies and page-local code.
-3. Add a `loadComponent` route in `src/app/app.routes.ts`; add a navigation entry only when the page belongs in site navigation.
+3. Add a route in the owning feature's `<feature>.routes.ts` and mount that route array from `src/app/app.routes.ts`; add a navigation entry only when the page belongs in site navigation.
 4. Add a co-located spec when the behavior needs coverage, then run `npm run verify`.
 
 ## Adding a demo or package

@@ -4,11 +4,11 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
 import { docsLink } from '../shared/docs-link';
-import { DocsDependencyListComponent } from './components/docs-dependency-list.component';
-import { DocsLibraryHeaderComponent } from './components/docs-library-header.component';
-import { DocsLibraryNotFoundComponent } from './components/docs-library-not-found.component';
-import { DocsPackageGuideComponent } from './components/docs-package-guide.component';
-import { DocsQuickStartComponent } from './components/docs-quick-start.component';
+import { DocsDependencyListComponent } from './components/docs-dependency-list/docs-dependency-list.component';
+import { DocsLibraryHeaderComponent } from './components/docs-library-header/docs-library-header.component';
+import { DocsLibraryNotFoundComponent } from './components/docs-library-not-found/docs-library-not-found.component';
+import { DocsPackageGuideComponent } from './components/docs-package-guide/docs-package-guide.component';
+import { DocsQuickStartComponent } from './components/docs-quick-start/docs-quick-start.component';
 import { DocsPackageDetailsService } from './services/docs-package-details.service';
 import { DocsQuickStartService } from './services/docs-quick-start.service';
 

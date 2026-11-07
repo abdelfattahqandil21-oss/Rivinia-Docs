@@ -1,5 +1,7 @@
 :host {
-  display: block;
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
   position: sticky;
   inset-block-start: calc(var(--navbar-height) + 1rem);
   align-self: start;
