@@ -6,7 +6,7 @@ Direction: **The quiet instrument**. Rivinia is a focused set of Angular package
 
 The five-second test: visitors can identify what Rivinia is, who it serves, and where to start from the hero copy alone. Use calm hierarchy, generous but purposeful spacing, neutral surfaces, restrained gold, and subtle purple only for meaning. Do not imitate another documentation site's visual identity.
 
-The direction sheet is `.taste-skill/direction.json`. Redraws required by this brief: use a two-column desktop hero, a real Select preview, four evidence-backed decisions, and a three-step start/footer composition. Do not use image-led editorial layouts, empty product mockups, or motion that competes with the content.
+Required composition: use a two-column desktop hero, a real Select preview, four evidence-backed decisions, and a three-step start/footer composition. Do not use image-led editorial layouts, empty product mockups, or motion that competes with the content.
 
 ## Page structure and global layout
 
