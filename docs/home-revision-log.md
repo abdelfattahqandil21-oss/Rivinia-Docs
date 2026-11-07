@@ -11,8 +11,8 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 | 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | `dc04928` | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.                                         |
 | 2026-11-07 14:20 EET     | R5 — Deferred Experience      | DONE   | `d275c95` | Deferred the interactive showcase until it enters view, with idle prefetch, a measured placeholder, retry, and reduced-motion-aware reveal.                           |
 | 2026-11-07 14:39 EET     | R6 — Four Pillars. One Core.  | DONE   | pending   | Replaced Decisions with four evidence-based pillar cards around the responsive brand mark, including keyboard and RTL states.                                         |
-| 2026-11-07 15:56 EET     | Preview overlay containment   | DONE   | `0118907` | Centered the native modal in the preview via CSS anchor positioning and placed real toast actions at the preview's bottom-right; visually verified both on port 4200. |
 | 2026-11-07 15:35 EET     | Showcase review comments      | DONE   | `a624088` | Fixed code/copy presentation, added date/time and table interactions, modal save/delete flows, scoped toast preview, and all 11 footer packages.                      |
+| 2026-11-07 15:56 EET     | Preview overlay containment   | DONE   | `0118907` | Centered the native modal in the preview via CSS anchor positioning and placed real toast actions at the preview's bottom-right; visually verified both on port 4200. |
 
 ### Showcase review comments evidence
 
