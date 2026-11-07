@@ -76,3 +76,53 @@ Before calling the work complete, answer the five-second test as three questions
 ## Evidence and open questions
 
 Verify facts from repository/package metadata before displaying them. As checked for this iteration, the installed Select README documents real headless and UI usage and the actual demo source is the source of code samples. Package registry metadata showed 1.0.3 and MIT for packages queried; recheck the current source before display. The root application package version is 0.0.0, so it is not a truthful library version badge. Do not display it as one. Record any missing evidence in `docs/home-open-questions.md`.
+
+## Revision contract (R1–R9)
+
+This revision supersedes conflicting earlier Home layout directions above. Preserve the Rivinia brand, CSR, lazy routes, localization, themes, and actual package behavior. Add no dependencies, edit no `@rivinia/*` packages or public APIs, and invent no claims, routes, APIs, or package state. Record each implementation step, verification result, commit, and one-line outcome in `docs/home-revision-log.md`. Localize every visible string in English and Arabic; keep technical terms Latin within Arabic. Use logical CSS properties and honor reduced motion.
+
+### R1 — Document flow and scroll
+
+Remove the section rail, observer/state/styles, and all mentions. Retain native proximity scroll snapping. Remove nested scrolling from Home and showcase styles after diagnosing each overflow. Keep only the Select listbox scrollable, capped at 16rem. Preserve clipping/ellipsis that do not create scroll containers. Add an architecture-check rule rejecting `overflow-y: auto|scroll` and `overflow: auto|scroll` in Home/showcase CSS except the explicitly allowlisted Select listbox selector.
+
+### R2 — Shared code and copy components
+
+Create shared `<app-copy-button>` with signal status, clipboard API and hidden-textarea/`execCommand` fallback, failure after 2500ms, success for 2s, timer cleanup, icon crossfade, success token, fixed minimum inline size, 44px target, stable accessible name “Copy code”, and `aria-live` status. It must not disable while copying. Localize announcements and add fake-timer specs.
+
+Create shared `<app-code-block>` accepting `code`, `language` (`ts|html|css|bash`), optional `filename` and `caption`; provide a header and copy control, set code `dir="ltr"` and `translate="no"`, and render syntax tokens safely through Angular templates (never `innerHTML`). Use CSS variables for token colors and verify each syntax color against the code surface at 4.5:1 in both themes. Keep bash highlighting supported. Move the highlighter and spec with `git mv` to `src/app/shared/utils/code-highlight.ts` and its co-located spec. Update architecture/Home guidance: helpers belong in `shared/utils` when used by more than one feature.
+
+Use the shared block for every Home code view: hero install snippet, showcase Code pane, and Get Started. Wrap code (`pre-wrap`, `overflow-wrap:anywhere`, tab size 2), use code at least 0.875rem, and keep snippets at most 14 lines; hero/Get Started lines should be at most 38 characters where practical. No code view may introduce nested scrolling.
+
+### R3 — Showcase geometry and package data
+
+Keep package tabs and Headless/UI as the only two showcase control rows. Single/Multiple belongs inside the Select preview. Reserve preview space based on the tallest real demo at each breakpoint; package switching must not shift tabs or pane headers. Vertically center the preview with 32px block padding and 27rem maximum width. Below 640px, wrap tabs, hide package IDs, and avoid horizontal scrolling. Keep at most six manifest showcase entries and test that bound. Derive visible packages from the manifest so registering a package needs no template edits.
+
+### R4 — Real headless Select
+
+Before implementation, inspect the actual demo and installed package typings. Build the headless example from real headless behavior: a combobox trigger with removable selected chips and a custom listbox with options/checks, including keyboard behavior. Show a live “State from headless layer” panel containing only real current state: `open`, active option, and selected IDs. Keep the UI Select package genuine. Use Angular enter/leave animation only when installed typings support it; otherwise use CSS `@starting-style`. If the UI package lacks a needed transition, report a library recommendation without changing it.
+
+### R5 — Deferred Experience
+
+Keep the hero eager. Defer Experience until viewport entry and prefetch on idle. Its placeholder has one root with the same measured minimum block size as the final section; use a static skeleton without shimmer under reduced motion. Apply 100ms minimum and 300ms maximum loading timing. Provide an error state and retry. Keep Decisions and Get Started eager. Reveal section content once over 240ms, but do not animate after the visitor has scrolled past it. Record initial and lazy bundle sizes before/after, distinguishing raw and transferred bytes.
+
+### R6 — Four Pillars. One Core.
+
+Replace “Four decisions” with the supplied “Four Pillars. One Core.” content and composition. Verify each sentence and chip against repository evidence; remove/reword unsupported claims and record them in `docs/home-open-questions.md`. Use only real routes/anchors. At 1100px+ use `1fr auto 1fr`, a 22rem core mark spanning two rows, and cards clockwise in specified areas. At 640–1099px center a 14rem mark over a 2×2 card layout. Below 640px use a 10rem mark followed by one card column. Cards use a raised surface, border, 16px radius, and 24px padding; chips are static.
+
+Use existing brand SVG petal geometry and core diamond, approximately cropped to `viewBox="130 130 940 940"`, with explicit groups; do not rotate `<use>` because gradients use `userSpaceOnUse`. Add `data-petal` mapping and make the DX diamond dominant and labeled. Keep the diagram `aria-hidden`; cards carry accessible meaning. Hover/focus-within may highlight one petal with restrained gold glow; touch stays static and reduced motion disables animation.
+
+### R7 — Get Started and Playground
+
+Use three rows for Install, Import, Use, with accurate Select snippets from source. At 900px+ use two columns with a wider code column; below 900px stack them. Ensure no horizontal overflow at 390px. The Playground is currently a placeholder: show it as non-interactive “Playground — coming soon” in both languages and record the decision. Do not change the footer.
+
+### R8 — Hero and short viewports
+
+Diagnose visible hyphen spacing against font feature settings, Inter unicode coverage (including U+002D), and fallback selection. At 1366×768 fit H1, support copy, both CTAs, and first code card without scrolling; use a max-height 800px adjustment. Keep scroll cue visible. Use shared code block. At widths 1100px+, prevent bottom clipping at 1440×900.
+
+### R9 — Manifest and metadata
+
+Drive package/showcase content from the manifest and loader registry; adding one of the remaining packages must not require editing the template. Test unique manifest IDs and translation keys. Verify hero supporting copy, then use it for document description and matching Open Graph title/description in `index.html`. Add no Open Graph image without an existing asset.
+
+### Required review evidence
+
+Inspect and save screenshots under `docs/screenshots/revision/` at 1920×1080, 1440×900, 1366×768, and 390×844 in English/Arabic and dark/light. Check layout, contrast, focus, keyboard, reduced motion, RTL, no horizontal overflow, stable tabs, and component function. Report initial/lazy bundle sizes before/after. Run Lighthouse accessibility (target 95) only if locally available; do not install tooling. The final `docs/home-revision-report.md` must use exactly these headings: Done (commit hashes), Blocked (exact errors), Decisions, Claims removed or reworded, New Arabic strings for my review, Not verified, Recommendations for library (@rivinia/*), Next steps. End with a 10-line summary and stop.

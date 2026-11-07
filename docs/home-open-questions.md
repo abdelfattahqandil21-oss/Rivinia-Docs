@@ -6,3 +6,6 @@
 - Lighthouse is optional only when a local executable already exists; do not install it for this task.
 - The app currently has general `/docs` and `/components` routes, not package-specific documentation routes. The showcase links to the real general docs and package catalog.
 - Replaced the unmeasured “Fast by default” claim with source-backed signal state. Accessibility copy now distinguishes documented ready-UI behavior from consumer-owned headless markup.
+- The Playground route is currently a placeholder page; keep its Home action non-interactive and label it “coming soon” until the route contains a real tool.
+- Confirm installed Select typings expose an active option and selected IDs before presenting those fields in the headless state panel. Never derive or label synthetic state as package state.
+- Automated Axe/Lighthouse results are unavailable unless a preinstalled local runner is found; no auditing dependency will be added for this revision.

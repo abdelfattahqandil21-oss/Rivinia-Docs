@@ -11,18 +11,18 @@ Use when implementing, reviewing, or adjusting the Rivinia Docs home page and it
 
 ## Instructions
 
-1. Read `AGENTS.md` and `docs/home-ux-spec.md`; verify repository facts before showing claims.
-2. Keep the page to Hero, Experience, Decisions, and Get started with footer; preserve CSR, lazy routes, i18n, RTL, and genuine package demos.
-3. Use the specified type scale, semantic theme tokens, spacing, section geometry, and responsive layout. Use the existing language/theme controls.
-4. Keep controls keyboard-operable, labeled, at least 44px, visibly focused, and usable with reduced motion.
-5. Keep claims linked to repository or package evidence. Record omitted/unverified claims in `docs/home-open-questions.md`.
-6. Run `npm run verify` after each implementation step. Inspect rendered output in a browser and review the specified viewport, theme, and language matrix where tools allow.
-7. Write evidence and limitations in `docs/overnight-report.md`; never report a build as visual proof.
+1. At the start of each revision step, reread `AGENTS.md` and all `rivinia-docs-*` skills. Read `docs/home-ux-spec.md` and inspect repository evidence before displaying claims.
+2. Follow every active R1–R9 requirement in `docs/home-ux-spec.md`; this revision contract supersedes earlier conflicting composition rules.
+3. Keep every visible string localized in English and Arabic, preserve RTL/themes and actual package behavior, and honor keyboard access, visible focus, 44px targets, and reduced motion.
+4. For Home code views, use the shared code-block/copy-button components. A helper with more than one feature consumer belongs in `shared/utils`.
+5. After every step, run `npm run verify`, inspect the rendered result on port 4200, record the result and commit in `docs/home-revision-log.md`, and commit only that step.
+6. Capture all required viewports/languages/themes under `docs/screenshots/revision/`; report contrast, bundle sizes, Lighthouse availability, and every unverified check honestly.
+7. Finish with `docs/home-revision-report.md` using the exact headings in the revision contract; never treat a successful build as visual evidence.
 
 ## Checklist
 
-- [ ] Four sections match the approved copy and order.
-- [ ] Real Select and other package demos remain functional.
-- [ ] English/Arabic, LTR/RTL, light/dark, keyboard, focus, and reduced motion are covered.
-- [ ] No horizontal overflow or layout shift on demo changes.
-- [ ] `npm run verify` passes and browser evidence is recorded.
+- [ ] R1–R9 are implemented or explicitly reported as blocked/not verified.
+- [ ] No nested Home/showcase scroll exists except the Select listbox.
+- [ ] Shared code/copy UI covers all Home code and copy actions.
+- [ ] Genuine Select behavior and manifest-driven package tabs remain functional.
+- [ ] `npm run verify` passes after each commit and browser evidence is recorded.
