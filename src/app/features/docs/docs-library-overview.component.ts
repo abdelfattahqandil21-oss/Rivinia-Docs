@@ -1,4 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
@@ -39,30 +40,48 @@ type QuickStartFile = { name: string; language: 'html' | 'ts' | 'css'; code: str
 export class DocsLibraryOverviewComponent {
   private readonly route = inject(ActivatedRoute);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
-  protected readonly packageId = this.route.snapshot.paramMap.get('package') ?? '';
-  protected readonly entry = PACKAGE_MANIFEST.find(({ id }) => id === this.packageId) ?? null;
-  protected readonly metadata = this.entry ? PACKAGE_METADATA[this.entry.id] : null;
-  protected readonly guide = this.entry ? DOCS_PACKAGE_GUIDES[this.entry.id] : null;
+  protected readonly routeParams = toSignal(this.route.paramMap, {
+    initialValue: this.route.snapshot.paramMap,
+  });
+  protected readonly packageId = computed(() => this.routeParams().get('package') ?? '');
+  protected readonly entry = computed(
+    () => PACKAGE_MANIFEST.find(({ id }) => id === this.packageId()) ?? null,
+  );
+  protected readonly metadata = computed(() => {
+    const entry = this.entry();
+    return entry ? PACKAGE_METADATA[entry.id] : null;
+  });
+  protected readonly guide = computed(() => {
+    const entry = this.entry();
+    return entry ? DOCS_PACKAGE_GUIDES[entry.id] : null;
+  });
   protected readonly notFoundTitle = this.i18n.t('docs.notFound.title');
   protected readonly notFoundBody = this.i18n.t('docs.notFound.body');
   protected readonly notFoundLink = docsLink();
-  protected readonly installCommand = this.metadata ? `npm i ${this.metadata.name}` : '';
-  protected readonly published = computed(
-    () =>
-      this.entry !== null &&
-      this.metadata !== null &&
-      VERIFIED_PUBLISHED_VERSIONS[this.entry.id] === this.metadata.version,
-  );
-  protected readonly showLiveExample = computed(
-    () => this.entry?.showcase === true && SHOWCASE_EXAMPLE_IDS.includes(this.entry.id),
-  );
+  protected readonly installCommand = computed(() => {
+    const metadata = this.metadata();
+    return metadata ? `npm i ${metadata.name}` : '';
+  });
+  protected readonly published = computed(() => {
+    const entry = this.entry();
+    const metadata = this.metadata();
+    return (
+      entry !== null &&
+      metadata !== null &&
+      VERIFIED_PUBLISHED_VERSIONS[entry.id] === metadata.version
+    );
+  });
+  protected readonly showLiveExample = computed(() => {
+    const entry = this.entry();
+    return entry?.showcase === true && SHOWCASE_EXAMPLE_IDS.includes(entry.id);
+  });
   protected readonly quickStartSource = signal<ShowcaseExampleSource | null>(null);
   protected readonly quickStartFiles = computed(() => {
     const source = this.quickStartSource();
     if (!source) return [];
     if (source.codeBlocks?.length) {
       const chosen =
-        this.packageId === 'select'
+        this.packageId() === 'select'
           ? source.codeBlocks.filter((block) => block.id.startsWith('ui-single-'))
           : source.codeBlocks;
       return chosen.map((block) => ({
@@ -80,23 +99,32 @@ export class DocsLibraryOverviewComponent {
     ];
   });
   protected readonly dependencies = computed(() =>
-    this.dependencyRows(this.metadata?.dependencies),
+    this.dependencyRows(this.metadata()?.dependencies),
   );
   protected readonly peerDependencies = computed(() =>
-    this.dependencyRows(this.metadata?.peerDependencies),
+    this.dependencyRows(this.metadata()?.peerDependencies),
   );
-  protected readonly packageTitle = this.entry?.id ?? '';
+  protected readonly packageTitle = computed(() => this.entry()?.id ?? '');
   protected readonly versionLabel = computed(() => {
-    const version = this.metadata?.version ?? '';
+    const version = this.metadata()?.version ?? '';
     return version.startsWith('0.') ? this.i18n.translate('docs.preOne') : version;
   });
 
   constructor() {
-    if (this.showLiveExample() && this.entry) {
-      loadShowcaseExampleSource(this.entry.id as ShowcaseExampleId)
-        .then((source) => this.quickStartSource.set(source))
-        .catch(() => this.quickStartSource.set(null));
-    }
+    effect(() => {
+      const entry = this.entry();
+      this.quickStartSource.set(null);
+      if (!entry?.showcase || !SHOWCASE_EXAMPLE_IDS.includes(entry.id)) return;
+
+      const requestedPackage = entry.id;
+      loadShowcaseExampleSource(requestedPackage as ShowcaseExampleId)
+        .then((source) => {
+          if (this.entry()?.id === requestedPackage) this.quickStartSource.set(source);
+        })
+        .catch(() => {
+          if (this.entry()?.id === requestedPackage) this.quickStartSource.set(null);
+        });
+    });
   }
 
   protected docsLink(id: string): string {
@@ -117,7 +145,8 @@ export class DocsLibraryOverviewComponent {
   }
 
   private sourceFilename(language: 'html' | 'ts' | 'css'): string {
-    const basename = this.packageId === 'select' ? 'select' : `${this.packageId}-example`;
+    const packageId = this.packageId();
+    const basename = packageId === 'select' ? 'select' : `${packageId}-example`;
     return `${basename}.component.${language === 'ts' ? 'ts' : language}`;
   }
 }
