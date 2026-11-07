@@ -15,11 +15,11 @@ describe('ThemeService', () => {
     localStorage.removeItem('rv-theme');
   });
 
-  it('defaults to light without a stored choice', () => {
+  it('defaults to dark without a stored choice', () => {
     const themeService = TestBed.inject(ThemeService);
 
-    expect(themeService.theme()).toBe('light');
-    expect(root.getAttribute('data-rv-theme')).toBe('light');
+    expect(themeService.theme()).toBe('dark');
+    expect(root.getAttribute('data-rv-theme')).toBe('dark');
   });
 
   it('uses the existing root theme when initialized', () => {
@@ -53,11 +53,11 @@ describe('ThemeService', () => {
     const themeService = TestBed.inject(ThemeService);
 
     themeService.toggleTheme();
-    expect(root.getAttribute('data-rv-theme')).toBe('dark');
-    expect(themeService.theme()).toBe('dark');
-
-    themeService.toggleTheme();
     expect(root.getAttribute('data-rv-theme')).toBe('light');
     expect(themeService.theme()).toBe('light');
+
+    themeService.toggleTheme();
+    expect(root.getAttribute('data-rv-theme')).toBe('dark');
+    expect(themeService.theme()).toBe('dark');
   });
 });

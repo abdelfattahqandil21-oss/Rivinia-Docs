@@ -11,9 +11,8 @@ const THEME_STORAGE_KEY = 'rv-theme';
 /**
  * Theme state and the root `data-rv-theme` attribute.
  *
- * Light is the default: the site does not follow the OS colour scheme, so a
- * first visit is predictable and the brand palette always lands as designed.
- * An explicit choice wins, and is restored on the next visit.
+ * Dark is the default: the site does not follow the OS colour scheme, so a
+ * first visit is predictable. An explicit choice wins and is restored later.
  */
 @Service()
 export class ThemeService {
@@ -47,7 +46,7 @@ export class ThemeService {
       return rootTheme;
     }
 
-    return 'light';
+    return 'dark';
   }
 
   private readStoredTheme(): ThemeMode | null {
