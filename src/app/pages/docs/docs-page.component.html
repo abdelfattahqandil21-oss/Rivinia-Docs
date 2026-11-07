@@ -12,26 +12,37 @@
       class="mt-[0.8rem] grid gap-1 max-[720px]:flex max-[720px]:gap-[0.35rem] max-[720px]:overflow-x-auto max-[720px]:pb-2"
     >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
         [routerLink]="[]"
         fragment="start"
-        aria-current="location"
+        routerLinkActive="is-current"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="routeMatchOptions"
         >{{ i18n.translate('docs.start') }}</a
       >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-[color-mix(in_srgb,var(--rv-accent)_7%,transparent)] hover:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
         [routerLink]="[]"
         fragment="install"
+        routerLinkActive="is-current"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="routeMatchOptions"
         >{{ i18n.translate('docs.install') }}</a
       >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-[color-mix(in_srgb,var(--rv-accent)_7%,transparent)] hover:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
         routerLink="/components"
+        routerLinkActive="is-current"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="routeMatchOptions"
         >{{ i18n.translate('nav.components') }}</a
       >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-[color-mix(in_srgb,var(--rv-accent)_7%,transparent)] hover:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=page]:border-s-rv-accent aria-[current=page]:bg-rv-docs-active aria-[current=page]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent max-[720px]:flex-none max-[720px]:whitespace-nowrap max-[720px]:rounded-full max-[720px]:border max-[720px]:border-rv-border"
         routerLink="/playground"
+        routerLinkActive="is-current"
+        ariaCurrentWhenActive="page"
+        [routerLinkActiveOptions]="routeMatchOptions"
         >{{ i18n.translate('nav.playground') }}</a
       >
     </nav>
@@ -52,19 +63,22 @@
         <a
           class="flex min-h-11 items-center text-[0.85rem] text-rv-muted"
           [routerLink]="[]"
-          fragment="start"
+          fragment="start-title"
+          [attr.aria-current]="activeHeading() === 'start-title' ? 'location' : null"
           >{{ i18n.translate('docs.start') }}</a
         >
         <a
           class="flex min-h-11 items-center text-[0.85rem] text-rv-muted"
           [routerLink]="[]"
-          fragment="install"
+          fragment="install-title"
+          [attr.aria-current]="activeHeading() === 'install-title' ? 'location' : null"
           >{{ i18n.translate('docs.install') }}</a
         >
         <a
           class="flex min-h-11 items-center text-[0.85rem] text-rv-muted"
           [routerLink]="[]"
           fragment="areas-title"
+          [attr.aria-current]="activeHeading() === 'areas-title' ? 'location' : null"
           >{{ i18n.translate('docs.continue') }}</a
         >
       </nav>
@@ -106,7 +120,7 @@
         {{ i18n.translate('docs.installText') }}
       </p>
       <pre
-        class="mt-4 overflow-x-auto rounded-[0.8rem] border border-rv-border bg-[color-mix(in_srgb,var(--rv-fg)_4%,var(--rv-bg))] px-5 py-4 font-[var(--rv-font-mono)] text-[0.85rem] font-medium leading-[1.6] text-rv-fg"
+        class="mt-4 overflow-x-auto rounded-[0.8rem] border border-rv-border bg-[var(--rv-home-surface-raised)] px-5 py-4 font-[var(--rv-font-mono)] text-[0.85rem] font-medium leading-[1.6] text-rv-fg"
       ><code>npm install @rivinia/select</code></pre>
       <p class="mt-3 max-w-[52rem] leading-[1.75] text-rv-muted">
         {{ i18n.translate('docs.installFollowup') }}
@@ -150,21 +164,24 @@
     </p>
     <nav class="mt-[0.8rem] grid gap-1">
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-[color-mix(in_srgb,var(--rv-accent)_7%,transparent)] hover:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
         [routerLink]="[]"
-        fragment="start"
+        fragment="start-title"
+        [attr.aria-current]="activeHeading() === 'start-title' ? 'location' : null"
         >{{ i18n.translate('docs.start') }}</a
       >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-[color-mix(in_srgb,var(--rv-accent)_7%,transparent)] hover:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
         [routerLink]="[]"
-        fragment="install"
+        fragment="install-title"
+        [attr.aria-current]="activeHeading() === 'install-title' ? 'location' : null"
         >{{ i18n.translate('docs.install') }}</a
       >
       <a
-        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-[color-mix(in_srgb,var(--rv-accent)_7%,transparent)] hover:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
+        class="block min-h-10 rounded-e-[0.45rem] border-s-2 border-s-transparent px-3 py-[0.6rem] text-[0.82rem] text-rv-muted no-underline hover:border-s-rv-accent hover:bg-rv-docs-active hover:text-rv-fg aria-[current=location]:border-s-rv-accent aria-[current=location]:bg-rv-docs-active aria-[current=location]:text-rv-fg focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-rv-accent"
         [routerLink]="[]"
         fragment="areas-title"
+        [attr.aria-current]="activeHeading() === 'areas-title' ? 'location' : null"
         >{{ i18n.translate('docs.continue') }}</a
       >
     </nav>
