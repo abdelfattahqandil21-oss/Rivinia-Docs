@@ -6,14 +6,15 @@
   />
   <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
     <section class="nav-group">
-      <h2>{{ i18n.translate('docs.start') }}</h2>
-      <a
-        [routerLink]="homeLink"
-        routerLinkActive="is-current"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-        >{{ i18n.translate('docs.start') }}</a
-      >
+      <h2>{{ i18n.translate('docs.gettingStarted') }}</h2>
+      @for (page of gettingStartedPages; track page.slug) {
+        <a
+          [routerLink]="gettingStartedLink(page.slug)"
+          routerLinkActive="is-current"
+          ariaCurrentWhenActive="page"
+          >{{ i18n.translate(page.titleKey) }}</a
+        >
+      }
     </section>
     @for (group of groups; track group) {
       @if (packagesForGroup(group).length) {

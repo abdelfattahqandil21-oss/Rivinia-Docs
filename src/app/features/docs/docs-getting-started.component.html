@@ -1,0 +1,57 @@
+<article class="docs-page-content docs-getting-started">
+  <section class="docs-section" [attr.aria-labelledby]="page.slug">
+    <h1 [id]="page.slug" class="step-title">
+      <span>{{ i18n.translate(page.titleKey) }}</span>
+      <app-copy-button
+        class="heading-anchor"
+        [code]="headingLink(page.slug)"
+        [label]="i18n.translate('docs.copyHeadingLink')"
+        [copiedMessage]="i18n.translate('docs.headingLinkCopied')"
+        [errorMessage]="i18n.translate('docs.headingLinkFailed')"
+        icon="link"
+      />
+    </h1>
+    @if ('textKey' in page) {
+      <p>{{ i18n.translate(page.textKey) }}</p>
+    }
+    @if ('actionKey' in page) {
+      <a class="docs-link-accent" [routerLink]="page.actionHref">{{
+        i18n.translate(page.actionKey)
+      }}</a>
+    }
+    @if ('followupKey' in page) {
+      <app-code-block
+        [code]="installCode"
+        language="bash"
+        filename="terminal"
+        [caption]="i18n.translate('docs.install')"
+      />
+      <p>{{ i18n.translate(page.followupKey) }}</p>
+    }
+    @if ('cards' in page) {
+      <div class="docs-card-list">
+        @for (card of page.cards; track card.titleKey) {
+          <a class="docs-card" [routerLink]="card.href">
+            <strong>{{ i18n.translate(card.titleKey) }}</strong>
+            <span>{{ i18n.translate(card.textKey) }}</span>
+          </a>
+        }
+      </div>
+    }
+  </section>
+
+  <nav class="sequence-nav" [attr.aria-label]="i18n.translate('docs.gettingStarted')">
+    @if (previousLink; as href) {
+      <a class="sequence-link" [routerLink]="href">
+        <span>{{ i18n.translate('docs.previous') }}</span>
+        <strong>{{ i18n.translate(pages[pageIndex - 1].titleKey) }}</strong>
+      </a>
+    }
+    @if (nextLink; as href) {
+      <a class="sequence-link next-link" [routerLink]="href">
+        <span>{{ i18n.translate('docs.next') }}</span>
+        <strong>{{ i18n.translate(pages[pageIndex + 1].titleKey) }}</strong>
+      </a>
+    }
+  </nav>
+</article>

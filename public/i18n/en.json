@@ -67,6 +67,8 @@
   "docs.headingLinkFailed": "Could not copy the heading link.",
   "docs.hub.lead": "Package overviews list verified entry points, versions, and examples when available.",
   "docs.gettingStarted": "Getting started",
+  "docs.previous": "Previous",
+  "docs.next": "Next",
   "docs.uiEntry": "UI",
   "docs.library": "Library overview",
   "docs.notFound.title": "Page not found",

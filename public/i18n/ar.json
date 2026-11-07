@@ -67,6 +67,8 @@
   "docs.headingLinkFailed": "تعذر نسخ رابط العنوان.",
   "docs.hub.lead": "تعرض صفحات الحزم نقاط التصدير والإصدارات والأمثلة المتاحة عند وجودها.",
   "docs.gettingStarted": "البدء",
+  "docs.previous": "السابق",
+  "docs.next": "التالي",
   "docs.uiEntry": "UI",
   "docs.library": "نظرة عامة على المكتبة",
   "docs.notFound.title": "الصفحة غير موجودة",

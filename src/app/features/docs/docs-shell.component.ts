@@ -18,6 +18,7 @@ import { PACKAGE_MANIFEST } from '../packages/package-manifest';
 import { NavContextService } from '../../layout/nav-context.service';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { docsLink } from './docs-link';
+import { GETTING_STARTED_PAGES } from './docs-getting-started.model';
 import { DocsPackageFilterComponent } from './docs-package-filter.component';
 
 const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
@@ -43,6 +44,7 @@ export class DocsShellComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
 
   protected readonly groups = DOCS_GROUPS;
+  protected readonly gettingStartedPages = GETTING_STARTED_PAGES;
   protected readonly packages = PACKAGE_MANIFEST;
   protected readonly filterText = signal('');
   protected readonly announcement = signal('');
@@ -57,7 +59,6 @@ export class DocsShellComponent {
         entry.name.toLocaleLowerCase().includes(query),
     );
   });
-  protected readonly homeLink = docsLink();
   protected readonly closeMenuLabel = this.i18n.t('docs.closeMenu');
   private readonly sidebarDialog = viewChild<ElementRef<HTMLDialogElement>>('sidebarDialog');
   private headingObserver?: IntersectionObserver;
@@ -99,6 +100,10 @@ export class DocsShellComponent {
 
   protected packageLink(id: string): string {
     return docsLink(id);
+  }
+
+  protected gettingStartedLink(slug: string): string {
+    return docsLink('getting-started', slug);
   }
 
   protected closeSidebarDialog(): void {

@@ -1,0 +1,128 @@
+:host {
+  display: block;
+}
+
+.docs-section {
+  margin-block-start: 2rem;
+}
+
+.docs-section .step-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.docs-section .heading-anchor {
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  flex: none;
+  opacity: 0;
+}
+
+.docs-section .step-title:hover .heading-anchor,
+.docs-section .step-title:focus-within .heading-anchor {
+  opacity: 1;
+}
+
+.docs-section .heading-anchor .copy-button {
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  background: var(--rv-home-surface-raised);
+}
+
+.docs-link-accent {
+  display: inline-flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  color: var(--rv-accent);
+  text-underline-offset: 0.2em;
+}
+
+.docs-card-list {
+  display: grid;
+  gap: 1rem;
+  margin-block-start: 1.5rem;
+}
+
+.docs-card {
+  display: grid;
+  min-block-size: 5rem;
+  gap: 0.4rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  color: var(--rv-fg);
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.docs-card span {
+  color: var(--rv-muted);
+}
+
+.docs-card:hover strong {
+  color: var(--rv-accent);
+}
+
+.sequence-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-block-start: 3rem;
+  border-block-start: 1px solid var(--rv-border);
+  padding-block-start: 1.25rem;
+}
+
+.sequence-link {
+  display: grid;
+  min-block-size: 2.75rem;
+  max-inline-size: 100%;
+  gap: 0.25rem;
+  color: var(--rv-muted);
+  padding: 0.5rem;
+  text-decoration: none;
+}
+
+.sequence-link strong {
+  color: var(--rv-fg);
+  overflow-wrap: anywhere;
+}
+
+.sequence-link:hover strong {
+  color: var(--rv-accent);
+}
+
+.next-link {
+  text-align: end;
+}
+
+.docs-link-accent:focus-visible,
+.docs-card:focus-visible,
+.sequence-link:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+:lang(ar) .sequence-link {
+  text-align: start;
+}
+
+:lang(ar) .docs-section .heading-anchor {
+  font-family: var(--rv-font-ar);
+}
+
+@media (max-width: 639px) {
+  .docs-section .heading-anchor {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

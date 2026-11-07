@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { GETTING_STARTED_PAGES } from './features/docs/docs-getting-started.model';
 
 export const routes: Routes = [
   {
@@ -19,13 +20,15 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/docs/docs-hub.component').then((m) => m.DocsHubComponent),
       },
-      {
-        path: 'getting-started/:slug',
+      ...GETTING_STARTED_PAGES.map((page, docsStep) => ({
+        path: `getting-started/${page.slug}`,
         title: 'Getting started · Rivinia Docs',
-        data: { docsTitleKey: 'docs.start' },
+        data: { docsTitleKey: page.titleKey, docsStep },
         loadComponent: () =>
-          import('./features/docs/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
-      },
+          import('./features/docs/docs-getting-started.component').then(
+            (m) => m.DocsGettingStartedComponent,
+          ),
+      })),
       {
         path: ':package',
         title: 'Library · Rivinia Docs',
