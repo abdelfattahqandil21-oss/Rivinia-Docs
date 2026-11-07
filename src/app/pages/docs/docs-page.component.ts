@@ -7,8 +7,8 @@ import { PageHeaderComponent } from '../../shared/components/page-header/page-he
 @Component({
   imports: [RouterLink, PageHeaderComponent],
   selector: 'app-docs-page',
+  host: { class: 'block' },
   templateUrl: './docs-page.component.html',
-  styleUrl: './docs-page.component.css',
 })
 export class DocsPageComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
