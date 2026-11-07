@@ -27,16 +27,8 @@
 
         <div class="hero-trust" [attr.aria-label]="i18n.translate('home.hero.trustLabel')">
           <span>MIT</span>
-          <a href="https://www.npmjs.com/package/@rivinia/select" target="_blank" rel="noreferrer">
-            @rivinia/select · v1.0.3
-          </a>
-          <a
-            href="https://github.com/abdelfattahqandil21-oss/Rivinia"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
+          <a href="https://www.npmjs.com/package/@rivinia/select"> @rivinia/select · v1.0.3 </a>
+          <a href="https://github.com/abdelfattahqandil21-oss/Rivinia"> GitHub </a>
         </div>
       </div>
 
@@ -71,39 +63,123 @@
 
   <app-interactive-showcase />
 
-  <section class="home-pillars px-4 py-14 sm:px-6 lg:py-20" aria-labelledby="pillars-title">
-    <div class="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-      <div class="pillars-copy">
-        <h2 id="pillars-title">{{ i18n.translate('home.pillars.title') }}</h2>
-        <p class="pillars-intro">{{ i18n.translate('home.pillars.text') }}</p>
-        <div class="pillar-detail" aria-live="polite" aria-atomic="true">
-          <h3>{{ pillarTitle(selectedPillar()) }}</h3>
-          <p>{{ pillarDescription(selectedPillar()) }}</p>
-        </div>
-        <a routerLink="/docs" class="demo-link">{{ i18n.translate('home.next.cta') }}</a>
-      </div>
+  <section id="decisions" class="home-section decisions-section" aria-labelledby="decisions-title">
+    <div class="home-container">
+      <header class="section-heading">
+        <p class="home-eyebrow">{{ i18n.translate('home.decisions.eyebrow') }}</p>
+        <h2 id="decisions-title">{{ i18n.translate('home.decisions.title') }}</h2>
+        <p>{{ i18n.translate('home.decisions.lead') }}</p>
+      </header>
 
-      <div class="pillar-visual">
-        <app-brand-mark class="pillar-mark" />
-        <div
-          class="pillar-controls"
-          role="group"
-          [attr.aria-label]="i18n.translate('home.pillars.controls')"
-        >
-          @for (pillar of pillars; track pillar) {
-            <button
-              type="button"
-              class="pillar-button"
-              [class.is-selected]="selectedPillar() === pillar"
-              [attr.aria-pressed]="selectedPillar() === pillar"
-              (click)="selectPillar(pillar)"
+      <div class="decisions-layout">
+        <ol class="decision-list">
+          <li>
+            <a
+              class="decision-item"
+              routerLink="/docs"
+              (mouseenter)="setActiveDecision('api')"
+              (mouseleave)="setActiveDecision(null)"
+              (focus)="setActiveDecision('api')"
+              (blur)="setActiveDecision(null)"
             >
-              <span class="pillar-dot" aria-hidden="true"></span>
-              <span>{{ pillarTitle(pillar) }}</span>
-            </button>
-          }
+              <span class="decision-index" aria-hidden="true">01</span>
+              <span class="decision-copy">
+                <strong>{{ i18n.translate('home.decision.api.title') }}</strong>
+                <span>{{ i18n.translate('home.decision.api.text') }}</span>
+                <span class="decision-evidence"
+                  >{{ i18n.translate('home.decision.api.evidence') }}
+                  <span aria-hidden="true">→</span></span
+                >
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="decision-item"
+              href="#experience"
+              (mouseenter)="setActiveDecision('flexibility')"
+              (mouseleave)="setActiveDecision(null)"
+              (focus)="setActiveDecision('flexibility')"
+              (blur)="setActiveDecision(null)"
+            >
+              <span class="decision-index" aria-hidden="true">02</span>
+              <span class="decision-copy">
+                <strong>{{ i18n.translate('home.decision.flexibility.title') }}</strong>
+                <span>{{ i18n.translate('home.decision.flexibility.text') }}</span>
+                <span class="decision-evidence"
+                  >{{ i18n.translate('home.decision.flexibility.evidence') }}
+                  <span aria-hidden="true">→</span></span
+                >
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="decision-item"
+              href="#experience"
+              (mouseenter)="setActiveDecision('signals')"
+              (mouseleave)="setActiveDecision(null)"
+              (focus)="setActiveDecision('signals')"
+              (blur)="setActiveDecision(null)"
+            >
+              <span class="decision-index" aria-hidden="true">03</span>
+              <span class="decision-copy">
+                <strong>{{ i18n.translate('home.decision.signals.title') }}</strong>
+                <span>{{ i18n.translate('home.decision.signals.text') }}</span>
+                <span class="decision-evidence"
+                  >{{ i18n.translate('home.decision.signals.evidence') }}
+                  <span aria-hidden="true">→</span></span
+                >
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="decision-item"
+              href="https://www.npmjs.com/package/@rivinia/select"
+              (mouseenter)="setActiveDecision('accessibility')"
+              (mouseleave)="setActiveDecision(null)"
+              (focus)="setActiveDecision('accessibility')"
+              (blur)="setActiveDecision(null)"
+            >
+              <span class="decision-index" aria-hidden="true">04</span>
+              <span class="decision-copy">
+                <strong>{{ i18n.translate('home.decision.accessibility.title') }}</strong>
+                <span>{{ i18n.translate('home.decision.accessibility.text') }}</span>
+                <span class="decision-evidence"
+                  >{{ i18n.translate('home.decision.accessibility.evidence') }}
+                  <span aria-hidden="true">↗</span></span
+                >
+              </span>
+            </a>
+          </li>
+        </ol>
+
+        <div
+          class="decision-diagram"
+          role="img"
+          [attr.aria-label]="i18n.translate('home.decisions.diagramLabel')"
+        >
+          <span class="decision-petal petal-api" [class.is-active]="activeDecision() === 'api'"
+            >01</span
+          >
+          <span
+            class="decision-petal petal-flexibility"
+            [class.is-active]="activeDecision() === 'flexibility'"
+            >02</span
+          >
+          <span
+            class="decision-petal petal-signals"
+            [class.is-active]="activeDecision() === 'signals'"
+            >03</span
+          >
+          <span
+            class="decision-petal petal-accessibility"
+            [class.is-active]="activeDecision() === 'accessibility'"
+            >04</span
+          >
+          <span class="decision-core">Rivinia</span>
         </div>
-        <span class="pillar-core-label">{{ i18n.translate('home.pillar.core') }}</span>
       </div>
     </div>
   </section>

@@ -5,3 +5,4 @@
 - The performance and accessibility statements in Decisions require direct evidence. Narrow or remove any statement not supported by source/tests/docs.
 - Lighthouse is optional only when a local executable already exists; do not install it for this task.
 - The app currently has general `/docs` and `/components` routes, not package-specific documentation routes. The showcase links to the real general docs and package catalog.
+- Replaced the unmeasured “Fast by default” claim with source-backed signal state. Accessibility copy now distinguishes documented ready-UI behavior from consumer-owned headless markup.

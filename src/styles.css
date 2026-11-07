@@ -179,9 +179,31 @@ html:has(.home-page) {
   scroll-snap-align: start;
 }
 
+.home-page .home-section.section-reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 240ms ease-out,
+    transform 240ms ease-out;
+}
+
+.home-page .home-section.section-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (max-width: 639px), (max-height: 599px), (prefers-reduced-motion: reduce) {
   html:has(.home-page) {
     scroll-snap-type: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-section.section-reveal,
+  .home-page .home-section.section-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

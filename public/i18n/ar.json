@@ -192,5 +192,21 @@
   "showcase.select.headlessSingleTitle": "متحكم الاختيار المفرد",
   "showcase.select.headlessSingleMarkup": "واجهة اختيار مفرد مخصصة",
   "showcase.select.headlessMultiTitle": "متحكم الاختيار المتعدد",
-  "showcase.select.headlessMultiMarkup": "واجهة اختيار متعدد مخصصة"
+  "showcase.select.headlessMultiMarkup": "واجهة اختيار متعدد مخصصة",
+  "home.decisions.eyebrow": "قرارات التصميم",
+  "home.decisions.title": "أربعة قرارات خلف كل حزمة.",
+  "home.decisions.lead": "يمكن التحقق من كل قرار في الكود أو في مثال مباشر.",
+  "home.decisions.diagramLabel": "Rivinia في مركز أربعة قرارات تصميم.",
+  "home.decision.api.title": "واجهات بسيطة",
+  "home.decision.api.text": "مدخلات ومخرجات وقيم افتراضية متوقعة. يعمل المثال الأول في بضعة أسطر.",
+  "home.decision.api.evidence": "اقرأ البداية السريعة",
+  "home.decision.flexibility.title": "مرونة في التصميم",
+  "home.decision.flexibility.text": "استخدم السلوك headless مع قائمة من تصميمك، أو أضف واجهة المستخدم الجاهزة.",
+  "home.decision.flexibility.evidence": "قارن طريقتي الاستخدام",
+  "home.decision.signals.title": "حالة مبنية على Signals",
+  "home.decision.signals.text": "البحث والقيم المحددة متاحان باستخدام Angular signals.",
+  "home.decision.signals.evidence": "جرّب المتحكم مباشرة",
+  "home.decision.accessibility.title": "إمكانية وصول واضحة",
+  "home.decision.accessibility.text": "توثّق الواجهة الجاهزة دعم لوحة المفاتيح وARIA؛ أما headless فيترك markup والأدوار والتركيز لك.",
+  "home.decision.accessibility.evidence": "اقرأ توثيق Select"
 }

@@ -5,3 +5,5 @@
 - **Home redesign — version badge:** Omit a global package-version badge because the root application package version is `0.0.0`, not a verified library release version. Show package-specific metadata only after rechecking it.
 - **Home redesign — integration:** Preserve real lazy demos, existing app architecture, i18n, RTL, and preference controls.
 - **Home redesign — documentation routes:** The repository has general `/docs` and `/components` routes, but no per-package documentation route. Link to the general docs/catalog and do not imply a package-specific docs page.
+- **Decisions section — performance claim:** Replaced “Fast by default” with “Signal-based state”; the repository exposes signal-backed state, but no performance benchmark supports a speed claim.
+- **Decisions section — accessibility wording:** Describe the verified boundary: the ready UI documents keyboard/ARIA behavior, while headless leaves semantics and focus to consumer markup.

@@ -192,5 +192,21 @@
   "showcase.select.headlessSingleTitle": "Headless single controller",
   "showcase.select.headlessSingleMarkup": "Custom single-selection markup",
   "showcase.select.headlessMultiTitle": "Headless multi controller",
-  "showcase.select.headlessMultiMarkup": "Custom multi-selection markup"
+  "showcase.select.headlessMultiMarkup": "Custom multi-selection markup",
+  "home.decisions.eyebrow": "Design decisions",
+  "home.decisions.title": "Four decisions behind every package.",
+  "home.decisions.lead": "Each one can be verified in the code or a live example.",
+  "home.decisions.diagramLabel": "Rivinia at the center of four design decisions.",
+  "home.decision.api.title": "Simple APIs",
+  "home.decision.api.text": "Predictable inputs, outputs, and defaults. The first example works in a few lines.",
+  "home.decision.api.evidence": "Read the quick start",
+  "home.decision.flexibility.title": "Flexible by design",
+  "home.decision.flexibility.text": "Use headless behavior with your own dropdown markup, or add the ready-made UI.",
+  "home.decision.flexibility.evidence": "Compare both modes",
+  "home.decision.signals.title": "Signal-based state",
+  "home.decision.signals.text": "Search and selected values are exposed as Angular signals.",
+  "home.decision.signals.evidence": "See the live controller",
+  "home.decision.accessibility.title": "Accessibility, made explicit",
+  "home.decision.accessibility.text": "The ready UI documents keyboard and ARIA behavior; headless leaves markup, roles, and focus to you.",
+  "home.decision.accessibility.evidence": "Read Select documentation"
 }
