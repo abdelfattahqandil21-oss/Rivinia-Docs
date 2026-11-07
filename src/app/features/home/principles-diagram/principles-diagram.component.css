@@ -53,9 +53,16 @@
 }
 
 .pillar-petal {
+  cursor: pointer;
+  pointer-events: bounding-box;
   transition:
     opacity 200ms ease,
     filter 200ms ease;
+}
+
+.pillar-petal:focus-visible {
+  outline: none;
+  filter: drop-shadow(0 0 0.4rem var(--rv-accent));
 }
 
 .principles-mark.has-active-petal .pillar-petal {

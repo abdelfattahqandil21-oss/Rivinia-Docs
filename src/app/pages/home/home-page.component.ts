@@ -1,6 +1,7 @@
 import {
   afterNextRender,
   Component,
+  computed,
   DestroyRef,
   ElementRef,
   inject,
@@ -52,7 +53,14 @@ export class HomePageComponent {
   protected readonly experienceComponent = signal<ShowcaseComponent | null>(null);
   protected readonly revealExperience = signal(false);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
-  protected readonly activePillar = signal<PillarId | null>(null);
+  protected readonly activePillar = signal<PillarId>('simplicity');
+  protected readonly pillarInteracted = signal(false);
+  protected readonly pillarLabels = computed(() => ({
+    simplicity: this.i18n.translate('home.pillar.simplicity.title'),
+    flexibility: this.i18n.translate('home.pillar.flexibility.title'),
+    performance: this.i18n.translate('home.pillar.performance.title'),
+    accessibility: this.i18n.translate('home.pillar.accessibility.title'),
+  }));
   protected readonly packages = PACKAGE_MANIFEST;
   protected readonly headlessSnippet = `import { RiviniaSelect } from '@rivinia/select';
 
@@ -98,8 +106,9 @@ select.toggle(option.id);`;
     });
   }
 
-  protected setActivePillar(id: PillarId | null): void {
+  protected setActivePillar(id: PillarId): void {
     this.activePillar.set(id);
+    this.pillarInteracted.set(true);
   }
 
   protected retryExperience(): void {

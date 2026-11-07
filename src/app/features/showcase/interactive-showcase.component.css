@@ -6,9 +6,10 @@
   display: grid;
   min-width: 0;
   grid-template-columns: minmax(0, 1fr);
-  min-height: calc(100svh - var(--navbar-height));
+  min-height: calc(100vh - var(--navbar-height));
+  min-height: calc(100dvh - var(--navbar-height));
   align-content: center;
-  padding-block: var(--home-section-inset, clamp(4rem, 8vw, 7rem));
+  padding-block: clamp(1.5rem, 4dvh, 3rem);
   scroll-margin-block-start: var(--navbar-height);
   scroll-snap-align: start;
 }
@@ -215,7 +216,7 @@
   anchor-scope: all;
   isolation: isolate;
   display: flex;
-  min-height: 33rem;
+  min-height: clamp(18rem, 42dvh, 20rem);
   flex: 0 0 auto;
   flex-direction: column;
   justify-content: flex-start;
@@ -403,7 +404,7 @@
   }
 
   .preview-stage {
-    min-height: 33rem;
+    min-height: clamp(18rem, 42dvh, 20rem);
   }
 
   .code-pane {
@@ -465,7 +466,7 @@
   }
 
   .preview-stage {
-    min-height: 41rem;
+    min-height: clamp(18rem, 42dvh, 20rem);
   }
 }
 
