@@ -80,7 +80,16 @@
   text-decoration: underline;
 }
 
-.dependency-list code {
+.dependency-version {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  color: var(--rv-muted);
+  font-size: 0.875rem;
+}
+
+.dependency-version code {
   color: var(--rv-muted);
   font-family: var(--rv-font-mono);
 }

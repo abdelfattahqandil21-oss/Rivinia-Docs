@@ -106,7 +106,12 @@ export class DocsLibraryOverviewComponent {
   }
 
   protected dependencyRows(dependencies: Readonly<Record<string, string>> | undefined) {
-    return Object.entries(dependencies ?? {});
+    return Object.entries(dependencies ?? {}).map(([name, range]) => {
+      const dependencyId = name.replace(/^@rivinia\//, '');
+      const installedVersion =
+        PACKAGE_METADATA[dependencyId as keyof typeof PACKAGE_METADATA]?.version;
+      return { name, range, installedVersion };
+    });
   }
 
   private sourceFilename(language: 'html' | 'ts' | 'css'): string {

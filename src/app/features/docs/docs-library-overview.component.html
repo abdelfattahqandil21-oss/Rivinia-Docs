@@ -47,10 +47,21 @@
       <section class="library-section" aria-labelledby="dependencies-title">
         <h2 id="dependencies-title">{{ i18n.translate('docs.dependencies') }}</h2>
         <ul class="dependency-list">
-          @for (dependency of dependencies(); track dependency[0]) {
+          @for (dependency of dependencies(); track dependency.name) {
             <li>
-              <a [routerLink]="packageEntryLink(dependency[0])" dir="ltr">{{ dependency[0] }}</a>
-              <code dir="ltr">{{ dependency[1] }}</code>
+              <a [routerLink]="packageEntryLink(dependency.name)" dir="ltr">{{
+                dependency.name
+              }}</a>
+              <span class="dependency-version" dir="ltr">
+                <span>{{ i18n.translate('docs.range') }}:</span>
+                <code>{{ dependency.range }}</code>
+              </span>
+              @if (dependency.installedVersion) {
+                <span class="dependency-version" dir="ltr">
+                  <span>{{ i18n.translate('docs.installedVersion') }}:</span>
+                  <code>{{ dependency.installedVersion }}</code>
+                </span>
+              }
             </li>
           }
         </ul>
@@ -61,10 +72,21 @@
       <section class="library-section" aria-labelledby="peer-dependencies-title">
         <h2 id="peer-dependencies-title">{{ i18n.translate('docs.peerDependencies') }}</h2>
         <ul class="dependency-list">
-          @for (dependency of peerDependencies(); track dependency[0]) {
+          @for (dependency of peerDependencies(); track dependency.name) {
             <li>
-              <a [routerLink]="packageEntryLink(dependency[0])" dir="ltr">{{ dependency[0] }}</a>
-              <code dir="ltr">{{ dependency[1] }}</code>
+              <a [routerLink]="packageEntryLink(dependency.name)" dir="ltr">{{
+                dependency.name
+              }}</a>
+              <span class="dependency-version" dir="ltr">
+                <span>{{ i18n.translate('docs.range') }}:</span>
+                <code>{{ dependency.range }}</code>
+              </span>
+              @if (dependency.installedVersion) {
+                <span class="dependency-version" dir="ltr">
+                  <span>{{ i18n.translate('docs.installedVersion') }}:</span>
+                  <code>{{ dependency.installedVersion }}</code>
+                </span>
+              }
             </li>
           }
         </ul>

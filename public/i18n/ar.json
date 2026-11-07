@@ -76,6 +76,8 @@
   "docs.quickStart": "بداية سريعة",
   "docs.dependencies": "الاعتماديات",
   "docs.peerDependencies": "اعتماديات الأقران",
+  "docs.range": "النطاق المطلوب",
+  "docs.installedVersion": "الإصدار المنشور",
   "docs.packageUi": "مدخل واجهة المستخدم",
   "docs.packageUiDescription": "تصدّر هذه الحزمة مدخلًا منفصلًا لواجهة المستخدم. يظهر مساره ضمن القائمة أدناه.",
   "docs.liveExample": "مثال مباشر",

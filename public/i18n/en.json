@@ -76,6 +76,8 @@
   "docs.quickStart": "Quick start",
   "docs.dependencies": "Dependencies",
   "docs.peerDependencies": "Peer dependencies",
+  "docs.range": "Required range",
+  "docs.installedVersion": "Published version",
   "docs.packageUi": "UI entry point",
   "docs.packageUiDescription": "This package exports a separate UI entry point. Its specifier is listed below.",
   "docs.liveExample": "Live example",
