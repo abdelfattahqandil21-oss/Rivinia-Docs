@@ -17,7 +17,7 @@ export const routes: Routes = [
         title: 'Docs · Rivinia Docs',
         data: { docsTitleKey: 'page.docs.title' },
         loadComponent: () =>
-          import('./pages/docs/docs-page.component').then((m) => m.DocsPageComponent),
+          import('./features/docs/docs-hub.component').then((m) => m.DocsHubComponent),
       },
       {
         path: 'getting-started/:slug',

@@ -1,16 +1,9 @@
-<ng-template #sidebarContents>
-  <label class="filter-label">
-    {{ i18n.translate('docs.filter.label') }}
-    <input
-      class="package-filter"
-      type="search"
-      [value]="filterText()"
-      [attr.placeholder]="i18n.translate('docs.filter.placeholder')"
-      (input)="onFilterInput($event)"
-      (keydown.escape)="clearFilter()"
-    />
-  </label>
-  <p class="filter-count" aria-live="polite" aria-atomic="true">{{ resultsAnnouncement() }}</p>
+<ng-template #sidebarContents let-filterId="filterId">
+  <app-docs-package-filter
+    [inputId]="filterId"
+    [resultCount]="visiblePackages().length"
+    [(value)]="filterText"
+  />
   <nav class="sidebar-nav" [attr.aria-label]="i18n.translate('docs.navigation')">
     <section class="nav-group">
       <h2>{{ i18n.translate('docs.start') }}</h2>
@@ -37,15 +30,15 @@
         </section>
       }
     }
-    @if (visiblePackages().length === 0) {
-      <p class="empty-filter" role="status">{{ i18n.translate('docs.filter.empty') }}</p>
-    }
   </nav>
 </ng-template>
 
 <div class="docs-layout">
   <aside class="docs-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
-    <ng-container [ngTemplateOutlet]="sidebarContents" />
+    <ng-container
+      [ngTemplateOutlet]="sidebarContents"
+      [ngTemplateOutletContext]="{ filterId: 'docs-sidebar-filter' }"
+    />
   </aside>
 
   <div class="docs-content-column">
@@ -98,7 +91,10 @@
     </button>
   </div>
   <aside class="docs-sidebar dialog-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
-    <ng-container [ngTemplateOutlet]="sidebarContents" />
+    <ng-container
+      [ngTemplateOutlet]="sidebarContents"
+      [ngTemplateOutletContext]="{ filterId: 'docs-dialog-filter' }"
+    />
   </aside>
 </dialog>
 <p class="sr-only" aria-live="polite" aria-atomic="true">{{ announcement() }}</p>

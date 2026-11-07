@@ -18,11 +18,19 @@ import { PACKAGE_MANIFEST } from '../packages/package-manifest';
 import { NavContextService } from '../../layout/nav-context.service';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { docsLink } from './docs-link';
+import { DocsPackageFilterComponent } from './docs-package-filter.component';
 
 const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
 
 @Component({
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgTemplateOutlet, IconComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    NgTemplateOutlet,
+    IconComponent,
+    DocsPackageFilterComponent,
+  ],
   selector: 'app-docs-shell',
   templateUrl: './docs-shell.component.html',
   styleUrl: './docs-shell.component.css',
@@ -49,9 +57,6 @@ export class DocsShellComponent {
         entry.name.toLocaleLowerCase().includes(query),
     );
   });
-  protected readonly resultsAnnouncement = computed(() =>
-    this.i18n.translate('docs.filter.count', { count: this.visiblePackages().length }),
-  );
   protected readonly homeLink = docsLink();
   protected readonly closeMenuLabel = this.i18n.t('docs.closeMenu');
   private readonly sidebarDialog = viewChild<ElementRef<HTMLDialogElement>>('sidebarDialog');
@@ -96,10 +101,6 @@ export class DocsShellComponent {
     return docsLink(id);
   }
 
-  protected clearFilter(): void {
-    this.filterText.set('');
-  }
-
   protected closeSidebarDialog(): void {
     const dialog = this.sidebarDialog()?.nativeElement;
     if (dialog?.open) dialog.close();
@@ -112,10 +113,6 @@ export class DocsShellComponent {
 
   protected onDialogPointerDown(event: MouseEvent): void {
     if (event.target === this.sidebarDialog()?.nativeElement) this.closeSidebarDialog();
-  }
-
-  protected onFilterInput(event: Event): void {
-    this.filterText.set((event.target as HTMLInputElement).value);
   }
 
   private updatePageContext(): void {

@@ -25,25 +25,6 @@
   scrollbar-color: var(--rv-scrollbar-thumb) var(--rv-scrollbar-track);
 }
 
-.filter-label {
-  display: block;
-  margin-block-end: 0.5rem;
-  color: var(--rv-fg);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.package-filter {
-  inline-size: 100%;
-  min-block-size: 2.75rem;
-  border: 1px solid var(--rv-border);
-  border-radius: var(--home-radius-sm);
-  background: var(--rv-home-surface-raised);
-  color: var(--rv-fg);
-  padding-inline: 0.75rem;
-}
-
-.package-filter:focus-visible,
 .sidebar-nav a:focus-visible,
 .page-rail-nav a:focus-visible,
 .rail-disclosure summary:focus-visible {
@@ -106,13 +87,6 @@
 .dialog-sidebar {
   position: static;
   max-block-size: calc(100dvh - 5rem);
-}
-
-.filter-count,
-.empty-filter {
-  margin-block: 0.5rem 0;
-  color: var(--rv-muted);
-  font-size: 0.8rem;
 }
 
 .sidebar-nav {
