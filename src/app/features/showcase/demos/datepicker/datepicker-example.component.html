@@ -1,4 +1,5 @@
 <div class="datepicker-examples">
+  <!-- A date-only value is a calendar date; it does not include a time or time zone. -->
   <section class="example-field" aria-labelledby="date-example-title">
     <h4 id="date-example-title">{{ 'showcase.datepicker.dateTitle' | rvTranslate }}</h4>
     <rv-datepicker
@@ -15,6 +16,7 @@
     </p>
   </section>
 
+  <!-- Bind the time row directly to a time value so it can be used on its own. -->
   <section class="example-field" aria-labelledby="time-example-title">
     <h4 id="time-example-title">{{ 'showcase.datepicker.timeTitle' | rvTranslate }}</h4>
     <p class="example-note">{{ 'showcase.datepicker.timeRowNote' | rvTranslate }}</p>
@@ -32,6 +34,7 @@
     </p>
   </section>
 
+  <!-- The combined picker edits a civil date and time with an explicit IANA zone. -->
   <section class="example-field" aria-labelledby="datetime-example-title">
     <h4 id="datetime-example-title">{{ 'showcase.datepicker.dateTimeTitle' | rvTranslate }}</h4>
     <rv-datetimepicker
