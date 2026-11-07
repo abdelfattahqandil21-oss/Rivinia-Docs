@@ -1,0 +1,104 @@
+@if (entry && metadata) {
+  <article class="docs-page-content docs-library-page">
+    <header class="library-header">
+      <div lang="en" dir="auto">
+        <app-page-header [title]="packageTitle" [lead]="metadata.description" />
+      </div>
+      <span class="version-badge" lang="en" dir="ltr">{{ versionLabel() }}</span>
+      <ul class="entry-point-chips" [attr.aria-label]="i18n.translate('docs.entryPoints')">
+        @for (entryPoint of metadata.entryPoints; track entryPoint) {
+          <li>
+            <code dir="ltr">{{ entryPoint }}</code>
+          </li>
+        }
+      </ul>
+    </header>
+
+    @if (published()) {
+      <section class="library-section" aria-labelledby="install-title">
+        <h2 id="install-title">{{ i18n.translate('docs.install') }}</h2>
+        <app-code-block [code]="installCommand" language="bash" filename="terminal" />
+      </section>
+    }
+
+    @if (metadata.entryPoints.length) {
+      <section class="library-section" aria-labelledby="imports-title">
+        <h2 id="imports-title">{{ i18n.translate('docs.importPaths') }}</h2>
+        <ul class="entry-point-list">
+          @for (entryPoint of metadata.entryPoints; track entryPoint) {
+            <li>
+              <code dir="ltr">{{ entryPoint }}</code>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (showLiveExample()) {
+      <section class="library-section quick-start" aria-labelledby="quick-start-title">
+        <h2 id="quick-start-title">{{ i18n.translate('docs.quickStart') }}</h2>
+        @for (file of quickStartFiles(); track file.name + file.language) {
+          <app-code-block [code]="file.code" [language]="file.language" [filename]="file.name" />
+        }
+      </section>
+    }
+
+    @if (dependencies().length) {
+      <section class="library-section" aria-labelledby="dependencies-title">
+        <h2 id="dependencies-title">{{ i18n.translate('docs.dependencies') }}</h2>
+        <ul class="dependency-list">
+          @for (dependency of dependencies(); track dependency[0]) {
+            <li>
+              <a [routerLink]="packageEntryLink(dependency[0])" dir="ltr">{{ dependency[0] }}</a>
+              <code dir="ltr">{{ dependency[1] }}</code>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (peerDependencies().length) {
+      <section class="library-section" aria-labelledby="peer-dependencies-title">
+        <h2 id="peer-dependencies-title">{{ i18n.translate('docs.peerDependencies') }}</h2>
+        <ul class="dependency-list">
+          @for (dependency of peerDependencies(); track dependency[0]) {
+            <li>
+              <a [routerLink]="packageEntryLink(dependency[0])" dir="ltr">{{ dependency[0] }}</a>
+              <code dir="ltr">{{ dependency[1] }}</code>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (metadata.hasUi) {
+      <section class="library-section" aria-labelledby="ui-entries-title">
+        <h2 id="ui-entries-title">{{ i18n.translate('docs.packageUi') }}</h2>
+        <p>{{ i18n.translate('docs.packageUiDescription') }}</p>
+        <ul class="entry-point-list">
+          @for (entryPoint of metadata.entryPoints; track entryPoint) {
+            @if (entryPoint.endsWith('/ui')) {
+              <li>
+                <code dir="ltr">{{ entryPoint }}</code>
+              </li>
+            }
+          }
+        </ul>
+      </section>
+    }
+
+    @if (showLiveExample()) {
+      <section class="library-section" aria-labelledby="live-example-title">
+        <h2 id="live-example-title">{{ i18n.translate('docs.liveExample') }}</h2>
+        <a class="live-example-link" [routerLink]="'/'" fragment="experience">
+          {{ i18n.translate('docs.seeLive') }}
+        </a>
+      </section>
+    }
+  </article>
+} @else {
+  <section class="docs-page-content docs-library-not-found">
+    <app-page-header [title]="notFoundTitle()" [lead]="notFoundBody()" />
+    <a [routerLink]="notFoundLink">{{ i18n.translate('docs.notFound.back') }}</a>
+  </section>
+}

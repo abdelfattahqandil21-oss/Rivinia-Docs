@@ -15,6 +15,7 @@ import { RiviniaI18n } from '@rivinia/i18n';
 import { filter } from 'rxjs';
 
 import { PACKAGE_MANIFEST } from '../packages/package-manifest';
+import { PACKAGE_METADATA } from '../packages/package-metadata';
 import { NavContextService } from '../../layout/nav-context.service';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { docsLink } from './docs-link';
@@ -125,10 +126,20 @@ export class DocsShellComponent {
     let active = this.router.routerState.snapshot.root;
     while (active.firstChild) active = active.firstChild;
     const titleKey = active.data['docsTitleKey'] as string | undefined;
-    const pageName = titleKey
-      ? this.i18n.translate(titleKey)
-      : this.i18n.translate('page.docs.title');
-    const documentTitle = `${pageName} · Rivinia Docs`;
+    const packageId = active.paramMap.get('package');
+    const packageMetadata = packageId
+      ? PACKAGE_METADATA[packageId as keyof typeof PACKAGE_METADATA]
+      : null;
+    const pageName =
+      packageId && !packageMetadata
+        ? this.i18n.translate('docs.notFound.title')
+        : titleKey
+          ? this.i18n.translate(titleKey)
+          : this.i18n.translate('page.docs.title');
+    const packageName = packageMetadata?.name ?? null;
+    const documentTitle = packageName
+      ? `${pageName} · ${packageName} · Rivinia Docs`
+      : `${pageName} · Rivinia Docs`;
     this.title.setTitle(documentTitle);
     this.announcement.set(documentTitle);
     setTimeout(() => {

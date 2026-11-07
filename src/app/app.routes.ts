@@ -31,10 +31,11 @@ export const routes: Routes = [
       })),
       {
         path: ':package',
-        title: 'Library · Rivinia Docs',
         data: { docsTitleKey: 'docs.library' },
         loadComponent: () =>
-          import('./features/docs/docs-not-found.component').then((m) => m.DocsNotFoundComponent),
+          import('./features/docs/docs-library-overview.component').then(
+            (m) => m.DocsLibraryOverviewComponent,
+          ),
       },
       {
         path: ':package/:section',

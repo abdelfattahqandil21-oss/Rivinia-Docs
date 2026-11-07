@@ -1,5 +1,5 @@
 import { DOCUMENT, NgComponentOutlet } from '@angular/common';
-import { Component, computed, inject, InjectionToken, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import type { Type } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
@@ -7,9 +7,9 @@ import { injectRiviniaToast, type Toast } from '@rivinia/toast';
 
 import { CodeBlockComponent } from '../../shared/components/code-block/code-block.component';
 import { SHOWCASE_PACKAGES } from '../packages/package-manifest';
+import { SHOWCASE_EXAMPLE_LOADERS } from './showcase-example.loaders';
 import {
   type ShowcaseExampleId,
-  type ShowcaseExampleLoaders,
   type ShowcaseExampleModule,
   type ShowcaseExampleSource,
 } from './showcase-example.model';
@@ -21,59 +21,6 @@ type ShowcaseSourceFile = {
   language: 'ts' | 'html' | 'css';
   code: string;
 };
-
-export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoaders>(
-  'SHOWCASE_EXAMPLE_LOADERS',
-  {
-    factory: () => ({
-      select: async () => {
-        const [component, source, registry] = await Promise.all([
-          import('./demos/select/select-example.component'),
-          import('../../../generated/select-example.source.generated'),
-          import('./demos/select/select-example.registry'),
-        ]);
-        return {
-          component: component.SelectExampleComponent,
-          source: {
-            ...source.selectExampleSource,
-            codeBlocks: registry.selectExampleCodeBlocks,
-          },
-        };
-      },
-      datepicker: async () => {
-        const [component, source] = await Promise.all([
-          import('./demos/datepicker/datepicker-example.component'),
-          import('../../../generated/datepicker-example.source.generated'),
-        ]);
-        return {
-          component: component.DatepickerExampleComponent,
-          source: source.datepickerExampleSource,
-        };
-      },
-      table: async () => {
-        const [component, source] = await Promise.all([
-          import('./demos/table/table-example.component'),
-          import('../../../generated/table-example.source.generated'),
-        ]);
-        return { component: component.TableExampleComponent, source: source.tableExampleSource };
-      },
-      modal: async () => {
-        const [component, source] = await Promise.all([
-          import('./demos/modal/modal-example.component'),
-          import('../../../generated/modal-example.source.generated'),
-        ]);
-        return { component: component.ModalExampleComponent, source: source.modalExampleSource };
-      },
-      toast: async () => {
-        const [component, source] = await Promise.all([
-          import('./demos/toast/toast-example.component'),
-          import('../../../generated/toast-example.source.generated'),
-        ]);
-        return { component: component.ToastExampleComponent, source: source.toastExampleSource };
-      },
-    }),
-  },
-);
 
 const EXAMPLES: readonly { id: ShowcaseExampleId; packageName: string }[] = SHOWCASE_PACKAGES.map(
   ({ id, name }) => ({ id, packageName: name }),

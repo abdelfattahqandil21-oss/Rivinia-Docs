@@ -6,10 +6,8 @@ import { customLoader, provideRiviniaI18n } from '@rivinia/i18n';
 import { provideRiviniaToast } from '@rivinia/toast';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import {
-  InteractiveShowcaseComponent,
-  SHOWCASE_EXAMPLE_LOADERS,
-} from './interactive-showcase.component';
+import { InteractiveShowcaseComponent } from './interactive-showcase.component';
+import { SHOWCASE_EXAMPLE_LOADERS } from './showcase-example.loaders';
 import type { ShowcaseExampleId, ShowcaseExampleLoaders } from './showcase-example.model';
 import { appIcons } from '../../shared/components/icon/icon-registry';
 
