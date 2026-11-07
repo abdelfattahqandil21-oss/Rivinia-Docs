@@ -137,6 +137,31 @@
               </div>
             }
           }
+          @if (previewToasts().length) {
+            <div
+              class="preview-toast-stack"
+              role="region"
+              [attr.aria-label]="'showcase.toast.previewArea' | rvTranslate"
+            >
+              @for (toast of previewToasts(); track toast.id) {
+                <article class="preview-toast-item" [attr.data-kind]="toast.kind" role="status">
+                  <span>{{ toastText(toast.message) }}</span>
+                  @if (toast.action; as action) {
+                    <button class="toast-action" type="button" (click)="runToastAction(toast.id)">
+                      {{ toastText(action.label) }}
+                    </button>
+                  }
+                  <button
+                    type="button"
+                    [attr.aria-label]="'showcase.toast.dismiss' | rvTranslate"
+                    (click)="dismissToast(toast.id)"
+                  >
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </article>
+              }
+            </div>
+          }
         </div>
         <a class="documentation-link" routerLink="/docs">
           {{ 'showcase.readDocs' | rvTranslate }}

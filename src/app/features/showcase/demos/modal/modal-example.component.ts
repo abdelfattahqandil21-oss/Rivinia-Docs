@@ -3,15 +3,14 @@ import type { ModalGuard, ModalTemplateContext } from '@rivinia/modal';
 import { injectRiviniaModal } from '@rivinia/modal';
 import { RiviniaModalHost } from '@rivinia/modal/ui';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
-import { injectRiviniaToast, type Toast } from '@rivinia/toast';
-import { RiviniaToastList } from '@rivinia/toast/ui';
+import { injectRiviniaToast } from '@rivinia/toast';
 
 interface PackageRecord {
   readonly name: string;
 }
 
 @Component({
-  imports: [RiviniaModalHost, RiviniaToastList, RvTranslatePipe],
+  imports: [RiviniaModalHost, RvTranslatePipe],
   selector: 'app-showcase-modal-example',
   templateUrl: './modal-example.component.html',
   styleUrl: './modal-example.component.css',
@@ -20,8 +19,6 @@ export class ModalExampleComponent {
   private readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
   private readonly toast = injectRiviniaToast();
   protected readonly modal = injectRiviniaModal();
-  protected readonly toastManager = this.toast;
-  protected readonly toastItems = this.toast.active;
   protected readonly editDraft = signal('Rivinia Select');
   protected readonly originalDraft = signal('Rivinia Select');
   protected readonly isDirty = signal(false);
@@ -121,13 +118,5 @@ export class ModalExampleComponent {
 
   protected requestDismiss(id: string): void {
     void this.modal.requestDismiss(id, 'button');
-  }
-
-  protected dismissToast(toast: Toast): void {
-    this.toast.dismiss(toast.id);
-  }
-
-  protected toastText(value: Toast['message']): string {
-    return typeof value === 'string' ? value : value();
   }
 }

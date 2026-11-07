@@ -212,6 +212,9 @@
 
 .preview-stage {
   position: relative;
+  anchor-name: --rivinia-preview-stage;
+  anchor-scope: all;
+  isolation: isolate;
   display: flex;
   min-height: 33rem;
   flex: 0 0 auto;

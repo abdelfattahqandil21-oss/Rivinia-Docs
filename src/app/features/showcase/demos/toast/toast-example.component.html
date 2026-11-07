@@ -15,26 +15,4 @@
       {{ 'showcase.toast.warning' | rvTranslate }}
     </button>
   </div>
-  @if (toastItems().length) {
-    <div class="preview-toasts" [attr.aria-label]="'showcase.toast.previewArea' | rvTranslate">
-      @for (item of toastItems(); track item.id) {
-        <article class="preview-toast" [attr.data-kind]="item.kind" role="status">
-          <span>{{ toastText(item.message) }}</span>
-          @if (item.action; as action) {
-            <button class="toast-action" type="button" (click)="runAction(item.id)">
-              {{ toastText(action.label) }}
-            </button>
-          }
-          <button
-            class="toast-dismiss"
-            type="button"
-            [attr.aria-label]="'showcase.toast.dismiss' | rvTranslate"
-            (click)="dismiss(item.id)"
-          >
-            <span aria-hidden="true">×</span>
-          </button>
-        </article>
-      }
-    </div>
-  }
 </div>

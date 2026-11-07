@@ -3,6 +3,7 @@ import { Component, computed, inject, InjectionToken, signal } from '@angular/co
 import type { Type } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
+import { injectRiviniaToast, type Toast } from '@rivinia/toast';
 
 import { CodeBlockComponent } from '../../shared/components/code-block/code-block.component';
 import { SHOWCASE_PACKAGES } from '../packages/package-manifest';
@@ -88,8 +89,10 @@ export class InteractiveShowcaseComponent {
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
   private readonly document = inject(DOCUMENT);
   private readonly loaders = inject(SHOWCASE_EXAMPLE_LOADERS);
+  private readonly toast = injectRiviniaToast();
 
   protected readonly examples = EXAMPLES;
+  protected readonly previewToasts = this.toast.active;
   protected readonly selectedExample = signal<ShowcaseExampleId>('select');
   protected readonly selectedExampleIndex = computed(() =>
     EXAMPLES.findIndex((example) => example.id === this.selectedExample()),
@@ -266,6 +269,18 @@ export class InteractiveShowcaseComponent {
     this.modules.delete(this.selectedExample());
     this.inFlight.delete(this.selectedExample());
     void this.loadExample(this.selectedExample());
+  }
+
+  protected toastText(message: Toast['message']): string {
+    return typeof message === 'string' ? message : message();
+  }
+
+  protected dismissToast(id: number): void {
+    this.toast.dismiss(id);
+  }
+
+  protected runToastAction(id: number): void {
+    this.toast.runAction(id);
   }
 
   protected tabLabel(id: ShowcaseExampleId): string {
