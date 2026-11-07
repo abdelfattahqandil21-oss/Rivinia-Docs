@@ -111,3 +111,23 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - Narrowed performance copy to verified package metadata: the five installed package manifests expose separate root and `./ui` entries and declare `sideEffects: false`; the showcase examples are lazy-loaded by the R5 implementation. Accessibility copy describes the documented ready-UI behavior and explicitly assigns markup/focus choices to headless consumers. Both claims are recorded in `docs/home-open-questions.md`.
 - `npm run verify`: passed (11 test files, 40 tests). Prettier, architecture check (0 exceptions), generated-source check, production build, and non-watch tests all passed. Existing CSS budget warnings remain for the Home (7.93 kB), showcase (6.40 kB), and Select demo (4.74 kB) stylesheets; all are below the 8 kB error budget.
 - R6 build: initial 398.98 kB raw / 99.33 kB transferred; Home lazy chunk 42.16 kB / 9.71 kB; Experience remains separate at 19.88 kB / 4.98 kB.
+
+## R7 evidence
+
+- Moved the Select presentation and selection controls into the top of the preview, aligned from the logical start edge. The real dropdown list is absolutely positioned over preview content with a solid theme surface, so opening it does not change the workspace, preview, or code pane heights.
+- Replaced the Headless state definition list with the existing `@rivinia/table` component and removed the extra ownership note. The docs link now follows the entire preview/code workspace. Select code examples show component classes, imports, template paths, and distinct `select.component.*` / `headless-select.component.*` filenames.
+- Browser review on port 4200 at 1280×813 checked Headless/Single, UI/Single and UI/Multiple. Opening the Headless list measured the workspace, preview and code panes at unchanged heights (1261.6px, 528px and 1259.8px). English dark and Arabic RTL dark/light were visually reviewed; no full viewport-width matrix was run for this focused revision.
+- `npm run verify`: passed (11 test files, 46 tests). Architecture, generated-source freshness and production build passed. CSS budget warnings remain for the showcase (7.25 kB), Home (7.94 kB), and Select demo (4.38 kB) stylesheets against the 4 kB warning budget; all remain below the 8 kB error budget.
+
+## R8 evidence
+
+- Disabled the Rivinia Table sticky header in the compact Headless state panel and raised the combobox stacking layer above the table. Browser review at 1280×813 confirmed the open dropdown covers the table header.
+- Replaced stacked Select code cards with accessible HTML, TypeScript, and CSS file tabs. Only the selected code file renders, with the matching `select.component.*` or `headless-select.component.*` filename.
+- `npm run verify`: passed (11 test files, 47 tests). The architecture and generated-source checks passed, and the production build completed. Existing CSS budget warnings remain for the showcase (7.25 kB), Home (7.94 kB), and Select demo (4.38 kB) stylesheets; all remain below the 8 kB error budget.
+
+## R9 evidence
+
+- Repositioned the four pillar cards around the central mark on desktop: Simplicity above, Flexibility beside the right petal, Performance below, and Accessibility beside the left petal. Tablet retains the centered mark over a two-by-two card grid; mobile retains the centered mark over a single card column.
+- Prevented footer columns from stretching to the tallest column. At desktop widths, package links now use three columns alongside the brand and product navigation; at tablet widths, they use four columns below brand and product navigation. Mobile keeps the compact two-column package link list.
+- Browser review on port 4200 at 1440×900 and 1280×813 confirmed the desktop alignment and compact footer. Tablet at 768×900 and mobile at 390×844 retained their intended stacked/grid layouts. Arabic RTL was visually reviewed at mobile and desktop sizes; card positions mirrored with direction and package links remained readable. No horizontal overflow was visible in the reviewed layouts.
+- `npm run verify`: passed (11 test files, 47 tests). Prettier, architecture check (0 exceptions), generated-source freshness, production build, and non-watch tests passed. CSS budget warnings remain for the showcase (7.25 kB), Home (7.97 kB), and Select demo (4.38 kB) stylesheets against the 4 kB warning budget; all remain below the 8 kB error budget.
