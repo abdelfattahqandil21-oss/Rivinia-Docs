@@ -151,60 +151,33 @@
           <h3>{{ 'showcase.code' | rvTranslate }}</h3>
         </div>
 
-        @if (selectedExample() === 'select' && highlightedCodeBlocks().length) {
+        @if (selectedExample() === 'select' && visibleCodeBlocks().length) {
           <div class="code-examples">
-            @for (block of highlightedCodeBlocks(); track block.id) {
-              <article class="code-example">
-                <header class="code-example-heading">
-                  <div class="code-file-title">
-                    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <h4>{{ block.titleKey | rvTranslate }}</h4>
-                    <span class="code-language">{{ block.language }}</span>
-                  </div>
-                  <button class="copy-button" type="button" (click)="copySnippet(block)">
-                    {{
-                      (copiedSnippetId() === block.id ? 'showcase.copied' : 'showcase.copy')
-                        | rvTranslate
-                    }}
-                  </button>
-                </header>
-                <!-- prettier-ignore -->
-                <pre class="code-sample" tabindex="0" dir="ltr"><code>@for (token of block.tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-              </article>
+            @for (block of visibleCodeBlocks(); track block.id) {
+              <app-code-block
+                [code]="block.code"
+                [language]="block.language"
+                [filename]="
+                  block.language === 'html' ? 'select.component.html' : 'select.component.ts'
+                "
+                [caption]="block.titleKey | rvTranslate"
+              />
             }
           </div>
         } @else if (sourceFiles().length) {
           <div class="source-files">
             @for (file of sourceFiles(); track file.id) {
-              <article class="source-file">
-                <header class="code-example-heading">
-                  <div class="code-file-title">
-                    <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <h4>{{ file.name }}</h4>
-                    <span class="code-language">{{ file.language }}</span>
-                  </div>
-                  <button class="copy-button" type="button" (click)="copySourceFile(file)">
-                    {{
-                      (copiedSnippetId() === file.id ? 'showcase.copied' : 'showcase.copy')
-                        | rvTranslate
-                    }}
-                  </button>
-                </header>
-                <!-- prettier-ignore -->
-                <pre class="code-sample" tabindex="0" dir="ltr"><code>@for (token of file.tokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-              </article>
+              <app-code-block
+                [code]="file.code"
+                [language]="file.language"
+                [filename]="file.name"
+              />
             }
           </div>
         } @else {
           <p class="code-placeholder" role="status">
             {{ (loading() ? 'showcase.loadingCode' : 'showcase.codeUnavailable') | rvTranslate }}
           </p>
-        }
-        @if (copiedSnippetId()) {
-          <p class="copy-status" role="status">{{ 'showcase.copied' | rvTranslate }}</p>
-        }
-        @if (copyFailed()) {
-          <p class="copy-status" role="status">{{ 'showcase.copyError' | rvTranslate }}</p>
         }
       </section>
     </div>

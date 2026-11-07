@@ -13,7 +13,7 @@ export interface ShowcaseExampleSource {
 export interface ShowcaseCodeBlock {
   readonly id: string;
   readonly titleKey: string;
-  readonly language: 'html' | 'typescript';
+  readonly language: 'html' | 'ts';
   readonly code: string;
 }
 

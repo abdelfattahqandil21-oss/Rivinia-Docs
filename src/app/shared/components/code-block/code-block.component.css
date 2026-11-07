@@ -1,0 +1,132 @@
+:host {
+  display: block;
+  min-width: 0;
+  --rv-code-surface: var(--rv-home-surface-raised, var(--rv-bg));
+  --rv-code-comment: var(--rv-muted);
+  --rv-code-keyword: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-brand-violet));
+  --rv-code-type: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
+  --rv-code-string: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-accent));
+  --rv-code-number: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-accent));
+  --rv-code-tag: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-brand-violet));
+  --rv-code-attribute: color-mix(in srgb, var(--rv-fg) 72%, var(--rv-accent));
+  --rv-code-binding: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
+  --rv-code-property: color-mix(in srgb, var(--rv-fg) 68%, var(--rv-brand-violet));
+  --rv-code-selector: color-mix(in srgb, var(--rv-fg) 55%, var(--rv-brand-violet));
+  --rv-code-variable: color-mix(in srgb, var(--rv-fg) 62%, var(--rv-accent));
+  --rv-code-pipe: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
+  --rv-code-function: color-mix(in srgb, var(--rv-fg) 64%, var(--rv-accent));
+  --rv-code-command: color-mix(in srgb, var(--rv-fg) 58%, var(--rv-brand-violet));
+}
+
+.code-block {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-md, 0.75rem);
+  background: var(--rv-code-surface);
+  color: var(--rv-fg);
+}
+
+.code-block-header {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.75rem;
+  border-block-end: 1px solid var(--rv-border);
+  padding-inline: 0.75rem;
+}
+
+.code-block-filename {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--rv-muted);
+  font-size: 0.8125rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.code-block-language {
+  margin-inline-start: auto;
+  color: var(--rv-muted);
+  font-size: 0.75rem;
+}
+
+.code-block-header app-copy-button {
+  margin-inline-start: 0.25rem;
+}
+
+.code-block-caption {
+  margin: 0;
+  border-block-end: 1px solid var(--rv-border);
+  padding: 0.5rem 0.75rem;
+  color: var(--rv-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+pre {
+  overflow: visible;
+  margin: 0;
+  padding: 0.875rem;
+  color: var(--rv-fg);
+  font: 0.875rem/1.6 var(--rv-font-mono);
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.token-comment {
+  color: var(--rv-code-comment);
+}
+
+.token-keyword {
+  color: var(--rv-code-keyword);
+}
+
+.token-type {
+  color: var(--rv-code-type);
+}
+
+.token-string {
+  color: var(--rv-code-string);
+}
+
+.token-number {
+  color: var(--rv-code-number);
+}
+
+.token-tag {
+  color: var(--rv-code-tag);
+}
+
+.token-attribute {
+  color: var(--rv-code-attribute);
+}
+
+.token-binding {
+  color: var(--rv-code-binding);
+}
+
+.token-property {
+  color: var(--rv-code-property);
+}
+
+.token-selector {
+  color: var(--rv-code-selector);
+}
+
+.token-variable {
+  color: var(--rv-code-variable);
+}
+
+.token-pipe {
+  color: var(--rv-code-pipe);
+}
+
+.token-function {
+  color: var(--rv-code-function);
+}
+
+.token-command {
+  color: var(--rv-code-command);
+}

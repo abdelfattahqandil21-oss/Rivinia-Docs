@@ -147,6 +147,7 @@ const homeShowcaseStyles = walk(appRoot).filter((filePath) => {
   const file = relative(filePath);
   return file.startsWith('src/app/pages/home/') || file.startsWith('src/app/features/showcase/');
 });
+homeShowcaseStyles.push(path.join(root, 'src/styles.css'));
 
 for (const filePath of homeShowcaseStyles) {
   const file = relative(filePath);
@@ -156,6 +157,14 @@ for (const filePath of homeShowcaseStyles) {
   const blocks = /([^{}]+)\{([^{}]*)\}/g;
   for (const block of source.matchAll(blocks)) {
     const selector = block[1].trim();
+    if (
+      file === 'src/styles.css' &&
+      !/(?:\.home-page|\.home-section|\.interactive-showcase|\.showcase-shell|\.example-tabs|\.showcase-workspace)/.test(
+        selector,
+      )
+    ) {
+      continue;
+    }
     const declarations = block[2];
     const declarationPattern = /^\s*overflow(?:-y)?\s*:\s*(?:auto|scroll)\b/gim;
     for (const declaration of declarations.matchAll(declarationPattern)) {

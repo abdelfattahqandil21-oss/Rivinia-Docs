@@ -1,0 +1,76 @@
+:host {
+  display: inline-flex;
+  flex: 0 0 auto;
+  --rv-copy-success: #176b42;
+}
+
+:host-context(:root[data-rv-theme='dark']) {
+  --rv-copy-success: #78d7a5;
+}
+
+.copy-button {
+  position: relative;
+  display: inline-grid;
+  width: 2.75rem;
+  min-inline-size: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--rv-border);
+  border-radius: 0.55rem;
+  background: var(--rv-home-surface-raised, var(--rv-bg));
+  color: var(--rv-fg);
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  border-color: var(--rv-accent);
+}
+
+.copy-button:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 2px;
+}
+
+.copy-button[data-state='copied'] {
+  color: var(--rv-copy-success);
+}
+
+.copy-icon,
+.success-icon {
+  position: absolute;
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.copy-icon.is-visible,
+.success-icon.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy-icon,
+  .success-icon {
+    transition: none;
+  }
+}

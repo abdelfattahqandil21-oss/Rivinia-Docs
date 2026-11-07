@@ -68,7 +68,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Co-locate each spec beside the file it tests. Do not create `tests/` folders under `src/app/`.
 - Keep app-shell files named `app.ts`, `app.html`, and `app.css`; any rename is deferred.
 - Follow one filename suffix per artifact: `.component.ts/.html/.css`, `.service.ts`, `.directive.ts`, `.model.ts`, and `.spec.ts`. Keep component class and selector names aligned with their filenames.
-- Keep `showcase-code-highlight` inside `features/showcase`. Put a helper in `shared/utils` only when it has cross-feature use.
+- Put reusable helpers in `shared/utils` when they serve multiple feature surfaces; `code-highlight` is shared by the reusable code block used in the hero, showcase, and Get Started.
 
 ## Adding a page
 

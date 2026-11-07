@@ -1,0 +1,11 @@
+<article class="code-block">
+  <header class="code-block-header">
+    <span class="code-block-filename" dir="ltr">{{ filename() || languageName() }}</span>
+    <span class="code-block-language">{{ languageName() }}</span>
+    <app-copy-button [code]="code()" />
+  </header>
+  @if (caption()) {
+    <p class="code-block-caption">{{ caption() }}</p>
+  }
+  <pre><code dir="ltr" translate="no">@for (token of tokens(); track $index) {<span [class]="'token-' + token.kind">{{ token.text }}</span>}</code></pre>
+</article>

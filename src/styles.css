@@ -222,8 +222,7 @@ html:has(.home-page) {
   background: var(--rv-home-surface-raised);
 }
 
-.home-page .step-card-heading,
-.home-page .step-code-header {
+.home-page .step-card-heading {
   display: flex;
   min-height: 2.75rem;
   align-items: center;
@@ -237,47 +236,6 @@ html:has(.home-page) {
   min-width: 0;
   font-size: 0.9375rem;
   font-weight: 600;
-}
-
-.home-page .step-copy {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  border: 1px solid var(--rv-border);
-  border-radius: var(--home-radius-sm);
-  background: transparent;
-  padding-inline: var(--home-space-2);
-  color: var(--rv-fg);
-  font: inherit;
-  font-size: 0.8125rem;
-  cursor: pointer;
-}
-
-.home-page .step-copy:hover {
-  border-color: var(--rv-accent);
-}
-
-.home-page .step-code-header {
-  min-height: 2.5rem;
-  justify-content: start;
-  color: var(--rv-muted);
-  font-size: 0.75rem;
-}
-
-.home-page .step-code-header > :last-child {
-  margin-inline-start: auto;
-}
-
-.home-page .step-card pre {
-  overflow: auto;
-  max-width: 100%;
-  min-height: 4.5rem;
-  margin: 0;
-  background: #151518;
-  padding: var(--home-space-3);
-  color: #e8e7e4;
-  font: 0.875rem/1.6 var(--rv-font-mono);
-  scrollbar-color: #64646a #202024;
-  scrollbar-width: thin;
 }
 
 .home-page .start-actions {
@@ -442,7 +400,6 @@ html:has(.home-page) {
   html:has(.home-page) {
     scroll-behavior: auto;
   }
-
 }
 
 .home-footer app-preferences-menu .preferences-panel {

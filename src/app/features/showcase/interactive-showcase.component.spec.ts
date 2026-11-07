@@ -40,6 +40,7 @@ const sourceFor = (id: ShowcaseExampleId) => ({
 });
 
 const translations = {
+  'common.copyCodeLabel': 'Copy code',
   'showcase.title': 'Experience Rivinia',
   'showcase.description': 'Real components',
   'showcase.allPackages': 'All packages',
@@ -57,9 +58,8 @@ const translations = {
   'showcase.packageDocumentation': 'Package docs',
   'showcase.readDocs': 'Read the docs',
   'showcase.codeFiles': 'Source files',
-  'showcase.copy': 'Copy code',
-  'showcase.copied': 'Copied',
-  'showcase.copyError': 'Copy failed',
+  'common.copyCodeSuccess': 'Code copied',
+  'common.copyCodeError': 'Copy failed',
   'showcase.select.name': 'Select',
   'showcase.select.singleTitle': 'Single selection',
   'showcase.datepicker.name': 'Datepicker',
@@ -140,7 +140,7 @@ describe('InteractiveShowcaseComponent', () => {
 
     expect(loaders.table).toHaveBeenCalledOnce();
     expect(loaders.datepicker).not.toHaveBeenCalled();
-    expect(fixture.nativeElement.querySelector('.code-sample code').textContent).toContain(
+    expect(fixture.nativeElement.querySelector('.code-block pre code').textContent).toContain(
       '<table-preview />',
     );
 
@@ -166,7 +166,7 @@ describe('InteractiveShowcaseComponent', () => {
     fixture.detectChanges();
 
     expect(loaders.toast).toHaveBeenCalledOnce();
-    expect(fixture.nativeElement.querySelector('.code-sample code').textContent).toContain(
+    expect(fixture.nativeElement.querySelector('.code-block pre code').textContent).toContain(
       '<toast-preview />',
     );
   });
@@ -213,7 +213,9 @@ describe('InteractiveShowcaseComponent', () => {
     fixture.detectChanges();
 
     expect(writeText).toHaveBeenCalledWith('<select-preview />');
-    expect(fixture.nativeElement.querySelector('.copy-status').textContent).toContain('Copied');
+    expect(fixture.nativeElement.querySelector('.copy-button [aria-live]').textContent).toContain(
+      'Code copied',
+    );
   });
 
   it('links to the existing package catalog route', async () => {
@@ -260,7 +262,7 @@ describe('InteractiveShowcaseComponent', () => {
     fixture.detectChanges();
 
     expect(tableButton.getAttribute('aria-selected')).toBe('true');
-    expect(fixture.nativeElement.querySelector('.code-sample code').textContent).toContain(
+    expect(fixture.nativeElement.querySelector('.code-block pre code').textContent).toContain(
       '<table-preview />',
     );
   });

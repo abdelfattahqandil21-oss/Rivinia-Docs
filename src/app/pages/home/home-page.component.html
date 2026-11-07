@@ -15,15 +15,12 @@
           </a>
         </div>
 
-        <div class="install-row">
-          <code dir="ltr">npm i @rivinia/select</code>
-          <button type="button" class="copy-button" (click)="copyInstall()">
-            {{ i18n.translate('home.copy') }}
-          </button>
-          <span class="visually-hidden" aria-live="polite" aria-atomic="true">
-            {{ copyStatus() }}
-          </span>
-        </div>
+        <app-code-block
+          class="hero-install-code"
+          [code]="'npm i @rivinia/select'"
+          language="bash"
+          filename="terminal"
+        />
 
         <div class="hero-trust" [attr.aria-label]="i18n.translate('home.hero.trustLabel')">
           <span>MIT</span>
@@ -33,29 +30,18 @@
       </div>
 
       <div class="hero-code" aria-label="Select component examples">
-        <article class="code-card">
-          <header class="code-card-header">
-            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span>headless.select.ts</span>
-            <span>TypeScript</span>
-          </header>
-          <pre
-            dir="ltr"
-          ><code>@for (token of headlessTokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-          <p>{{ i18n.translate('home.hero.headlessLabel') }}</p>
-        </article>
-
-        <article class="code-card">
-          <header class="code-card-header">
-            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span>select.component.html</span>
-            <span>HTML</span>
-          </header>
-          <pre
-            dir="ltr"
-          ><code>@for (token of uiTokens; track $index) {<span [class]="'syntax-' + token.kind">{{ token.text }}</span>}</code></pre>
-          <p>{{ i18n.translate('home.hero.uiLabel') }}</p>
-        </article>
+        <app-code-block
+          [code]="headlessSnippet"
+          language="ts"
+          filename="headless.select.ts"
+          [caption]="i18n.translate('home.hero.headlessLabel')"
+        />
+        <app-code-block
+          [code]="uiSnippet"
+          language="html"
+          filename="select.component.html"
+          [caption]="i18n.translate('home.hero.uiLabel')"
+        />
       </div>
     </div>
 
@@ -201,23 +187,12 @@
           <article class="step-card" [attr.aria-labelledby]="'step-' + step.id">
             <div class="step-card-heading">
               <h3 [id]="'step-' + step.id">{{ i18n.translate(step.titleKey) }}</h3>
-              <button type="button" class="step-copy" (click)="copyStep(step)">
-                {{ i18n.translate(copiedStepId() === step.id ? 'home.copied' : 'home.copy') }}
-              </button>
-              <span class="visually-hidden" aria-live="polite" aria-atomic="true">
-                @if (copiedStepId() === step.id) {
-                  {{ i18n.translate('home.copySuccess') }}
-                } @else if (failedStepId() === step.id) {
-                  {{ i18n.translate('home.copyError') }}
-                }
-              </span>
             </div>
-            <div class="step-code-header">
-              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span>{{ step.filename }}</span>
-              <span>{{ step.language }}</span>
-            </div>
-            <pre dir="ltr" tabindex="0"><code>{{ step.code }}</code></pre>
+            <app-code-block
+              [code]="step.code"
+              [language]="step.language"
+              [filename]="step.filename"
+            />
           </article>
         }
       </div>

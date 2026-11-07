@@ -88,8 +88,13 @@
   margin-block-start: var(--home-space-8);
 }
 
-.home-button,
-.copy-button {
+.hero-copy > .hero-install-code {
+  width: fit-content;
+  max-width: 100%;
+  margin-block-start: var(--home-space-6);
+}
+
+.home-button {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
@@ -120,38 +125,8 @@
   color: var(--rv-fg);
 }
 
-.home-button-secondary:hover,
-.copy-button:hover {
+.home-button-secondary:hover {
   border-color: var(--rv-accent);
-}
-
-.install-row {
-  display: flex;
-  width: fit-content;
-  max-width: 100%;
-  min-height: 2.75rem;
-  align-items: center;
-  gap: var(--home-space-3);
-  margin-block-start: var(--home-space-6);
-  border: 1px solid var(--rv-border);
-  border-radius: var(--home-radius-sm);
-  padding: var(--home-space-1) var(--home-space-2) var(--home-space-1) var(--home-space-3);
-  background: var(--rv-home-surface-raised);
-}
-
-.install-row code {
-  overflow-wrap: anywhere;
-  color: var(--rv-fg);
-  font: 0.875rem/1.5 var(--rv-font-mono);
-}
-
-.copy-button {
-  min-width: 2.75rem;
-  border-color: var(--rv-border);
-  background: transparent;
-  color: var(--rv-fg);
-  cursor: pointer;
-  font-size: 0.875rem;
 }
 
 .hero-trust {
@@ -195,63 +170,6 @@
   content: '';
   filter: blur(28px);
   pointer-events: none;
-}
-
-.code-card {
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--rv-border);
-  border-radius: var(--home-radius-md);
-  background: var(--rv-home-surface-raised);
-}
-
-.code-card-header {
-  display: flex;
-  min-height: 2.75rem;
-  align-items: center;
-  gap: var(--home-space-3);
-  border-block-end: 1px solid var(--rv-border);
-  padding-inline: var(--home-space-4);
-  color: var(--rv-muted);
-  font-size: 0.8125rem;
-}
-
-.code-card-header > :last-child {
-  margin-inline-start: auto;
-}
-
-.window-dots {
-  display: inline-flex;
-  gap: 0.3rem;
-}
-
-.window-dots i {
-  width: 0.45rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--rv-border);
-}
-
-.code-card pre {
-  margin: 0;
-  padding: var(--home-space-4);
-  color: var(--rv-fg);
-  font: 0.8125rem/1.65 var(--rv-font-mono);
-  tab-size: 2;
-}
-
-.home-page pre {
-  overflow: visible;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-.code-card p {
-  margin: 0;
-  border-block-start: 1px solid var(--rv-border);
-  padding: var(--home-space-3) var(--home-space-4);
-  color: var(--rv-muted);
-  font-size: 0.875rem;
 }
 
 .scroll-cue {
@@ -487,7 +405,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .home-button,
-  .copy-button,
   .decision-index,
   .decision-petal {
     transition: none;

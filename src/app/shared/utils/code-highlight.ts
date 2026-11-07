@@ -1,4 +1,6 @@
-export type ShowcaseCodeKind =
+export type CodeLanguage = 'ts' | 'typescript' | 'html' | 'css' | 'bash';
+
+export type CodeTokenKind =
   | 'plain'
   | 'comment'
   | 'string'
@@ -13,10 +15,11 @@ export type ShowcaseCodeKind =
   | 'variable'
   | 'pipe'
   | 'function'
+  | 'command'
   | 'punctuation';
 
-export interface ShowcaseCodeToken {
-  readonly kind: ShowcaseCodeKind;
+export interface CodeToken {
+  readonly kind: CodeTokenKind;
   readonly text: string;
 }
 
@@ -58,11 +61,8 @@ const TYPES = new Set([
   'TableColumn',
 ]);
 
-export function highlightShowcaseCode(
-  source: string,
-  language: 'html' | 'typescript' | 'css',
-): readonly ShowcaseCodeToken[] {
-  const tokens: ShowcaseCodeToken[] = [];
+export function highlightCode(source: string, language: CodeLanguage): readonly CodeToken[] {
+  const tokens: CodeToken[] = [];
   let cursor = 0;
   TOKEN_PATTERN.lastIndex = 0;
 
@@ -78,10 +78,13 @@ export function highlightShowcaseCode(
     ) {
       const quote = text[0];
       tokens.push({ kind: 'punctuation', text: quote });
-      tokens.push(...highlightShowcaseCode(text.slice(1, -1), 'typescript'));
+      tokens.push(...highlightCode(text.slice(1, -1), 'ts'));
       tokens.push({ kind: 'punctuation', text: quote });
     } else {
-      tokens.push({ kind: classify(text, language, source.slice(index + text.length)), text });
+      tokens.push({
+        kind: classify(text, language, source.slice(0, index), source.slice(index + text.length)),
+        text,
+      });
     }
     cursor = index + text.length;
   }
@@ -92,9 +95,10 @@ export function highlightShowcaseCode(
 
 function classify(
   text: string,
-  language: 'html' | 'typescript' | 'css',
+  language: CodeLanguage,
+  precedingSource: string,
   followingSource: string,
-): ShowcaseCodeKind {
+): CodeTokenKind {
   if (/^(<!--|\/\*|\/\/)/.test(text)) return 'comment';
   if (/^(?:`|'|")/.test(text)) return 'string';
   if (language === 'html' && /^<\/?[A-Za-z]/.test(text)) return 'tag';
@@ -103,6 +107,14 @@ function classify(
     return 'attribute';
   }
   if (text.startsWith('$')) return 'variable';
+  if (
+    language === 'bash' &&
+    /^(?:npm|npx|node|git|ng|pnpm|yarn|cd|mkdir|cat|echo|grep|rg|clear)$/.test(text) &&
+    /(?:^|\n)\s*$/.test(precedingSource)
+  ) {
+    return 'command';
+  }
+  if (language === 'bash' && text.startsWith('--')) return 'property';
   if (text === 'rvTranslate') return 'pipe';
   if (
     language === 'html' &&
@@ -121,11 +133,14 @@ function classify(
   if (language === 'css' && /^[A-Za-z_-][\w-]*$/.test(text) && /^\s*:/.test(followingSource)) {
     return 'property';
   }
-  if (language === 'typescript' && KEYWORDS.has(text)) return 'keyword';
-  if (language === 'typescript' && (TYPES.has(text) || /^Rivinia[A-Za-z]+$/.test(text)))
+  if ((language === 'typescript' || language === 'ts') && KEYWORDS.has(text)) return 'keyword';
+  if (
+    (language === 'typescript' || language === 'ts') &&
+    (TYPES.has(text) || /^Rivinia[A-Za-z]+$/.test(text))
+  )
     return 'type';
   if (
-    language === 'typescript' &&
+    (language === 'typescript' || language === 'ts') &&
     /^[A-Za-z_$][\w$]*$/.test(text) &&
     /^\s*:/.test(followingSource)
   ) {
@@ -133,7 +148,8 @@ function classify(
   }
   if (/^\d/.test(text)) return 'number';
   if (/^[A-Za-z_$][\w$]*$/.test(text) && /^\s*\(/.test(followingSource)) return 'function';
-  if (language === 'typescript' && /^[A-Za-z_$][\w$]*$/.test(text)) return 'variable';
+  if ((language === 'typescript' || language === 'ts') && /^[A-Za-z_$][\w$]*$/.test(text))
+    return 'variable';
   if (/^[{}()[\].,:;=<>+\-*?\/]$/.test(text)) return 'punctuation';
   return 'plain';
 }

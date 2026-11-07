@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { highlightShowcaseCode } from './showcase-code-highlight';
+import { highlightCode } from './code-highlight';
 
-describe('highlightShowcaseCode', () => {
+describe('highlightCode', () => {
   it('preserves HTML while marking tags, attributes, and strings', () => {
     const source = '<rv-select aria-label="Choose" />';
-    const tokens = highlightShowcaseCode(source, 'html');
+    const tokens = highlightCode(source, 'html');
 
     expect(tokens.map((token) => token.text).join('')).toBe(source);
     expect(tokens).toContainEqual({ kind: 'tag', text: '<rv-select' });
@@ -15,7 +15,7 @@ describe('highlightShowcaseCode', () => {
 
   it('highlights Angular bindings and expressions inside bound attribute values', () => {
     const source = '<rv-select [options]="options()" (valueChange)="selected.set($event)" />';
-    const tokens = highlightShowcaseCode(source, 'html');
+    const tokens = highlightCode(source, 'html');
 
     expect(tokens.map((token) => token.text).join('')).toBe(source);
     expect(tokens).toContainEqual({ kind: 'binding', text: '[options]' });
@@ -26,7 +26,7 @@ describe('highlightShowcaseCode', () => {
   });
 
   it('marks TypeScript comments, keywords, types, strings, and numbers', () => {
-    const tokens = highlightShowcaseCode(
+    const tokens = highlightCode(
       '// example\nconst selected = signal<RiviniaDate | null>({ month: 11 });',
       'typescript',
     );
@@ -41,7 +41,7 @@ describe('highlightShowcaseCode', () => {
   });
 
   it('marks CSS selectors, properties, variables, and values', () => {
-    const tokens = highlightShowcaseCode('.demo { color: var(--rv-accent); }', 'css');
+    const tokens = highlightCode('.demo { color: var(--rv-accent); }', 'css');
 
     expect(tokens.some((token) => token.kind === 'selector' && token.text === '.demo')).toBe(true);
     expect(tokens.some((token) => token.kind === 'property' && token.text === 'color')).toBe(true);
@@ -49,5 +49,16 @@ describe('highlightShowcaseCode', () => {
     expect(tokens.some((token) => token.kind === 'variable' && token.text === '--rv-accent')).toBe(
       true,
     );
+  });
+
+  it('highlights bash commands, flags, and variables without changing source text', () => {
+    const source = 'npm install @rivinia/select --save\necho $HOME';
+    const tokens = highlightCode(source, 'bash');
+
+    expect(tokens.map((token) => token.text).join('')).toBe(source);
+    expect(tokens).toContainEqual({ kind: 'command', text: 'npm' });
+    expect(tokens).toContainEqual({ kind: 'property', text: '--save' });
+    expect(tokens).toContainEqual({ kind: 'command', text: 'echo' });
+    expect(tokens).toContainEqual({ kind: 'variable', text: '$HOME' });
   });
 });

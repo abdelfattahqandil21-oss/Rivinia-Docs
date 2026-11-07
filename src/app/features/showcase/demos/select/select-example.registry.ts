@@ -1,4 +1,3 @@
-import { highlightShowcaseCode } from '../../showcase-code-highlight';
 import type { ShowcaseCodeBlock } from '../../showcase-example.model';
 
 export const SELECT_EXAMPLE_CODE_BLOCKS = [
@@ -18,7 +17,7 @@ export const SELECT_EXAMPLE_CODE_BLOCKS = [
   {
     id: 'single-typescript',
     titleKey: 'showcase.select.singleState',
-    language: 'typescript',
+    language: 'ts',
     code: `import { signal } from '@angular/core';
 import type { SelectChange } from '@rivinia/select/ui';
 
@@ -40,7 +39,7 @@ readonly singleValue = signal<SelectChange>(null);`,
   {
     id: 'multi-typescript',
     titleKey: 'showcase.select.multiState',
-    language: 'typescript',
+    language: 'ts',
     code: `import { signal } from '@angular/core';
 import type { SelectChange } from '@rivinia/select/ui';
 
@@ -49,7 +48,7 @@ readonly multiValue = signal<SelectChange>([]);`,
   {
     id: 'headless-single-typescript',
     titleKey: 'showcase.select.headlessSingleTitle',
-    language: 'typescript',
+    language: 'ts',
     code: `import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('single');
@@ -71,7 +70,7 @@ const selectedId = select.value();`,
   {
     id: 'headless-multi-typescript',
     titleKey: 'showcase.select.headlessMultiTitle',
-    language: 'typescript',
+    language: 'ts',
     code: `import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('multi');
@@ -92,7 +91,4 @@ const selectedIds = select.values();`,
   },
 ] as const satisfies readonly ShowcaseCodeBlock[];
 
-export const highlightedSelectExampleCodeBlocks = SELECT_EXAMPLE_CODE_BLOCKS.map((block) => ({
-  ...block,
-  tokens: highlightShowcaseCode(block.code, block.language),
-}));
+export const selectExampleCodeBlocks = SELECT_EXAMPLE_CODE_BLOCKS;

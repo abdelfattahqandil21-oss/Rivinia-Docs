@@ -5,7 +5,8 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 | Timestamp (Africa/Cairo) | Step                          | Status | Commit    | Result                                                                                                                                   |
 | ------------------------ | ----------------------------- | ------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.         |
-| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | pending   | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200. |
+| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200. |
+| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | pending   | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.         |
 
 ## Step 0 audit findings
 
@@ -39,3 +40,16 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 
 - `docs/screenshots/revision/r1-1440x900-en-light.png`
 - `docs/screenshots/revision/r1-390x844-en-light.png`
+
+## R2 evidence
+
+- Moved the tokenizer and spec with `git mv` into `src/app/shared/utils`; `<app-code-block>` uses Angular text interpolation and token spans, with no `innerHTML`. It accepts `ts`, `html`, `css`, and `bash`, and its code element is `dir="ltr" translate="no"`.
+- `<app-copy-button>` keeps the accessible name stable within the selected language, uses the clipboard API with a hidden-textarea/`execCommand` fallback, reports failure after a bounded 2500ms, announces success for 2s, crossfades icons, and clears timers on replacement or destroy. Four fake-timer/fallback tests cover these states.
+- All 8 rendered code blocks (hero install, two hero examples, showcase Code pane, and three Get Started steps) expose 44×44px copy controls. Browser review at 1440×900 in both themes and 390×844 light found no horizontal overflow, no active nested scroll, and no page errors.
+- Computed syntax-token contrast against the code surface ranged from 6.85:1 to 20.98:1 in light and 8.63:1 to 15.53:1 in dark. The muted comment token had the lowest measured contrast; all token classes exceed 4.5:1.
+- `npm run verify`: passed (8 test files, 33 tests). Existing Home/showcase component-style budget warnings remain; their current sizes are 6.52 kB and 6.05 kB, below the 8 kB error threshold.
+- R2 production build: initial 398.78 kB raw / 99.32 kB transferred; Home lazy chunk 49.32 kB raw / 10.92 kB transferred. This is an intermediate comparison; R5 will capture the final bundle delta.
+
+- `docs/screenshots/revision/r2-1440x900-en-light.png`
+- `docs/screenshots/revision/r2-1440x900-en-dark.png`
+- `docs/screenshots/revision/r2-390x844-en-light.png`
