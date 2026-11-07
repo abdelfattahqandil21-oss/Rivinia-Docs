@@ -2,13 +2,14 @@
 
 Each entry records the local timestamp, step, status, commit, and one-line result. The commit field is filled after the step commit; no history is rewritten to backfill it.
 
-| Timestamp (Africa/Cairo) | Step                          | Status | Commit    | Result                                                                                                                                   |
-| ------------------------ | ----------------------------- | ------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.         |
-| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200. |
-| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.         |
-| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | `5fda836` | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                            |
-| 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | pending   | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.            |
+| Timestamp (Africa/Cairo) | Step                          | Status | Commit    | Result                                                                                                                                      |
+| ------------------------ | ----------------------------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.            |
+| 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200.    |
+| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.            |
+| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | `5fda836` | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                               |
+| 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | `dc04928` | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.               |
+| 2026-11-07 14:20 EET     | R5 — Deferred Experience      | DONE   | pending   | Deferred the interactive showcase until it enters view, with idle prefetch, a measured placeholder, retry, and reduced-motion-aware reveal. |
 
 ## Step 0 audit findings
 
@@ -80,3 +81,12 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - `docs/screenshots/revision/r4-1440x900-en-light.png`
 - `docs/screenshots/revision/r4-390x844-en-light.png`
 - `docs/screenshots/revision/r4-390x844-ar-dark.png`
+
+## R5 evidence
+
+- Replaced the eager showcase import with a dynamic component import. It is prefetched with `requestIdleCallback` (with a delayed fallback) and instantiated when the Experience host enters the viewport. Decisions and Get Started remain eager.
+- The host and its single-root static skeleton reserve matching block sizes. Browser review measured 1430.4px at a 360px viewport, 1321.9px at 768px, and 1196px at 1280px and 1440px; the initial placeholder exactly matched its 360px host measurement. The showcase appeared after scrolling it into view. The loading state stays visible for at least 100ms and switches to a localized retry state at 300ms if the import has not completed.
+- The section reveal runs once for 240ms only while it has not been scrolled past; reduced motion disables the animation. The host reports loading with `aria-busy`, and the loading announcement and retry state are localized in English and Arabic.
+- Browser review at CSS viewports 360×800, 768×900, 1280×900, and 1440×900 showed matching document/client widths (no horizontal overflow). English light/dark and Arabic RTL dark layouts were visually inspected. Browser screenshots were captured for inspection in the CUA session but are not stored as repository image files.
+- `npm run verify`: passed (10 test files, 38 tests); architecture and generated-source checks passed. Existing component CSS warnings remain below the 8 kB error budget: Home 7.78 kB, showcase 6.40 kB, and Select demo 4.74 kB.
+- R5 production build: initial 398.77 kB raw / 99.30 kB transferred (R4: 398.77 / 99.27); Home lazy chunk 35.90 / 8.55 kB (R4: 50.02 / 11.03), down 14.12 / 2.48 kB; new lazy Experience chunk 19.89 / 4.98 kB.

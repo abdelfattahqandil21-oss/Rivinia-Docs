@@ -51,7 +51,33 @@
     </a>
   </section>
 
-  <app-interactive-showcase />
+  <div
+    #experienceHost
+    id="experience"
+    class="experience-slot"
+    [class.is-revealing]="revealExperience()"
+    [attr.aria-busy]="experienceState() === 'loading'"
+  >
+    @if (experienceState() === 'ready' && experienceComponent(); as component) {
+      <ng-container *ngComponentOutlet="component" />
+    } @else if (experienceState() === 'error') {
+      <div class="experience-placeholder experience-error" role="alert">
+        <p>{{ i18n.translate('home.experience.loadError') }}</p>
+        <button type="button" class="home-button home-button-secondary" (click)="retryExperience()">
+          {{ i18n.translate('home.experience.retry') }}
+        </button>
+      </div>
+    } @else {
+      <div class="experience-placeholder">
+        <div class="experience-skeleton" aria-hidden="true"></div>
+      </div>
+    }
+    @if (experienceState() === 'loading') {
+      <span class="visually-hidden" role="status">
+        {{ i18n.translate('home.experience.loading') }}
+      </span>
+    }
+  </div>
 
   <section id="decisions" class="home-section decisions-section" aria-labelledby="decisions-title">
     <div class="home-container">
