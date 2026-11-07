@@ -14,13 +14,13 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { RiviniaI18n } from '@rivinia/i18n';
 import { filter } from 'rxjs';
 
-import { PACKAGE_MANIFEST } from '../packages/package-manifest';
-import { PACKAGE_METADATA } from '../packages/package-metadata';
-import { NavContextService } from '../../layout/nav-context.service';
-import { IconComponent } from '../../shared/components/icon/icon.component';
-import { docsLink } from './docs-link';
-import { GETTING_STARTED_PAGES } from './docs-getting-started.model';
-import { DocsPackageFilterComponent } from './docs-package-filter.component';
+import { PACKAGE_MANIFEST } from '../../packages/package-manifest';
+import { PACKAGE_METADATA } from '../../packages/package-metadata';
+import { NavContextService } from '../../../layout/nav-context.service';
+import { IconComponent } from '../../../shared/components/icon/icon.component';
+import { docsLink } from '../shared/docs-link';
+import { GETTING_STARTED_PAGES } from '../getting-started/models/docs-getting-started.model';
+import { DocsPackageFilterComponent } from '../package-filter/docs-package-filter.component';
 
 const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
 type DocsGroup = (typeof DOCS_GROUPS)[number] | 'getting-started';

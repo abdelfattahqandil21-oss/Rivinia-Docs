@@ -3,17 +3,17 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { CodeBlockComponent } from '../../shared/components/code-block/code-block.component';
-import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
-import { PACKAGE_METADATA } from '../packages/package-metadata';
-import { PACKAGE_MANIFEST } from '../packages/package-manifest';
-import { DOCS_PACKAGE_GUIDES } from './docs-package-guides.model';
+import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { PACKAGE_METADATA } from '../../packages/package-metadata';
+import { PACKAGE_MANIFEST } from '../../packages/package-manifest';
+import { DOCS_PACKAGE_GUIDES } from './models/docs-package-guides.model';
 import {
   SHOWCASE_EXAMPLE_IDS,
   loadShowcaseExampleSource,
-} from '../showcase/showcase-example.loaders';
-import type { ShowcaseExampleId, ShowcaseExampleSource } from '../showcase/showcase-example.model';
-import { docsLink } from './docs-link';
+} from '../../showcase/showcase-example.loaders';
+import type { ShowcaseExampleId, ShowcaseExampleSource } from '../../showcase/showcase-example.model';
+import { docsLink } from '../shared/docs-link';
 
 const VERIFIED_PUBLISHED_VERSIONS = {
   env: '1.0.4',

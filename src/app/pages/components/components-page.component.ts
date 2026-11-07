@@ -4,7 +4,7 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
 import { ComponentPackagesService } from './services/component-packages.service';
-import { docsLink } from '../../features/docs/docs-link';
+import { docsLink } from '../../features/docs/shared/docs-link';
 
 @Component({
   imports: [PageHeaderComponent, RouterLink],

@@ -3,10 +3,10 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { CodeBlockComponent } from '../../shared/components/code-block/code-block.component';
-import { CopyButtonComponent } from '../../shared/components/copy-button/copy-button.component';
-import { GETTING_STARTED_PAGES } from './docs-getting-started.model';
-import { docsLink } from './docs-link';
+import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
+import { CopyButtonComponent } from '../../../shared/components/copy-button/copy-button.component';
+import { GETTING_STARTED_PAGES } from './models/docs-getting-started.model';
+import { docsLink } from '../shared/docs-link';
 
 @Component({
   imports: [RouterLink, CodeBlockComponent, CopyButtonComponent],

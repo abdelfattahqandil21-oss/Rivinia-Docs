@@ -3,12 +3,12 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { CopyButtonComponent } from '../../shared/components/copy-button/copy-button.component';
-import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
-import { PACKAGE_MANIFEST } from '../packages/package-manifest';
-import { PACKAGE_METADATA } from '../packages/package-metadata';
-import { DocsPackageFilterComponent } from './docs-package-filter.component';
-import { docsLink } from './docs-link';
+import { CopyButtonComponent } from '../../../shared/components/copy-button/copy-button.component';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { PACKAGE_MANIFEST } from '../../packages/package-manifest';
+import { PACKAGE_METADATA } from '../../packages/package-metadata';
+import { DocsPackageFilterComponent } from '../package-filter/docs-package-filter.component';
+import { docsLink } from '../shared/docs-link';
 
 const DOCS_GROUPS = ['foundations', 'components', 'primitives'] as const;
 const FIRST_GETTING_STARTED_SLUG = 'choose-the-package-for-your-task';

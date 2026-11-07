@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
-import { docsLink } from './docs-link';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { docsLink } from '../shared/docs-link';
 
 @Component({
   imports: [PageHeaderComponent, RouterLink],
