@@ -49,45 +49,85 @@ readonly multiValue = signal<SelectChange>([]);`,
     id: 'headless-single-typescript',
     titleKey: 'showcase.select.headlessSingleTitle',
     language: 'ts',
-    code: `import { RiviniaSelect } from '@rivinia/select';
+    code: `import { signal } from '@angular/core';
+import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('single');
+const open = signal(false);
+const activeOptionId = signal<string | null>(null);
 select.syncOptions(options);
-select.select(option.id);
+function choose(id: string): void {
+  if (select.select(id)) {
+    open.set(false);
+    activeOptionId.set(null);
+  }
+}
 const selectedId = select.value();`,
   },
   {
     id: 'headless-single-markup',
     titleKey: 'showcase.select.headlessSingleMarkup',
     language: 'html',
-    code: `<label>
-  <input type="radio"
-    [checked]="select.isSelected(option.id)"
-    (change)="select.select(option.id)" />
+    code: `<div
+  role="option"
+  [attr.aria-selected]="select.isSelected(option.id)"
+  (click)="select.select(option.id)"
+>
   {{ option.label }}
-</label>`,
+</div>`,
   },
   {
     id: 'headless-multi-typescript',
     titleKey: 'showcase.select.headlessMultiTitle',
     language: 'ts',
-    code: `import { RiviniaSelect } from '@rivinia/select';
+    code: `import { signal } from '@angular/core';
+import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('multi');
+const open = signal(false);
+const activeOptionId = signal<string | null>(null);
 select.syncOptions(options);
-select.toggle(option.id);
+const enabledOptions = () => select.filtered().filter((option) => !option.disabled);
+function onKeydown(event: KeyboardEvent): void {
+  const options = enabledOptions();
+  if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    event.preventDefault();
+    if (!options.length) return;
+    open.set(true);
+    const current = options.findIndex(({ id }) => id === activeOptionId());
+    const direction = event.key === 'ArrowDown' ? 1 : -1;
+    const next = current < 0
+      ? direction === 1 ? 0 : options.length - 1
+      : (current + direction + options.length) % options.length;
+    activeOptionId.set(options[next]?.id ?? null);
+  } else if (event.key === 'Enter') {
+    const id = activeOptionId();
+    if (id) select.toggle(id);
+  } else if (event.key === 'Escape') {
+    open.set(false);
+    activeOptionId.set(null);
+  }
+}
 const selectedIds = select.values();`,
   },
   {
     id: 'headless-multi-markup',
     titleKey: 'showcase.select.headlessMultiMarkup',
     language: 'html',
-    code: `<label>
-  <input type="checkbox"
-    [checked]="select.isSelected(option.id)"
-    (change)="select.toggle(option.id)" />
-  {{ option.label }}
-</label>`,
+    code: `<div role="listbox" aria-multiselectable="true">
+  @for (option of options; track option.id) {
+    <div
+      role="option"
+      [attr.aria-selected]="select.isSelected(option.id)"
+      (click)="select.toggle(option.id)"
+    >
+      <span aria-hidden="true">
+        {{ select.isSelected(option.id) ? '✓' : '' }}
+      </span>
+      {{ option.label }}
+    </div>
+  }
+</div>`,
   },
 ] as const satisfies readonly ShowcaseCodeBlock[];
 

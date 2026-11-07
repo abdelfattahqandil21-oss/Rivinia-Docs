@@ -27,66 +27,109 @@
       }
     </div>
   } @else {
-    <div class="headless-select">
-      <span id="headless-select-label" class="field-label">
+    <div class="headless-select" (focusout)="onHeadlessFocusout($event)">
+      <label id="headless-select-label" class="field-label" for="headless-select-search">
         {{ 'showcase.select.label' | rvTranslate }}
-      </span>
-      <button
-        type="button"
-        class="headless-trigger"
-        [attr.aria-labelledby]="'headless-select-label headless-select-value'"
-        [attr.aria-expanded]="headlessOpen()"
-        aria-controls="headless-select-options"
-        (click)="toggleHeadless()"
-      >
-        <span id="headless-select-value">
-          {{
-            headlessSummary() ||
-              ('showcase.select.' + selectionMode() + 'Placeholder' | rvTranslate)
-          }}
-        </span>
-        <span aria-hidden="true">⌄</span>
-      </button>
-      <div
-        id="headless-select-options"
-        class="headless-options"
-        role="group"
-        [hidden]="!headlessOpen()"
-        [attr.aria-label]="'showcase.select.options' | rvTranslate"
-        (keydown.escape)="closeHeadlessDropdown($event)"
-      >
-        <label class="headless-search-label" for="headless-select-search">
-          {{ 'showcase.select.search' | rvTranslate }}
-        </label>
-        <input
-          id="headless-select-search"
-          class="headless-search"
-          type="search"
-          [value]="headlessSelect().query()"
-          (input)="setHeadlessQuery($event)"
-        />
-        @for (option of filteredOptions(); track option.id) {
-          <label class="headless-option">
-            <input
-              [attr.type]="selectionMode() === 'single' ? 'radio' : 'checkbox'"
-              [name]="'headless-select-' + selectionMode()"
-              [checked]="headlessSelect().isSelected(option.id)"
-              [disabled]="option.disabled ?? false"
-              (change)="selectHeadlessOption(option.id, $event)"
-            />
-            <span>{{ option.label }}</span>
-          </label>
-        } @empty {
-          <p class="empty-options">{{ 'showcase.select.noMatches' | rvTranslate }}</p>
-        }
+      </label>
+      @if (headlessSelectedOptions().length) {
+        <ul class="selected-chips" [attr.aria-label]="'showcase.select.selected' | rvTranslate">
+          @for (option of headlessSelectedOptions(); track option.id) {
+            <li class="selected-chip">
+              <span>{{ option.label }}</span>
+              <button
+                type="button"
+                [attr.aria-label]="
+                  'showcase.select.removeSelection' | rvTranslate: { label: option.label }
+                "
+                (click)="removeHeadlessSelection(option.id)"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+      <div class="combobox-wrap">
+        <div class="combobox-control">
+          <input
+            #headlessCombobox
+            id="headless-select-search"
+            class="headless-search"
+            type="search"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-haspopup="listbox"
+            aria-controls="headless-select-options"
+            [attr.aria-expanded]="headlessOpen()"
+            [attr.aria-activedescendant]="activeOptionDomId()"
+            [attr.placeholder]="'showcase.select.' + selectionMode() + 'Placeholder' | rvTranslate"
+            [value]="headlessSelect().query()"
+            (input)="setHeadlessQuery($event)"
+            (keydown)="onHeadlessKeydown($event)"
+          />
+          <button
+            type="button"
+            class="headless-trigger"
+            [attr.aria-label]="
+              (headlessOpen() ? 'showcase.select.closeOptions' : 'showcase.select.openOptions')
+                | rvTranslate
+            "
+            [attr.aria-controls]="'headless-select-options'"
+            [attr.aria-expanded]="headlessOpen()"
+            (click)="toggleHeadless(headlessCombobox)"
+          >
+            <span aria-hidden="true" [class.is-open]="headlessOpen()">⌄</span>
+          </button>
+        </div>
+        <div
+          id="headless-select-options"
+          class="headless-options"
+          role="listbox"
+          [attr.aria-multiselectable]="selectionMode() === 'multi' ? 'true' : null"
+          [hidden]="!headlessOpen()"
+          [attr.aria-label]="'showcase.select.options' | rvTranslate"
+        >
+          @for (option of filteredOptions(); track option.id) {
+            <div
+              class="headless-option"
+              role="option"
+              [id]="optionDomId(option.id)"
+              [attr.aria-selected]="headlessSelect().isSelected(option.id)"
+              [attr.aria-disabled]="option.disabled ? 'true' : null"
+              [class.is-active]="activeOptionId() === option.id"
+              (pointerdown)="stopOptionPointerFocus($event)"
+              (click)="selectHeadlessOption(option.id)"
+            >
+              <span class="option-check" aria-hidden="true">
+                {{ headlessSelect().isSelected(option.id) ? '✓' : '' }}
+              </span>
+              <span>{{ option.label }}</span>
+            </div>
+          } @empty {
+            <div class="empty-options" role="option" aria-disabled="true">
+              {{ 'showcase.select.noMatches' | rvTranslate }}
+            </div>
+          }
+        </div>
       </div>
-      <p class="example-feedback" aria-live="polite" aria-atomic="true">
-        @if (headlessSummary()) {
-          {{ 'showcase.select.selected' | rvTranslate }}: {{ headlessSummary() }}
-        } @else {
-          {{ 'showcase.select.headlessHint' | rvTranslate }}
-        }
-      </p>
+      <section class="headless-state" aria-labelledby="headless-state-title">
+        <h5 id="headless-state-title">{{ 'showcase.select.stateTitle' | rvTranslate }}</h5>
+        <p>{{ 'showcase.select.stateNote' | rvTranslate }}</p>
+        <dl>
+          <dt>{{ 'showcase.select.stateOpen' | rvTranslate }}</dt>
+          <dd>
+            <code dir="ltr" translate="no">{{ headlessOpen() }}</code>
+          </dd>
+          <dt>{{ 'showcase.select.stateActiveOption' | rvTranslate }}</dt>
+          <dd>{{ activeOption()?.label ?? ('showcase.select.noActiveOption' | rvTranslate) }}</dd>
+          <dt>{{ 'showcase.select.stateSelectedIds' | rvTranslate }}</dt>
+          <dd>
+            <code class="selected-id-value" dir="ltr" translate="no">
+              {{ headlessSelectedIds().join(', ') || '—' }}
+            </code>
+          </dd>
+        </dl>
+      </section>
     </div>
   }
 </div>

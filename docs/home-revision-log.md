@@ -7,7 +7,8 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 | 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.         |
 | 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200. |
 | 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.         |
-| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | pending   | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                            |
+| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | `5fda836` | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                            |
+| 2026-11-07 13:55 EET     | R4 — headless Select          | DONE   | pending   | Added the genuine package-backed headless multi-select, keyboard behavior, removable chips, live state, and localized labels.            |
 
 ## Step 0 audit findings
 
@@ -65,3 +66,17 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 
 - `docs/screenshots/revision/r3-1440x900-en-light.png`
 - `docs/screenshots/revision/r3-390x844-en-light.png`
+
+## R4 evidence
+
+- Audited the installed `@rivinia/select@1.0.3` declarations and README. `RiviniaSelect` owns option filtering and selected single/multi IDs; its public API does not expose popup `open` or active-option state. The demo clearly labels those as example-owned state and reads selected IDs from the real package controller. The ready-made view remains the real `RiviniaSelectComponent` from `@rivinia/select/ui`.
+- Rebuilt the custom view as a labeled searchable combobox/listbox with a check indicator, removable chips, enabled-option arrow navigation, Enter selection, Escape and focus-leave closing, and single-close/multi-stay-open behavior. The live state panel shows current `open`, active option, and controller-selected IDs. Search and selection use the package API; no library files or public APIs changed.
+- The installed UI typings have no animation input or Angular enter/leave animation API. The existing premium UI path remains unchanged; the custom list uses CSS `@starting-style`, a bounded 16rem listbox, and reduced-motion handling.
+- Browser review on port 4200 verified multi selection, chip removal, filtering, active-descendant navigation, Escape, single-mode closing, return to the genuine UI view, Arabic RTL in dark theme, and no horizontal overflow at 390px or 1440px. No page errors occurred. The list now expands in document flow so it does not cover the live state panel.
+- `npm run verify`: passed (10 test files, 38 tests). CSS budget warnings remain at showcase 6.40 kB, Home 6.52 kB, and Select demo 4.74 kB (4 kB warning / 8 kB error budgets).
+- R4 production build: initial 398.77 kB raw / 99.27 kB transferred; Home lazy chunk 50.02 kB / 11.01 kB. Select component, generated source, and registry total 85.33 kB raw / 18.93 kB transferred, up 16.78 kB raw / 3.06 kB transferred from R3; these remain in lazy chunks.
+- New Arabic strings for review: «إظهار الخيارات», «إخفاء الخيارات», «إزالة {label}», «الحالة من طبقة Headless», «يتولى @rivinia/select الفلترة والقيم؛ ويتولى هذا المثال حالة القائمة والخيار النشط.», «مفتوحة», «الخيار النشط», «معرّفات محددة», «لا يوجد».
+
+- `docs/screenshots/revision/r4-1440x900-en-light.png`
+- `docs/screenshots/revision/r4-390x844-en-light.png`
+- `docs/screenshots/revision/r4-390x844-ar-dark.png`
