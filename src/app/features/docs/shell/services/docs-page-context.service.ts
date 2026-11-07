@@ -23,12 +23,15 @@ export class DocsPageContextService {
   readonly announcement = signal('');
   readonly headings = signal<readonly DocsPageHeading[]>([]);
   readonly activeHeading = signal('');
+  readonly activePackageId = signal<string | null>(null);
   readonly activeNavGroup = signal<DocsNavGroup | null>(null);
 
   private headingObserver?: IntersectionObserver;
+  private headingLabelObserver?: MutationObserver;
   private lastPagePath = '';
 
   constructor() {
+    setTimeout(() => this.observeHeadings());
     const subscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
@@ -40,14 +43,18 @@ export class DocsPageContextService {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
       this.headingObserver?.disconnect();
+      this.headingLabelObserver?.disconnect();
     });
     this.lastPagePath = this.currentPath();
-    this.syncActiveNavGroup(this.currentRouteInfo().packageId);
+    const { packageId } = this.currentRouteInfo();
+    this.activePackageId.set(packageId);
+    this.syncActiveNavGroup(packageId);
   }
 
   private updatePageContext(): void {
     this.lastPagePath = this.currentPath();
     const { titleKey, packageId } = this.currentRouteInfo();
+    this.activePackageId.set(packageId);
     this.syncActiveNavGroup(packageId);
     const packageMetadata = packageId
       ? PACKAGE_METADATA[packageId as keyof typeof PACKAGE_METADATA]
@@ -79,6 +86,7 @@ export class DocsPageContextService {
 
   private observeHeadings(): void {
     this.headingObserver?.disconnect();
+    this.headingLabelObserver?.disconnect();
     const headings = [
       ...document.querySelectorAll<HTMLElement>(
         '.docs-page-content h2[id], .docs-page-content h3[id]',
@@ -86,6 +94,29 @@ export class DocsPageContextService {
     ];
     this.headings.set(
       headings.map((heading) => ({ id: heading.id, text: heading.textContent?.trim() ?? '' })),
+    );
+    this.headingLabelObserver = new MutationObserver(() => {
+      const nextHeadings = headings.map((heading) => ({
+        id: heading.id,
+        text: heading.textContent?.trim() ?? '',
+      }));
+      const currentHeadings = this.headings();
+      if (
+        nextHeadings.some(
+          (heading, index) =>
+            heading.id !== currentHeadings[index]?.id ||
+            heading.text !== currentHeadings[index]?.text,
+        )
+      ) {
+        this.headings.set(nextHeadings);
+      }
+    });
+    headings.forEach((heading) =>
+      this.headingLabelObserver?.observe(heading, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+      }),
     );
     this.activeHeading.set('');
     if (headings.length === 0 || typeof IntersectionObserver === 'undefined') return;

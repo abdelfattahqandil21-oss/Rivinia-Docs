@@ -8,6 +8,7 @@ import { IconComponent } from '../../../../../shared/components/icon/icon.compon
 import { DocsPackageFilterComponent } from '../../../package-filter/docs-package-filter.component';
 import { DocsPackageSearchService } from '../../../shared/services/docs-package-search.service';
 import { DocsSidebarNavComponent } from '../docs-sidebar-nav/docs-sidebar-nav.component';
+import { DocsSidebarService } from '../../services/docs-sidebar.service';
 
 @Component({
   imports: [IconComponent, DocsPackageFilterComponent, DocsSidebarNavComponent],
@@ -26,6 +27,7 @@ export class DocsMenuDialogComponent {
   private readonly destroyRef = inject(DestroyRef);
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
   protected readonly search = inject(DocsPackageSearchService);
+  protected readonly sidebar = inject(DocsSidebarService);
   protected readonly closeMenuLabel = this.i18n.t('docs.closeMenu');
   private lastPagePath = this.router.url.split(/[?#]/, 1)[0];
 

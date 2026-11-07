@@ -52,6 +52,7 @@
   "home.pillars.text": "Four pillars serve one core: the developer experience. Select a petal to explore each one.",
   "home.next.cta": "Read the docs",
   "docs.navigation": "Documentation navigation",
+  "docs.backToPackages": "Back to packages",
   "docs.collapseSidebar": "Collapse sidebar",
   "docs.expandSidebar": "Show sidebar",
   "docs.groups.foundations": "Foundations",

@@ -55,7 +55,9 @@ Use the existing shared code block and copy control for every code snippet and c
 
 ## Sidebar and responsive menu
 
-- Show a flat `Getting started` group first, then manifest library groups. Never expand each library into a nested tree. Show package short names; version badges belong only on library page headers.
+- Show a flat `Getting started` group first, then manifest library groups. Keep package short names in the index; version badges belong only on library page headers.
+- Selecting a valid package opens a package-specific sidebar panel that lists the rendered page headings. Derive its title and section links from installed package metadata and the current page context; do not invent sections. A back control returns to the grouped package index without navigating away, and restores focus to that package link. Keep the index filter in the index panel only.
+- Slide one sidebar-width panel per level over 500ms with a smooth-out easing, reversing the logical direction in RTL. Respect reduced motion. Keep whole-sidebar collapse independent so it can hide and restore either panel state.
 - When more than eight libraries exist, show a filter that filters names, clears on Escape, shows an empty state, and announces result count.
 - Group headings stay plain labels unless a group exceeds ten items. Current page has a non-color-only visible indicator and `aria-current="page"`.
 - Below 1024px, put a labeled, accessible 44px Docs menu button inside the existing navbar. Use a native `<dialog>` opened with `showModal()`, close on route change/Escape, and return focus to the trigger. Its backdrop uses the overlay token.

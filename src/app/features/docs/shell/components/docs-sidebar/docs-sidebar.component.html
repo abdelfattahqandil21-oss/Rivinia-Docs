@@ -1,6 +1,8 @@
-<app-docs-package-filter
-  inputId="docs-sidebar-filter"
-  [resultCount]="search.visiblePackages().length"
-  [(value)]="search.query"
-/>
+@if (!sidebar.showingPackageSections()) {
+  <app-docs-package-filter
+    inputId="docs-sidebar-filter"
+    [resultCount]="search.visiblePackages().length"
+    [(value)]="search.query"
+  />
+}
 <nav app-docs-sidebar-nav class="sidebar-nav" panelPrefix="docs-desktop"></nav>

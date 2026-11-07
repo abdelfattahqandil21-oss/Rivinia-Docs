@@ -1,69 +1,115 @@
-<section
-  class="nav-group nav-accordion t-acc"
-  [attr.data-open]="sidebar.openGroup() === 'getting-started'"
->
-  <button
-    type="button"
-    class="nav-accordion-trigger t-acc-head"
-    [attr.aria-expanded]="sidebar.openGroup() === 'getting-started'"
-    [attr.aria-controls]="panelPrefix() + '-getting-started'"
-    (click)="sidebar.toggleGroup('getting-started')"
-  >
-    <span>{{ i18n.translate('docs.gettingStarted') }}</span>
-    <span class="t-acc-chevron" aria-hidden="true">
-      <app-icon name="chevron-down" [size]="16" />
-    </span>
-  </button>
+<div class="docs-nav-track" [class.docs-nav-track--package-open]="sidebar.showingPackageSections()">
   <div
-    class="nav-accordion-panel t-acc-panel"
-    [id]="panelPrefix() + '-getting-started'"
-    [attr.inert]="sidebar.openGroup() === 'getting-started' ? null : ''"
+    class="docs-nav-panel docs-nav-index-panel"
+    [attr.aria-hidden]="sidebar.showingPackageSections() ? 'true' : null"
+    [attr.inert]="sidebar.showingPackageSections() ? '' : null"
   >
-    <div class="nav-group-links t-acc-panel-inner">
-      @for (page of gettingStartedPages; track page.slug) {
-        <a
-          [routerLink]="gettingStartedLink(page.slug)"
-          routerLinkActive="is-current"
-          ariaCurrentWhenActive="page"
-          >{{ i18n.translate(page.navTitleKey) }}</a
-        >
-      }
-    </div>
-  </div>
-</section>
-@for (group of groups; track group) {
-  @if (search.forGroup(group).length) {
-    <section class="nav-group nav-accordion t-acc" [attr.data-open]="sidebar.openGroup() === group">
+    <section
+      class="nav-group nav-accordion t-acc"
+      [attr.data-open]="sidebar.openGroup() === 'getting-started'"
+    >
       <button
         type="button"
         class="nav-accordion-trigger t-acc-head"
-        [attr.aria-expanded]="sidebar.openGroup() === group"
-        [attr.aria-controls]="panelPrefix() + '-group-' + group"
-        (click)="sidebar.toggleGroup(group)"
+        [attr.aria-expanded]="sidebar.openGroup() === 'getting-started'"
+        [attr.aria-controls]="panelPrefix() + '-getting-started'"
+        (click)="sidebar.toggleGroup('getting-started')"
       >
-        <span>{{ i18n.translate('docs.groups.' + group) }}</span>
+        <span>{{ i18n.translate('docs.gettingStarted') }}</span>
         <span class="t-acc-chevron" aria-hidden="true">
           <app-icon name="chevron-down" [size]="16" />
         </span>
       </button>
       <div
         class="nav-accordion-panel t-acc-panel"
-        [id]="panelPrefix() + '-group-' + group"
-        [attr.inert]="sidebar.openGroup() === group ? null : ''"
+        [id]="panelPrefix() + '-getting-started'"
+        [attr.inert]="sidebar.openGroup() === 'getting-started' ? null : ''"
       >
         <div class="nav-group-links t-acc-panel-inner">
-          @for (entry of search.forGroup(group); track entry.id) {
+          @for (page of gettingStartedPages; track page.slug) {
             <a
-              [routerLink]="packageLink(entry.id)"
-              lang="en"
-              dir="ltr"
+              [routerLink]="gettingStartedLink(page.slug)"
               routerLinkActive="is-current"
               ariaCurrentWhenActive="page"
-              >{{ entry.id }}</a
+              >{{ i18n.translate(page.navTitleKey) }}</a
             >
           }
         </div>
       </div>
     </section>
+
+    @for (group of groups; track group) {
+      @if (search.forGroup(group).length) {
+        <section
+          class="nav-group nav-accordion t-acc"
+          [attr.data-open]="sidebar.openGroup() === group"
+        >
+          <button
+            type="button"
+            class="nav-accordion-trigger t-acc-head"
+            [attr.aria-expanded]="sidebar.openGroup() === group"
+            [attr.aria-controls]="panelPrefix() + '-group-' + group"
+            (click)="sidebar.toggleGroup(group)"
+          >
+            <span>{{ i18n.translate('docs.groups.' + group) }}</span>
+            <span class="t-acc-chevron" aria-hidden="true">
+              <app-icon name="chevron-down" [size]="16" />
+            </span>
+          </button>
+          <div
+            class="nav-accordion-panel t-acc-panel"
+            [id]="panelPrefix() + '-group-' + group"
+            [attr.inert]="sidebar.openGroup() === group ? null : ''"
+          >
+            <div class="nav-group-links t-acc-panel-inner">
+              @for (entry of search.forGroup(group); track entry.id) {
+                <a
+                  [routerLink]="packageLink(entry.id)"
+                  [attr.data-package-id]="entry.id"
+                  lang="en"
+                  dir="ltr"
+                  routerLinkActive="is-current"
+                  ariaCurrentWhenActive="page"
+                  >{{ entry.id }}</a
+                >
+              }
+            </div>
+          </div>
+        </section>
+      }
+    }
+  </div>
+
+  @if (packageMetadata(); as metadata) {
+    <section
+      class="docs-nav-panel docs-nav-package-panel"
+      [attr.aria-hidden]="sidebar.showingPackageSections() ? null : 'true'"
+      [attr.inert]="sidebar.showingPackageSections() ? null : ''"
+    >
+      <header class="docs-package-nav-header">
+        <button
+          class="docs-package-nav-back"
+          type="button"
+          [attr.aria-label]="backToPackagesLabel()"
+          (click)="backToPackageList()"
+        >
+          <app-icon name="arrow-right" [size]="18" aria-hidden="true" />
+        </button>
+        <span class="docs-package-nav-title" lang="en" dir="ltr">{{ metadata.name }}</span>
+      </header>
+
+      <div class="docs-package-section-links">
+        @for (heading of page.headings(); track heading.id) {
+          <a
+            [href]="sectionLink(heading.id)"
+            dir="auto"
+            [attr.aria-current]="page.activeHeading() === heading.id ? 'location' : null"
+            (click)="followSection($event, heading.id)"
+          >
+            {{ heading.text }}
+          </a>
+        }
+      </div>
+    </section>
   }
-}
+</div>

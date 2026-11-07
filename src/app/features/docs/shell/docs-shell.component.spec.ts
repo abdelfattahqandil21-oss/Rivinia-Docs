@@ -8,10 +8,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { appIcons } from '../../../shared/components/icon/icon-registry';
 import { DocsShellComponent } from './docs-shell.component';
+import { DocsPageContextService } from './services/docs-page-context.service';
 
 @Component({
   selector: 'app-test-page',
-  template: '<p>page</p>',
+  template: '<section class="docs-page-content"><h2 id="install-title">Install</h2></section>',
 })
 class TestPageComponent {}
 
@@ -23,6 +24,7 @@ const translations: Record<string, string> = {
   'docs.installNavTitle': 'Install',
   'docs.continueNavTitle': 'Explore',
   'docs.navigation': 'Documentation navigation',
+  'docs.backToPackages': 'Back to packages',
   'docs.gettingStarted': 'Getting started',
   'docs.groups.foundations': 'Foundations',
   'docs.groups.components': 'Components',
@@ -181,6 +183,30 @@ describe('DocsShellComponent', () => {
     expect(accordionTrigger(fixture, 'group-components').getAttribute('aria-expanded')).toBe(
       'true',
     );
+  });
+
+  it('slides to package sections and returns to the package index without navigation', async () => {
+    const fixture = await render('/docs/select');
+    const page = fixture.debugElement.injector.get(DocsPageContextService);
+    await new Promise((resolve) => setTimeout(resolve));
+    fixture.detectChanges();
+    expect(page.headings()).toEqual([{ id: 'install-title', text: 'Install' }]);
+
+    const track = fixture.nativeElement.querySelector(
+      '#docs-sidebar-desktop .docs-nav-track',
+    ) as HTMLElement;
+    const sectionLink = track.querySelector('.docs-package-section-links a') as HTMLAnchorElement;
+
+    expect(track.classList.contains('docs-nav-track--package-open')).toBe(true);
+    expect(sectionLink.getAttribute('href')).toBe('/docs/select#install-title');
+    expect(sectionLink.textContent?.trim()).toBe('Install');
+
+    const back = track.querySelector('.docs-package-nav-back') as HTMLButtonElement;
+    back.click();
+    fixture.detectChanges();
+
+    expect(track.classList.contains('docs-nav-track--package-open')).toBe(false);
+    expect(router.url).toBe('/docs/select');
   });
 
   it('keeps the page rail rendered when the sidebar is collapsed', async () => {

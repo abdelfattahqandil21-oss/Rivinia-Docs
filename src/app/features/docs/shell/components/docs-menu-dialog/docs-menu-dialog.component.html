@@ -5,10 +5,12 @@
   </button>
 </div>
 <aside class="dialog-sidebar" [attr.aria-label]="i18n.translate('docs.navigation')">
-  <app-docs-package-filter
-    inputId="docs-dialog-filter"
-    [resultCount]="search.visiblePackages().length"
-    [(value)]="search.query"
-  />
+  @if (!sidebar.showingPackageSections()) {
+    <app-docs-package-filter
+      inputId="docs-dialog-filter"
+      [resultCount]="search.visiblePackages().length"
+      [(value)]="search.query"
+    />
+  }
   <nav app-docs-sidebar-nav class="sidebar-nav" panelPrefix="docs-dialog"></nav>
 </aside>
