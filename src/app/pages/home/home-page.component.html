@@ -183,4 +183,79 @@
       </div>
     </div>
   </section>
+
+  <section id="start" class="home-section start-section" aria-labelledby="start-title">
+    <div class="home-container">
+      <header class="section-heading">
+        <p class="home-eyebrow">{{ i18n.translate('home.start.eyebrow') }}</p>
+        <h2 id="start-title">{{ i18n.translate('home.start.title') }}</h2>
+        <p>{{ i18n.translate('home.start.lead') }}</p>
+      </header>
+
+      <div class="getting-started-grid">
+        @for (step of gettingStartedSteps; track step.id) {
+          <article class="step-card" [attr.aria-labelledby]="'step-' + step.id">
+            <div class="step-card-heading">
+              <h3 [id]="'step-' + step.id">{{ i18n.translate(step.titleKey) }}</h3>
+              <button type="button" class="step-copy" (click)="copyStep(step)">
+                {{ i18n.translate(copiedStepId() === step.id ? 'home.copied' : 'home.copy') }}
+              </button>
+              <span class="visually-hidden" aria-live="polite" aria-atomic="true">
+                @if (copiedStepId() === step.id) {
+                  {{ i18n.translate('home.copySuccess') }}
+                } @else if (failedStepId() === step.id) {
+                  {{ i18n.translate('home.copyError') }}
+                }
+              </span>
+            </div>
+            <div class="step-code-header">
+              <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>{{ step.filename }}</span>
+              <span>{{ step.language }}</span>
+            </div>
+            <pre dir="ltr" tabindex="0"><code>{{ step.code }}</code></pre>
+          </article>
+        }
+      </div>
+
+      <div class="start-actions">
+        <a routerLink="/docs" class="home-button home-button-primary">
+          {{ i18n.translate('home.start.docs') }}
+        </a>
+        <a routerLink="/playground" class="home-button home-button-secondary">
+          {{ i18n.translate('home.start.playground') }}
+        </a>
+      </div>
+
+      <footer class="home-footer" [attr.aria-label]="i18n.translate('home.footer.label')">
+        <div class="footer-columns">
+          <div class="footer-brand">
+            <app-brand-mark class="footer-mark" />
+            <p>{{ i18n.translate('home.footer.tagline') }}</p>
+          </div>
+
+          <nav class="footer-nav" [attr.aria-labelledby]="'footer-product-title'">
+            <h3 id="footer-product-title">{{ i18n.translate('home.footer.product') }}</h3>
+            <a routerLink="/docs">{{ i18n.translate('nav.docs') }}</a>
+            <a routerLink="/components">{{ i18n.translate('nav.components') }}</a>
+            <a routerLink="/playground">{{ i18n.translate('nav.playground') }}</a>
+          </nav>
+
+          <nav class="footer-nav" [attr.aria-labelledby]="'footer-resources-title'">
+            <h3 id="footer-resources-title">{{ i18n.translate('home.footer.resources') }}</h3>
+            <a href="https://github.com/abdelfattahqandil21-oss/Rivinia">GitHub</a>
+            <a href="https://www.npmjs.com/package/@rivinia/select">npm · @rivinia/select</a>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-meta">
+            <span>MIT</span>
+            <span>@rivinia/select · v1.0.3</span>
+          </div>
+          <app-preferences-menu />
+        </div>
+      </footer>
+    </div>
+  </section>
 </main>

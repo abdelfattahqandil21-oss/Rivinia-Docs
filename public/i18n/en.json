@@ -208,5 +208,18 @@
   "home.decision.signals.evidence": "See the live controller",
   "home.decision.accessibility.title": "Accessibility, made explicit",
   "home.decision.accessibility.text": "The ready UI documents keyboard and ARIA behavior; headless leaves markup, roles, and focus to you.",
-  "home.decision.accessibility.evidence": "Read Select documentation"
+  "home.decision.accessibility.evidence": "Read Select documentation",
+  "home.copied": "Copied",
+  "home.start.eyebrow": "Get started",
+  "home.start.title": "Start in three steps.",
+  "home.start.lead": "Install Select, import its UI, and connect the component to your options.",
+  "home.start.docs": "Read the docs",
+  "home.start.playground": "Open the playground",
+  "home.step.install": "1. Install",
+  "home.step.import": "2. Import",
+  "home.step.use": "3. Use",
+  "home.footer.label": "Rivinia site footer",
+  "home.footer.tagline": "Signal-based Angular building blocks.",
+  "home.footer.product": "Product",
+  "home.footer.resources": "Resources"
 }

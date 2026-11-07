@@ -208,5 +208,18 @@
   "home.decision.signals.evidence": "جرّب المتحكم مباشرة",
   "home.decision.accessibility.title": "إمكانية وصول واضحة",
   "home.decision.accessibility.text": "توثّق الواجهة الجاهزة دعم لوحة المفاتيح وARIA؛ أما headless فيترك markup والأدوار والتركيز لك.",
-  "home.decision.accessibility.evidence": "اقرأ توثيق Select"
+  "home.decision.accessibility.evidence": "اقرأ توثيق Select",
+  "home.copied": "تم النسخ",
+  "home.start.eyebrow": "البداية السريعة",
+  "home.start.title": "ابدأ في ثلاث خطوات.",
+  "home.start.lead": "ثبّت حزمة Select، واستورد واجهتها، ثم اربط المكوّن بالخيارات.",
+  "home.start.docs": "اقرأ الوثائق",
+  "home.start.playground": "افتح المختبر",
+  "home.step.install": "١. التثبيت",
+  "home.step.import": "٢. الاستيراد",
+  "home.step.use": "٣. الاستخدام",
+  "home.footer.label": "تذييل موقع Rivinia",
+  "home.footer.tagline": "لبنات Angular مبنية على signals.",
+  "home.footer.product": "المنتج",
+  "home.footer.resources": "المصادر"
 }
