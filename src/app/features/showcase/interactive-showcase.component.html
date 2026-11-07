@@ -16,7 +16,9 @@
       class="example-tabs"
       role="tablist"
       [attr.aria-label]="'showcase.examples' | rvTranslate"
-      [style.--selected-index]="selectedExampleIndex()"
+      [style.--showcase-tab-count]="examples.length"
+      [style.--selected-position]="selectedTabPosition()"
+      [style.--selected-width]="selectedTabWidth()"
     >
       @for (example of examples; track example.id) {
         <button

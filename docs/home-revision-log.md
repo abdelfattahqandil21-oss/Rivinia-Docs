@@ -6,7 +6,8 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 | ------------------------ | ----------------------------- | ------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-11-07 12:12 EET     | Step 0 — audit and contract   | DONE   | `873630b` | Captured 8 baseline screenshots (1440×900 and 390×844, EN/AR, light/dark); no horizontal page overflow in any captured viewport.         |
 | 2026-11-07 12:26 EET     | R1 — document flow and scroll | DONE   | `6b14f14` | Removed the rail and nested scrolling, retained the Select listbox as the only scroll container, and verified 1440px/390px on port 4200. |
-| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | pending   | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.         |
+| 2026-11-07 12:49 EET     | R2 — shared copy and code UI  | DONE   | `2f60239` | Added reusable copy/code blocks, safe syntax highlighting, bash tokens, localized status, and replaced Home/showcase copy views.         |
+| 2026-11-07 13:22 EET     | R3 — showcase geometry        | DONE   | pending   | Tied tabs to the manifest, reserved measured preview space, and wrapped mobile package tabs without overflow.                            |
 
 ## Step 0 audit findings
 
@@ -53,3 +54,14 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - `docs/screenshots/revision/r2-1440x900-en-light.png`
 - `docs/screenshots/revision/r2-1440x900-en-dark.png`
 - `docs/screenshots/revision/r2-390x844-en-light.png`
+
+## R3 evidence
+
+- Showcase tabs and the moving indicator derive their count and position from `SHOWCASE_PACKAGES`; the mobile layout wraps into two columns below 640px and hides package IDs. The manifest has a colocated test limiting visible showcase packages to six.
+- The preview is capped at 27rem and vertically centered. Measurements of the actual demos set a stable preview stage to 33rem at 640px and wider, and 41rem below 640px: the tallest Table preview measured 464px plus 64px block padding at 768px/1440px, 540px at 390px English, and 582px at 390px Arabic. The preview stays stable while changing all five tabs.
+- Browser check on port 4200 at 360, 390, 640, 768, 1100, 1280, and 1440px found no page-width overflow or JavaScript errors. At 390px, Code mode remains within the 356px content width. The package tabs and pane headings remained at stable document positions while switching packages.
+- `npm run verify`: passed (9 test files, 34 tests). Existing CSS budget warnings remain: showcase 6.40 kB and Home 6.52 kB against the 4 kB warning budget; neither reaches the 8 kB error budget.
+- R3 production build: initial 398.78 kB raw / 99.27 kB transferred; Home lazy chunk 50.02 kB raw / 11.01 kB transferred.
+
+- `docs/screenshots/revision/r3-1440x900-en-light.png`
+- `docs/screenshots/revision/r3-390x844-en-light.png`

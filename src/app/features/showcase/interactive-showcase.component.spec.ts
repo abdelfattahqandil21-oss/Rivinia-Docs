@@ -121,6 +121,9 @@ describe('InteractiveShowcaseComponent', () => {
       (button) => button.getAttribute('aria-selected') === 'true',
     );
     expect(selectedButton.textContent).toContain('Select');
+    const tabs = fixture.nativeElement.querySelector('.example-tabs') as HTMLElement;
+    expect(tabs.style.getPropertyValue('--showcase-tab-count')).toBe('5');
+    expect(tabs.style.getPropertyValue('--selected-width')).toBe('20%');
     expect(loaders.select).toHaveBeenCalledOnce();
     expect(loaders.datepicker).not.toHaveBeenCalled();
     expect(fixture.nativeElement.textContent).toContain('Loaded preview');
@@ -139,6 +142,8 @@ describe('InteractiveShowcaseComponent', () => {
     fixture.detectChanges();
 
     expect(loaders.table).toHaveBeenCalledOnce();
+    const tabs = fixture.nativeElement.querySelector('.example-tabs') as HTMLElement;
+    expect(tabs.style.getPropertyValue('--selected-position')).toBe('40%');
     expect(loaders.datepicker).not.toHaveBeenCalled();
     expect(fixture.nativeElement.querySelector('.code-block pre code').textContent).toContain(
       '<table-preview />',

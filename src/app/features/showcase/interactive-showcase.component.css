@@ -71,15 +71,15 @@
 .example-tabs {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--showcase-tab-count, 5), minmax(0, 1fr));
   border-block-end: 1px solid var(--rv-border);
 }
 
 .example-tabs::after {
   position: absolute;
-  inset-inline-start: calc(var(--selected-index, 0) * 20%);
+  inset-inline-start: var(--selected-position, 0%);
   inset-block-end: -1px;
-  width: 20%;
+  width: var(--selected-width, 20%);
   height: 2px;
   border-radius: 999px;
   background: var(--rv-accent);
@@ -187,6 +187,10 @@
   animation: showcase-pane-in 220ms ease-out both;
 }
 
+.preview-pane {
+  align-self: start;
+}
+
 .showcase-pane.mobile-hidden {
   display: none;
 }
@@ -209,20 +213,22 @@
 .preview-stage {
   position: relative;
   display: flex;
-  min-height: 28rem;
-  flex: 1;
+  min-height: 33rem;
+  flex: 0 0 auto;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  padding-block: 1rem;
+  padding-block: 2rem;
 }
 
 .preview-content {
   display: grid;
   width: 100%;
   min-width: 0;
-  flex: 1;
+  max-width: 27rem;
+  flex: 0 0 auto;
   align-content: center;
+  margin-inline: auto;
   animation: showcase-pane-in 240ms ease-out both;
 }
 
@@ -341,7 +347,7 @@
   }
 
   .preview-stage {
-    min-height: 24rem;
+    min-height: 33rem;
   }
 
   .code-pane {
@@ -359,10 +365,6 @@
     margin-block-start: 0.6rem;
   }
 
-  .example-tabs {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
-  }
-
   .example-tab {
     min-height: 4rem;
     padding-inline: 0.65rem;
@@ -372,14 +374,38 @@
     min-height: 28rem;
   }
 
-  .preview-stage {
-    min-height: 22rem;
-  }
-
   .demo-mode-switch button,
   .view-switch button {
     padding-inline: 0.55rem;
     font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .example-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem;
+    border-block-end: 0;
+  }
+
+  .example-tabs::after {
+    display: none;
+  }
+
+  .example-tab {
+    border-radius: 0.55rem;
+  }
+
+  .example-tab[aria-selected='true'] {
+    background: color-mix(in srgb, var(--rv-accent) 10%, var(--rv-bg));
+  }
+
+  .example-tab code {
+    display: none;
+  }
+
+  .preview-stage {
+    min-height: 41rem;
   }
 }
 

@@ -86,6 +86,10 @@ export class InteractiveShowcaseComponent {
   protected readonly selectedExampleIndex = computed(() =>
     EXAMPLES.findIndex((example) => example.id === this.selectedExample()),
   );
+  protected readonly selectedTabPosition = computed(
+    () => `${(this.selectedExampleIndex() * 100) / EXAMPLES.length}%`,
+  );
+  protected readonly selectedTabWidth = computed(() => `${100 / EXAMPLES.length}%`);
   protected readonly activeView = signal<'preview' | 'code'>('preview');
   protected readonly selectedDemoMode = signal<'headless' | 'ui'>('ui');
   protected readonly selectionMode = signal<'single' | 'multi'>('single');
