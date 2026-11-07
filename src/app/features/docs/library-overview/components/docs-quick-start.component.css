@@ -1,0 +1,8 @@
+:host {
+  display: grid;
+  gap: 1rem;
+}
+
+:host h2 {
+  margin-block-end: 0;
+}

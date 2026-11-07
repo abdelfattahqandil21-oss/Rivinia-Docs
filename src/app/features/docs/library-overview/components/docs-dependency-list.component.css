@@ -1,0 +1,44 @@
+:host ul {
+  display: grid;
+  min-inline-size: 0;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:host li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+:host a {
+  color: var(--rv-accent);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+:host a:hover {
+  text-decoration: underline;
+}
+
+:host a:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+.dependency-version {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  color: var(--rv-muted);
+  font-size: 0.875rem;
+}
+
+.dependency-version code {
+  color: var(--rv-muted);
+  font-family: var(--rv-font-mono);
+}

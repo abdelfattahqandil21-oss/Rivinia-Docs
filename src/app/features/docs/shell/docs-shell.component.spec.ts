@@ -96,9 +96,7 @@ describe('DocsShellComponent', () => {
 
   function packageLinks(fixture: Awaited<ReturnType<typeof render>>): string[] {
     return [
-      ...fixture.nativeElement.querySelectorAll(
-        '#docs-sidebar-desktop .sidebar-nav a[lang="en"]',
-      ),
+      ...fixture.nativeElement.querySelectorAll('#docs-sidebar-desktop .sidebar-nav a[lang="en"]'),
     ].map((link: HTMLAnchorElement) => link.textContent?.trim() ?? '');
   }
 

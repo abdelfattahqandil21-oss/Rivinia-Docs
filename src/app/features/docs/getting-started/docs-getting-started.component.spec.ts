@@ -66,8 +66,8 @@ describe('DocsGettingStartedComponent', () => {
 
   it('links to the previous and next steps of the sequence', async () => {
     const root = await render('/docs/getting-started/install-a-package');
-    const links = [...root.querySelectorAll('.sequence-link')].map(
-      (link) => (link as HTMLAnchorElement).getAttribute('href'),
+    const links = [...root.querySelectorAll('.sequence-link')].map((link) =>
+      (link as HTMLAnchorElement).getAttribute('href'),
     );
 
     expect(links).toEqual([

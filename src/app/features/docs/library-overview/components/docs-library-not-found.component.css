@@ -1,0 +1,23 @@
+:host {
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+
+:host a {
+  display: inline-flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  color: var(--rv-accent);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+:host a:hover {
+  text-decoration: underline;
+}
+
+:host a:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}

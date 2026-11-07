@@ -1,0 +1,4 @@
+<h2 id="quick-start-title">{{ i18n.translate('docs.quickStart') }}</h2>
+@for (file of files(); track file.name + file.language) {
+  <app-code-block [code]="file.code" [language]="file.language" [filename]="file.name" />
+}

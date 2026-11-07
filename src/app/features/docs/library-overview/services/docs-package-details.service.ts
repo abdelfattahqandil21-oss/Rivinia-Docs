@@ -1,0 +1,70 @@
+import { Service, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { RiviniaI18n } from '@rivinia/i18n';
+
+import { PACKAGE_MANIFEST } from '../../../packages/package-manifest';
+import { PACKAGE_METADATA } from '../../../packages/package-metadata';
+import { DOCS_PACKAGE_GUIDES } from '../models/docs-package-guides.model';
+import { VERIFIED_PUBLISHED_VERSIONS } from '../models/docs-published-versions.model';
+
+export interface DocsDependencyRow {
+  readonly name: string;
+  readonly range: string;
+  readonly installedVersion: string | undefined;
+}
+
+@Service({ autoProvided: false })
+export class DocsPackageDetailsService {
+  private readonly route = inject(ActivatedRoute);
+  private readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
+  private readonly routeParams = toSignal(this.route.paramMap, {
+    initialValue: this.route.snapshot.paramMap,
+  });
+
+  readonly packageId = computed(() => this.routeParams().get('package') ?? '');
+  readonly entry = computed(
+    () => PACKAGE_MANIFEST.find(({ id }) => id === this.packageId()) ?? null,
+  );
+  readonly metadata = computed(() => {
+    const entry = this.entry();
+    return entry ? PACKAGE_METADATA[entry.id] : null;
+  });
+  readonly guide = computed(() => {
+    const entry = this.entry();
+    return entry ? DOCS_PACKAGE_GUIDES[entry.id] : null;
+  });
+  readonly installCommand = computed(() => {
+    const metadata = this.metadata();
+    return metadata ? `npm i ${metadata.name}` : '';
+  });
+  readonly published = computed(() => {
+    const entry = this.entry();
+    const metadata = this.metadata();
+    return (
+      entry !== null &&
+      metadata !== null &&
+      VERIFIED_PUBLISHED_VERSIONS[entry.id] === metadata.version
+    );
+  });
+  readonly dependencies = computed(() => this.dependencyRows(this.metadata()?.dependencies));
+  readonly peerDependencies = computed(() =>
+    this.dependencyRows(this.metadata()?.peerDependencies),
+  );
+  readonly packageTitle = computed(() => this.entry()?.id ?? '');
+  readonly versionLabel = computed(() => {
+    const version = this.metadata()?.version ?? '';
+    return version.startsWith('0.') ? this.i18n.translate('docs.preOne') : version;
+  });
+
+  private dependencyRows(
+    dependencies: Readonly<Record<string, string>> | undefined,
+  ): readonly DocsDependencyRow[] {
+    return Object.entries(dependencies ?? {}).map(([name, range]) => {
+      const dependencyId = name.replace(/^@rivinia\//, '');
+      const installedVersion =
+        PACKAGE_METADATA[dependencyId as keyof typeof PACKAGE_METADATA]?.version;
+      return { name, range, installedVersion };
+    });
+  }
+}

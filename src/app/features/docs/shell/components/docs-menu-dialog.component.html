@@ -1,11 +1,6 @@
 <div class="dialog-heading">
   <h2 id="docs-menu-title">{{ i18n.translate('docs.navigation') }}</h2>
-  <button
-    type="button"
-    class="close-dialog"
-    [attr.aria-label]="closeMenuLabel()"
-    (click)="close()"
-  >
+  <button type="button" class="close-dialog" [attr.aria-label]="closeMenuLabel()" (click)="close()">
     <app-icon name="x" [size]="18" aria-hidden="true" />
   </button>
 </div>

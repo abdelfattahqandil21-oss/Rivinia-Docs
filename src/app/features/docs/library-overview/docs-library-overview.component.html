@@ -1,23 +1,19 @@
-@if (metadata(); as packageMetadata) {
+@if (details.metadata(); as packageMetadata) {
   <article class="docs-page-content docs-library-page">
-    <header class="library-header">
-      <div lang="en" dir="auto">
-        <app-page-header [title]="packageTitle()" [lead]="packageMetadata.description" />
-      </div>
-      <span class="version-badge" lang="en" dir="ltr">{{ versionLabel() }}</span>
-      <ul class="entry-point-chips" [attr.aria-label]="i18n.translate('docs.entryPoints')">
-        @for (entryPoint of packageMetadata.entryPoints; track entryPoint) {
-          <li>
-            <code dir="ltr">{{ entryPoint }}</code>
-          </li>
-        }
-      </ul>
-    </header>
+    <header
+      app-docs-library-header
+      class="library-header"
+      [title]="details.packageTitle()"
+      [description]="packageMetadata.description"
+      [versionLabel]="details.versionLabel()"
+      [entryPoints]="packageMetadata.entryPoints"
+      [entryPointsLabel]="i18n.translate('docs.entryPoints')"
+    ></header>
 
-    @if (published()) {
+    @if (details.published()) {
       <section class="library-section" aria-labelledby="install-title">
         <h2 id="install-title">{{ i18n.translate('docs.install') }}</h2>
-        <app-code-block [code]="installCommand()" language="bash" filename="terminal" />
+        <app-code-block [code]="details.installCommand()" language="bash" filename="terminal" />
       </section>
     }
 
@@ -34,95 +30,44 @@
       </section>
     }
 
-    @if (guide(); as packageGuide) {
-      <section class="library-section package-guide" aria-labelledby="package-guide-title">
-        <h2 id="package-guide-title">{{ i18n.translate('docs.packageGuide') }}</h2>
-        <p>{{ i18n.translate(packageGuide.summaryKey) }}</p>
-        <h3 id="package-guide-concepts">{{ i18n.translate('docs.packageConcepts') }}</h3>
-        <ul>
-          @for (conceptKey of packageGuide.conceptKeys; track conceptKey) {
-            <li>{{ i18n.translate(conceptKey) }}</li>
-          }
-        </ul>
-        <h3 id="package-guide-api">{{ i18n.translate('docs.packageApiHighlights') }}</h3>
-        <ul class="package-api-list">
-          @for (api of packageGuide.api; track api.name) {
-            <li>
-              <code dir="ltr">{{ api.name }}</code>
-              <span>{{ i18n.translate(api.descriptionKey) }}</span>
-            </li>
-          }
-        </ul>
-        @if (packageGuide.references.length) {
-          <h3 id="package-guide-references">{{ i18n.translate('docs.packageFurtherReading') }}</h3>
-          <ul class="package-reference-list">
-            @for (reference of packageGuide.references; track reference.href) {
-              <li>
-                <a [href]="reference.href">{{ i18n.translate(reference.titleKey) }}</a>
-              </li>
-            }
-          </ul>
-        }
-      </section>
+    @if (details.guide(); as packageGuide) {
+      <section
+        app-docs-package-guide
+        class="library-section package-guide"
+        aria-labelledby="package-guide-title"
+        [guide]="packageGuide"
+      ></section>
     }
 
-    @if (showLiveExample()) {
-      <section class="library-section quick-start" aria-labelledby="quick-start-title">
-        <h2 id="quick-start-title">{{ i18n.translate('docs.quickStart') }}</h2>
-        @for (file of quickStartFiles(); track file.name + file.language) {
-          <app-code-block [code]="file.code" [language]="file.language" [filename]="file.name" />
-        }
-      </section>
+    @if (quickStart.showLiveExample()) {
+      <section
+        app-docs-quick-start
+        class="library-section quick-start"
+        aria-labelledby="quick-start-title"
+        [files]="quickStart.files()"
+      ></section>
     }
 
-    @if (dependencies().length) {
-      <section class="library-section" aria-labelledby="dependencies-title">
-        <h2 id="dependencies-title">{{ i18n.translate('docs.dependencies') }}</h2>
-        <ul class="dependency-list">
-          @for (dependency of dependencies(); track dependency.name) {
-            <li>
-              <a [routerLink]="packageEntryLink(dependency.name)" lang="en" dir="ltr">{{
-                dependency.name
-              }}</a>
-              <span class="dependency-version" dir="ltr">
-                <span>{{ i18n.translate('docs.range') }}:</span>
-                <code>{{ dependency.range }}</code>
-              </span>
-              @if (dependency.installedVersion) {
-                <span class="dependency-version" dir="ltr">
-                  <span>{{ i18n.translate('docs.installedVersion') }}:</span>
-                  <code>{{ dependency.installedVersion }}</code>
-                </span>
-              }
-            </li>
-          }
-        </ul>
-      </section>
+    @if (details.dependencies().length) {
+      <section
+        app-docs-dependency-list
+        class="library-section"
+        aria-labelledby="dependencies-title"
+        sectionId="dependencies-title"
+        titleKey="docs.dependencies"
+        [rows]="details.dependencies()"
+      ></section>
     }
 
-    @if (peerDependencies().length) {
-      <section class="library-section" aria-labelledby="peer-dependencies-title">
-        <h2 id="peer-dependencies-title">{{ i18n.translate('docs.peerDependencies') }}</h2>
-        <ul class="dependency-list">
-          @for (dependency of peerDependencies(); track dependency.name) {
-            <li>
-              <a [routerLink]="packageEntryLink(dependency.name)" lang="en" dir="ltr">{{
-                dependency.name
-              }}</a>
-              <span class="dependency-version" dir="ltr">
-                <span>{{ i18n.translate('docs.range') }}:</span>
-                <code>{{ dependency.range }}</code>
-              </span>
-              @if (dependency.installedVersion) {
-                <span class="dependency-version" dir="ltr">
-                  <span>{{ i18n.translate('docs.installedVersion') }}:</span>
-                  <code>{{ dependency.installedVersion }}</code>
-                </span>
-              }
-            </li>
-          }
-        </ul>
-      </section>
+    @if (details.peerDependencies().length) {
+      <section
+        app-docs-dependency-list
+        class="library-section"
+        aria-labelledby="peer-dependencies-title"
+        sectionId="peer-dependencies-title"
+        titleKey="docs.peerDependencies"
+        [rows]="details.peerDependencies()"
+      ></section>
     }
 
     @if (packageMetadata.hasUi) {
@@ -141,7 +86,7 @@
       </section>
     }
 
-    @if (showLiveExample()) {
+    @if (quickStart.showLiveExample()) {
       <section class="library-section" aria-labelledby="live-example-title">
         <h2 id="live-example-title">{{ i18n.translate('docs.liveExample') }}</h2>
         <a class="live-example-link" [routerLink]="'/'" fragment="experience">
@@ -151,8 +96,12 @@
     }
   </article>
 } @else {
-  <section class="docs-page-content docs-library-not-found">
-    <app-page-header [title]="notFoundTitle()" [lead]="notFoundBody()" />
-    <a [routerLink]="notFoundLink">{{ i18n.translate('docs.notFound.back') }}</a>
-  </section>
+  <section
+    app-docs-library-not-found
+    class="docs-page-content docs-library-not-found"
+    [title]="notFoundTitle()"
+    [body]="notFoundBody()"
+    [link]="notFoundLink"
+    [linkLabel]="i18n.translate('docs.notFound.back')"
+  ></section>
 }

@@ -1,0 +1,29 @@
+:host {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}
+
+.version-badge,
+.entry-point-chips code {
+  display: inline-flex;
+  min-block-size: 2rem;
+  align-items: center;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  background: var(--rv-home-surface-raised);
+  color: var(--rv-muted);
+  padding-inline: 0.65rem;
+  font-family: var(--rv-font-mono);
+  font-size: 0.8rem;
+}
+
+.entry-point-chips {
+  display: flex;
+  flex-wrap: wrap;
+  min-inline-size: 0;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

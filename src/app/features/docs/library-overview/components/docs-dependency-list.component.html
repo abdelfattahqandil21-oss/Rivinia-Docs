@@ -1,0 +1,20 @@
+<h2 [id]="sectionId()">{{ i18n.translate(titleKey()) }}</h2>
+<ul class="dependency-list">
+  @for (dependency of rows(); track dependency.name) {
+    <li>
+      <a [routerLink]="packageEntryLink(dependency.name)" lang="en" dir="ltr">{{
+        dependency.name
+      }}</a>
+      <span class="dependency-version" dir="ltr">
+        <span>{{ i18n.translate('docs.range') }}:</span>
+        <code>{{ dependency.range }}</code>
+      </span>
+      @if (dependency.installedVersion) {
+        <span class="dependency-version" dir="ltr">
+          <span>{{ i18n.translate('docs.installedVersion') }}:</span>
+          <code>{{ dependency.installedVersion }}</code>
+        </span>
+      }
+    </li>
+  }
+</ul>
