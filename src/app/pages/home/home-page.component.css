@@ -36,6 +36,8 @@
 
 .hero-layout {
   display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: clamp(2.5rem, 6vw, 5rem);
 }
@@ -175,6 +177,7 @@
 .hero-code {
   position: relative;
   display: grid;
+  min-width: 0;
   gap: var(--home-space-4);
   isolation: isolate;
 }
@@ -262,6 +265,10 @@
 
 .scroll-cue:hover {
   color: var(--rv-fg);
+}
+
+:lang(ar) .scroll-cue {
+  transform: translateX(50%);
 }
 
 .home-page :is(a, button):focus-visible {

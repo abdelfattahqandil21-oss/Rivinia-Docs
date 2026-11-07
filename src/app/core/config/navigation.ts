@@ -8,14 +8,13 @@ import type { ExternalNavLink, NavLink } from '../models/nav-link.model';
  * so adding a page means adding an entry here and a route, nothing else.
  *
  * The landing page (`/`) is reached through the brand mark, so it is not an
- * entry here; the four product areas are.
+ * entry here; the three product areas are.
  */
 
 export const NAV_LINKS = [
   { id: 'docs', path: '/docs', labelKey: 'nav.docs' },
   { id: 'components', path: '/components', labelKey: 'nav.components' },
   { id: 'playground', path: '/playground', labelKey: 'nav.playground' },
-  { id: 'guides', path: '/guides', labelKey: 'nav.guides' },
 ] as const satisfies readonly NavLink[];
 
 /** The project's public home on GitHub, opened in a new tab. */

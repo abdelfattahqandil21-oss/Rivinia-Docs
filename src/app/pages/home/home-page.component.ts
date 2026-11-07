@@ -8,6 +8,7 @@ import { BrandMarkComponent } from '../../shared/components/brand-mark/brand-mar
 import { PreferencesMenuComponent } from '../../layout/preferences-menu/preferences-menu.component';
 
 type DecisionId = 'api' | 'flexibility' | 'signals' | 'accessibility';
+type HomeSectionId = 'hero' | 'experience' | 'decisions' | 'start';
 
 interface HomeCodeStep {
   readonly id: 'install' | 'import' | 'use';
@@ -32,6 +33,13 @@ export class HomePageComponent {
   protected readonly copiedStepId = signal<HomeCodeStep['id'] | null>(null);
   protected readonly failedStepId = signal<HomeCodeStep['id'] | null>(null);
   protected readonly activeDecision = signal<DecisionId | null>(null);
+  protected readonly activeSection = signal<HomeSectionId>('hero');
+  protected readonly homeSections: readonly HomeSectionId[] = [
+    'hero',
+    'experience',
+    'decisions',
+    'start',
+  ];
   protected readonly headlessSnippet = `import { RiviniaSelect } from '@rivinia/select';
 
 const select = new RiviniaSelect('multi');
@@ -76,20 +84,31 @@ select.toggle(option.id);`;
       }
 
       const sections = this.document.querySelectorAll<HTMLElement>('.home-page .home-section');
+      const visibleRatios = new Map<Element, number>();
+      const revealedSections = new Set<Element>();
       const observer = new view.IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
             if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
+              if (!revealedSections.has(entry.target)) {
+                entry.target.classList.add('is-visible');
+                revealedSections.add(entry.target);
+              }
             }
+            visibleRatios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
+          }
+
+          const active = [...visibleRatios.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+          if (active?.id && this.homeSections.includes(active.id as HomeSectionId)) {
+            this.activeSection.set(active.id as HomeSectionId);
           }
         },
-        { threshold: 0.12 },
+        { rootMargin: '-20% 0px -20% 0px', threshold: [0, 0.12, 0.25, 0.5, 0.75] },
       );
 
       sections.forEach((section) => {
         section.classList.add('section-reveal');
+        visibleRatios.set(section, 0);
         observer.observe(section);
       });
       this.destroyRef.onDestroy(() => observer.disconnect());

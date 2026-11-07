@@ -8,7 +8,6 @@
   "nav.docs": "Docs",
   "nav.components": "Components",
   "nav.playground": "Playground",
-  "nav.guides": "Guides",
   "nav.github": "GitHub",
   "nav.opensInNewTab": "opens in a new tab",
   "nav.getStarted": "Get started",
@@ -221,5 +220,10 @@
   "home.footer.label": "Rivinia site footer",
   "home.footer.tagline": "Signal-based Angular building blocks.",
   "home.footer.product": "Product",
-  "home.footer.resources": "Resources"
+  "home.footer.resources": "Resources",
+  "home.sections.label": "Homepage sections",
+  "home.sections.hero": "Home",
+  "home.sections.experience": "Live demo",
+  "home.sections.decisions": "Design decisions",
+  "home.sections.start": "Get started"
 }

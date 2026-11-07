@@ -25,11 +25,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/playground/playground-page.component').then((m) => m.PlaygroundPageComponent),
   },
-  {
-    path: 'guides',
-    title: 'Guides · Rivinia',
-    loadComponent: () =>
-      import('./pages/guides/guides-page.component').then((m) => m.GuidesPageComponent),
-  },
+  { path: 'guides', redirectTo: 'docs' },
   { path: '**', redirectTo: '' },
 ];

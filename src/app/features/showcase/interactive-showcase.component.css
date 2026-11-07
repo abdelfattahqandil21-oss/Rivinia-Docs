@@ -4,6 +4,8 @@
 
 .interactive-showcase {
   display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
   min-height: calc(100svh - var(--navbar-height));
   align-content: center;
   padding-block: var(--home-section-inset, clamp(4rem, 8vw, 7rem));
@@ -13,6 +15,7 @@
 
 .showcase-shell {
   width: min(100% - 2 * clamp(1rem, 4vw, 2rem), var(--home-demo-width, 80rem));
+  min-width: 0;
   margin-inline: auto;
 }
 
@@ -162,7 +165,10 @@
 
 .showcase-workspace {
   display: grid;
-  min-height: 36rem;
+  height: 36rem;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
   border: 1px solid var(--rv-border);
   border-radius: var(--home-radius-md, 0.75rem);
   background: color-mix(in srgb, var(--rv-fg) 1.5%, var(--rv-bg));
@@ -171,7 +177,9 @@
 .showcase-pane {
   display: flex;
   min-width: 0;
+  min-height: 0;
   flex-direction: column;
+  overflow: auto;
   padding: clamp(1rem, 2vw, 1.5rem);
   animation: showcase-pane-in 220ms ease-out both;
 }
@@ -427,7 +435,7 @@
   }
 
   .showcase-workspace {
-    min-height: 31rem;
+    height: 31rem;
   }
 
   .preview-stage {
@@ -463,7 +471,7 @@
   }
 
   .showcase-workspace {
-    min-height: 29rem;
+    height: 29rem;
   }
 
   .preview-stage {
