@@ -19,11 +19,10 @@
 }
 
 .entry-point-chips {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   min-inline-size: 0;
   max-inline-size: 100%;
-  overflow-x: auto;
   gap: 0.65rem;
   margin: 0;
   padding: 0;
@@ -31,7 +30,14 @@
 }
 
 .entry-point-chips li {
-  flex: 0 0 auto;
+  min-inline-size: 0;
+}
+
+.entry-point-chips code {
+  display: flex;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
 }
 
 :host .entry-point-chips li + li {
