@@ -160,7 +160,7 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 ## R13 — Showcase mobile containment and Preferences motion
 
 - Status: DONE
-- Commit: pending
+- Commit: `648827a`
 - Outcome: Preferences rotates 90° while open and returns on close; the Table demo scrolls horizontally inside its own scroller; the Showcase modal stays viewport-constrained and scrolls long content inside its body.
 - User-approved behavior: The showcase table may scroll horizontally within its preview, and modal content may scroll within the dialog.
 - Verification: `npm run verify` passed (18 test files, 81 tests; architecture, color, contrast, i18n, generated-source freshness, production build, and Vitest). Build output is `builds/prod`; existing budget warnings remain for the Select demo, showcase CSS, and Docs sidebar.
