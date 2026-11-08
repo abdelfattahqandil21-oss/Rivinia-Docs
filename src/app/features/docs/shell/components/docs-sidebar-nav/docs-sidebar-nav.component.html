@@ -112,7 +112,29 @@
       </header>
 
       <div class="docs-package-section-links">
-        @if (
+        @if (authoredPages().length) {
+          @for (item of authoredPages(); track item.route) {
+            @if (item.group && authoredPages()[$index - 1]?.group !== item.group) {
+              <p class="nav-group-label">{{ authoredGroup(item.group) }}</p>
+            }
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="is-current"
+              [routerLinkActiveOptions]="{ exact: true }"
+              ariaCurrentWhenActive="page"
+              lang="en"
+              dir="ltr"
+              >{{ authoredPageLabel(item.section, item.title) }}</a
+            >
+          }
+          <a
+            [routerLink]="authoredChangelog()"
+            routerLinkActive="is-current"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ariaCurrentWhenActive="page"
+            >{{ i18n.translate('docs.http.page.changelog') }}</a
+          >
+        } @else if (
           sidebar.packageNavigationId() === 'http' ||
           sidebar.packageNavigationId() === 'i18n' ||
           sidebar.packageNavigationId() === 'theme'

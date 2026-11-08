@@ -98,7 +98,10 @@ export class DocsPageContextService {
       packageId === 'http' && routeSection
         ? this.i18n.translate(`docs.http.title.${routeSection}`)
         : null;
-    const resolvedPageName = sectionTitle || pageName;
+    let active = this.router.routerState.snapshot.root;
+    while (active.firstChild) active = active.firstChild;
+    const resolvedPageName =
+      (active.data['docsSourceTitle'] as string | undefined) || sectionTitle || pageName;
     const documentTitle = packageName
       ? `${resolvedPageName} · ${packageName} · Rivinia Docs`
       : `${pageName} · Rivinia Docs`;

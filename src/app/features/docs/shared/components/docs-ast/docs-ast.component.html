@@ -1,0 +1,101 @@
+@for (node of nodes(); track $index) {
+  @switch (node.type) {
+    @case ('swatch') {
+      <span class="token-swatch" aria-hidden="true" [style.--docs-swatch]="node.color"></span>
+    }
+    @case ('text') {
+      {{ node.text }}
+    }
+    @case ('br') {
+      <br />
+    }
+    @case ('strong') {
+      <strong><app-docs-ast [nodes]="node.children ?? []" /></strong>
+    }
+    @case ('em') {
+      <em><app-docs-ast [nodes]="node.children ?? []" /></em>
+    }
+    @case ('del') {
+      <del><app-docs-ast [nodes]="node.children ?? []" /></del>
+    }
+    @case ('link') {
+      <a
+        [href]="node.href"
+        [attr.target]="node.external ? '_blank' : null"
+        [attr.rel]="node.external ? 'noopener' : null"
+        ><app-docs-ast [nodes]="node.children ?? []" />
+        @if (node.external) {
+          <span> ({{ i18n.translate('nav.opensInNewTab') }})</span>
+        }
+      </a>
+    }
+    @case ('heading') {
+      @switch (node.level) {
+        @case (3) {
+          <h3 [id]="node.id"><app-docs-ast [nodes]="node.children ?? []" /></h3>
+        }
+        @case (4) {
+          <h4 [id]="node.id"><app-docs-ast [nodes]="node.children ?? []" /></h4>
+        }
+        @default {
+          <h2 [id]="node.id"><app-docs-ast [nodes]="node.children ?? []" /></h2>
+        }
+      }
+    }
+    @case ('paragraph') {
+      <p><app-docs-ast [nodes]="node.children ?? []" /></p>
+    }
+    @case ('code') {
+      @if (node.code !== undefined) {
+        <app-code-block [code]="node.code" [language]="node.language ?? 'text'" />
+      } @else {
+        <code dir="ltr">{{ node.text }}</code>
+      }
+    }
+    @case ('hr') {
+      <hr />
+    }
+    @case ('blockquote') {
+      <blockquote><app-docs-ast [nodes]="node.children ?? []" /></blockquote>
+    }
+    @case ('list') {
+      @if (node.ordered) {
+        <ol [start]="node.start ?? 1">
+          @for (item of node.items; track $index) {
+            <li><app-docs-ast [nodes]="item" /></li>
+          }
+        </ol>
+      } @else {
+        <ul>
+          @for (item of node.items; track $index) {
+            <li><app-docs-ast [nodes]="item" /></li>
+          }
+        </ul>
+      }
+    }
+    @case ('table') {
+      <table>
+        <thead>
+          <tr>
+            @for (cell of node.header; track $index) {
+              <th scope="col" [style.text-align]="node.align?.[$index]">
+                <app-docs-ast [nodes]="cell" />
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of node.rows; track $index) {
+            <tr>
+              @for (cell of row; track $index) {
+                <td [style.text-align]="node.align?.[$index]">
+                  <app-docs-ast [nodes]="cell" />
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+}

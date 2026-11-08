@@ -1,0 +1,21 @@
+@if (page(); as current) {
+  @if (i18n.currentLanguage() === 'ar') {
+    <p lang="ar" dir="rtl">{{ i18n.translate('docs.authored.englishNotice') }}</p>
+  }
+  <article class="docs-page-content docs-library-page" lang="en" dir="ltr">
+    <header
+      app-docs-library-header
+      class="library-header"
+      [title]="current.title"
+      [packageName]="metadata().name"
+      contentLanguage="en"
+      [versionText]="i18n.translate('docs.version')"
+      [description]="current.summary"
+      [versionLabel]="metadata().version"
+      [entryPoints]="current.section ? [] : metadata().entryPoints"
+      [entryPointsLabel]="i18n.translate('docs.entryPoints')"
+    ></header>
+    <app-docs-ast [nodes]="current.nodes" />
+    <nav app-docs-sequence-nav [previous]="previous()" [next]="next()"></nav>
+  </article>
+}

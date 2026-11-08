@@ -1,3 +1,4 @@
+import { DOCS_CONTENT } from './shared/docs-content';
 import { Routes } from '@angular/router';
 
 import {
@@ -25,6 +26,15 @@ export const DOCS_ROUTES: Routes = [
         loadComponent: () =>
           import('./getting-started/docs-getting-started.component').then(
             (m) => m.DocsGettingStartedComponent,
+          ),
+      })),
+      ...DOCS_CONTENT.map((page) => ({
+        path: [page.package, page.section].filter(Boolean).join('/'),
+        pathMatch: 'full' as const,
+        data: { docsPackageId: page.package, section: page.section, docsSourceTitle: page.title },
+        loadComponent: () =>
+          import('./authored-page/docs-authored-page.component').then(
+            (m) => m.DocsAuthoredPageComponent,
           ),
       })),
       {

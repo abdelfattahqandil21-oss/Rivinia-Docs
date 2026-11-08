@@ -760,5 +760,9 @@
   "docs.i18n.release-1-0-4.title": "1.0.4",
   "docs.i18n.release-1-0-4.body": "تحديث بيانات اعتماديات Rivinia المنشورة وروابط التوثيق المثبتة على الإصدار. لا تغييرات في API العامة.",
   "docs.i18n.overview.nav": "نظرة عامة",
-  "docs.pageNavigation": "التنقل بين الصفحات"
+  "docs.pageNavigation": "التنقل بين الصفحات",
+  "docs.authored.englishNotice": "هذا الدليل مكتوب باللغة الإنجليزية؛ تظل أدوات التنقل متاحة بالعربية.",
+  "docs.authored.guides": "الأدلة",
+  "docs.authored.recipes": "وصفات تطبيقية",
+  "docs.authored.reference": "المرجع"
 }

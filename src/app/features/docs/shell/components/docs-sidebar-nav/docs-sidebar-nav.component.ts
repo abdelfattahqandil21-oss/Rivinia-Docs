@@ -1,3 +1,4 @@
+import { DOCS_CONTENT } from '../../../shared/docs-content';
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -77,6 +78,23 @@ export class DocsSidebarNavComponent {
     { path: '/docs/theme/changelog', label: 'docs.theme.page.changelog', section: 'changelog' },
   ];
 
+  protected readonly authoredPages = computed(() =>
+    DOCS_CONTENT.filter((entry) => entry.package === this.sidebar.packageNavigationId()),
+  );
+  protected authoredGroup(group: string): string {
+    return this.i18n.translate(
+      group === 'Recipes' ? 'docs.authored.recipes' : 'docs.authored.guides',
+    );
+  }
+  protected authoredPageLabel(section: string, title: string): string {
+    if (section === '') return this.i18n.translate('docs.http.page.overview');
+    if (section === 'quick-start') return this.i18n.translate('docs.http.page.quickStart');
+    if (section === 'reference') return this.i18n.translate('docs.authored.reference');
+    return title;
+  }
+  protected authoredChangelog(): string {
+    return docsLink(this.sidebar.packageNavigationId() ?? '', 'changelog');
+  }
   protected readonly libraryPages = computed(() =>
     this.sidebar.packageNavigationId() === 'i18n'
       ? I18N_DOC_NAV.filter(

@@ -1,0 +1,10 @@
+.token-swatch {
+  display: inline-block;
+  inline-size: 1rem;
+  block-size: 1rem;
+  margin-inline-end: 0.5rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  background-color: var(--docs-swatch);
+  vertical-align: middle;
+}

@@ -122,7 +122,14 @@ for (const filePath of walk(appRoot).filter((file) => file.endsWith('.ts'))) {
       const packageMetadataAdapter =
         targetRelative === 'src/generated/package-meta.generated.ts' &&
         file === 'src/app/features/packages/package-metadata.ts';
-      if (!showcaseSource && !packageMetadataAdapter) {
+      if (
+        !showcaseSource &&
+        !packageMetadataAdapter &&
+        !(
+          targetRelative === 'src/generated/docs-content.generated.ts' &&
+          file === 'src/app/features/docs/shared/docs-content.ts'
+        )
+      ) {
         report(
           'generated-import-boundary',
           filePath,

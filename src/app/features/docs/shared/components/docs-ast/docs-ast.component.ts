@@ -1,0 +1,16 @@
+import { Component, inject, input } from '@angular/core';
+import { RiviniaI18n } from '@rivinia/i18n';
+import { CodeBlockComponent } from '../../../../../shared/components/code-block/code-block.component';
+import type { DocsNode } from '../../models/docs-content.model';
+
+@Component({
+  selector: 'app-docs-ast',
+  imports: [CodeBlockComponent],
+  templateUrl: './docs-ast.component.html',
+  styleUrl: './docs-ast.component.css',
+  host: { style: 'display: contents' },
+})
+export class DocsAstComponent {
+  readonly nodes = input.required<readonly DocsNode[]>();
+  protected readonly i18n = inject(RiviniaI18n);
+}

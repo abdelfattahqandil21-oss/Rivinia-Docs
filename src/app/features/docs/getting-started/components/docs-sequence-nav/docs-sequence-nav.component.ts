@@ -4,7 +4,8 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 export interface DocsSequenceStep {
   readonly href: string;
-  readonly titleKey: string;
+  readonly titleKey?: string;
+  readonly title?: string;
 }
 
 @Component({
