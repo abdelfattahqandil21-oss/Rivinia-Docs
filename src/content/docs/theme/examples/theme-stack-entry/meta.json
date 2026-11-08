@@ -1,0 +1,12 @@
+{
+  "title": "Choose a stylesheet entry",
+  "scenario": "An Angular developer needs to add Rivinia tokens to an existing global stylesheet. The stack selector helps compare the documented import spellings while the preview demonstrates the real base theme stylesheet.",
+  "tryIt": [
+    "Select the stylesheet stack used by your application.",
+    "Compare its import with the package entry shown above.",
+    "Switch the preview between light and dark tokens."
+  ],
+  "mode": "frame",
+  "minHeight": 460,
+  "variants": ["theme"]
+}

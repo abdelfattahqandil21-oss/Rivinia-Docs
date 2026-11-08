@@ -15,7 +15,28 @@ async function walk(folder) {
   return files;
 }
 async function inlineCss(source, folder) {
-  const imports = [...source.matchAll(/@import\s+['"]([^'"]+)['"];?/g)];
+  // Only expand CSS imports in style elements. The frame's visible code samples
+  // and script strings can also contain import syntax, but are not CSS input.
+  const styleBlocks = [...source.matchAll(/(<style\b[^>]*>)([\s\S]*?)(<\/style\s*>)/gi)].reverse();
+  if (styleBlocks.length) {
+    for (const match of styleBlocks) {
+      const expanded = await inlineCss(match[2], folder);
+      source =
+        source.slice(0, match.index) +
+        match[1] +
+        expanded +
+        match[3] +
+        source.slice(match.index + match[0].length);
+    }
+    return source;
+  }
+  // Do not interpret examples documented inside CSS comments as real imports.
+  // Replace comments with same-length whitespace so match indexes still point
+  // into the original source when the actual imports are expanded.
+  const scanSource = source.replace(/\/\*[\s\S]*?\*\//g, (comment) =>
+    comment.replace(/[^\n]/g, ' '),
+  );
+  const imports = [...scanSource.matchAll(/@import\s+['"]([^'"]+)['"];?/g)].reverse();
   for (const match of imports) {
     const spec = match[1];
     let file;
@@ -27,7 +48,8 @@ async function inlineCss(source, folder) {
       file = join(installed, typeof target === 'string' ? target : target.style);
     } else if (spec.startsWith('./')) file = resolve(folder, spec);
     else throw new Error(`Frame CSS import cannot make external requests: ${spec}`);
-    source = source.replace(match[0], await inlineCss(await readFile(file, 'utf8'), dirname(file)));
+    const expanded = await inlineCss(await readFile(file, 'utf8'), dirname(file));
+    source = source.slice(0, match.index) + expanded + source.slice(match.index + match[0].length);
   }
   return source;
 }
