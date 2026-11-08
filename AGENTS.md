@@ -121,3 +121,12 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Keep only the Docs sidebar as a nested scroll region; prevent horizontal page overflow and use logical CSS properties, reduced motion, visible focus, and 44px targets.
 - Run `npm run verify` after each Docs implementation step and record the outcome and commit in `docs/docs-ia-log.md`.
 - Report unverified browser, contrast, Lighthouse, and accessibility checks explicitly; do not claim them from a build result.
+
+## Authored docs rules
+
+- For authored library pages and runnable examples, follow `docs/authored-docs-spec.md` and `.agents/skills/rivinia-docs-authored-docs/SKILL.md`; these supersede snapshot-ingest instructions for migrated libraries.
+- Keep library source material in `src/content/_library-source/` as committed, immutable verification reference. Application code never imports or renders it.
+- Author English content with verified `sources`; generate AST and navigation from `src/content/docs/`. Translate UI chrome and mark English content LTR in Arabic views with a localized notice.
+- Frame examples isolate document-root, storage, or global theme behavior in sandboxed srcdoc. Component examples scope theme and direction to their preview, use approved imports, compile, and test logic.
+- Content and example color values are data; application UI uses semantic theme tokens. Preserve sidebar-only nested scrolling, 44px controls, keyboard access, reduced motion, and stable preview geometry.
+- Log each step, run the verify gate, and commit completed steps according to the authored-docs skill. Preserve existing pages for libraries without authored content.
