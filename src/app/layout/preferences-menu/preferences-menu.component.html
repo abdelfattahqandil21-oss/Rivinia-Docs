@@ -1,7 +1,8 @@
 <button
   #trigger
   type="button"
-  class="inline-grid size-11 place-items-center rounded-full border border-rv-border text-rv-fg transition-colors duration-150 hover:border-rv-accent hover:text-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+  class="preferences-trigger inline-grid size-11 place-items-center rounded-full border border-rv-border text-rv-fg transition-colors duration-150 hover:border-rv-accent hover:text-rv-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rv-accent motion-reduce:transition-none"
+  [class.is-open]="open()"
   [attr.aria-label]="triggerLabel()"
   [attr.title]="triggerLabel()"
   aria-haspopup="dialog"

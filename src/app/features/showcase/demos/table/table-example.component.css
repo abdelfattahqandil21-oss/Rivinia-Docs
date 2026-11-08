@@ -17,10 +17,6 @@ rv-table {
   min-width: 0;
 }
 
-:host ::ng-deep .rv-table-scroller {
-  overflow: visible !important;
-}
-
 .example-feedback {
   margin-top: 0.8rem;
   color: var(--rv-muted);

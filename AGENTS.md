@@ -102,7 +102,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 - For every Home change, follow the revision requirements R1–R9 in `docs/home-ux-spec.md` and the execution checklist in `.agents/skills/rivinia-docs-home-ux/SKILL.md`.
 - Keep one source for section/package data, verify every user-facing claim against repository evidence, and record removed claims in `docs/home-open-questions.md`.
-- Keep Home and showcase content in the document flow: no nested scrolling except the Select listbox (maximum block size 16rem); use logical CSS properties, reduced-motion handling, and stable layouts.
+- Keep Home and showcase content in the document flow: nested scrolling is limited to the Select listbox (maximum block size 16rem), active Showcase source code, and viewport-constrained Showcase modal body; keep Showcase table horizontal scrolling inside its scroller. Use logical CSS properties, reduced-motion handling, and stable layouts.
 - Preserve genuine package behavior, keyboard access, visible focus, localization, RTL, and both themes. Use shared code/copy components consistently and keep code readable without horizontal scrolling.
 - Inspect the required viewport, language, and theme matrix in a browser; run `npm run verify` after each revision step and record evidence in `docs/home-revision-log.md`.
 

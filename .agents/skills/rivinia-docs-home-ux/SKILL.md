@@ -22,7 +22,7 @@ Use when implementing, reviewing, or adjusting the Rivinia Docs home page and it
 ## Checklist
 
 - [ ] R1–R9 are implemented or explicitly reported as blocked/not verified.
-- [ ] No nested Home/showcase scroll exists except the Select listbox.
+- [ ] No nested Home/showcase scroll exists except the Select listbox, active Showcase source code, and viewport-constrained Showcase modal body; the Showcase table keeps horizontal scrolling inside its own scroller.
 - [ ] Shared code/copy UI covers all Home code and copy actions.
 - [ ] Genuine Select behavior and manifest-driven package tabs remain functional.
 - [ ] `npm run verify` passes after each commit and browser evidence is recorded.

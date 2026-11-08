@@ -83,7 +83,7 @@ This revision supersedes conflicting earlier Home layout directions above. Prese
 
 ### R1 — Document flow and scroll
 
-Remove the section rail, observer/state/styles, and all mentions. Retain native proximity scroll snapping. Remove nested scrolling from Home and showcase styles after diagnosing each overflow. Keep the Select listbox scrollable, capped at 16rem, and allow vertical scrolling only in the active Showcase source-code `<pre>`, capped with responsive `max-block-size`. Preserve clipping/ellipsis that do not create scroll containers. Add an architecture-check rule rejecting `overflow-y: auto|scroll` and `overflow: auto|scroll` in Home/showcase component CSS and Home/showcase rules in `src/styles.css`, except the explicitly allowlisted Select listbox and Showcase source-code selectors.
+Remove the section rail, observer/state/styles, and all mentions. Retain native proximity scroll snapping. Remove nested scrolling from Home and showcase styles after diagnosing each overflow. Keep the Select listbox scrollable, capped at 16rem, allow vertical scrolling only in the active Showcase source-code `<pre>` capped with responsive `max-block-size`, and allow the Showcase modal body to scroll within its viewport-constrained dialog. Keep Showcase table horizontal overflow inside its table scroller. Preserve clipping/ellipsis that do not create scroll containers. Add an architecture-check rule rejecting other `overflow-y: auto|scroll` and `overflow: auto|scroll` in Home/showcase component CSS and Home/showcase rules in `src/styles.css`.
 
 ### R2 — Shared code and copy components
 

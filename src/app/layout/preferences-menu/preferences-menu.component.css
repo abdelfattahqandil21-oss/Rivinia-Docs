@@ -3,6 +3,15 @@
   display: inline-flex;
 }
 
+.preferences-trigger app-icon {
+  transform: rotate(0deg);
+  transition: transform 240ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.preferences-trigger.is-open app-icon {
+  transform: rotate(90deg);
+}
+
 .preferences-panel {
   animation: preferences-in 140ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -20,6 +29,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .preferences-trigger app-icon {
+    transition: none;
+  }
+
   .preferences-panel {
     animation: none;
   }

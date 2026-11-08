@@ -156,3 +156,13 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - Showcase source `<pre>` blocks have a responsive maximum height, vertical scrolling, and keyboard focus. The architecture check and R1 spec now allow this one source-code scroll surface alongside the Select listbox.
 - Browser review covered 390×844, 1366×768, 1440×900, and 1920×1080 in English/Arabic and light/dark. Screenshots are saved in `docs/screenshots/revision/showcase-comments/`; no horizontal page overflow was detected. Focused checks at 390px and 593px confirmed one-row package tabs, the same-row Preview/Code switch, compact inner tabs, and keyboard scrolling in long TypeScript source.
 - `npm run verify`: passed (17 test files, 78 tests). Prettier, architecture, color/contrast, i18n, generated-source freshness, production build, and Vitest passed. The showcase stylesheet is 7.88 kB and remains below the 8 kB error budget; existing warnings remain for showcase, Select demo, and Docs sidebar CSS.
+
+## R13 — Showcase mobile containment and Preferences motion
+
+- Status: DONE
+- Commit: pending
+- Outcome: Preferences rotates 90° while open and returns on close; the Table demo scrolls horizontally inside its own scroller; the Showcase modal stays viewport-constrained and scrolls long content inside its body.
+- User-approved behavior: The showcase table may scroll horizontally within its preview, and modal content may scroll within the dialog.
+- Verification: `npm run verify` passed (18 test files, 81 tests; architecture, color, contrast, i18n, generated-source freshness, production build, and Vitest). Build output is `builds/prod`; existing budget warnings remain for the Select demo, showcase CSS, and Docs sidebar.
+- Browser evidence: Chrome at 390×844, 457×900, and 1206×900; short-height check at 390×400. At 390px document width stayed 390px while the table scroller measured 322px client / 472px content. At 1206px the table scroller measured 520px / 520px. A temporary 800px content check at 390×400 kept the dialog within its 368px maximum and scrolled the body (316px client / 840px content). Preferences icon transform changed from 0° closed to 90° open and back to 0°.
+- Screenshots: `docs/screenshots/revision/showcase-containment/` (`mobile-table.png`, `mobile-modal.png`, `desktop-table.png`, `desktop-modal.png`). This focused review did not repeat the full Home viewport/language/theme matrix, nor run Lighthouse or contrast measurements in-browser.

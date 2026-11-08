@@ -38,6 +38,22 @@
   gap: 1rem;
   padding-block: 0.5rem;
 }
+
+:host ::ng-deep .rv-modal {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+  max-block-size: calc(100dvh - 2rem);
+  overflow: hidden;
+}
+
+:host ::ng-deep .rv-modal-body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  max-block-size: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .modal-content button.danger-button,
 .modal-actions button.danger-button {
   background: #a83932;
