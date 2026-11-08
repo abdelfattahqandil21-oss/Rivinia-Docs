@@ -28,9 +28,9 @@ html:has(.docs-layout) {
   font-size: clamp(2rem, 1.35rem + 2.8vw, 3.25rem);
 }
 
-.docs-page-content h1:focus {
+.docs-page-content h1:focus-visible {
   border-radius: var(--home-radius-sm);
-  outline: 2px solid var(--rv-accent);
+  outline: 2px solid var(--rv-brand-violet);
   outline-offset: 4px;
 }
 

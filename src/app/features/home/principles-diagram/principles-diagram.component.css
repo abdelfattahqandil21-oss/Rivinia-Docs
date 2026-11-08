@@ -1,8 +1,12 @@
+.pillar-petal:focus {
+  outline: none;
+}
+
 .principles-mark.has-active-petal .pillar-petal {
   opacity: 0.35;
 }
 
 .principles-mark.has-active-petal .pillar-petal.is-active {
   opacity: 1;
-  filter: drop-shadow(0 0 0.5rem color-mix(in srgb, var(--rv-accent) 70%, transparent));
+  filter: drop-shadow(0 0 0.5rem color-mix(in srgb, var(--rv-brand-violet) 70%, transparent));
 }
