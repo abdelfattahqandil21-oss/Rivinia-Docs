@@ -52,7 +52,11 @@ export class DocsPageContextService {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
         const pagePath = event.urlAfterRedirects.split(/[?#]/, 1)[0];
-        if (pagePath === this.lastPagePath) return;
+        if (pagePath === this.lastPagePath) {
+          this.scheduleHashRestore();
+          return;
+        }
+        this.clearPendingHashTarget();
         this.lastPagePath = pagePath;
         this.updatePageContext();
       });
@@ -220,8 +224,9 @@ export class DocsPageContextService {
   }
 
   private scheduleHashRestore(): void {
-    if (!window.location.hash) return;
-    this.pendingHashTarget = decodeURIComponent(window.location.hash.slice(1));
+    const fragment = this.router.parseUrl(this.router.url).fragment;
+    if (!fragment) return;
+    this.pendingHashTarget = decodeURIComponent(fragment);
     if (this.pendingHashTimer) clearTimeout(this.pendingHashTimer);
     this.pendingHashTimer = setTimeout(() => this.clearPendingHashTarget(), 1600);
     this.hashRestoreObserver ??= new MutationObserver(() => this.queueHashRestore());
@@ -247,13 +252,16 @@ export class DocsPageContextService {
     this.pendingHashTarget = '';
     if (this.pendingHashTimer) clearTimeout(this.pendingHashTimer);
     this.pendingHashTimer = undefined;
+    if (this.hashRestoreTimer) clearTimeout(this.hashRestoreTimer);
+    this.hashRestoreTimer = undefined;
+    this.hashRestoreObserver?.disconnect();
   }
 
   private queueHashRestore(): void {
     if (this.hashRestoreTimer) clearTimeout(this.hashRestoreTimer);
     this.hashRestoreTimer = setTimeout(() => {
-      const targetId = decodeURIComponent(window.location.hash.slice(1));
-      document.getElementById(targetId)?.scrollIntoView?.({ block: 'start' });
+      if (!this.pendingHashTarget) return;
+      document.getElementById(this.pendingHashTarget)?.scrollIntoView?.({ block: 'start' });
       this.hashRestoreObserver?.disconnect();
     }, 120);
   }
