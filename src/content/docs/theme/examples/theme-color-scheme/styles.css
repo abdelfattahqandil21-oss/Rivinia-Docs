@@ -1,0 +1,81 @@
+@import '@rivinia/theme';
+
+body {
+  margin: 0;
+  padding: 1rem;
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  font:
+    1rem/1.5 system-ui,
+    sans-serif;
+}
+
+.mode-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+button,
+input {
+  min-block-size: 2.75rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  font: inherit;
+}
+
+button {
+  padding-inline: 0.75rem;
+  cursor: pointer;
+}
+
+button[aria-pressed='true'] {
+  border-color: var(--rv-accent);
+  color: var(--rv-bg);
+  background: var(--rv-accent);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+#status {
+  min-block-size: 1.5em;
+  color: var(--rv-muted);
+}
+
+.theme-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  background: var(--rv-bg);
+}
+
+.theme-card p {
+  margin: 0;
+  color: var(--rv-muted);
+}
+
+.theme-card label {
+  display: grid;
+  gap: 0.5rem;
+}
+
+input {
+  max-inline-size: 100%;
+  padding-inline: 0.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button {
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+}

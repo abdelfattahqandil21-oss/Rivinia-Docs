@@ -1,0 +1,12 @@
+{
+  "title": "Switch between explicit and system theme",
+  "scenario": "An application developer needs an explicit Light or Dark control while preserving an operating-system-following option. The preview keeps the mode attribute inside its sandbox and reports the real browser preference with matchMedia.",
+  "tryIt": [
+    "Choose Light and observe the root data-rv-theme value.",
+    "Choose Dark and compare the token surface and native date control.",
+    "Choose Follow system to remove the attribute and read the OS preference."
+  ],
+  "mode": "frame",
+  "minHeight": 500,
+  "variants": []
+}

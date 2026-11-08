@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="mode-picker" role="group" aria-label="Theme mode">
+      <button type="button" data-mode="light" aria-pressed="false">Light</button>
+      <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+      <button type="button" data-mode="system" aria-pressed="true">Follow system</button>
+    </div>
+    <p id="status" aria-live="polite">Following the operating system.</p>
+    <section class="theme-card">
+      <strong>Document surface</strong>
+      <p>Shared background, text and accent tokens.</p>
+      <label>
+        Native date control
+        <input type="date" value="2026-11-08" />
+      </label>
+    </section>
+    <script src="./main.js"></script>
+  </body>
+</html>
