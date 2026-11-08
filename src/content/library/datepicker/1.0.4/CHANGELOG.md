@@ -1,0 +1,23 @@
+# Changelog
+
+## 1.0.4
+
+- Update published internal dependency metadata and version-pinned documentation links for the synchronized Rivinia 1.0 patch. No public API changes.
+
+## 1.0.3
+
+- Correct package repository, documentation, homepage, and issue links after the GitHub repository rename.
+
+## 1.0.2
+
+- No package-specific consumer changes; version synchronized under the Rivinia 1.0 release group.
+
+## 1.0.1
+
+- Documentation: README restructured into docs/datepicker/ pages; stale pre-1.0 wording removed.
+
+## 1.0.0
+
+- First stable release of the calendar and wall-time picker APIs, including the documented IANA time-zone and daylight-saving behavior.
+- Close date and date-time panels when keyboard focus leaves the control, without stealing focus from its new target.
+

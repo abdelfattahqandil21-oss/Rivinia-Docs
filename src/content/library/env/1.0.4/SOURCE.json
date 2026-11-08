@@ -1,0 +1,14 @@
+{
+  "package": "@rivinia/env",
+  "version": "1.0.4",
+  "tag": "env/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/env",
+  "date": "2026-11-08T18:45:37.034Z",
+  "sha256": {
+    "README.md": "a655609acc4ddde99f89134fe90b35010d9863f9e07d18ec624b8830aebe4e16",
+    "CHANGELOG.md": "226ed2b6ea87409583eed6909e6f71395ed3561ce5a3f48eaf0a5e1c2ce5aeea",
+    "docs/scaffolding.md": "816bb52a69627d6ce097c9d3aed699cdd558eb8b22d301675ebabd327c81c73e"
+  }
+}

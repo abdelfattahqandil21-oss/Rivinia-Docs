@@ -1,0 +1,19 @@
+{
+  "package": "@rivinia/toast",
+  "version": "1.0.4",
+  "tag": "toast/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/toast",
+  "date": "2026-11-08T18:45:37.062Z",
+  "sha256": {
+    "README.md": "743ff9720f9717b7454a24d6a7cb2246eba18d90c470bea44768ff7507d70a86",
+    "CHANGELOG.md": "efbb1406ccaca82348f776205d72be429b9dd3295c9030222f509490b78177cf",
+    "docs/api.md": "404e9a2f3939a8b1c09e8675bdc8622e51de5f6cea2997124f520f6b0018e9da",
+    "docs/headless.md": "f51a3987c4aa53c8c859d7095d4ed765e8916487aa2a2f2313d95d4c92dd95f7",
+    "docs/ready-made-ui.md": "133b566e12ca67552a4ea651c2b1e75dd1ae8596e98bc01ea747e8ebe15f335e",
+    "docs/testing.md": "a349524bf6ac376a2a730824a0ee9f81e2c6f28d1e34b7bb998555cc31087a30",
+    "docs/theming.md": "1a16fb9742be79ea04ed7f4edcd4e44b38c3a32085f57e7e4fd2f25de2dce7a5",
+    "docs/top-layer-and-managed-list.md": "7ab1d9dd16506118bc1c6b84bfe77b5c657363561fd3157b5e10f9f753d9a0fa"
+  }
+}

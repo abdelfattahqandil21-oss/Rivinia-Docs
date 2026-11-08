@@ -1,0 +1,18 @@
+{
+  "package": "@rivinia/http",
+  "version": "1.0.4",
+  "tag": "http/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/http",
+  "date": "2026-11-08T18:45:37.039Z",
+  "sha256": {
+    "README.md": "8b6961ff7c3a0e5f2a34d5ff0f1529695ae0f4745b7a45b17f99296d43162089",
+    "CHANGELOG.md": "22df27215e9954e3e5085d44905c2bd4dc718cab570a740941948062cd8fe3cc",
+    "docs/api.md": "91a821a2da4cd7f355d23d3a516f43a73a4d59ba75d1fa43409e351c677c638c",
+    "docs/envelopes-and-errors.md": "58c9367f97f895ad7ba61fd793cd19b77f81ee9cb26df0997527bf5ca0ee5928",
+    "docs/resources.md": "bf1e24e682237fe7da2bfdc1cd13a5e3ddde11eafab296db4bc85b69702449ec",
+    "docs/testing.md": "097c74b59353413c332530be51271fa91a57323525b3bf187d60a65f41631e00",
+    "docs/urls-and-services.md": "766818bb7c761e910e4128bb6fbc6902ee1e7d3d69c32795969b9c738a390c92"
+  }
+}

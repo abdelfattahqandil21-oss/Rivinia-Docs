@@ -1,0 +1,22 @@
+{
+  "package": "@rivinia/i18n",
+  "version": "1.0.4",
+  "tag": "i18n/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/i18n",
+  "date": "2026-11-08T18:45:37.042Z",
+  "sha256": {
+    "README.md": "a57a0ad888f8e202ebf4a7c7670d52f8c49048908c4c0eefd74b3148eb3d3640",
+    "CHANGELOG.md": "aa56e94402324cacce1a01f546381f83abbfb27504403c9260c6ccd1ec5f30d0",
+    "docs/api.md": "e95fe9e0e14b46eb66eb6cd00ea443bb34c6e8f3f008eeb10d1078b714513ac1",
+    "docs/cli.md": "10a13e36050e92faa33060d9fd0757cbd8bb102bb5926ee460f342d131ec51b6",
+    "docs/dictionaries.md": "b84b01f3b6c0922b09af45b6976d148e4b01ce75418258cc68db15ff4fcb7199",
+    "docs/icu.md": "5c3da7d6f3e015836c908400b98bf37773bf3edcca62f7a35414859f92efc067",
+    "docs/resilience.md": "231062f34203da380dc5cd082ac637c29132bfab01bfbc5b796cca1a4a088c0a",
+    "docs/select.md": "f6c362b25a2b186c30c11c00d4935f3f54f827ca7acfcb4b5466314c7461f41c",
+    "docs/switching.md": "75e49e539019fa82bc6a3560778eac5d747c0a540859d8f1e852dd1a43aa00b7",
+    "docs/toggle.md": "5b4b2b235876d9d8640a7bb16f3e5777adc6102b2902edc455c065d0e5b99be8",
+    "docs/translating.md": "4f3ca5815366134b0d230d6f973eae40e66c2ce339b5bfd6dd5fee67774b6c17"
+  }
+}

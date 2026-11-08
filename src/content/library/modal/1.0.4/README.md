@@ -1,0 +1,62 @@
+# @rivinia/modal
+
+[![npm version](https://img.shields.io/npm/v/@rivinia/modal.svg)](https://www.npmjs.com/package/@rivinia/modal)
+[![license](https://img.shields.io/npm/l/@rivinia/modal.svg)](https://www.npmjs.com/package/@rivinia/modal)
+
+An Angular modal manager with typed results, lifecycle policies, and optional ready-made UI.
+
+Package version: **1.0.4**
+
+```ts
+const handle = this.manager.openModal<DeleteData, boolean>(this.deleteTemplate, {
+  data: { id: user.id, name: user.name },
+  ref: 'confirm-delete',
+  metadata: { title: 'Delete user' },
+  dismiss: { backdrop: 'static' },
+});
+const result = await handle.result;
+if (result.status === 'confirmed' && result.value) this.removeUser(user.id);
+```
+
+## Why @rivinia/modal
+
+- Modal data and results are typed from the call site to the consumer.
+- Stack or queue admission and async dismissal guards are configurable.
+- Core lifecycle is separate from the optional dialog components.
+
+## Install
+
+```bash
+npm install @rivinia/modal
+```
+
+## Quick start
+
+1. Register `provideRiviniaModal()` and mount `RiviniaModalHost`.
+2. Open typed modal content from a component.
+3. Render the modal host and handle its typed result.
+
+## Two ways to use it
+
+| Ready-made UI | Headless manager |
+| --- | --- |
+| `@rivinia/modal/ui` | `@rivinia/modal` |
+
+The UI and controller are independent; use either or combine them.
+
+## Compatibility
+
+| Angular | Node | Browser verification |
+| --- | --- | --- |
+| `^22.0.0` | `^22.22.3 or ^24.15.0 or >=26.0.0` | Chromium and Firefox; native Safari not verified |
+
+## Go further
+
+| Topic | Read |
+| --- | --- |
+| Typed modals | [Typed modals](https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/typed-modals.md) |
+| Lifecycle and guards | [Lifecycle and guards](https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/lifecycle-and-guards.md) |
+| Ready-made UI | [Ready-made UI](https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/ready-made-ui.md) |
+| Theming | [Theming](https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/theming.md) |
+| Sizing and stacking | [Sizing and stacking](https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/sizing-and-stacking.md) |
+| API reference | [API reference](https://github.com/abdelfattahqandil21-oss/Rivinia/blob/modal/v1.0.4/docs/modal/api.md) |

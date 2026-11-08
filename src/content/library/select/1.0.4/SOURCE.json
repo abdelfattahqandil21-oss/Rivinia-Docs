@@ -1,0 +1,20 @@
+{
+  "package": "@rivinia/select",
+  "version": "1.0.4",
+  "tag": "select/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/select",
+  "date": "2026-11-08T18:45:37.045Z",
+  "sha256": {
+    "README.md": "bbac0749fe60e63c97584721db475241d16c50ef840569fd2216cb9fc372bb53",
+    "CHANGELOG.md": "58ff9650917e461450f1174bd960ca2301ebc75cf7feaf3cb85bcbe5502cb637",
+    "docs/accessibility.md": "2fd51fa6f0bb1633b239e12eaa951e85eb6790ca069363b6e76d68a2e30725d9",
+    "docs/api.md": "e8f4d906c8cacf2abd726926cef58a56031e3e8cb9bbc2d9e77cbf4ec6ab8f2f",
+    "docs/forms.md": "2ad085f18ebb4243435fa879d2a6b8178321f2618de76c4806cf653394be0d28",
+    "docs/headless.md": "486387d6f18f5ae6432c92ef2fc3bbb37df0662ed8a85aa4e0601df582fe3e05",
+    "docs/recipes.md": "cb0586568274ccacf558865ed09264277d12026e912e714aee9fa938923ff285",
+    "docs/theming.md": "12e1b7f9be7f2f6de217ace57f609f2b3c5be5ff03fd32f40607a71cb524887a",
+    "docs/variants.md": "a645d4b611fbefe6d0e7f86610621f5ba32ae7392555db8e4e8840fcc0ab158d"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "package": "@rivinia/table",
+  "version": "1.0.4",
+  "tag": "table/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/table",
+  "date": "2026-11-08T18:45:37.056Z",
+  "sha256": {
+    "README.md": "7e38b4d0da2260b233046fea1e922e79d5883a19159f4e572500e99abbfe3018",
+    "CHANGELOG.md": "ab2f7c589de974b0712c93d986578ddea7e09350f1517f34833798664919a339",
+    "docs/accessibility.md": "3e8678145d7ef035709679f56d0413e809c860324b596cf7be4dab6fd4c7ff12",
+    "docs/columns.md": "3855277f27eae2a8c16ab1697905162a53bc43939a0e24b30e1a7356032b7491",
+    "docs/installation.md": "cf807cf89c37b962a32c39fa48893ae307f07ff3029cd4b785c436ac9a794f7e",
+    "docs/overview.md": "3243cdd2dd7634cdc2d9c44959939bc6076a8fb217ae676362bccf41aa76e73a",
+    "docs/paging-and-state.md": "28f2b954fff347ca3c2d0258d9d6622e088e2b858fb658f8f05b1884a197fb60",
+    "docs/quick-start.md": "60e45368bbd77f952adb2c104402289ada6a4f1ad16aff1268551442aa494850",
+    "docs/ready-made-ui.md": "af3d4be282aac2cf39547d87fca766f2a54e84a45741baad32496f5b0431abc4",
+    "docs/scope-and-limits.md": "fa602c790df00996141e7f099d2ab0e4c2d78ef41600f418952e103ff78dc922",
+    "docs/selection.md": "6b5c758f04e1b42b968e3c2f2cb06faf360f4075b9a45fc21002d7bc9420ef70",
+    "docs/spans.md": "33b513d4da8523522444189c05ac79d135a78a61db9a090be54e4b9248643833",
+    "docs/theming.md": "20fb4778954679471d0f169514ccdb40314fa5346b26523df260fc205e7a0756"
+  }
+}

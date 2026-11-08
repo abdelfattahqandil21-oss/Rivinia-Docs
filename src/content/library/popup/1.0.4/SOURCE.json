@@ -1,0 +1,13 @@
+{
+  "package": "@rivinia/popup",
+  "version": "1.0.4",
+  "tag": "popup/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/popup",
+  "date": "2026-11-08T18:45:37.067Z",
+  "sha256": {
+    "README.md": "fba064607990ae30554c324ce0d0d4e71b80197d9a2ddb5884225fe93d77f0af",
+    "CHANGELOG.md": "4cb5776b3238bb73fb7a12e62d70d443c3f13b455ed44d59bb66f2a441f5678b"
+  }
+}

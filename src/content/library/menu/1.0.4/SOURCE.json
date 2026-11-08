@@ -1,0 +1,18 @@
+{
+  "package": "@rivinia/menu",
+  "version": "1.0.4",
+  "tag": "menu/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/menu",
+  "date": "2026-11-08T18:45:37.064Z",
+  "sha256": {
+    "README.md": "dbd8b5c648b220d85f87f3bf57931351512a5d29e4cf545ec50e5d2ec87322c1",
+    "CHANGELOG.md": "9e75fd1d0e295ea5c55e8d31a116b22eca643f75eb2870b5b6438720c05b1459",
+    "docs/api.md": "3c8227e46cb382f0435b9a57668791417459d8371d046b76a2a2468bac61e153",
+    "docs/headless.md": "8e8b1249bac48203b2d999fd6810a7ebc98a71b85ad2c36800b3ab37ca50d6ea",
+    "docs/interaction.md": "538e1df2fe0a0648578bf720c0d9bd4d26ea4a4b435e711e66853da70014a7e4",
+    "docs/ready-made.md": "e6f0003499598096b4427336f6bdc549f3f4db896e3ef4c6a0ac42b667e86d0f",
+    "docs/theming.md": "184799dc378173781c1a1e293a2f2c0354ed02ef1295dc36ac25ef0adede279c"
+  }
+}

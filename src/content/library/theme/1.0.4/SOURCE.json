@@ -1,0 +1,19 @@
+{
+  "package": "@rivinia/theme",
+  "version": "1.0.4",
+  "tag": "theme/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/theme",
+  "date": "2026-11-08T18:45:37.048Z",
+  "sha256": {
+    "README.md": "198ed4983709726c07dcb02287d4804be586b4d7ac52daece991af182843f417",
+    "CHANGELOG.md": "b33d6b45e3a770276459f95430038ef979bb581502c422997eb803b948c3e6a7",
+    "docs/README.md": "1e598ecb9d16eff5670fb14cfc2c4d2c541c6c226a6c159f49b6a5f4329cc6ac",
+    "docs/component-theme.md": "590c026c724f543bc592f79799f613499af35cecd42712f58f0f3d1561fa8a68",
+    "docs/contrast.md": "16d21339b9b6a1ffc155fbdd0d3b0041bce4ddc1080cc379b93d02c9247c72a4",
+    "docs/contributing.md": "393bc539a0f1d67d0a9e3fe25f4daaad975bb71dec596c2cde2c61496f5a2987",
+    "docs/styling-stacks.md": "3c36aecfebcdc51ea034848f4f851cd2376505f0bdb21bf1eec9aae913d75586",
+    "docs/tokens.md": "f5d6d1f3780e1085c9f1fffd607c53946b8550d8261993308bd592e1a3cb8721"
+  }
+}

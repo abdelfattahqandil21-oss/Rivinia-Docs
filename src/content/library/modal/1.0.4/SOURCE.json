@@ -1,0 +1,19 @@
+{
+  "package": "@rivinia/modal",
+  "version": "1.0.4",
+  "tag": "modal/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/modal",
+  "date": "2026-11-08T18:45:37.059Z",
+  "sha256": {
+    "README.md": "f9c30060e96acb615d8417b7246cbebebfdb043aecab507ef7adfb6fc56f81d3",
+    "CHANGELOG.md": "65e284f6f7687c05411165eeb5697d98599d64a1ec66fa72d04348f24d34f6f1",
+    "docs/api.md": "53ff469f18cd89038aecb3f450614404788b3234091554c349445f9add68fec7",
+    "docs/lifecycle-and-guards.md": "9257ad5cc4c416a30bac6866295527776c4c644a95e72c5ecf1ab6506e03eaf9",
+    "docs/ready-made-ui.md": "37e89ba2190181e31b8bbf58bd9041118853f1b76d31c1d46a79366607862b41",
+    "docs/sizing-and-stacking.md": "1d9b0018a1ac743b4eb975022175d7d5151a741e09f0d178c46b30c65400fdb6",
+    "docs/theming.md": "1ef027cd8da5fd2648883d939a297932713683d3d6f47e659ba3a1287496bb2e",
+    "docs/typed-modals.md": "2702c1ccdf5fff82b173746e91a7a76832262d59c52975485ff5a163a9dfdac5"
+  }
+}

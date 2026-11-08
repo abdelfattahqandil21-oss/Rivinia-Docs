@@ -1,0 +1,28 @@
+{
+  "package": "@rivinia/datepicker",
+  "version": "1.0.4",
+  "tag": "datepicker/v1.0.4",
+  "commit": "27f11fa22b3689e30db2c229c65791d761befedb",
+  "source": "library-docs-1.0.4 (1)",
+  "readmeSource": "node_modules/@rivinia/datepicker",
+  "date": "2026-11-08T18:45:37.053Z",
+  "sha256": {
+    "README.md": "021831a3f926d1d035a18fa266d5efb7ea81ced22406ed5101e434e271c97a05",
+    "CHANGELOG.md": "86db2d87bf0980880e8ed0509a3703ccdd04f65b791c32b287d2e8318d323e6c",
+    "docs/accessibility.md": "463573850039c74504ade8e4b522911636a418bfadb93122062a450ff12ab919",
+    "docs/api.md": "b9d9d780caf9fd89885453bf45c349331e27f6ee9af64e629918d76b7a4d3eca",
+    "docs/date-and-time.md": "983b933f297eede0ee6dc8fec78b46f4ee89ba43cb685f616f76c4a2697edfc0",
+    "docs/design-notes.md": "98f47add6faeb482eb84118be0ada9f735fa4d4896a7ca812e87b8ada1616f00",
+    "docs/formatting.md": "231291886a66c74a1f4787af9acca41bdd5fded4b4073396bf68cf177ff53131",
+    "docs/forms.md": "e7a62c03a6888fca7268a4153d30dca539c8bb776347a6dda35ec944385e11d9",
+    "docs/headless.md": "2084b9e0d081de419b8977906e4150878bd51ee7ec810efad5ea4b2769f6a892",
+    "docs/installation.md": "32a1427d840264b46827f70ff55b49b38b6283f7dff6941b30fc686a00555738",
+    "docs/keyboard-and-rtl.md": "15f8027d9ab0c0eaa53254336dfe77baf5c721718557b2baf35525b6832bc033",
+    "docs/layout.md": "5b7d30f7b669f5efd8f6896c47d1a160e4be17f2897ddd236366d78bb202ba5b",
+    "docs/overview.md": "2db86ae9a49485ef3429f7fc39b40c16ac0817803d2cc579c140f045c2c10342",
+    "docs/quick-start.md": "ac4fd517650fbd7c7e257709e8e205e462904ed3625cf9602c89f1283fb28571",
+    "docs/scope-and-limits.md": "5ba3d5a61ca6aa33b6aa899c7969c3312fb09d24e235e4e3fce1c4b1bb4f37e1",
+    "docs/theming.md": "0e53335d55a939ea59f138fdfacc74ad2423d1ed265b5dbfeda8ccfc4a27ac4e",
+    "docs/time-zones-and-dst.md": "25412c49093f72fdf8da2e183b9ee2a7e7bd3a174d90c37701ea9033aa44fecd"
+  }
+}
