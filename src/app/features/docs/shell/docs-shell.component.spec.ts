@@ -38,6 +38,7 @@ const translations: Record<string, string> = {
   'docs.expandSidebar': 'Show sidebar',
   'docs.onThisPage': 'On this page',
   'docs.notFound.title': 'Not found',
+  'docs.version': 'Version',
 };
 
 const routes = [
@@ -158,7 +159,7 @@ describe('DocsShellComponent', () => {
     expect(accordionTrigger(fixture, 'getting-started').getAttribute('aria-expanded')).toBe('true');
   });
 
-  it('sets the initial accordion without changing the document title', async () => {
+  it('sets the initial accordion and document title on direct page load', async () => {
     const title = TestBed.inject(Title);
     title.setTitle('sentinel');
     await router.navigateByUrl('/docs/select');
@@ -170,7 +171,7 @@ describe('DocsShellComponent', () => {
     expect(accordionTrigger(fixture, 'group-components').getAttribute('aria-expanded')).toBe(
       'true',
     );
-    expect(title.getTitle()).toBe('sentinel');
+    expect(title.getTitle()).toBe('Library · @rivinia/select · Rivinia Docs');
   });
 
   it('updates the document title and accordion after in-app navigation', async () => {

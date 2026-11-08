@@ -4,8 +4,10 @@
       app-docs-library-header
       class="library-header"
       [title]="details.pageTitle()"
-      [packageName]="details.packageId() === 'i18n' ? packageMetadata.name : null"
-      [contentLanguage]="details.packageId() === 'i18n' ? i18n.currentLanguage() : 'en'"
+      [packageName]="details.packageId() === 'i18n' || isThemePackage ? packageMetadata.name : null"
+      [contentLanguage]="
+        details.packageId() === 'i18n' || isThemePackage ? i18n.currentLanguage() : 'en'
+      "
       [versionText]="i18n.translate('docs.version')"
       [description]="
         details.packageId() === 'i18n'
@@ -16,7 +18,7 @@
       "
       [versionLabel]="details.versionLabel()"
       [entryPoints]="
-        isHttpOverview || (details.packageId() === 'i18n' && !details.section())
+        isHttpOverview || ((details.packageId() === 'i18n' || isThemePackage) && !details.section())
           ? packageMetadata.entryPoints
           : []
       "
@@ -38,6 +40,12 @@
       <app-docs-reference-page
         packageId="i18n"
         [pages]="referencePages"
+        [section]="details.section()"
+      />
+    } @else if (isThemePackage) {
+      <app-docs-reference-page
+        packageId="theme"
+        [pages]="themePages"
         [section]="details.section()"
       />
     } @else if (isHttpPackage) {

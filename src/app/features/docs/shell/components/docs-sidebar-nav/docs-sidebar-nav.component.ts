@@ -3,7 +3,10 @@ import { Component, ElementRef, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
-import { I18N_DOC_NAV } from '../../../library-overview/models/docs-library-navigation.model';
+import {
+  I18N_DOC_NAV,
+  THEME_DOC_NAV,
+} from '../../../library-overview/models/docs-library-navigation.model';
 import { IconComponent } from '../../../../../shared/components/icon/icon.component';
 import { PACKAGE_METADATA } from '../../../../packages/package-metadata';
 import { GETTING_STARTED_PAGES } from '../../../getting-started/models/docs-getting-started.model';
@@ -54,6 +57,25 @@ export class DocsSidebarNavComponent {
     { path: '/docs/http/guides/responses', label: 'docs.http.guide.guides-responses' },
     { path: '/docs/http/guides/testing', label: 'docs.http.guide.guides-testing' },
   ];
+  protected readonly themePages = [
+    { path: '/docs/theme', label: 'docs.theme.page.overview', section: '' },
+    {
+      path: '/docs/theme/quick-start',
+      label: 'docs.theme.page.quickStart',
+      section: 'quick-start',
+    },
+    { path: '/docs/theme/guides', label: 'docs.theme.page.guides', section: 'guides' },
+  ];
+  protected readonly themeGuides = THEME_DOC_NAV.filter((page) =>
+    page.section.startsWith('guides/'),
+  ).map((page) => ({
+    path: docsLink('theme', ...page.section.split('/')),
+    label: page.titleKey,
+  }));
+  protected readonly themeTailPages = [
+    { path: '/docs/theme/api', label: 'docs.theme.page.api', section: 'api' },
+    { path: '/docs/theme/changelog', label: 'docs.theme.page.changelog', section: 'changelog' },
+  ];
 
   protected readonly libraryPages = computed(() =>
     this.sidebar.packageNavigationId() === 'i18n'
@@ -63,7 +85,9 @@ export class DocsSidebarNavComponent {
           path: docsLink('i18n', ...page.section.split('/')),
           label: page.section ? page.titleKey : 'docs.i18n.overview.nav',
         }))
-      : this.httpPages,
+      : this.sidebar.packageNavigationId() === 'theme'
+        ? this.themePages
+        : this.httpPages,
   );
   protected readonly libraryGuides = computed(() =>
     this.sidebar.packageNavigationId() === 'i18n'
@@ -71,7 +95,9 @@ export class DocsSidebarNavComponent {
           path: docsLink('i18n', ...page.section.split('/')),
           label: page.section ? page.titleKey : 'docs.i18n.overview.nav',
         }))
-      : this.httpGuides,
+      : this.sidebar.packageNavigationId() === 'theme'
+        ? this.themeGuides
+        : this.httpGuides,
   );
   protected readonly libraryTailPages = computed(() =>
     this.sidebar.packageNavigationId() === 'i18n'
@@ -79,7 +105,9 @@ export class DocsSidebarNavComponent {
           path: docsLink('i18n', page.section),
           label: page.section ? page.titleKey : 'docs.i18n.overview.nav',
         }))
-      : this.httpTailPages,
+      : this.sidebar.packageNavigationId() === 'theme'
+        ? this.themeTailPages
+        : this.httpTailPages,
   );
 
   protected backToPackageList(): void {

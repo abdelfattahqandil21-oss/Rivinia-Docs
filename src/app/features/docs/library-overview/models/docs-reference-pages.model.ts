@@ -3,7 +3,7 @@ export interface DocsReferenceSection {
   readonly titleKey: string;
   readonly bodyKey: string;
   readonly code?: string;
-  readonly language?: 'ts' | 'html' | 'json' | 'bash' | 'text';
+  readonly language?: 'ts' | 'html' | 'css' | 'json' | 'bash' | 'text';
   readonly filename?: string;
   readonly rows?: readonly { readonly name: string; readonly descriptionKey: string }[];
 }
@@ -13,6 +13,260 @@ export interface DocsReferencePage {
   readonly descriptionKey: string;
   readonly sections: readonly DocsReferenceSection[];
 }
+
+export const THEME_DOC_PAGES: readonly DocsReferencePage[] = [
+  {
+    section: '',
+    titleKey: 'docs.theme.overview.title',
+    descriptionKey: 'docs.theme.overview.description',
+    sections: [
+      {
+        id: 'theme-contract',
+        titleKey: 'docs.theme.contract.title',
+        bodyKey: 'docs.theme.contract.body',
+      },
+      {
+        id: 'theme-cascade',
+        titleKey: 'docs.theme.cascade.title',
+        bodyKey: 'docs.theme.cascade.body',
+      },
+    ],
+  },
+  {
+    section: 'quick-start',
+    titleKey: 'docs.theme.quick-start.title',
+    descriptionKey: 'docs.theme.quick-start.description',
+    sections: [
+      {
+        id: 'theme-install',
+        titleKey: 'docs.theme.install.title',
+        bodyKey: 'docs.theme.install.body',
+        code: 'npm install @rivinia/theme',
+        language: 'bash',
+        filename: 'terminal',
+      },
+      {
+        id: 'theme-import',
+        titleKey: 'docs.theme.import.title',
+        bodyKey: 'docs.theme.import.body',
+        code: "/* src/styles.css */\n@import '@rivinia/theme';\n\n:root {\n  --rv-bg: var(--app-surface);\n  --rv-fg: var(--app-text);\n  --rv-accent: var(--app-accent);\n}",
+        language: 'css',
+        filename: 'src/styles.css',
+      },
+    ],
+  },
+  {
+    section: 'guides',
+    titleKey: 'docs.theme.guides.title',
+    descriptionKey: 'docs.theme.guides.description',
+    sections: [
+      {
+        id: 'theme-guide-map',
+        titleKey: 'docs.theme.guide-map.title',
+        bodyKey: 'docs.theme.guide-map.body',
+      },
+    ],
+  },
+  ...[
+    [
+      'guides/customize',
+      'customize',
+      [
+        {
+          id: 'theme-global-tokens',
+          titleKey: 'docs.theme.customize.global.title',
+          bodyKey: 'docs.theme.customize.global.body',
+          code: ':root {\n  --rv-bg: var(--app-surface);\n  --rv-fg: var(--app-text);\n  --rv-accent: var(--app-accent);\n}',
+          language: 'css' as const,
+          filename: 'src/styles.css',
+        },
+        {
+          id: 'theme-component-fallbacks',
+          titleKey: 'docs.theme.customize.fallback.title',
+          bodyKey: 'docs.theme.customize.fallback.body',
+        },
+      ],
+    ],
+    [
+      'guides/color-schemes',
+      'schemes',
+      [
+        {
+          id: 'theme-color-scheme-contract',
+          titleKey: 'docs.theme.schemes.contract.title',
+          bodyKey: 'docs.theme.schemes.contract.body',
+          code: '<html data-rv-theme="dark">',
+          language: 'html' as const,
+          filename: 'index.html',
+        },
+        {
+          id: 'theme-bootstrap-scheme',
+          titleKey: 'docs.theme.schemes.bootstrap.title',
+          bodyKey: 'docs.theme.schemes.bootstrap.body',
+        },
+      ],
+    ],
+    [
+      'guides/scoped-themes',
+      'scoped',
+      [
+        {
+          id: 'theme-scoped-tokens',
+          titleKey: 'docs.theme.scoped.title',
+          bodyKey: 'docs.theme.scoped.body',
+          code: '.campaign {\n  --rv-bg: var(--campaign-surface);\n  --rv-fg: var(--campaign-text);\n  --rv-accent: var(--campaign-accent);\n}',
+          language: 'css' as const,
+          filename: 'src/styles.css',
+        },
+      ],
+    ],
+    [
+      'guides/tailwind',
+      'tailwind',
+      [
+        {
+          id: 'theme-tailwind-import',
+          titleKey: 'docs.theme.tailwind.import.title',
+          bodyKey: 'docs.theme.tailwind.import.body',
+          code: "@import 'tailwindcss';\n@import '@rivinia/theme/tailwind.css';",
+          language: 'css' as const,
+          filename: 'src/styles.css',
+        },
+        {
+          id: 'theme-tailwind-utilities',
+          titleKey: 'docs.theme.tailwind.utilities.title',
+          bodyKey: 'docs.theme.tailwind.utilities.body',
+          code: '.promo {\n  --rv-bg: var(--promo-surface);\n}\n\n/* utilities: bg-rv-bg text-rv-accent border-rv-border */',
+          language: 'css' as const,
+          filename: 'src/styles.css',
+        },
+      ],
+    ],
+    [
+      'guides/bootstrap',
+      'bootstrap',
+      [
+        {
+          id: 'theme-bootstrap-import',
+          titleKey: 'docs.theme.bootstrap.import.title',
+          bodyKey: 'docs.theme.bootstrap.import.body',
+          code: "@import 'bootstrap/dist/css/bootstrap.css';\n@import '@rivinia/theme/bootstrap.css';",
+          language: 'css' as const,
+          filename: 'src/styles.css',
+        },
+        {
+          id: 'theme-bootstrap-switch',
+          titleKey: 'docs.theme.bootstrap.switch.title',
+          bodyKey: 'docs.theme.bootstrap.switch.body',
+          code: '<html data-bs-theme="dark">',
+          language: 'html' as const,
+          filename: 'index.html',
+        },
+      ],
+    ],
+    [
+      'guides/sass-less',
+      'sass-less',
+      [
+        {
+          id: 'theme-sass',
+          titleKey: 'docs.theme.sass.title',
+          bodyKey: 'docs.theme.sass.body',
+          code: "@use '@rivinia/theme/scss';",
+          language: 'css' as const,
+          filename: 'src/styles.scss',
+        },
+        {
+          id: 'theme-less',
+          titleKey: 'docs.theme.less.title',
+          bodyKey: 'docs.theme.less.body',
+          code: "@import (less) '@rivinia/theme/theme.css';",
+          language: 'css' as const,
+          filename: 'src/styles.less',
+        },
+      ],
+    ],
+    [
+      'guides/accessibility',
+      'accessibility',
+      [
+        {
+          id: 'theme-contrast',
+          titleKey: 'docs.theme.accessibility.contrast.title',
+          bodyKey: 'docs.theme.accessibility.contrast.body',
+        },
+        {
+          id: 'theme-forced-colors',
+          titleKey: 'docs.theme.accessibility.forced.title',
+          bodyKey: 'docs.theme.accessibility.forced.body',
+        },
+      ],
+    ],
+  ].map(([section, slug, sections]) => ({
+    section: section as string,
+    titleKey: `docs.theme.guides.${slug}.title`,
+    descriptionKey: `docs.theme.guides.${slug}.description`,
+    sections: sections as DocsReferencePage['sections'],
+  })),
+  {
+    section: 'api',
+    titleKey: 'docs.theme.api.title',
+    descriptionKey: 'docs.theme.api.description',
+    sections: [
+      {
+        id: 'theme-token-reference',
+        titleKey: 'docs.theme.api.tokens.title',
+        bodyKey: 'docs.theme.api.tokens.body',
+        rows: [
+          ...[
+            'bg',
+            'fg',
+            'muted',
+            'border',
+            'radius',
+            'shadow',
+            'font',
+            'accent',
+            'danger',
+            'ok',
+            'info',
+            'warning',
+          ].map((name) => ({ name: `--rv-${name}`, descriptionKey: `docs.theme.token.${name}` })),
+        ],
+      },
+      {
+        id: 'theme-entry-points',
+        titleKey: 'docs.theme.api.entries.title',
+        bodyKey: 'docs.theme.api.entries.body',
+        rows: [
+          { name: '@rivinia/theme', descriptionKey: 'docs.theme.entry.base' },
+          { name: '@rivinia/theme/theme.css', descriptionKey: 'docs.theme.entry.css' },
+          { name: '@rivinia/theme/tailwind.css', descriptionKey: 'docs.theme.entry.tailwind' },
+          { name: '@rivinia/theme/bootstrap.css', descriptionKey: 'docs.theme.entry.bootstrap' },
+          { name: '@rivinia/theme/scss', descriptionKey: 'docs.theme.entry.scss' },
+        ],
+      },
+    ],
+  },
+  {
+    section: 'changelog',
+    titleKey: 'docs.theme.changelog.title',
+    descriptionKey: 'docs.theme.changelog.description',
+    sections: [
+      {
+        id: 'theme-changelog-104',
+        titleKey: 'docs.theme.changelog.104.title',
+        bodyKey: 'docs.theme.changelog.104.body',
+      },
+      {
+        id: 'theme-changelog-100',
+        titleKey: 'docs.theme.changelog.100.title',
+        bodyKey: 'docs.theme.changelog.100.body',
+      },
+    ],
+  },
+];
+
 export const I18N_DOC_PAGES: readonly DocsReferencePage[] = [
   {
     section: '',

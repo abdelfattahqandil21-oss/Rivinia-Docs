@@ -1,3 +1,10 @@
+import { THEME_DOC_PAGES } from './docs-reference-pages.model';
+
+export const THEME_DOC_NAV = THEME_DOC_PAGES.map(({ section, titleKey }) => ({
+  section,
+  titleKey,
+}));
+
 export const I18N_DOC_NAV = [
   {
     section: '',

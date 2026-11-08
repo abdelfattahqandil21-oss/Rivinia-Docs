@@ -5,7 +5,7 @@ import { RiviniaI18n } from '@rivinia/i18n';
 
 import { PACKAGE_MANIFEST } from '../../../packages/package-manifest';
 import { PACKAGE_METADATA } from '../../../packages/package-metadata';
-import { I18N_DOC_PAGES } from '../models/docs-reference-pages.model';
+import { I18N_DOC_PAGES, THEME_DOC_PAGES } from '../models/docs-reference-pages.model';
 import { DOCS_PACKAGE_GUIDES } from '../models/docs-package-guides.model';
 import { VERIFIED_PUBLISHED_VERSIONS } from '../models/docs-published-versions.model';
 
@@ -70,13 +70,17 @@ export class DocsPackageDetailsService {
   readonly referencePage = computed(() =>
     this.packageId() === 'i18n'
       ? I18N_DOC_PAGES.find((page) => page.section === this.section())
-      : undefined,
+      : this.packageId() === 'theme'
+        ? THEME_DOC_PAGES.find((page) => page.section === this.section())
+        : undefined,
   );
   readonly pageTitle = computed(() => {
     const reference = this.referencePage();
     if (reference) return this.i18n.translate(reference.titleKey);
     const section = this.routeParams().get('section');
     const currentSection = this.section();
+    if (this.packageId() === 'theme')
+      return this.i18n.translate(this.referencePage()?.titleKey ?? 'docs.theme.overview.title');
     if (this.packageId() !== 'http') return this.packageTitle();
     if (currentSection === 'quick-start') return this.i18n.translate('docs.http.title.quick-start');
     if (currentSection === 'guides') return this.i18n.translate('docs.http.title.guides');

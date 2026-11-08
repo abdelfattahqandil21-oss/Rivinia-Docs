@@ -75,10 +75,7 @@ export class DocsPageContextService {
       if (this.activeUpdateFrame !== undefined) window.cancelAnimationFrame(this.activeUpdateFrame);
     });
     this.lastPagePath = this.routePath();
-    this.currentPath.set(this.lastPagePath);
-    const { packageId } = this.currentRouteInfo();
-    this.activePackageId.set(packageId);
-    this.syncActiveNavGroup(packageId);
+    this.updatePageContext();
   }
 
   private updatePageContext(): void {

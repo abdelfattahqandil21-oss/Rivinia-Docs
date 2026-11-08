@@ -194,21 +194,10 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
       { name: '@rivinia/theme', descriptionKey: 'docs.guide.theme.api.base' },
       { name: '@rivinia/theme/theme.css', descriptionKey: 'docs.guide.theme.api.css' },
       { name: '@rivinia/theme/tailwind.css', descriptionKey: 'docs.guide.theme.api.adapters' },
+      { name: '@rivinia/theme/bootstrap.css', descriptionKey: 'docs.theme.entry.bootstrap' },
+      { name: '@rivinia/theme/scss', descriptionKey: 'docs.theme.entry.scss' },
     ],
-    references: [
-      {
-        titleKey: 'docs.guide.theme.reference.tokens',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.4/docs/theme/tokens.md',
-      },
-      {
-        titleKey: 'docs.guide.theme.reference.stacks',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.4/docs/theme/styling-stacks.md',
-      },
-      {
-        titleKey: 'docs.guide.theme.reference.components',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/theme/v1.0.4/docs/theme/component-theme.md',
-      },
-    ],
+    references: [],
   },
   menu: {
     summaryKey: 'docs.guide.menu.summary',

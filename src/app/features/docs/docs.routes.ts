@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 
-import { I18N_DOC_NAV } from './library-overview/models/docs-library-navigation.model';
+import {
+  I18N_DOC_NAV,
+  THEME_DOC_NAV,
+} from './library-overview/models/docs-library-navigation.model';
 
 import { GETTING_STARTED_PAGES } from './getting-started/models/docs-getting-started.model';
 
@@ -63,6 +66,39 @@ export const DOCS_ROUTES: Routes = [
                   ),
               })),
             ],
+          },
+        ],
+      },
+      {
+        path: 'theme',
+        data: { docsPackageId: 'theme' },
+        children: [
+          ...THEME_DOC_NAV.filter((page) => !page.section.includes('/')).map((page) => ({
+            path: page.section,
+            pathMatch: 'full' as const,
+            data: { docsTitleKey: page.titleKey, docsPackageId: 'theme', section: page.section },
+            loadComponent: () =>
+              import('./library-overview/docs-library-overview.component').then(
+                (m) => m.DocsLibraryOverviewComponent,
+              ),
+          })),
+          {
+            path: 'guides',
+            data: { docsPackageId: 'theme' },
+            children: THEME_DOC_NAV.filter((page) => page.section.startsWith('guides/')).map(
+              (page) => ({
+                path: page.section.split('/')[1],
+                data: {
+                  docsTitleKey: page.titleKey,
+                  docsPackageId: 'theme',
+                  section: page.section,
+                },
+                loadComponent: () =>
+                  import('./library-overview/docs-library-overview.component').then(
+                    (m) => m.DocsLibraryOverviewComponent,
+                  ),
+              }),
+            ),
           },
         ],
       },

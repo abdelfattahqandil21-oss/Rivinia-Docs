@@ -112,7 +112,11 @@
       </header>
 
       <div class="docs-package-section-links">
-        @if (sidebar.packageNavigationId() === 'http' || sidebar.packageNavigationId() === 'i18n') {
+        @if (
+          sidebar.packageNavigationId() === 'http' ||
+          sidebar.packageNavigationId() === 'i18n' ||
+          sidebar.packageNavigationId() === 'theme'
+        ) {
           @for (item of libraryPages(); track item.path) {
             <a
               [routerLink]="item.path"
