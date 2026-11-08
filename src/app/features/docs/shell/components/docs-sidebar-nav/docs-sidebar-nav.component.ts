@@ -3,6 +3,7 @@ import { Component, ElementRef, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
+import { I18N_DOC_NAV } from '../../../library-overview/models/docs-library-navigation.model';
 import { IconComponent } from '../../../../../shared/components/icon/icon.component';
 import { PACKAGE_METADATA } from '../../../../packages/package-metadata';
 import { GETTING_STARTED_PAGES } from '../../../getting-started/models/docs-getting-started.model';
@@ -53,6 +54,33 @@ export class DocsSidebarNavComponent {
     { path: '/docs/http/guides/responses', label: 'docs.http.guide.guides-responses' },
     { path: '/docs/http/guides/testing', label: 'docs.http.guide.guides-testing' },
   ];
+
+  protected readonly libraryPages = computed(() =>
+    this.sidebar.packageNavigationId() === 'i18n'
+      ? I18N_DOC_NAV.filter(
+          (page) => !page.section.includes('/') && !['api', 'changelog'].includes(page.section),
+        ).map((page) => ({
+          path: docsLink('i18n', ...page.section.split('/')),
+          label: page.section ? page.titleKey : 'docs.i18n.overview.nav',
+        }))
+      : this.httpPages,
+  );
+  protected readonly libraryGuides = computed(() =>
+    this.sidebar.packageNavigationId() === 'i18n'
+      ? I18N_DOC_NAV.filter((page) => page.section.startsWith('guides/')).map((page) => ({
+          path: docsLink('i18n', ...page.section.split('/')),
+          label: page.section ? page.titleKey : 'docs.i18n.overview.nav',
+        }))
+      : this.httpGuides,
+  );
+  protected readonly libraryTailPages = computed(() =>
+    this.sidebar.packageNavigationId() === 'i18n'
+      ? I18N_DOC_NAV.filter((page) => ['api', 'changelog'].includes(page.section)).map((page) => ({
+          path: docsLink('i18n', page.section),
+          label: page.section ? page.titleKey : 'docs.i18n.overview.nav',
+        }))
+      : this.httpTailPages,
+  );
 
   protected backToPackageList(): void {
     const packageId = this.sidebar.packageNavigationId();

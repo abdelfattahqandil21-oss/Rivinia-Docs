@@ -183,37 +183,6 @@ export const DOCS_PACKAGE_GUIDES: Readonly<Record<string, DocsPackageGuide>> = {
       },
     ],
   },
-  i18n: {
-    summaryKey: 'docs.guide.i18n.summary',
-    conceptKeys: [
-      'docs.guide.i18n.languageState',
-      'docs.guide.i18n.translations',
-      'docs.guide.i18n.icu',
-    ],
-    api: [
-      { name: 'RiviniaI18n', descriptionKey: 'docs.guide.i18n.api.manager' },
-      { name: 'RvTranslatePipe', descriptionKey: 'docs.guide.i18n.api.pipe' },
-      { name: 'defineRiviniaI18n()', descriptionKey: 'docs.guide.i18n.api.define' },
-    ],
-    references: [
-      {
-        titleKey: 'docs.guide.i18n.reference.translations',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/translating.md',
-      },
-      {
-        titleKey: 'docs.guide.i18n.reference.switching',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/switching.md',
-      },
-      {
-        titleKey: 'docs.guide.i18n.reference.icu',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/icu.md',
-      },
-      {
-        titleKey: 'docs.guide.i18n.reference.api',
-        href: 'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/i18n/v1.0.4/docs/i18n/api.md',
-      },
-    ],
-  },
   theme: {
     summaryKey: 'docs.guide.theme.summary',
     conceptKeys: [

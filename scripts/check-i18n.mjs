@@ -1,5 +1,6 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { extname, relative, resolve } from 'node:path';
+import ts from 'typescript';
 
 const root = resolve(import.meta.dirname, '..');
 const appRoot = resolve(root, 'src/app');
@@ -57,8 +58,27 @@ for (const path of await collectSources(appRoot)) {
       }
     }
   }
-  const calls = /\b(?:translate|t)\s*\(\s*(['"])([\w.-]+)\1\s*[,)]/g;
-  for (const match of source.matchAll(calls)) checkUsage(path, source, match.index, match[2]);
+  if (path.endsWith('.ts')) {
+    const file = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true);
+    function visit(node) {
+      if (ts.isCallExpression(node)) {
+        const name = ts.isPropertyAccessExpression(node.expression)
+          ? node.expression.name.text
+          : ts.isIdentifier(node.expression)
+            ? node.expression.text
+            : '';
+        const argument = node.arguments[0];
+        if (['t', 'translate'].includes(name) && argument && ts.isStringLiteral(argument)) {
+          checkUsage(path, source, node.getStart(file), argument.text);
+        }
+      }
+      ts.forEachChild(node, visit);
+    }
+    visit(file);
+  } else {
+    const calls = /\b(?:translate|t)\s*\(\s*(['"])([\w.-]+)\1\s*[,)]/g;
+    for (const match of source.matchAll(calls)) checkUsage(path, source, match.index, match[2]);
+  }
 }
 
 const errors = [...localeMismatches, ...missingUsages];

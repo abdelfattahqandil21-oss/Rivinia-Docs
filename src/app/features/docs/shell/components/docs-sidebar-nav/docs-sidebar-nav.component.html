@@ -112,8 +112,8 @@
       </header>
 
       <div class="docs-package-section-links">
-        @if (sidebar.packageNavigationId() === 'http') {
-          @for (item of httpPages; track item.path) {
+        @if (sidebar.packageNavigationId() === 'http' || sidebar.packageNavigationId() === 'i18n') {
+          @for (item of libraryPages(); track item.path) {
             <a
               [routerLink]="item.path"
               routerLinkActive="is-current"
@@ -125,7 +125,7 @@
             </a>
           }
           <div class="docs-guide-subnav">
-            @for (guide of httpGuides; track guide.path) {
+            @for (guide of libraryGuides(); track guide.path) {
               <a
                 [routerLink]="guide.path"
                 routerLinkActive="is-current"
@@ -136,7 +136,7 @@
               </a>
             }
           </div>
-          @for (item of httpTailPages; track item.path) {
+          @for (item of libraryTailPages(); track item.path) {
             <a
               [routerLink]="item.path"
               routerLinkActive="is-current"

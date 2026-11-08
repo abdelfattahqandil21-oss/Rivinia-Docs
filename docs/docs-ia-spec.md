@@ -96,3 +96,7 @@ Render a library-section navigation only when at least two sections exist. Use n
 Report each check as passed, failed, or Not verified. Verify the five-second task (“where am I, how find my library, what next”), keyboard route, focus behavior, one H1 and one main landmark, labeled navs, no stacked mobile bars, no horizontal overflow at 390px LTR/RTL, and no nested Docs scrolling except the sidebar. Capture screenshots at 1920×1080, 1440×900, 1280×800, 1024×768 and 390×844 in both directions and themes under `docs/screenshots/docs-ia/`. Run Lighthouse accessibility on `/docs` and one library page if tooling exists.
 
 Create `docs/docs-coverage.md` with all eleven packages by the seven overview blocks. Final report is `docs/docs-ia-report.md` with Done (commit hashes), Blocked, Decisions, color/contrast findings, coverage gaps, every new Arabic string, Not verified, Prompt 2 inputs (public typings and demos), and next steps. End the report with a ten-line summary.
+
+## i18n library pages
+
+Keep `/docs/i18n`, `/quick-start`, `/guides`, `/api` and `/changelog` as package destinations. Guides contain translating, configuration, switching, ICU, resilience, controls and CLI topics under `/docs/i18n/guides/:topic`. Use a generic data renderer, a lightweight route/sidebar navigation model, localized prose and page-local heading links. Keep UI and select entry-point Experimental status visible in the controls guide.

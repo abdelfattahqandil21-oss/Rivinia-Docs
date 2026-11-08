@@ -1,7 +1,17 @@
-<div lang="en" dir="auto">
+@if (packageName()) {
+  <p lang="en" dir="ltr">
+    {{ packageName() }}
+    <span class="version-badge"
+      ><span class="sr-only">{{ versionText() }} </span>{{ versionLabel() }}</span
+    >
+  </p>
+}
+<div [attr.lang]="contentLanguage()" dir="auto">
   <app-page-header [title]="title()" [lead]="description()" />
 </div>
-<span class="version-badge" lang="en" dir="ltr">{{ versionLabel() }}</span>
+@if (!packageName()) {
+  <span class="version-badge" lang="en" dir="ltr">{{ versionLabel() }}</span>
+}
 <ul class="entry-point-chips" [attr.aria-label]="entryPointsLabel()">
   @for (entryPoint of entryPoints(); track entryPoint) {
     <li>

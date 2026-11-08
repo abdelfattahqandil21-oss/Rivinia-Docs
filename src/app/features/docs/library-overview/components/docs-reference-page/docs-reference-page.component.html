@@ -1,0 +1,45 @@
+@if (page(); as current) {
+  @for (block of current.sections; track block.id) {
+    <section class="reference-section">
+      <h2 [id]="block.id">{{ i18n.translate(block.titleKey) }}</h2>
+      <p>{{ i18n.translate(block.bodyKey) }}</p>
+      @if (block.code) {
+        <app-code-block
+          [code]="block.code"
+          [language]="block.language ?? 'text'"
+          [filename]="block.filename ?? ''"
+        />
+      }
+      @if (block.rows; as rows) {
+        <table>
+          <caption>
+            {{
+              i18n.translate(block.titleKey)
+            }}
+          </caption>
+          <tbody>
+            @for (row of rows; track row.name) {
+              <tr>
+                <th scope="row">
+                  <code dir="ltr">{{ row.name }}</code>
+                </th>
+                <td>{{ i18n.translate(row.descriptionKey) }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </section>
+  }
+  @if (section() === 'guides') {
+    <ul class="guide-links">
+      @for (guide of guides(); track guide.section) {
+        <li>
+          <a [routerLink]="link(guide.section)">{{ i18n.translate(guide.titleKey) }}</a>
+          <p>{{ i18n.translate(guide.descriptionKey) }}</p>
+        </li>
+      }
+    </ul>
+  }
+  <nav app-docs-sequence-nav [previous]="previous()" [next]="next()"></nav>
+}

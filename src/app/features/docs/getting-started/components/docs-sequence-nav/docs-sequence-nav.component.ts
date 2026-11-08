@@ -19,5 +19,5 @@ export class DocsSequenceNavComponent {
   readonly next = input<DocsSequenceStep | null>(null);
 
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
-  protected readonly label = this.i18n.t('docs.gettingStarted');
+  protected readonly label = this.i18n.t('docs.pageNavigation');
 }

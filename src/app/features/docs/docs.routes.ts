@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { I18N_DOC_NAV } from './library-overview/models/docs-library-navigation.model';
+
 import { GETTING_STARTED_PAGES } from './getting-started/models/docs-getting-started.model';
 
 export const DOCS_ROUTES: Routes = [
@@ -63,6 +65,19 @@ export const DOCS_ROUTES: Routes = [
             ],
           },
         ],
+      },
+      {
+        path: 'i18n',
+        data: { docsPackageId: 'i18n' },
+        children: I18N_DOC_NAV.map((page) => ({
+          path: page.section,
+          pathMatch: 'full',
+          data: { docsTitleKey: page.titleKey, docsPackageId: 'i18n', section: page.section },
+          loadComponent: () =>
+            import('./library-overview/docs-library-overview.component').then(
+              (m) => m.DocsLibraryOverviewComponent,
+            ),
+        })),
       },
       {
         path: ':package',

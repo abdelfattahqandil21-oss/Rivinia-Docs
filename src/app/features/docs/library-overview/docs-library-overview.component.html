@@ -4,11 +4,22 @@
       app-docs-library-header
       class="library-header"
       [title]="details.pageTitle()"
+      [packageName]="details.packageId() === 'i18n' ? packageMetadata.name : null"
+      [contentLanguage]="details.packageId() === 'i18n' ? i18n.currentLanguage() : 'en'"
+      [versionText]="i18n.translate('docs.version')"
       [description]="
-        isEnvPackage ? i18n.translate('component.env.summary') : packageMetadata.description
+        details.packageId() === 'i18n'
+          ? i18n.translate(details.referencePage()?.descriptionKey ?? 'component.i18n.summary')
+          : isEnvPackage
+            ? i18n.translate('component.env.summary')
+            : packageMetadata.description
       "
       [versionLabel]="details.versionLabel()"
-      [entryPoints]="isHttpOverview ? packageMetadata.entryPoints : []"
+      [entryPoints]="
+        isHttpOverview || (details.packageId() === 'i18n' && !details.section())
+          ? packageMetadata.entryPoints
+          : []
+      "
       [entryPointsLabel]="i18n.translate('docs.entryPoints')"
     ></header>
 
@@ -23,7 +34,13 @@
       }
     }
 
-    @if (isHttpPackage) {
+    @if (details.packageId() === 'i18n') {
+      <app-docs-reference-page
+        packageId="i18n"
+        [pages]="referencePages"
+        [section]="details.section()"
+      />
+    } @else if (isHttpPackage) {
       @switch (details.section()) {
         @case ('guides') {
           <section class="library-section http-guides-index">

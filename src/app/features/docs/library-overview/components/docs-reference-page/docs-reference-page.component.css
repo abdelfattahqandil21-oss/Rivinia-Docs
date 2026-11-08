@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  min-inline-size: 0;
+}
+.reference-section {
+  margin-block: 3rem;
+  padding-block-start: 2rem;
+  border-block-start: 1px solid var(--rv-border);
+}
+.guide-links {
+  padding-inline-start: 1.25rem;
+}
+.guide-links li {
+  margin-block: 1.5rem;
+}
+a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  color: var(--rv-accent);
+}
+a:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}

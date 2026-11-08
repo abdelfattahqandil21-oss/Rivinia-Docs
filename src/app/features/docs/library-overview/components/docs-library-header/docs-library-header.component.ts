@@ -9,6 +9,9 @@ import { PageHeaderComponent } from '../../../../../shared/components/page-heade
   styleUrl: './docs-library-header.component.css',
 })
 export class DocsLibraryHeaderComponent {
+  readonly packageName = input<string | null>(null);
+  readonly contentLanguage = input('en');
+  readonly versionText = input('Version');
   readonly title = input.required<string>();
   readonly description = input.required<string>();
   readonly versionLabel = input.required<string>();

@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 import { RiviniaI18n } from '@rivinia/i18n';
 
 import { CodeBlockComponent } from '../../../shared/components/code-block/code-block.component';
+import { DocsReferencePageComponent } from './components/docs-reference-page/docs-reference-page.component';
+import { I18N_DOC_PAGES } from './models/docs-reference-pages.model';
 import { DocsSequenceNavComponent } from '../getting-started/components/docs-sequence-nav/docs-sequence-nav.component';
 import { docsLink } from '../shared/docs-link';
 import { DocsDependencyListComponent } from './components/docs-dependency-list/docs-dependency-list.component';
@@ -17,6 +19,7 @@ import { DocsQuickStartService } from './services/docs-quick-start.service';
 @Component({
   imports: [
     RouterLink,
+    DocsReferencePageComponent,
     CodeBlockComponent,
     DocsLibraryHeaderComponent,
     DocsLibraryNotFoundComponent,
@@ -45,6 +48,7 @@ export class DocsLibraryOverviewComponent {
     return this.isHttpPackage && !this.details.section();
   }
 
+  protected readonly referencePages = I18N_DOC_PAGES;
   protected readonly notFoundTitle = this.i18n.t('docs.notFound.title');
   protected readonly notFoundBody = this.i18n.t('docs.notFound.body');
   protected readonly notFoundLink = docsLink();
