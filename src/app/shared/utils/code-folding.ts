@@ -25,7 +25,12 @@ export function findCodeFoldRegions(
   tokens: readonly CodeToken[],
 ): CodeFoldRegions {
   if (language === 'html') return findHtmlRegions(source, tokens);
-  if (language === 'ts' || language === 'typescript' || language === 'json' || language === 'css') {
+  if (
+    language === 'ts' ||
+    language === 'typescript' ||
+    language === 'json' ||
+    ['css', 'scss', 'less'].includes(language)
+  ) {
     return findBraceRegions(tokens);
   }
   return new Map();

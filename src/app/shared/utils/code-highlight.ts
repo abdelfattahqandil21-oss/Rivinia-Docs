@@ -1,4 +1,5 @@
-export type CodeLanguage = 'ts' | 'typescript' | 'html' | 'css' | 'bash' | 'json' | 'text';
+export type CodeLanguage =
+  'ts' | 'typescript' | 'html' | 'css' | 'scss' | 'less' | 'sh' | 'bash' | 'json' | 'text';
 
 export type CodeTokenKind =
   | 'plain'
@@ -115,13 +116,13 @@ function classify(
   }
   if (text.startsWith('$')) return 'variable';
   if (
-    language === 'bash' &&
+    ['bash', 'sh'].includes(language) &&
     /^(?:npm|npx|node|git|ng|pnpm|yarn|cd|mkdir|cat|echo|grep|rg|clear)$/.test(text) &&
     /(?:^|\n)\s*$/.test(precedingSource)
   ) {
     return 'command';
   }
-  if (language === 'bash' && text.startsWith('--')) return 'property';
+  if (['bash', 'sh'].includes(language) && text.startsWith('--')) return 'property';
   if (text === 'rvTranslate') return 'pipe';
   if (
     language === 'html' &&
@@ -131,13 +132,17 @@ function classify(
   ) {
     return 'variable';
   }
-  if (language === 'css' && /^(--|#|\.|:|@)/.test(text)) {
+  if (['css', 'scss', 'less'].includes(language) && /^(--|#|\.|:|@)/.test(text)) {
     if (text.startsWith('--')) return 'variable';
     if (text.startsWith('@')) return 'keyword';
     if (/^#[\da-fA-F]{3,8}$/.test(text)) return 'number';
     return 'selector';
   }
-  if (language === 'css' && /^[A-Za-z_-][\w-]*$/.test(text) && /^\s*:/.test(followingSource)) {
+  if (
+    ['css', 'scss', 'less'].includes(language) &&
+    /^[A-Za-z_-][\w-]*$/.test(text) &&
+    /^\s*:/.test(followingSource)
+  ) {
     return 'property';
   }
   if ((language === 'typescript' || language === 'ts') && KEYWORDS.has(text)) return 'keyword';
