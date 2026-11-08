@@ -170,7 +170,7 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 ## R14 — Keep mobile modal inside Preview
 
 - Status: DONE
-- Commit: pending
+- Commit: `d5a4097`
 - Finding: The modal package's `max-width: 640px` rule forces its dialog to `100dvw` with no max-width, so the top-layer dialog crosses the Preview card's horizontal bounds. When the Preview stage is close to the bottom of a short viewport, its anchor also placed the dialog partly below the screen.
 - Fix: The Preview pane is now an inline-size container. On mobile, the Showcase modal uses that width, is centered in the viewport, and keeps its existing viewport-limited body scrolling.
 - Verification: `npm run verify` passed (18 test files, 81 tests; formatting, architecture, color, contrast, i18n, generated sources, production build, and Vitest). Production output is `builds/prod`; existing CSS budget warnings remain for the Showcase, Select demo, and Docs sidebar.
