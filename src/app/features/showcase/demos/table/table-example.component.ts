@@ -63,6 +63,13 @@ export class TableExampleComponent {
     this.i18n.currentLanguage();
     return [
       {
+        id: 'id',
+        header: '#',
+        accessor: 'id',
+        width: '3.5rem',
+        flex: 0,
+      },
+      {
         id: 'name',
         header: this.i18n.translate('showcase.table.package'),
         accessor: 'name',

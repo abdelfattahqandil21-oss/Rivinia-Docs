@@ -39,25 +39,6 @@
       }
     </div>
 
-    <div class="showcase-controls">
-      <div class="view-switch" role="group" [attr.aria-label]="'showcase.views' | rvTranslate">
-        <button
-          type="button"
-          [attr.aria-pressed]="activeView() === 'preview'"
-          (click)="setView('preview')"
-        >
-          {{ 'showcase.preview' | rvTranslate }}
-        </button>
-        <button
-          type="button"
-          [attr.aria-pressed]="activeView() === 'code'"
-          (click)="setView('code')"
-        >
-          {{ 'showcase.code' | rvTranslate }}
-        </button>
-      </div>
-    </div>
-
     <div
       id="showcase-panel"
       class="showcase-workspace"
@@ -65,6 +46,31 @@
       [attr.aria-labelledby]="tabId(selectedExample())"
       [attr.aria-busy]="loading()"
     >
+      <div class="mobile-pane-heading">
+        <h3>
+          {{ (activeView() === 'preview' ? 'showcase.preview' : 'showcase.code') | rvTranslate }}
+        </h3>
+        <div class="view-switch" role="group" [attr.aria-label]="'showcase.views' | rvTranslate">
+          <button
+            type="button"
+            [attr.aria-label]="'showcase.preview' | rvTranslate"
+            [attr.title]="'showcase.preview' | rvTranslate"
+            [attr.aria-pressed]="activeView() === 'preview'"
+            (click)="setView('preview')"
+          >
+            <svg lucideEye size="17" aria-hidden="true"></svg>
+          </button>
+          <button
+            type="button"
+            [attr.aria-label]="'showcase.code' | rvTranslate"
+            [attr.title]="'showcase.code' | rvTranslate"
+            [attr.aria-pressed]="activeView() === 'code'"
+            (click)="setView('code')"
+          >
+            <svg lucideCode2 size="17" aria-hidden="true"></svg>
+          </button>
+        </div>
+      </div>
       <section
         class="showcase-pane preview-pane"
         [class.mobile-hidden]="activeView() !== 'preview'"
@@ -73,7 +79,7 @@
         <div class="pane-heading">
           <h3>{{ 'showcase.preview' | rvTranslate }}</h3>
         </div>
-        <div class="preview-stage">
+        <div class="preview-stage" [class.centered-demo]="selectedExample() === 'toast'">
           @if (selectedExample() === 'select') {
             <div class="preview-toolbar">
               <div
@@ -129,7 +135,12 @@
             </div>
           } @else if (activeComponent(); as component) {
             @for (key of [previewKey()]; track key) {
-              <div class="preview-content" [class.wide-demo]="selectedExample() === 'datepicker'">
+              <div
+                class="preview-content"
+                [class.wide-demo]="
+                  selectedExample() === 'datepicker' || selectedExample() === 'table'
+                "
+              >
                 <ng-container *ngComponentOutlet="component; inputs: activeInputs()" />
               </div>
             }
@@ -172,51 +183,83 @@
         </div>
 
         @if (sourceFiles().length) {
-          <div
-            class="source-file-tabs"
-            role="tablist"
-            [attr.aria-label]="'showcase.sourceFiles' | rvTranslate"
-          >
-            @for (file of sourceFiles(); track file.id) {
-              <button
-                type="button"
-                role="tab"
-                [id]="sourceTabId(file.id)"
-                [attr.aria-controls]="'showcase-source-code-panel'"
-                [attr.aria-selected]="selectedSourceFile()?.id === file.id"
-                [attr.tabindex]="selectedSourceFile()?.id === file.id ? 0 : -1"
-                (click)="selectSourceFile(file.id)"
-                (keydown)="onSourceTabKeydown($event, file.id)"
-              >
-                @switch (file.id) {
-                  @case ('typescript') {
-                    {{ 'showcase.sourceTypeScript' | rvTranslate }}
-                  }
-                  @case ('html') {
-                    {{ 'showcase.sourceHtml' | rvTranslate }}
-                  }
-                  @case ('css') {
-                    {{ 'showcase.sourceCss' | rvTranslate }}
-                  }
-                }
-              </button>
-            }
-          </div>
-          @if (selectedSourceFile(); as file) {
+          @if (sourceGroups().length) {
             <div
-              class="source-file-view"
-              id="showcase-source-code-panel"
-              role="tabpanel"
-              tabindex="0"
-              [attr.aria-labelledby]="sourceTabId(file.id)"
+              class="source-group-tabs"
+              role="tablist"
+              [attr.aria-label]="'showcase.codeGroups' | rvTranslate"
             >
-              <app-code-block
-                [code]="file.code"
-                [language]="file.language"
-                [filename]="file.name"
-              />
+              @for (group of sourceGroups(); track group.id) {
+                <button
+                  type="button"
+                  role="tab"
+                  [id]="sourceGroupTabId(group.id)"
+                  aria-controls="showcase-source-group-panel"
+                  [attr.aria-selected]="selectedSourceGroupId() === group.id"
+                  [attr.tabindex]="selectedSourceGroupId() === group.id ? 0 : -1"
+                  (click)="selectSourceGroup(group.id)"
+                  (keydown)="onSourceGroupKeydown($event, group.id)"
+                >
+                  {{ group.titleKey | rvTranslate }}
+                </button>
+              }
             </div>
           }
+          <div
+            id="showcase-source-group-panel"
+            [attr.role]="sourceGroups().length ? 'tabpanel' : null"
+            [attr.tabindex]="sourceGroups().length ? 0 : null"
+            [attr.aria-labelledby]="
+              sourceGroups().length ? sourceGroupTabId(selectedSourceGroupId()) : null
+            "
+          >
+            <div
+              class="source-file-tabs"
+              role="tablist"
+              [attr.aria-label]="'showcase.sourceFiles' | rvTranslate"
+            >
+              @for (file of sourceFiles(); track file.id) {
+                <button
+                  type="button"
+                  role="tab"
+                  [id]="sourceTabId(file.id)"
+                  aria-controls="showcase-source-code-panel"
+                  [attr.aria-selected]="selectedSourceFile()?.id === file.id"
+                  [attr.tabindex]="selectedSourceFile()?.id === file.id ? 0 : -1"
+                  (click)="selectSourceFile(file.id)"
+                  (keydown)="onSourceTabKeydown($event, file.id)"
+                >
+                  @switch (file.id) {
+                    @case ('typescript') {
+                      {{ 'showcase.sourceTypeScript' | rvTranslate }}
+                    }
+                    @case ('html') {
+                      {{ 'showcase.sourceHtml' | rvTranslate }}
+                    }
+                    @case ('css') {
+                      {{ 'showcase.sourceCss' | rvTranslate }}
+                    }
+                  }
+                </button>
+              }
+            </div>
+            @if (selectedSourceFile(); as file) {
+              <div
+                class="source-file-view"
+                id="showcase-source-code-panel"
+                role="tabpanel"
+                tabindex="0"
+                [attr.aria-labelledby]="sourceTabId(file.id)"
+              >
+                <app-code-block
+                  [code]="file.code"
+                  [language]="file.language"
+                  [filename]="file.name"
+                  [scrollable]="true"
+                />
+              </div>
+            }
+          </div>
         } @else {
           <p class="code-placeholder" role="status">
             {{ (loading() ? 'showcase.loadingCode' : 'showcase.codeUnavailable') | rvTranslate }}

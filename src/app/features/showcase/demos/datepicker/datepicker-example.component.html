@@ -28,6 +28,7 @@
       [hour12]="'auto'"
       [showSeconds]="false"
       [minuteStep]="5"
+      (now)="setCurrentTime()"
     />
     <p class="example-feedback" aria-live="polite" aria-atomic="true">
       {{ 'showcase.datepicker.selectedTime' | rvTranslate }}: {{ selectedTimeLabel() }}
@@ -42,7 +43,7 @@
       [locale]="locale()"
       format="medium"
       timeFormat="short"
-      [timeZone]="'America/New_York'"
+      [timeZone]="'Africa/Cairo'"
       [labels]="pickerLabels()"
       [label]="'showcase.datepicker.dateTimeLabel' | rvTranslate"
       [placeholder]="'showcase.datepicker.dateTimePlaceholder' | rvTranslate"

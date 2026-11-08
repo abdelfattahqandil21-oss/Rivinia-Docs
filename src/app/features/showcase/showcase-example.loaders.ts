@@ -19,11 +19,15 @@ export const SHOWCASE_EXAMPLE_LOADERS = new InjectionToken<ShowcaseExampleLoader
         return { component: component.SelectExampleComponent, source };
       },
       datepicker: async () => {
-        const [component, source] = await Promise.all([
+        const [component, source, examples] = await Promise.all([
           import('./demos/datepicker/datepicker-example.component'),
           loadShowcaseExampleSource('datepicker'),
+          import('./demos/datepicker/datepicker-code-groups'),
         ]);
-        return { component: component.DatepickerExampleComponent, source };
+        return {
+          component: component.DatepickerExampleComponent,
+          source: { ...source, codeGroups: examples.DATEPICKER_CODE_GROUPS },
+        };
       },
       table: async () => {
         const [component, source] = await Promise.all([

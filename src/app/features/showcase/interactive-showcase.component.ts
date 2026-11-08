@@ -2,6 +2,7 @@ import { DOCUMENT, NgComponentOutlet } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import type { Type } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LucideCode2, LucideEye } from '@lucide/angular';
 import { RiviniaI18n, RvTranslatePipe } from '@rivinia/i18n';
 import { injectRiviniaToast, type Toast } from '@rivinia/toast';
 
@@ -12,22 +13,26 @@ import {
   type ShowcaseExampleId,
   type ShowcaseExampleModule,
   type ShowcaseExampleSource,
+  type ShowcaseCodeGroup,
+  type ShowcaseCodeFile,
 } from './showcase-example.model';
 
-type ShowcaseSourceFileId = 'typescript' | 'html' | 'css';
-type ShowcaseSourceFile = {
-  id: ShowcaseSourceFileId;
-  name: string;
-  language: 'ts' | 'html' | 'css';
-  code: string;
-};
+type ShowcaseSourceFileId = ShowcaseCodeFile['id'];
+type ShowcaseSourceFile = ShowcaseCodeFile;
 
 const EXAMPLES: readonly { id: ShowcaseExampleId; packageName: string }[] = SHOWCASE_PACKAGES.map(
   ({ id, name }) => ({ id, packageName: name }),
 );
 
 @Component({
-  imports: [NgComponentOutlet, RouterLink, RvTranslatePipe, CodeBlockComponent],
+  imports: [
+    NgComponentOutlet,
+    RouterLink,
+    RvTranslatePipe,
+    CodeBlockComponent,
+    LucideCode2,
+    LucideEye,
+  ],
   selector: 'app-interactive-showcase',
   templateUrl: './interactive-showcase.component.html',
   styleUrl: './interactive-showcase.component.css',
@@ -50,6 +55,7 @@ export class InteractiveShowcaseComponent {
   protected readonly selectedTabWidth = computed(() => `${100 / EXAMPLES.length}%`);
   protected readonly activeView = signal<'preview' | 'code'>('preview');
   protected readonly selectedSourceFileId = signal<ShowcaseSourceFileId>('html');
+  protected readonly selectedSourceGroupId = signal('date');
   protected readonly selectedDemoMode = signal<'headless' | 'ui'>('ui');
   protected readonly selectionMode = signal<'single' | 'multi'>('single');
   protected readonly previewKey = computed(
@@ -74,6 +80,12 @@ export class InteractiveShowcaseComponent {
   protected readonly source = computed<ShowcaseExampleSource | null>(
     () => this.loadedModule()?.source ?? null,
   );
+  protected readonly sourceGroups = computed<readonly ShowcaseCodeGroup[]>(
+    () => this.source()?.codeGroups ?? [],
+  );
+  protected readonly selectedSourceGroup = computed(
+    () => this.sourceGroups().find((group) => group.id === this.selectedSourceGroupId()) ?? null,
+  );
   protected readonly visibleCodeBlocks = computed(() =>
     (this.source()?.codeBlocks ?? []).filter((block) => {
       if (this.selectedExample() !== 'select') {
@@ -95,6 +107,9 @@ export class InteractiveShowcaseComponent {
     const source = this.source();
     if (!source) {
       return [];
+    }
+    if (this.selectedExample() === 'datepicker' && this.selectedSourceGroup()) {
+      return [...(this.selectedSourceGroup()?.files ?? [])];
     }
     if (this.selectedExample() === 'select') {
       return this.visibleCodeBlocks().map((block) => ({
@@ -149,6 +164,7 @@ export class InteractiveShowcaseComponent {
     this.selectedExample.set(id);
     this.activeView.set('preview');
     this.selectedSourceFileId.set('html');
+    this.selectedSourceGroupId.set('date');
     void this.loadExample(id);
   }
 
@@ -169,7 +185,37 @@ export class InteractiveShowcaseComponent {
   }
 
   protected sourceTabId(id: ShowcaseSourceFileId): string {
-    return `showcase-source-tab-${id}`;
+    return `showcase-source-tab-${this.selectedExample()}-${this.selectedSourceGroupId()}-${id}`;
+  }
+
+  protected sourceGroupTabId(id: string): string {
+    return `showcase-source-group-tab-${id}`;
+  }
+
+  protected selectSourceGroup(id: string): void {
+    this.selectedSourceGroupId.set(id);
+    this.selectedSourceFileId.set('html');
+  }
+
+  protected onSourceGroupKeydown(event: KeyboardEvent, id: string): void {
+    const groups = this.sourceGroups();
+    const index = groups.findIndex((group) => group.id === id);
+    const rtl = this.document.documentElement.dir === 'rtl';
+    let nextIndex = index;
+    if (event.key === 'Home') nextIndex = 0;
+    else if (event.key === 'End') nextIndex = groups.length - 1;
+    else if (event.key === 'ArrowRight') {
+      nextIndex = (index + (rtl ? -1 : 1) + groups.length) % groups.length;
+    } else if (event.key === 'ArrowLeft') {
+      nextIndex = (index + (rtl ? 1 : -1) + groups.length) % groups.length;
+    } else return;
+
+    event.preventDefault();
+    const nextGroup = groups[nextIndex];
+    if (nextGroup) {
+      this.selectSourceGroup(nextGroup.id);
+      this.document.getElementById(this.sourceGroupTabId(nextGroup.id))?.focus();
+    }
   }
 
   protected selectSourceFile(id: ShowcaseSourceFileId): void {

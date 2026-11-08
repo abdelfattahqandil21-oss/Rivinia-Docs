@@ -9,5 +9,8 @@
   @if (caption()) {
     <p class="code-block-caption">{{ caption() }}</p>
   }
-  <pre><code dir="ltr" translate="no">@for (token of tokens(); track $index) {<span [class]="'token-' + token.kind">{{ token.text }}</span>}</code></pre>
+  <pre
+    [attr.tabindex]="scrollable() ? 0 : null"
+    [attr.aria-label]="scrollable() ? filename() || languageName() : null"
+  ><code dir="ltr" translate="no">@for (token of tokens(); track $index) {<span [class]="'token-' + token.kind">{{ token.text }}</span>}</code></pre>
 </article>

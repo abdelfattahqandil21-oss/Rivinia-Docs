@@ -4,6 +4,7 @@ import {
   DATEPICKER_LABELS_AR,
   DATEPICKER_LABELS_EN,
   formatDateTime,
+  nowInTimeZone,
   type RiviniaDate,
   type RiviniaDateTime,
   type RiviniaTime,
@@ -27,7 +28,9 @@ import {
   styleUrl: './datepicker-example.component.css',
 })
 export class DatepickerExampleComponent {
+  private readonly timeZone = 'Africa/Cairo';
   protected readonly i18n = inject<RiviniaI18n<'ar' | 'en'>>(RiviniaI18n);
+  private readonly initialDateTime = nowInTimeZone(this.timeZone);
 
   /** Follow the language selected in the Docs preferences. */
   protected readonly locale = computed(() => this.i18n.locale());
@@ -38,14 +41,14 @@ export class DatepickerExampleComponent {
   );
 
   /** Civil calendar date selected by the date-only control; it has no time zone. */
-  protected readonly selectedDate = signal<RiviniaDate | null>({ year: 2026, month: 11, day: 6 });
+  protected readonly selectedDate = signal<RiviniaDate | null>(this.initialDateTime.date);
 
   /** Time of day selected by the time-only control, stored in 24-hour form. */
   protected readonly selectedTime = signal<RiviniaTime>({ hour: 14, minute: 30, second: 0 });
 
   /** Civil date and wall time selected by the combined control. */
   protected readonly selectedDateTime = signal<RiviniaDateTime | null>({
-    date: { year: 2026, month: 11, day: 6 },
+    date: this.initialDateTime.date,
     time: { hour: 14, minute: 30, second: 0 },
   });
 
@@ -75,4 +78,8 @@ export class DatepickerExampleComponent {
       ? formatDateTime(this.locale(), dateTime, 'medium', 'short')
       : this.i18n.translate('showcase.datepicker.none');
   });
+
+  protected setCurrentTime(): void {
+    this.selectedTime.set(nowInTimeZone(this.timeZone).time);
+  }
 }

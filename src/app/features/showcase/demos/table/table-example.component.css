@@ -5,6 +5,9 @@
 }
 
 .table-wrap {
+  width: 100%;
+  max-width: 52rem;
+  margin-inline: auto;
   min-width: 0;
 }
 
@@ -26,10 +29,10 @@ rv-table {
 }
 .pagination {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.7rem;
+  gap: clamp(0.35rem, 1.5vw, 0.7rem);
   padding-block: 0.8rem;
   color: var(--rv-muted);
   font-size: 0.82rem;
@@ -58,12 +61,38 @@ rv-table {
 }
 
 .page-size-control {
-  width: 9rem;
+  width: clamp(4.5rem, 13vw, 7rem);
   min-width: 0;
+  flex: 0 0 auto;
+}
+
+.pagination > span {
+  min-width: 0;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .pagination {
+    gap: 0.25rem;
+  }
+
+  .pagination button {
+    min-width: 2.5rem;
+  }
 }
 
 .page-size-control rv-select {
   display: block;
+}
+
+:host ::ng-deep .page-size-control .rv-select-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .row-actions {

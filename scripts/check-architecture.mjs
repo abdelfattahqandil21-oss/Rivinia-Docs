@@ -190,14 +190,17 @@ for (const filePath of homeShowcaseStyles) {
       const listboxException =
         file === 'src/app/features/showcase/demos/select/select-example.component.css' &&
         selector === '.headless-options';
-      if (listboxException) continue;
+      const showcaseCodeException =
+        file === 'src/app/features/showcase/interactive-showcase.component.css' &&
+        selector === ':host ::ng-deep .code-pane .source-file-view app-code-block pre';
+      if (listboxException || showcaseCodeException) continue;
       const offset = (block.index ?? 0) + block[0].indexOf(declarations) + (declaration.index ?? 0);
       const line = source.slice(0, offset).split(/\r?\n/).length;
       report(
         'home-showcase-scroll',
         filePath,
         line,
-        'nested scrolling is reserved for the Select .headless-options listbox',
+        'nested scrolling is reserved for the Select listbox and active Showcase source code',
       );
     }
   }

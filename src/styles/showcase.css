@@ -56,7 +56,7 @@
     position-area: center;
     inset: auto;
     max-inline-size: min(calc(anchor-size(inline) - 2rem), calc(100dvw - 2rem));
-    max-block-size: min(calc(anchor-size(block) - 2rem), 80dvh);
+    max-block-size: min(calc(100dvh - 2rem), 48rem);
     margin: 0;
     overflow: auto;
   }

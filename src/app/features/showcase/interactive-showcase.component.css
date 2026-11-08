@@ -124,13 +124,6 @@
   color: var(--rv-fg);
 }
 
-.showcase-controls {
-  display: flex;
-  min-height: 0;
-  justify-content: flex-end;
-  gap: 0.75rem;
-}
-
 .demo-mode-switch,
 .view-switch {
   display: flex;
@@ -165,10 +158,6 @@
   display: none;
 }
 
-.showcase-control-spacer {
-  min-width: 1px;
-}
-
 .showcase-workspace {
   display: grid;
   min-height: 28rem;
@@ -176,6 +165,10 @@
   border: 1px solid var(--rv-border);
   border-radius: var(--home-radius-md, 0.75rem);
   background: color-mix(in srgb, var(--rv-fg) 1.5%, var(--rv-bg));
+}
+
+.mobile-pane-heading {
+  display: none;
 }
 
 .showcase-pane {
@@ -223,6 +216,11 @@
   align-items: stretch;
   gap: 1rem;
   padding-block: 1.25rem;
+}
+
+.preview-stage.centered-demo {
+  justify-content: center;
+  align-items: center;
 }
 
 .preview-toolbar {
@@ -275,8 +273,7 @@
 }
 
 .loading-state,
-.code-placeholder,
-.copy-status {
+.code-placeholder {
   color: var(--rv-muted);
   font-size: 0.9rem;
 }
@@ -288,8 +285,7 @@
   color: var(--rv-fg);
 }
 
-.error-state button,
-.code-example-heading button {
+.error-state button {
   min-height: 2.75rem;
   border: 1px solid var(--rv-border);
   border-radius: 0.5rem;
@@ -310,13 +306,8 @@
   border-inline-start: 1px solid var(--rv-border);
 }
 
-.code-examples {
-  display: grid;
-  align-content: start;
-  gap: 0.75rem;
-}
-
-.source-file-tabs {
+.source-file-tabs,
+.source-group-tabs {
   display: flex;
   min-width: 0;
   flex-wrap: wrap;
@@ -327,8 +318,14 @@
   background: var(--rv-bg);
 }
 
-.source-file-tabs button {
-  min-width: 5.5rem;
+.source-file-tabs {
+  width: fit-content;
+  max-width: 100%;
+  margin-block-start: 0.75rem;
+}
+
+.source-file-tabs button,
+.source-group-tabs button {
   min-height: 2.75rem;
   flex: 1 1 auto;
   border: 0;
@@ -341,7 +338,15 @@
   cursor: pointer;
 }
 
-.source-file-tabs button[aria-selected='true'] {
+.source-file-tabs button {
+  min-width: 0;
+  flex: 0 0 auto;
+  padding-inline: 0.75rem;
+  font-size: clamp(0.75rem, 1.5vw, 0.82rem);
+}
+
+.source-file-tabs button[aria-selected='true'],
+.source-group-tabs button[aria-selected='true'] {
   background: var(--rv-home-surface-raised);
   color: var(--rv-fg);
 }
@@ -349,6 +354,12 @@
 .source-file-view {
   min-width: 0;
   animation: source-file-enter 160ms ease-out both;
+}
+
+:host ::ng-deep .code-pane .source-file-view app-code-block pre {
+  max-block-size: clamp(12rem, 48dvh, 30rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 @keyframes source-file-enter {
@@ -391,20 +402,27 @@
 }
 
 @media (max-width: 68.749rem) {
-  .showcase-controls {
-    min-height: 0;
-  }
-
   .view-switch {
     display: flex;
   }
 
-  .showcase-workspace {
-    min-height: 28rem;
+  .mobile-pane-heading {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    border-block-end: 1px solid var(--rv-border);
+    padding: 0.5rem clamp(0.75rem, 2vw, 1rem);
   }
 
-  .preview-stage {
-    min-height: clamp(18rem, 42dvh, 20rem);
+  .mobile-pane-heading h3 {
+    color: var(--rv-fg);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .showcase-pane .pane-heading {
+    display: none;
   }
 
   .code-pane {
@@ -427,46 +445,42 @@
     padding-inline: 0.65rem;
   }
 
-  .showcase-workspace {
-    min-height: 28rem;
-  }
-
   .demo-mode-switch button,
   .view-switch button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
     padding-inline: 0.55rem;
     font-size: 0.8125rem;
-  }
-
-  .preview-toolbar {
-    flex-wrap: wrap;
   }
 }
 
 @media (max-width: 639px) {
   .example-tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.25rem;
-    border-block-end: 0;
-  }
-
-  .example-tabs::after {
-    display: none;
+    grid-template-columns: repeat(var(--showcase-tab-count, 5), minmax(0, 1fr));
   }
 
   .example-tab {
-    border-radius: 0.55rem;
+    min-height: clamp(3rem, 14vw, 3.5rem);
+    justify-items: center;
+    padding-inline: clamp(0.1rem, 0.8vw, 0.35rem);
+    text-align: center;
   }
 
-  .example-tab[aria-selected='true'] {
-    background: color-mix(in srgb, var(--rv-accent) 10%, var(--rv-bg));
+  .example-tab > span {
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
   }
 
   .example-tab code {
     display: none;
   }
 
-  .preview-stage {
-    min-height: clamp(18rem, 42dvh, 20rem);
+  .view-switch button {
+    width: clamp(2.75rem, 12vw, 3.25rem);
+    padding-inline: 0.45rem;
   }
 }
 

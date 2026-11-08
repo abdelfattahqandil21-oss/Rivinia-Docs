@@ -6,10 +6,11 @@ import { customLoader, provideRiviniaI18n } from '@rivinia/i18n';
 import { provideRiviniaToast } from '@rivinia/toast';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { appIcons } from '../../shared/components/icon/icon-registry';
+import { DATEPICKER_CODE_GROUPS } from './demos/datepicker/datepicker-code-groups';
 import { InteractiveShowcaseComponent } from './interactive-showcase.component';
 import { SHOWCASE_EXAMPLE_LOADERS } from './showcase-example.loaders';
 import type { ShowcaseExampleId, ShowcaseExampleLoaders } from './showcase-example.model';
-import { appIcons } from '../../shared/components/icon/icon-registry';
 
 @Component({
   selector: 'app-test-preview',
@@ -71,7 +72,11 @@ const translations = {
   'showcase.packageDocumentation': 'Package docs',
   'showcase.readDocs': 'Read the docs',
   'showcase.codeFiles': 'Source files',
+  'showcase.codeGroups': 'Datepicker examples',
   'showcase.sourceFiles': 'Example source files',
+  'showcase.datepicker.code.date': 'Date',
+  'showcase.datepicker.code.time': 'Time',
+  'showcase.datepicker.code.dateTime': 'Date and time',
   'showcase.sourceTypeScript': 'TypeScript',
   'showcase.sourceHtml': 'HTML',
   'showcase.sourceCss': 'CSS',
@@ -147,6 +152,13 @@ describe('InteractiveShowcaseComponent', () => {
     expect(loaders.select).toHaveBeenCalledOnce();
     expect(loaders.datepicker).not.toHaveBeenCalled();
     expect(fixture.nativeElement.textContent).toContain('Loaded preview');
+    const viewButtons = [...fixture.nativeElement.querySelectorAll('.view-switch button')];
+    expect(viewButtons.map((button) => button.getAttribute('aria-label'))).toEqual([
+      'Preview',
+      'Code',
+    ]);
+    expect(viewButtons.map((button) => button.getAttribute('title'))).toEqual(['Preview', 'Code']);
+    expect(viewButtons.every((button) => button.textContent.trim() === '')).toBe(true);
   });
 
   it('shows Select source in separate HTML, TypeScript, and CSS tabs', async () => {
@@ -189,7 +201,7 @@ describe('InteractiveShowcaseComponent', () => {
     );
 
     const codeButton = [...fixture.nativeElement.querySelectorAll('.view-switch button')].find(
-      (button) => button.textContent.includes('Code'),
+      (button) => button.getAttribute('aria-label') === 'Code',
     ) as HTMLButtonElement;
     codeButton.click();
     fixture.detectChanges();
@@ -239,6 +251,54 @@ describe('InteractiveShowcaseComponent', () => {
     );
     fixture.detectChanges();
     expect(tabs[1].getAttribute('aria-selected')).toBe('true');
+  });
+
+  it('groups Datepicker source into three cases with HTML, TypeScript, and CSS files', async () => {
+    const groupedLoaders: ShowcaseExampleLoaders = {
+      ...makeLoaders(),
+      datepicker: vi.fn(async () => ({
+        component: TestPreviewComponent,
+        source: { ...sourceFor('datepicker'), codeGroups: DATEPICKER_CODE_GROUPS },
+      })),
+    };
+    TestBed.overrideProvider(SHOWCASE_EXAMPLE_LOADERS, { useValue: groupedLoaders });
+    const fixture = createFixture();
+    await fixture.whenStable();
+
+    const datepickerButton = [...fixture.nativeElement.querySelectorAll('.example-tab')].find(
+      (button) => button.textContent.includes('Datepicker'),
+    ) as HTMLButtonElement;
+    datepickerButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    (
+      fixture.nativeElement.querySelector(
+        '.view-switch button[aria-label="Code"]',
+      ) as HTMLButtonElement
+    ).click();
+    fixture.detectChanges();
+
+    const groupTabs = [
+      ...fixture.nativeElement.querySelectorAll('.source-group-tabs [role="tab"]'),
+    ];
+    expect(groupTabs.map((tab) => tab.textContent.trim())).toEqual([
+      'Date',
+      'Time',
+      'Date and time',
+    ]);
+    expect(fixture.nativeElement.querySelectorAll('.source-file-tabs [role="tab"]')).toHaveLength(
+      3,
+    );
+
+    (groupTabs[1] as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(groupTabs[1].getAttribute('aria-selected')).toBe('true');
+    expect(
+      fixture.nativeElement.querySelector('.source-file-view app-code-block').textContent,
+    ).toContain('rv-time-row');
+    expect(fixture.nativeElement.querySelectorAll('.source-file-tabs [role="tab"]')).toHaveLength(
+      3,
+    );
   });
 
   it('shows an accessible failure state and retries the selected loader', async () => {

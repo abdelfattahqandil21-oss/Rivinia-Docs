@@ -8,6 +8,20 @@ export interface ShowcaseExampleSource {
   readonly typescript: string;
   readonly css?: string;
   readonly codeBlocks?: readonly ShowcaseCodeBlock[];
+  readonly codeGroups?: readonly ShowcaseCodeGroup[];
+}
+
+export interface ShowcaseCodeGroup {
+  readonly id: string;
+  readonly titleKey: string;
+  readonly files: readonly ShowcaseCodeFile[];
+}
+
+export interface ShowcaseCodeFile {
+  readonly id: 'typescript' | 'html' | 'css';
+  readonly name: string;
+  readonly language: 'html' | 'ts' | 'css';
+  readonly code: string;
 }
 
 export interface ShowcaseCodeBlock {

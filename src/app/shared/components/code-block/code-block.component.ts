@@ -15,6 +15,7 @@ export class CodeBlockComponent {
   readonly language = input.required<Exclude<CodeLanguage, 'typescript'>>();
   readonly filename = input<string | null>(null);
   readonly caption = input<string | null>(null);
+  readonly scrollable = input(false);
 
   protected readonly tokens = computed(() => highlightCode(this.code(), this.language()));
   protected readonly languageName = computed(() => {
