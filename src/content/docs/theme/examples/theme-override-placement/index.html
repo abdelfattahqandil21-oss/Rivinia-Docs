@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="case-picker" role="group" aria-label="CSS override placement">
+      <button type="button" data-case="default" aria-pressed="true">Default</button>
+      <button type="button" data-case="global" aria-pressed="false">Global root</button>
+      <button type="button" data-case="layered" aria-pressed="false">Layered</button>
+      <button type="button" data-case="section" aria-pressed="false">Section</button>
+      <button type="button" data-case="component" aria-pressed="false">Component token</button>
+    </div>
+    <p id="status" class="status" aria-live="polite">
+      Package defaults from the installed theme stylesheet.
+    </p>
+    <div class="page-sample">
+      <strong>Page surface</strong>
+      <p>This area follows the semantic root tokens.</p>
+      <section class="scoped-sample">
+        <strong>Scoped section</strong>
+        <p>This section can inherit its own semantic palette.</p>
+        <div class="component-sample">Select surface token sample</div>
+      </section>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+@layer base, rivinia-theme;
+@import '@rivinia/theme';
+
+body {
+  margin: 0;
+  padding: 1rem;
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  font:
+    1rem/1.5 system-ui,
+    sans-serif;
+}
+
+.case-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-end: 0.75rem;
+}
+
+button {
+  min-block-size: 2.75rem;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  cursor: pointer;
+}
+
+button[aria-pressed='true'] {
+  border-color: var(--rv-accent);
+  color: var(--rv-bg);
+  background: var(--rv-accent);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+.status {
+  min-block-size: 1.5em;
+  color: var(--rv-muted);
+}
+
+.page-sample,
+.scoped-sample,
+.component-sample {
+  padding: 0.875rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+}
+
+.page-sample {
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+}
+
+.page-sample > p,
+.scoped-sample > p {
+  margin-block: 0.4rem 0.75rem;
+}
+
+.scoped-sample {
+  margin-block-start: 0.75rem;
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+}
+
+.component-sample {
+  background: var(--rv-select-bg, var(--rv-bg));
+  color: var(--rv-fg);
+}
+
+:root[data-case='global'] {
+  --rv-bg: #fff7ed;
+  --rv-accent: #9a3412;
+}
+
+@layer base {
+  :root[data-case='layered'] {
+    --rv-bg: #dcfce7;
+    --rv-accent: #166534;
+  }
+}
+
+:root[data-case='section'] .scoped-sample,
+:root[data-case='component'] .scoped-sample {
+  --rv-bg: #18181b;
+  --rv-fg: #fafafa;
+  --rv-muted: #d4d4d8;
+  --rv-border: #52525b;
+  color-scheme: dark;
+}
+
+:root[data-case='component'] {
+  --rv-select-bg: #fff7ed;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button {
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+}

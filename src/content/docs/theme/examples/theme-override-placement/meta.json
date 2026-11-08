@@ -1,0 +1,12 @@
+{
+  "title": "Test CSS override placement",
+  "scenario": "An application developer wants to recolor the whole page or one section without losing Rivinia's defaults. This frame compares the real theme layer, an unlayered root override, a scoped section, and a component-token precedence trap.",
+  "tryIt": [
+    "Select the layered override and compare it with the unlayered default.",
+    "Choose the section override to keep the page surface light and the section dark.",
+    "Choose the component-token case to see its surface stay light inside the dark section."
+  ],
+  "mode": "frame",
+  "minHeight": 560,
+  "variants": []
+}
