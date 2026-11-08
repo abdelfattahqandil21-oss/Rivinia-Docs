@@ -764,5 +764,13 @@
   "docs.authored.englishNotice": "هذا الدليل مكتوب باللغة الإنجليزية؛ تظل أدوات التنقل متاحة بالعربية.",
   "docs.authored.guides": "الأدلة",
   "docs.authored.recipes": "وصفات تطبيقية",
-  "docs.authored.reference": "المرجع"
+  "docs.authored.reference": "المرجع",
+  "docs.example.theme": "السمة",
+  "docs.example.direction": "الاتجاه",
+  "docs.example.reset": "إعادة ضبط",
+  "docs.example.view": "عرض المثال",
+  "docs.example.preview": "معاينة",
+  "docs.example.code": "الكود",
+  "docs.example.tryIt": "جرّب التالي",
+  "docs.example.files": "ملفات المثال"
 }

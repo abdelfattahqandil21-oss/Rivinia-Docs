@@ -126,8 +126,14 @@ for (const filePath of walk(appRoot).filter((file) => file.endsWith('.ts'))) {
         !showcaseSource &&
         !packageMetadataAdapter &&
         !(
-          targetRelative === 'src/generated/docs-content.generated.ts' &&
-          file === 'src/app/features/docs/shared/docs-content.ts'
+          [
+            'src/generated/docs-content.generated.ts',
+            'src/generated/docs-examples.generated.ts',
+          ].includes(targetRelative) &&
+          [
+            'src/app/features/docs/shared/docs-content.ts',
+            'src/app/features/docs/shared/docs-examples.ts',
+          ].includes(file)
         )
       ) {
         report(

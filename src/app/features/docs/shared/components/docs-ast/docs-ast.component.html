@@ -3,6 +3,9 @@
     @case ('swatch') {
       <span class="token-swatch" aria-hidden="true" [style.--docs-swatch]="node.color"></span>
     }
+    @case ('example') {
+      <app-docs-example [package]="package()" [name]="node.name ?? ''" />
+    }
     @case ('text') {
       {{ node.text }}
     }
@@ -10,20 +13,20 @@
       <br />
     }
     @case ('strong') {
-      <strong><app-docs-ast [nodes]="node.children ?? []" /></strong>
+      <strong><app-docs-ast [package]="package()" [nodes]="node.children ?? []" /></strong>
     }
     @case ('em') {
-      <em><app-docs-ast [nodes]="node.children ?? []" /></em>
+      <em><app-docs-ast [package]="package()" [nodes]="node.children ?? []" /></em>
     }
     @case ('del') {
-      <del><app-docs-ast [nodes]="node.children ?? []" /></del>
+      <del><app-docs-ast [package]="package()" [nodes]="node.children ?? []" /></del>
     }
     @case ('link') {
       <a
         [href]="node.href"
         [attr.target]="node.external ? '_blank' : null"
         [attr.rel]="node.external ? 'noopener' : null"
-        ><app-docs-ast [nodes]="node.children ?? []" />
+        ><app-docs-ast [package]="package()" [nodes]="node.children ?? []" />
         @if (node.external) {
           <span> ({{ i18n.translate('nav.opensInNewTab') }})</span>
         }
@@ -32,18 +35,24 @@
     @case ('heading') {
       @switch (node.level) {
         @case (3) {
-          <h3 [id]="node.id"><app-docs-ast [nodes]="node.children ?? []" /></h3>
+          <h3 [id]="node.id">
+            <app-docs-ast [package]="package()" [nodes]="node.children ?? []" />
+          </h3>
         }
         @case (4) {
-          <h4 [id]="node.id"><app-docs-ast [nodes]="node.children ?? []" /></h4>
+          <h4 [id]="node.id">
+            <app-docs-ast [package]="package()" [nodes]="node.children ?? []" />
+          </h4>
         }
         @default {
-          <h2 [id]="node.id"><app-docs-ast [nodes]="node.children ?? []" /></h2>
+          <h2 [id]="node.id">
+            <app-docs-ast [package]="package()" [nodes]="node.children ?? []" />
+          </h2>
         }
       }
     }
     @case ('paragraph') {
-      <p><app-docs-ast [nodes]="node.children ?? []" /></p>
+      <p><app-docs-ast [package]="package()" [nodes]="node.children ?? []" /></p>
     }
     @case ('code') {
       @if (node.code !== undefined) {
@@ -56,19 +65,19 @@
       <hr />
     }
     @case ('blockquote') {
-      <blockquote><app-docs-ast [nodes]="node.children ?? []" /></blockquote>
+      <blockquote><app-docs-ast [package]="package()" [nodes]="node.children ?? []" /></blockquote>
     }
     @case ('list') {
       @if (node.ordered) {
         <ol [start]="node.start ?? 1">
           @for (item of node.items; track $index) {
-            <li><app-docs-ast [nodes]="item" /></li>
+            <li><app-docs-ast [package]="package()" [nodes]="item" /></li>
           }
         </ol>
       } @else {
         <ul>
           @for (item of node.items; track $index) {
-            <li><app-docs-ast [nodes]="item" /></li>
+            <li><app-docs-ast [package]="package()" [nodes]="item" /></li>
           }
         </ul>
       }
@@ -79,7 +88,7 @@
           <tr>
             @for (cell of node.header; track $index) {
               <th scope="col" [style.text-align]="node.align?.[$index]">
-                <app-docs-ast [nodes]="cell" />
+                <app-docs-ast [package]="package()" [nodes]="cell" />
               </th>
             }
           </tr>
@@ -89,7 +98,7 @@
             <tr>
               @for (cell of row; track $index) {
                 <td [style.text-align]="node.align?.[$index]">
-                  <app-docs-ast [nodes]="cell" />
+                  <app-docs-ast [package]="package()" [nodes]="cell" />
                 </td>
               }
             </tr>

@@ -36,3 +36,20 @@ test('author HTML and unknown directives are rejected', () => {
   assert.throws(() => parseMarkdown('<script>alert(1)</script>', 'page.md'), /unsupported html/);
   assert.throws(() => parseMarkdown(':::unknown', 'page.md'), /unknown directive/);
 });
+
+test('installed exports reject the known RvTable documentation typo', async () => {
+  const { auditImports, tokenRows } = await import('./reference.mjs');
+  const root = new URL('../../', import.meta.url).pathname;
+  await assert.rejects(
+    auditImports("import { RvTable } from '@rivinia/table/ui';", root, 'example.md'),
+    /RvTable is not exported/,
+  );
+  await auditImports(
+    "import { RiviniaTableComponent } from '@rivinia/table/ui';",
+    root,
+    'example.md',
+  );
+  const tokens = await tokenRows(root);
+  assert.equal(tokens.length, 12);
+  assert.equal(tokens.find((token) => token.name === '--rv-bg').dark, '#161616');
+});

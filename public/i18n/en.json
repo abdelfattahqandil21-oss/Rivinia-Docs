@@ -764,5 +764,13 @@
   "docs.authored.englishNotice": "This library guide is written in English.",
   "docs.authored.guides": "Guides",
   "docs.authored.recipes": "Recipes",
-  "docs.authored.reference": "Reference"
+  "docs.authored.reference": "Reference",
+  "docs.example.theme": "Theme",
+  "docs.example.direction": "Direction",
+  "docs.example.reset": "Reset",
+  "docs.example.view": "Example view",
+  "docs.example.preview": "Preview",
+  "docs.example.code": "Code",
+  "docs.example.tryIt": "Try this",
+  "docs.example.files": "Example files"
 }

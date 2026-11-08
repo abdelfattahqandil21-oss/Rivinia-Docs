@@ -15,7 +15,7 @@
       [entryPoints]="current.section ? [] : metadata().entryPoints"
       [entryPointsLabel]="i18n.translate('docs.entryPoints')"
     ></header>
-    <app-docs-ast [nodes]="current.nodes" />
+    <app-docs-ast [nodes]="current.nodes" [package]="current.package" />
     <nav app-docs-sequence-nav [previous]="previous()" [next]="next()"></nav>
   </article>
 }

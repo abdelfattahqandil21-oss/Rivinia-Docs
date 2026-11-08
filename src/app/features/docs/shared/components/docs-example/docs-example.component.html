@@ -1,0 +1,89 @@
+@if (example(); as current) {
+  <section class="docs-example">
+    <h3>{{ current.meta.title }}</h3>
+    <p>{{ current.meta.scenario }}</p>
+    <div class="example-controls">
+      @if (current.meta.variants.includes('theme')) {
+        <div role="group" [attr.aria-label]="i18n.translate('docs.example.theme')">
+          @for (mode of ['light', 'dark']; track mode) {
+            <button
+              type="button"
+              [attr.aria-pressed]="theme() === mode"
+              (click)="theme.set(mode === 'light' ? 'light' : 'dark')"
+            >
+              {{ i18n.translate(mode === 'light' ? 'prefs.themeLight' : 'prefs.themeDark') }}
+            </button>
+          }
+        </div>
+      }
+      @if (current.meta.variants.includes('dir')) {
+        <div role="group" [attr.aria-label]="i18n.translate('docs.example.direction')">
+          @for (dir of ['ltr', 'rtl']; track dir) {
+            <button
+              type="button"
+              [attr.aria-pressed]="direction() === dir"
+              (click)="direction.set(dir === 'ltr' ? 'ltr' : 'rtl')"
+            >
+              {{ dir.toUpperCase() }}
+            </button>
+          }
+        </div>
+      }
+      <button type="button" (click)="reset()">{{ i18n.translate('docs.example.reset') }}</button>
+      <div role="group" [attr.aria-label]="i18n.translate('docs.example.view')">
+        @for (mode of ['preview', 'code']; track mode) {
+          <button type="button" [attr.aria-pressed]="view() === mode" (click)="view.set(mode)">
+            {{ i18n.translate(mode === 'preview' ? 'docs.example.preview' : 'docs.example.code') }}
+          </button>
+        }
+      </div>
+    </div>
+    <div class="example-panes" [class.show-code]="view() === 'code'">
+      <div class="example-preview" [style]="styles()" [attr.dir]="direction()">
+        <div class="preview-stage" [style.min-block-size.px]="current.meta.minHeight">
+          @defer (on viewport; prefetch on idle) {
+            @for (version of [revision()]; track version) {
+              <app-docs-example-preview
+                [example]="current"
+                [theme]="theme()"
+                [direction]="direction()"
+              />
+            }
+          } @placeholder {
+            <p>{{ i18n.translate('common.loading') }}</p>
+          }
+        </div>
+        <h4>{{ i18n.translate('docs.example.tryIt') }}</h4>
+        <ul>
+          @for (action of current.meta.tryIt; track action) {
+            <li>{{ action }}</li>
+          }
+        </ul>
+      </div>
+      <div class="example-code">
+        <div
+          class="file-tabs"
+          role="group"
+          [attr.aria-label]="i18n.translate('docs.example.files')"
+        >
+          @for (source of current.files; track source.path) {
+            <button
+              type="button"
+              [attr.aria-pressed]="file() === $index"
+              (click)="file.set($index)"
+            >
+              {{ source.path }}
+            </button>
+          }
+        </div>
+        @if (current.files[file()]; as source) {
+          <app-code-block
+            [code]="source.source"
+            [language]="source.language"
+            [filename]="source.path"
+          />
+        }
+      </div>
+    </div>
+  </section>
+}

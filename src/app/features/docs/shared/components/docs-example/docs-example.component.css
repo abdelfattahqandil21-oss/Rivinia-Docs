@@ -1,0 +1,64 @@
+:host {
+  display: block;
+  margin-block: 2rem;
+  min-inline-size: 0;
+}
+.docs-example {
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}
+.example-controls,
+.example-controls > div,
+.file-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.example-controls {
+  margin-block: 1rem;
+}
+button {
+  min-block-size: 44px;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--home-radius-sm);
+  background: var(--rv-home-surface-raised);
+  color: var(--rv-fg);
+}
+button[aria-pressed='true'] {
+  box-shadow: inset 0 -2px var(--rv-accent);
+}
+.example-panes,
+.example-preview,
+.example-code {
+  min-inline-size: 0;
+}
+.example-preview {
+  padding: 1rem;
+  background: var(--rv-bg);
+  color: var(--rv-fg);
+}
+.example-code {
+  display: none;
+}
+.show-code .example-preview {
+  display: none;
+}
+.show-code .example-code {
+  display: block;
+}
+.file-tabs {
+  margin-block-end: 1rem;
+}
+@media (min-width: 1100px) {
+  .example-panes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+  .example-panes .example-preview,
+  .example-panes .example-code {
+    display: block;
+  }
+}

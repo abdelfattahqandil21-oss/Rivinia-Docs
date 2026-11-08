@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate:sources": "node scripts/generate-showcase-sources.mjs && node scripts/generate-package-meta.mjs && node scripts/generate-docs-content.mjs",
+    "generate:sources": "node scripts/generate-showcase-sources.mjs && node scripts/generate-package-meta.mjs && node scripts/generate-docs-content.mjs && node scripts/generate-docs-examples.mjs",
     "prestart": "npm run generate:sources",
     "prebuild": "npm run generate:sources",
     "pretest": "npm run generate:sources",
@@ -19,7 +19,7 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:package-meta": "node scripts/generate-package-meta.mjs --check",
     "verify": "node --test scripts/authored/*.test.mjs && npm run check:docs-content && prettier --check AGENTS.md \"docs/**/*.md\" \".agents/skills/**/*.md\" \"scripts/**/*.mjs\" package.json wrangler.jsonc \"src/styles.css\" \"src/styles/**/*.css\" \"public/i18n/*.json\" \"src/app/**/*.{ts,html,css}\" && npm run check:arch && npm run check:colors && npm run check:contrast && npm run check:i18n && node scripts/generate-showcase-sources.mjs --check && npm run check:package-meta && npm run build && npm test -- --watch=false --runner=vitest",
-    "check:docs-content": "node scripts/check-docs-content.mjs"
+    "check:docs-content": "node scripts/check-docs-content.mjs && node scripts/generate-docs-examples.mjs"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
