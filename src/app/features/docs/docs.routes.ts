@@ -34,7 +34,7 @@ export const DOCS_ROUTES: Routes = [
                 (m) => m.DocsLibraryOverviewComponent,
               ),
           },
-          ...['quick-start', 'api', 'changelog'].map((section) => ({
+          ...['quick-start', 'guides', 'api', 'changelog'].map((section) => ({
             path: section,
             data: { docsTitleKey: 'docs.library', docsPackageId: 'http', section },
             loadComponent: () =>

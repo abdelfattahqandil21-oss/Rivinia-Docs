@@ -25,6 +25,18 @@
 
     @if (isHttpPackage) {
       @switch (details.section()) {
+        @case ('guides') {
+          <section class="library-section http-guides-index">
+            <h2 id="http-guides-list-title">{{ i18n.translate('docs.http.guidesIndex.title') }}</h2>
+            <ul class="entry-point-list">
+              @for (guide of httpGuideLinks; track guide.path) {
+                <li>
+                  <a [routerLink]="guide.path">{{ i18n.translate(guide.label) }}</a>
+                </li>
+              }
+            </ul>
+          </section>
+        }
         @case ('quick-start') {
           <section class="library-section">
             <h2 id="quick-start-title">{{ i18n.translate('docs.http.quickStart.title') }}</h2>

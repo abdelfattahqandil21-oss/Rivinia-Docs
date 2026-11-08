@@ -40,6 +40,7 @@ export class DocsSidebarNavComponent {
   protected readonly httpPages = [
     { path: '/docs/http', label: 'docs.http.page.overview', section: '' },
     { path: '/docs/http/quick-start', label: 'docs.http.page.quickStart', section: 'quick-start' },
+    { path: '/docs/http/guides', label: 'docs.http.page.guides', section: 'guides' },
   ];
   protected readonly httpTailPages = [
     { path: '/docs/http/api', label: 'docs.http.page.api', section: 'api' },

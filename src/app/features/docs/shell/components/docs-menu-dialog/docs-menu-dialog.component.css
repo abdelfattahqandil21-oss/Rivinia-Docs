@@ -1,4 +1,5 @@
 :host {
+  box-sizing: border-box;
   position: fixed;
   inset-block: 0;
   inset-inline-start: 0;
@@ -9,13 +10,15 @@
   margin: 0;
   border: 0;
   border-inline-end: 1px solid var(--rv-border);
-  background: var(--rv-bg);
+  background: var(--rv-home-surface-raised);
   color: var(--rv-fg);
   padding: 1rem;
+  box-shadow: 1rem 0 2.5rem color-mix(in srgb, var(--rv-fg) 12%, transparent);
 }
 
 :host::backdrop {
   background: var(--rv-docs-backdrop);
+  backdrop-filter: blur(2px);
 }
 
 .dialog-heading {
@@ -24,7 +27,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  border-block-end: 1px solid var(--rv-border);
   margin-block-end: 1rem;
+  padding-block-end: 0.75rem;
 }
 
 .dialog-heading h2 {
@@ -41,7 +46,7 @@
   place-items: center;
   border: 1px solid var(--rv-border);
   border-radius: var(--home-radius-sm);
-  background: var(--rv-bg);
+  background: var(--rv-home-surface-raised);
   color: var(--rv-fg);
 }
 
@@ -53,6 +58,11 @@
 .dialog-sidebar {
   position: static;
   max-block-size: calc(100dvh - 5rem);
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rv-scrollbar-thumb) var(--rv-scrollbar-track);
 }
 
 @media (max-width: 1023px) {

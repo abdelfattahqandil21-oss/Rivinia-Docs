@@ -51,6 +51,13 @@ export class DocsLibraryOverviewComponent {
   protected readonly httpChangelogUrl =
     'https://github.com/abdelfattahqandil21-oss/Rivinia/blob/http/v1.0.4/projects/http/CHANGELOG.md';
   protected readonly httpChangelog = [{ version: '1.0.4', text: 'docs.http.changelog.1.0.4' }];
+  protected readonly httpGuideLinks = [
+    { path: '/docs/http/guides/configuration', label: 'docs.http.guide.guides-configuration' },
+    { path: '/docs/http/guides/observables', label: 'docs.http.guide.guides-observables' },
+    { path: '/docs/http/guides/resources', label: 'docs.http.guide.guides-resources' },
+    { path: '/docs/http/guides/responses', label: 'docs.http.guide.guides-responses' },
+    { path: '/docs/http/guides/testing', label: 'docs.http.guide.guides-testing' },
+  ];
   protected readonly httpSeparateSetup = `import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRiviniaHttp } from '@rivinia/http';
 import { authInterceptor } from './auth.interceptor';

@@ -141,6 +141,7 @@ html::-webkit-scrollbar-thumb:hover {
   --rv-home-surface-raised: #19191d;
   --rv-home-surface-overlay: #222226;
   --rv-docs-active-bg: var(--rv-home-surface-overlay);
+  --rv-docs-backdrop: color-mix(in srgb, var(--rv-bg) 78%, transparent);
 }
 
 :root:lang(ar),

@@ -117,6 +117,7 @@
             <a
               [routerLink]="item.path"
               routerLinkActive="is-current"
+              [routerLinkActiveOptions]="{ exact: true }"
               ariaCurrentWhenActive="page"
               [attr.aria-current]="page.currentPath() === item.path ? 'page' : null"
             >
@@ -124,13 +125,11 @@
             </a>
           }
           <div class="docs-guide-subnav">
-            <span class="docs-guide-group-title">{{
-              i18n.translate('docs.http.page.guides')
-            }}</span>
             @for (guide of httpGuides; track guide.path) {
               <a
                 [routerLink]="guide.path"
                 routerLinkActive="is-current"
+                [routerLinkActiveOptions]="{ exact: true }"
                 ariaCurrentWhenActive="page"
               >
                 {{ i18n.translate(guide.label) }}
@@ -141,6 +140,7 @@
             <a
               [routerLink]="item.path"
               routerLinkActive="is-current"
+              [routerLinkActiveOptions]="{ exact: true }"
               ariaCurrentWhenActive="page"
               [attr.aria-current]="page.currentPath() === item.path ? 'page' : null"
             >

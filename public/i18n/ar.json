@@ -140,6 +140,7 @@
   "docs.http.page.api": "واجهة API",
   "docs.http.page.changelog": "سجل التغييرات",
   "docs.http.guidesTitle": "أدلة HTTP",
+  "docs.http.guidesIndex.title": "اختر دليلًا",
   "docs.http.guide.guides-configuration": "إعداد backend الخاص بـ HTTP",
   "docs.http.guide.guides-observables": "طلبات Observable",
   "docs.http.guide.guides-resources": "الموارد التفاعلية مع signals",

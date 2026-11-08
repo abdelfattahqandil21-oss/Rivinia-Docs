@@ -33,6 +33,24 @@
   overflow-wrap: anywhere;
 }
 
+.http-guides-index a {
+  display: inline-flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  color: var(--rv-accent);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.http-guides-index a:hover {
+  text-decoration: underline;
+}
+
+.http-guides-index a:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
 .live-example-link {
   display: inline-flex;
   min-block-size: 2.75rem;

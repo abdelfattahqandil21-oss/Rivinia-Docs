@@ -36,6 +36,8 @@ const translations: Record<string, string> = {
   'docs.http.page.api': 'API',
   'docs.http.page.changelog': 'Changelog',
   'docs.http.guidesTitle': 'HTTP guides',
+  'docs.http.guidesIndex.title': 'Choose a guide',
+  'docs.http.title.guides': 'Guides',
   'docs.http.guide.guides-configuration': 'Configure the HTTP backend',
   'docs.http.guide.guides-observables': 'Observable requests',
   'docs.http.guide.guides-resources': 'Reactive resources with signals',
@@ -72,6 +74,11 @@ describe('DocsLibraryOverviewComponent', () => {
     await TestBed.configureTestingModule({
       providers: [
         provideRouter([
+          {
+            path: 'docs/http/guides',
+            data: { docsPackageId: 'http', section: 'guides' },
+            component: DocsLibraryOverviewComponent,
+          },
           {
             path: 'docs/http/guides/resources',
             data: { docsPackageId: 'http', section: 'guides-resources' },
@@ -139,6 +146,16 @@ describe('DocsLibraryOverviewComponent', () => {
     expect(root.textContent).toContain('httpFeatures');
     expect(root.textContent).toContain('Do not register both.');
     expect(root.querySelector('h1')?.textContent).toContain('Configure the HTTP backend');
+  });
+
+  it('renders Guides as its own page with links to every HTTP guide', async () => {
+    const root = await render('/docs/http/guides');
+
+    expect(root.querySelector('h1')?.textContent).toContain('Guides');
+    expect(root.querySelectorAll('.http-guides-index a')).toHaveLength(5);
+    expect(root.querySelector('.http-guides-index')?.textContent).toContain(
+      'Reactive resources with signals',
+    );
   });
 
   it('documents HTTP providers, methods, return types, and concrete calls', async () => {

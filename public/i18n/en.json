@@ -140,6 +140,7 @@
   "docs.http.page.api": "API",
   "docs.http.page.changelog": "Changelog",
   "docs.http.guidesTitle": "HTTP guides",
+  "docs.http.guidesIndex.title": "Choose a guide",
   "docs.http.guide.guides-configuration": "Configure the HTTP backend",
   "docs.http.guide.guides-observables": "Observable requests",
   "docs.http.guide.guides-resources": "Reactive resources with signals",
