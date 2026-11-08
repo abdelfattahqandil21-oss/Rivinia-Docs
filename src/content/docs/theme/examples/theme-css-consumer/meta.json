@@ -1,0 +1,12 @@
+{
+  "title": "Theme a real Select with global CSS tokens",
+  "scenario": "An Angular developer has imported the theme stylesheet globally and wants a ready-made control to follow the application palette. This preview uses the installed Rivinia Select component and its actual token fallbacks.",
+  "tryIt": [
+    "Open the Select and choose a value.",
+    "Switch the preview between light and dark token sets.",
+    "Change direction to check that the scoped preview remains usable."
+  ],
+  "mode": "component",
+  "minHeight": 400,
+  "variants": ["theme", "dir"]
+}
