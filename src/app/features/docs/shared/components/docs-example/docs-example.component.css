@@ -4,6 +4,7 @@
   min-inline-size: 0;
 }
 .docs-example {
+  container: docs-example / inline-size;
   border: 1px solid var(--rv-border);
   border-radius: var(--home-radius-sm);
   padding: clamp(0.75rem, 2vw, 1.5rem);
@@ -51,7 +52,7 @@ button[aria-pressed='true'] {
 .file-tabs {
   margin-block-end: 1rem;
 }
-@media (min-width: 1100px) {
+@container docs-example (min-width: 1100px) {
   .example-panes {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

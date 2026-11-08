@@ -77,6 +77,12 @@ pre {
   overflow-wrap: anywhere;
 }
 
+pre[tabindex='0'] {
+  max-block-size: 36rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
 .code-line {
   display: grid;
   grid-template-columns: 2.5ch minmax(0, 1fr);

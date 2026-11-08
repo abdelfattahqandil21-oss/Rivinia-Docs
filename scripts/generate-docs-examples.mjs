@@ -53,6 +53,37 @@ async function inlineCss(source, folder) {
   }
   return source;
 }
+async function inlineFrameAssets(source, folder) {
+  const localAsset = (specifier, extension) => {
+    if (!specifier.startsWith('./') || !specifier.endsWith(extension))
+      throw new Error(`${folder}: frame assets must be local ${extension} files: ${specifier}`);
+    const file = resolve(folder, specifier);
+    if (!file.startsWith(folder + '/'))
+      throw new Error(`${folder}: frame asset escapes its example folder: ${specifier}`);
+    return file;
+  };
+  const links = [...source.matchAll(/<link\b[^>]*href=["']([^"']+)["'][^>]*>/gi)].reverse();
+  for (const match of links) {
+    const file = localAsset(match[1], '.css');
+    const css = await inlineCss(await readFile(file, 'utf8'), dirname(file));
+    source =
+      source.slice(0, match.index) +
+      `<style>\n${css}\n</style>` +
+      source.slice(match.index + match[0].length);
+  }
+  const scripts = [
+    ...source.matchAll(/<script\b([^>]*?)src=["']([^"']+)["']([^>]*)>\s*<\/script\s*>/gi),
+  ].reverse();
+  for (const match of scripts) {
+    const file = localAsset(match[2], '.js');
+    const js = await readFile(file, 'utf8');
+    source =
+      source.slice(0, match.index) +
+      `<script${match[1]}${match[3]}>\n${js}\n</script>` +
+      source.slice(match.index + match[0].length);
+  }
+  return source;
+}
 for (const pkg of await readdir(base)) {
   const folder = join(base, pkg, 'examples');
   if (!existsSync(folder)) continue;
@@ -109,20 +140,26 @@ for (const pkg of await readdir(base)) {
             '.scss': 'scss',
             '.less': 'less',
             '.json': 'json',
+            '.js': 'js',
           }[extname(file)] ?? 'text',
       });
     }
+    const sourceOrder = { html: 0, ts: 1, css: 2, js: 3, json: 4 };
+    files.sort((left, right) => {
+      const byLanguage = (sourceOrder[left.language] ?? 5) - (sourceOrder[right.language] ?? 5);
+      return byLanguage || left.path.localeCompare(right.path);
+    });
     let srcdoc = '';
     let load;
     if (meta.mode === 'frame') {
       const entry = files.find((file) => file.path === 'index.html');
       if (!entry) throw new Error(`${exampleFolder}: frame index.html missing`);
+      srcdoc = await inlineCss(await inlineFrameAssets(entry.source, exampleFolder), exampleFolder);
       if (
-        /<(?:script|link|img|iframe)\b[^>]*(?:src|href)\s*=/i.test(entry.source) ||
-        /\bfetch\s*\(/.test(entry.source)
+        /<(?:script|link|img|iframe)\b[^>]*(?:src|href)\s*=/i.test(srcdoc) ||
+        /\bfetch\s*\(/.test(files.map((file) => file.source).join('\n'))
       )
         throw new Error(`${exampleFolder}: frame previews must be self-contained`);
-      srcdoc = await inlineCss(entry.source, exampleFolder);
     } else {
       const entry = join(exampleFolder, `${name}.example.ts`);
       if (!existsSync(entry)) throw new Error(`${exampleFolder}: component entry missing`);

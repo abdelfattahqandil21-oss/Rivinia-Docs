@@ -1,0 +1,119 @@
+@import '@rivinia/theme';
+
+body {
+  margin: 0;
+  padding: 1rem;
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  font:
+    1rem/1.5 system-ui,
+    sans-serif;
+}
+
+.stack-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+  gap: 0.5rem;
+  margin-block-end: 0.75rem;
+}
+
+button {
+  min-block-size: 2.75rem;
+  padding-inline: 0.75rem;
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  cursor: pointer;
+}
+
+button[aria-pressed='true'] {
+  color: var(--rv-bg);
+  background: var(--rv-accent);
+  border-color: var(--rv-accent);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: 3px;
+}
+
+pre {
+  overflow-wrap: anywhere;
+  margin: 0;
+  padding: 0.75rem;
+  color: var(--rv-fg);
+  background: var(--rv-bg);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  font:
+    0.9rem/1.5 ui-monospace,
+    monospace;
+}
+
+.note {
+  margin-block: 0.75rem;
+  color: var(--rv-muted);
+}
+
+.card {
+  padding: 0.875rem;
+  background: var(--rv-bg);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+}
+
+.card p {
+  margin-block: 0.5rem 0.75rem;
+}
+
+.token-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-block-start: 0.75rem;
+}
+
+.token-chip {
+  display: flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 0.5rem;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--rv-radius);
+  font-size: 0.875rem;
+}
+
+.token-chip::before {
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
+  flex: 0 0 auto;
+  border: 1px solid var(--rv-border);
+  border-radius: 50%;
+  content: '';
+}
+
+.token-bg::before {
+  background: var(--rv-bg);
+}
+
+.token-fg::before {
+  background: var(--rv-fg);
+}
+
+.token-border::before {
+  background: var(--rv-border);
+}
+
+.token-accent::before {
+  background: var(--rv-accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button {
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+}

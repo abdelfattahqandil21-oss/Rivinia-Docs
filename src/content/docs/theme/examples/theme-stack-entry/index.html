@@ -3,80 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      @import '@rivinia/theme';
-
-      body {
-        margin: 0;
-        padding: 1.25rem;
-        color: var(--rv-fg);
-        background: var(--rv-bg);
-        font:
-          1rem/1.5 system-ui,
-          sans-serif;
-      }
-
-      .stack-picker {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-block-end: 1rem;
-      }
-
-      button {
-        min-block-size: 2.75rem;
-        padding-inline: 0.875rem;
-        color: var(--rv-fg);
-        background: var(--rv-bg);
-        border: 1px solid var(--rv-border);
-        border-radius: var(--rv-radius);
-        cursor: pointer;
-      }
-
-      button[aria-pressed='true'] {
-        color: var(--rv-bg);
-        background: var(--rv-accent);
-        border-color: var(--rv-accent);
-      }
-
-      button:focus-visible {
-        outline: 2px solid var(--rv-accent);
-        outline-offset: 3px;
-      }
-
-      pre {
-        overflow-wrap: anywhere;
-        margin: 0;
-        padding: 1rem;
-        color: var(--rv-fg);
-        background: var(--rv-bg);
-        border: 1px solid var(--rv-border);
-        border-radius: var(--rv-radius);
-        font:
-          0.9rem/1.5 ui-monospace,
-          monospace;
-      }
-
-      .note {
-        margin-block: 1rem;
-        color: var(--rv-muted);
-      }
-
-      .card {
-        padding: 1rem;
-        background: var(--rv-bg);
-        border: 1px solid var(--rv-border);
-        border-radius: var(--rv-radius);
-      }
-
-      @media (prefers-reduced-motion: no-preference) {
-        button {
-          transition:
-            background-color 120ms ease,
-            color 120ms ease;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="stack-picker" role="group" aria-label="Stylesheet stack">
@@ -87,31 +14,16 @@
       <button type="button" data-stack="less" aria-pressed="false">Less</button>
     </div>
     <pre id="entry" aria-live="polite">@import '@rivinia/theme';</pre>
-    <p class="note">
-      The selector compares setup snippets. The card uses the real base theme CSS; it does not run
-      the selected stack's build tooling.
-    </p>
+    <p class="note">Base stylesheet preview.</p>
     <div class="card">
-      <strong>Shared token preview</strong>
-      <p>Background, text, border and accent come from the installed theme stylesheet.</p>
-      <button type="button">Example action</button>
+      <strong>Shared theme tokens</strong>
+      <div class="token-list" aria-label="Theme token samples">
+        <span class="token-chip token-bg">Background</span>
+        <span class="token-chip token-fg">Text</span>
+        <span class="token-chip token-border">Border</span>
+        <span class="token-chip token-accent">Accent</span>
+      </div>
     </div>
-    <script>
-      const snippets = {
-        css: "@import '@rivinia/theme';",
-        tailwind: "@import 'tailwindcss';\n@import '@rivinia/theme/tailwind.css';",
-        bootstrap: "@import '@rivinia/theme/bootstrap.css';",
-        sass: "@use '@rivinia/theme/scss';",
-        less: "@import (less) '@rivinia/theme/theme.css';",
-      };
-      const buttons = [...document.querySelectorAll('[data-stack]')];
-      const entry = document.querySelector('#entry');
-      for (const button of buttons) {
-        button.addEventListener('click', () => {
-          for (const item of buttons) item.setAttribute('aria-pressed', String(item === button));
-          entry.textContent = snippets[button.dataset.stack];
-        });
-      }
-    </script>
+    <script src="./main.js"></script>
   </body>
 </html>

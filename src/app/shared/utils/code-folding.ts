@@ -28,6 +28,7 @@ export function findCodeFoldRegions(
   if (
     language === 'ts' ||
     language === 'typescript' ||
+    language === 'js' ||
     language === 'json' ||
     ['css', 'scss', 'less'].includes(language)
   ) {

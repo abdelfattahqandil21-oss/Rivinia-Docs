@@ -1,5 +1,5 @@
 export type CodeLanguage =
-  'ts' | 'typescript' | 'html' | 'css' | 'scss' | 'less' | 'sh' | 'bash' | 'json' | 'text';
+  'ts' | 'typescript' | 'js' | 'html' | 'css' | 'scss' | 'less' | 'sh' | 'bash' | 'json' | 'text';
 
 export type CodeTokenKind =
   | 'plain'
@@ -145,16 +145,16 @@ function classify(
   ) {
     return 'property';
   }
-  if ((language === 'typescript' || language === 'ts') && KEYWORDS.has(text)) return 'keyword';
+  if (['typescript', 'ts', 'js'].includes(language) && KEYWORDS.has(text)) return 'keyword';
   if (
-    (language === 'typescript' || language === 'ts') &&
+    ['typescript', 'ts', 'js'].includes(language) &&
     (TYPES.has(text) ||
       /^Rivinia[A-Za-z]+$/.test(text) ||
       /^[A-Z][A-Za-z0-9]*(?:Component|Service|Directive)$/.test(text))
   )
     return 'type';
   if (
-    (language === 'typescript' || language === 'ts') &&
+    ['typescript', 'ts', 'js'].includes(language) &&
     /^[A-Za-z_$][\w$]*$/.test(text) &&
     /^\s*:/.test(followingSource)
   ) {
@@ -162,7 +162,7 @@ function classify(
   }
   if (/^\d/.test(text)) return 'number';
   if (/^[A-Za-z_$][\w$]*$/.test(text) && /^\s*\(/.test(followingSource)) return 'function';
-  if ((language === 'typescript' || language === 'ts') && /^[A-Za-z_$][\w$]*$/.test(text))
+  if (['typescript', 'ts', 'js'].includes(language) && /^[A-Za-z_$][\w$]*$/.test(text))
     return 'variable';
   if (/^[{}()[\].,:;=<>+\-*?\/]$/.test(text)) return 'punctuation';
   return 'plain';

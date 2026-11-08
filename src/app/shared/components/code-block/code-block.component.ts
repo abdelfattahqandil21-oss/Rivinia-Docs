@@ -59,6 +59,7 @@ export class CodeBlockComponent {
   protected readonly languageName = computed(() => {
     const language = this.language();
     if (language === 'ts') return 'TypeScript';
+    if (language === 'js') return 'JavaScript';
     if (language === 'json') return 'JSON';
     if (language === 'text') return '';
     return language.toUpperCase();
