@@ -77,6 +77,78 @@ pre {
   overflow-wrap: anywhere;
 }
 
+.code-line {
+  display: grid;
+  grid-template-columns: 2.5ch minmax(0, 1fr);
+  column-gap: 0.5rem;
+}
+
+.has-fold-regions .code-line {
+  grid-template-columns: 2.5ch 2.75rem minmax(0, 1fr);
+}
+
+.numbered-code {
+  display: block;
+}
+
+.code-line-number {
+  color: var(--rv-muted);
+  text-align: end;
+  user-select: none;
+}
+
+.code-line-content {
+  display: block;
+  min-inline-size: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.code-fold-toggle {
+  display: grid;
+  inline-size: 2.75rem;
+  min-block-size: 2.75rem;
+  place-items: center;
+  margin-block-start: -0.2rem;
+  border: 0;
+  border-radius: var(--home-radius-sm, 0.25rem);
+  background: transparent;
+  color: var(--rv-muted);
+  cursor: pointer;
+  font: inherit;
+}
+
+.code-fold-toggle:hover {
+  background: var(--rv-home-surface-overlay);
+  color: var(--rv-fg);
+}
+
+.code-fold-toggle:focus-visible {
+  outline: 2px solid var(--rv-accent);
+  outline-offset: -3px;
+}
+
+.code-fold-toggle svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+}
+
+.code-fold-placeholder {
+  inline-size: 2.75rem;
+}
+
+.code-fold-summary {
+  display: inline-block;
+  margin-inline-start: 0.5rem;
+  color: var(--rv-muted);
+  white-space: nowrap;
+}
+
 .token-comment {
   color: var(--code-comment);
 }

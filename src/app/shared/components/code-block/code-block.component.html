@@ -10,7 +10,8 @@
     <p class="code-block-caption">{{ caption() }}</p>
   }
   <pre
+    [class.has-fold-regions]="hasFoldRegions()"
     [attr.tabindex]="scrollable() ? 0 : null"
     [attr.aria-label]="scrollable() ? filename() || languageName() : null"
-  ><code dir="ltr" translate="no">@for (token of tokens(); track $index) {<span [class]="'token-' + token.kind">{{ token.text }}</span>}</code></pre>
+  ><code dir="ltr" translate="no" [class.numbered-code]="showLineNumbers()">@if (showLineNumbers()) {@for (line of visibleLines(); track line.number) {<span class="code-line"><span class="code-line-number" aria-hidden="true">{{ line.number }}</span>@if (hasFoldRegions()) {@if (line.foldable) {<button class="code-fold-toggle" type="button" [attr.aria-expanded]="!line.folded" [attr.aria-label]="regionLabel(line.number)" [title]="regionLabel(line.number)" (click)="toggleRegion(line.number)"><svg viewBox="0 0 16 16" aria-hidden="true"><path [attr.d]="line.folded ? 'm6 3 5 5-5 5' : 'm3 6 5 5 5-5'" /></svg></button>} @else {<span class="code-fold-placeholder" aria-hidden="true"></span>}}<span class="code-line-content">@for (token of line.tokens; track $index) {<span [class]="'token-' + token.kind">{{ token.text }}</span>} @if (line.folded) {<span class="code-fold-summary" aria-hidden="true">… {{ hiddenLineCount(line.number) }} {{ i18n.translate('common.codeLinesHidden') }}</span>}</span></span>}} @else {@for (token of tokens(); track $index) {<span [class]="'token-' + token.kind">{{ token.text }}</span>}}</code></pre>
 </article>
