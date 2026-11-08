@@ -28,6 +28,7 @@
 }
 
 .next-link {
+  margin-inline-start: auto;
   text-align: end;
 }
 

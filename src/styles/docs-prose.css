@@ -269,6 +269,14 @@ html[dir='rtl'] :lang(en) {
     display: block;
   }
 
+  .docs-page-content caption {
+    display: block;
+    inline-size: 100%;
+    box-sizing: border-box;
+    overflow-wrap: normal;
+    text-align: start;
+  }
+
   .docs-page-content thead {
     position: absolute;
     inline-size: 1px;
