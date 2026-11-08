@@ -166,3 +166,13 @@ Each entry records the local timestamp, step, status, commit, and one-line resul
 - Verification: `npm run verify` passed (18 test files, 81 tests; architecture, color, contrast, i18n, generated-source freshness, production build, and Vitest). Build output is `builds/prod`; existing budget warnings remain for the Select demo, showcase CSS, and Docs sidebar.
 - Browser evidence: Chrome at 390×844, 457×900, and 1206×900; short-height check at 390×400. At 390px document width stayed 390px while the table scroller measured 322px client / 472px content. At 1206px the table scroller measured 520px / 520px. A temporary 800px content check at 390×400 kept the dialog within its 368px maximum and scrolled the body (316px client / 840px content). Preferences icon transform changed from 0° closed to 90° open and back to 0°.
 - Screenshots: `docs/screenshots/revision/showcase-containment/` (`mobile-table.png`, `mobile-modal.png`, `desktop-table.png`, `desktop-modal.png`). This focused review did not repeat the full Home viewport/language/theme matrix, nor run Lighthouse or contrast measurements in-browser.
+
+## R14 — Keep mobile modal inside Preview
+
+- Status: DONE
+- Commit: pending
+- Finding: The modal package's `max-width: 640px` rule forces its dialog to `100dvw` with no max-width, so the top-layer dialog crosses the Preview card's horizontal bounds. When the Preview stage is close to the bottom of a short viewport, its anchor also placed the dialog partly below the screen.
+- Fix: The Preview pane is now an inline-size container. On mobile, the Showcase modal uses that width, is centered in the viewport, and keeps its existing viewport-limited body scrolling.
+- Verification: `npm run verify` passed (18 test files, 81 tests; formatting, architecture, color, contrast, i18n, generated sources, production build, and Vitest). Production output is `builds/prod`; existing CSS budget warnings remain for the Showcase, Select demo, and Docs sidebar.
+- Verification: Chrome's 513×1010 repro changed from a 513px dialog (`left: 0`, Preview bounds 21.5–481.5px) to a 428px dialog (`left: 37.5`, Preview bounds 21.5–481.5px). The complete dialog stayed in the viewport and inside Preview's horizontal bounds at 390×844, 457×900, and 513×1010. Screenshot evidence is in `docs/screenshots/revision/showcase-containment/modal-*-r14.png`.
+- Scope note: This is a focused mobile check, not a repeat of the full Home viewport/language/theme matrix; Lighthouse was not run.

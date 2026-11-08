@@ -54,6 +54,20 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+
+@media (max-width: 640px) {
+  :host ::ng-deep .rv-modal[data-position='center'] {
+    position-anchor: none;
+    position-area: none;
+    inset-inline: 0;
+    inset-block-start: 50dvh;
+    inset-block-end: auto;
+    translate: 0 -50%;
+    margin-inline: auto;
+    inline-size: 100cqw;
+    max-inline-size: 100cqw;
+  }
+}
 .modal-content button.danger-button,
 .modal-actions button.danger-button {
   background: #a83932;
